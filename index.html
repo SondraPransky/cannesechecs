@@ -2038,53 +2038,75 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div style="display:grid;grid-template-columns:65% 35%;gap:40px;align-items:start">
         <!-- Liste événements -->
         <div>
-          <span class="surtitre">Prochains événements</span>
-          <h2 style="font-size:34px;color:var(--bleu);margin-bottom:24px">À venir</h2>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">05</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Soirée · 19h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
-            </div>
-            <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Tournoi · 19h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Tournoi PICO — Septembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes rapides · Membres · Accès libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
-            </div>
-            <div style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold);cursor:pointer">
-              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px;line-height:1.1">FÉV.</span><span style="font-size:14px;line-height:1.1">2027</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">♟ Tournois d'Échecs · 4 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Tournois au Festival International des Jeux</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE</div></div>
-              <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
-            </div>
-            <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
+          <h2 style="font-size:28px;color:var(--bleu);margin-bottom:20px">Prochains événements</h2>
+          <div id="agenda-events" style="display:flex;flex-direction:column;gap:12px">
+
+            <!-- Reprise cours -->
+            <div class="card-hover agenda-event" data-cat="formation" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Saison 2026–2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Reprise des cours — Rentrée</div><div style="font-size:13px;color:var(--muted)">Accueil des nouveaux membres · Évaluation de niveau</div></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Cours & Formation</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Reprise des cours — Rentrée 2026</div><div style="font-size:13px;color:var(--muted)">Accueil des nouveaux membres · Évaluation de niveau · Tous horaires</div></div>
               <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Formation</div>
             </div>
+
+            <!-- Rapide sept -->
+            <div class="card-hover agenda-event" data-cat="soirees" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">18</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+            </div>
+
+            <!-- PICO sept -->
+            <div class="card-hover agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">19</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Septembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+            </div>
+
+            <!-- Rapide oct -->
+            <div class="card-hover agenda-event" data-cat="soirees" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Oct</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+            </div>
+
+            <!-- PICO oct -->
+            <div class="card-hover agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">10</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Oct</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Octobre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+            </div>
+
+            <!-- FIJ 2027 -->
+            <div class="agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold)">
+              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px;line-height:1.1">FÉV.</span><span style="font-size:14px;line-height:1.1">2027</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">♟ Tournois officiels · 4 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
+              <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
+            </div>
+
+            <p id="agenda-empty" style="display:none;text-align:center;color:var(--muted);font-style:italic;padding:32px 0">Aucun événement dans cette catégorie.</p>
           </div>
         </div>
         <!-- Sidebar -->
         <div>
-          <div style="background:var(--ivoire2);border-radius:12px;padding:22px;margin-bottom:16px">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:16px">Catégories</h4>
-            <a onclick="return false" style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;color:var(--text);font-size:14px;text-decoration:none">Tournois <span style="background:var(--bleu);color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">8</span></a>
-            <a onclick="return false" style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;color:var(--text);font-size:14px;text-decoration:none">Cours & Formation <span style="background:var(--bleu);color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">24</span></a>
-            <a onclick="return false" style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;color:var(--text);font-size:14px;text-decoration:none">Stages <span style="background:var(--bleu);color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">3</span></a>
-            <a onclick="return false" style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;cursor:pointer;color:var(--text);font-size:14px;text-decoration:none">Soirées thématiques <span style="background:var(--bleu);color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">12</span></a>
-          </div>
           <div style="background:var(--bleu);border-radius:12px;padding:22px;margin-bottom:16px;color:#fff">
             <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">Prochain événement</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px">Rapide du vendredi</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:16px">Vendredi 5 juin — 19h00</div>
-            <button class="btn btn-gold btn-sm btn-full">Voir tous les événements</button>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px">Reprise des cours</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:4px">Mercredi 9 septembre 2026</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px">Rentrée saison 2026–2027</div>
+            <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-bottom:8px">
+              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">Puis</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px">Ven. 18 sept. — Rapide du vendredi · 20h</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.75)">Sam. 19 sept. — PICO Septembre · 13h30</div>
+            </div>
           </div>
           <div style="background:var(--ivoire2);border-radius:12px;padding:22px;text-align:center">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:10px">Abonnez-vous à l'agenda</div>
-            <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Recevez tous les événements automatiquement dans votre calendrier.</p>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:8px">Abonnez-vous à l'agenda</div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Importez tous les événements directement dans votre calendrier.</p>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <button class="btn btn-outline-dark btn-sm btn-full">Google Calendar</button>
-              <button class="btn btn-outline-dark btn-sm btn-full">Apple Calendar · iCal</button>
+              <button class="btn btn-gold btn-sm btn-full" onclick="downloadICS()">⬇ Télécharger le calendrier (.ics)</button>
+              <button class="btn btn-outline-dark btn-sm btn-full" onclick="openGoogleCalendar()">Ajouter sur Google Calendar</button>
             </div>
+            <p style="font-size:11px;color:var(--muted);margin-top:10px;font-style:italic">Compatible iPhone, Android, Outlook, Apple Calendar</p>
           </div>
         </div>
       </div>
@@ -3034,6 +3056,79 @@ function goToArticle(id) {
     rel.innerHTML = others.map(function(k) { return buildCard(k, ARTICLES[k], false); }).join('');
   }
   goTo('article');
+}
+
+// ── AGENDA — FILTRES ────────────────────────────────
+document.querySelectorAll('#page-agenda .filtre-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#page-agenda .filtre-btn').forEach(function(b) {
+      b.classList.remove('active-gold');
+    });
+    this.classList.add('active-gold');
+    const label = this.textContent.trim().toLowerCase();
+    const catMap = {
+      'tous': null,
+      'tournois': 'tournois',
+      'cours & formation': 'formation',
+      'stages': 'stages',
+      'soirées': 'soirees',
+      'compétitions ffe': 'competitions'
+    };
+    const cat = catMap[label] !== undefined ? catMap[label] : null;
+    let visible = 0;
+    document.querySelectorAll('.agenda-event').forEach(function(ev) {
+      const show = !cat || ev.dataset.cat === cat;
+      ev.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    const empty = document.getElementById('agenda-empty');
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+  });
+});
+
+// ── AGENDA — TÉLÉCHARGEMENT ICS ─────────────────────
+function downloadICS() {
+  const CRLF = '\r\n';
+  const loc   = '3 Avenue du Petit Juas\\, 06400 Cannes';
+  const events = [
+    { start:'20260909T073000Z', end:'20260909T173000Z', summary:'Reprise des cours — Cannes Échecs', desc:'Rentrée saison 2026-2027 · Accueil des nouveaux membres' },
+    { start:'20260918T180000Z', end:'20260918T210000Z', summary:'Rapide du vendredi — Cannes Échecs', desc:'Parties rapides 10+5 · Membres · Gratuit · Veille du PICO' },
+    { start:'20260919T113000Z', end:'20260919T163000Z', summary:'PICO Septembre — Cannes Échecs', desc:'Tournoi mensuel · 5 rondes · Membres · 13h30' },
+    { start:'20261009T180000Z', end:'20261009T210000Z', summary:'Rapide du vendredi — Cannes Échecs', desc:'Parties rapides 10+5 · Membres · Gratuit · Veille du PICO' },
+    { start:'20261010T113000Z', end:'20261010T163000Z', summary:'PICO Octobre — Cannes Échecs', desc:'Tournoi mensuel · 5 rondes · Membres · 13h30' },
+    { start:'20270201T090000Z', end:'20270205T180000Z', summary:'FIJ 2027 — Tournois Cannes Échecs', desc:'Festival International des Jeux · Tournois A/B/C · Palais des Festivals' }
+  ];
+  let ics = 'BEGIN:VCALENDAR' + CRLF
+    + 'VERSION:2.0' + CRLF
+    + 'PRODID:-//Cannes Echecs//FR' + CRLF
+    + 'X-WR-CALNAME:Agenda Cannes Échecs' + CRLF
+    + 'X-WR-TIMEZONE:Europe/Paris' + CRLF;
+  events.forEach(function(e) {
+    ics += 'BEGIN:VEVENT' + CRLF
+      + 'DTSTART:' + e.start + CRLF
+      + 'DTEND:' + e.end + CRLF
+      + 'SUMMARY:' + e.summary + CRLF
+      + 'DESCRIPTION:' + e.desc + CRLF
+      + 'LOCATION:' + loc + CRLF
+      + 'END:VEVENT' + CRLF;
+  });
+  ics += 'END:VCALENDAR';
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'agenda-cannes-echecs-2026.ics';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function openGoogleCalendar() {
+  // Ouvre le premier événement (reprise des cours) sur Google Calendar
+  const url = 'https://calendar.google.com/calendar/r/eventedit'
+    + '?text=Reprise+des+cours+%E2%80%94+Cann%C3%A8s+%C3%89checs'
+    + '&dates=20260909T073000Z/20260909T173000Z'
+    + '&location=3+Avenue+du+Petit+Juas%2C+06400+Cannes'
+    + '&details=Rentr%C3%A9e+saison+2026-2027';
+  window.open(url, '_blank', 'noopener');
 }
 
 // ── PARTAGE ARTICLE ─────────────────────────────────
