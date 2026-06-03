@@ -1755,17 +1755,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:rgba(255,255,255,.55);letter-spacing:.06em">Palais des Festivals, Cannes · Février 2027</p>
       <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
         <button class="btn btn-gold btn-lg">S'inscrire sur HelloAsso →</button>
-        <button class="btn btn-outline-white btn-lg">Programme complet ↓</button>
+        <button class="btn btn-outline-white btn-lg" onclick="document.getElementById('fij-details').scrollIntoView({behavior:'smooth'})">Programme complet ↓</button>
       </div>
     </div>
   </section>
 
   <!-- Stats FIJ -->
-  <div style="background:var(--gold);padding:22px 0">
+  <div id="fij-details" style="background:var(--gold);padding:22px 0">
     <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes Swiss</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
     </div>
   </div>
@@ -1876,7 +1876,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="badge badge-event" style="margin-bottom:20px">Inscriptions ouvertes</div>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:46px;color:#fff;margin-bottom:12px">Réservez votre place<br>au <em style="color:var(--gold)">FIJ 2027</em></h2>
       <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px">Places limitées · Inscription sécurisée via HelloAsso · Confirmation immédiate</p>
-      <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)">S'inscrire maintenant →</button>
+      <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)" onclick="window.open('https://www.helloasso.com/associations/cannes-echecs','_blank')">S'inscrire maintenant →</button>
       <p style="font-size:12px;color:rgba(255,255,255,.25);margin-top:16px;font-style:italic">Membres Cannes Échecs : −10€ avec code promo par email</p>
     </div>
   </section>
@@ -2111,9 +2111,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="footer-col">
         <div class="footer-col-title">Activités</div>
         <ul>
-          <li><a onclick="goTo('activites')">Cours & Formation</a></li>
-          <li><a onclick="goTo('activites')">Stages</a></li>
-          <li><a onclick="goTo('activites')">Scolaire</a></li>
+          <li><a onclick="goToTab('activites','cours')">Cours & Formation</a></li>
+          <li><a onclick="goToTab('activites','stages')">Stages</a></li>
+          <li><a onclick="goToTab('activites','scolaire')">Scolaire</a></li>
           <li><a onclick="goTo('tournois')">Tournois</a></li>
           <li><a onclick="goTo('fij')">FIJ 2027</a></li>
         </ul>
