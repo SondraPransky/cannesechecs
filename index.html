@@ -1036,8 +1036,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div id="art-gallery" class="art-gallery" style="display:none"></div>
       <div class="article-share">
         <span class="share-label">Partager :</span>
-        <a id="share-fb" class="share-btn share-fb" href="#" target="_blank" rel="noopener">Facebook</a>
-        <a id="share-tw" class="share-btn share-tw" href="#" target="_blank" rel="noopener">X / Twitter</a>
+        <button id="share-native" class="share-btn" style="background:var(--bleu);color:#fff;display:none" onclick="shareNative()">⬆ Partager</button>
+        <button id="share-fb" class="share-btn share-fb" onclick="shareFb()">Facebook</button>
+        <button id="share-tw" class="share-btn share-tw" onclick="shareTw()">X / Twitter</button>
       </div>
     </div>
   </div>
@@ -2977,12 +2978,13 @@ function goToArticle(id) {
       galleryEl.style.display = 'none';
     }
   }
-  const pageUrl   = encodeURIComponent('https://cannes-echecs.fr/');
-  const pageTitle = encodeURIComponent(a.title);
-  const sfb = document.getElementById('share-fb');
-  const stw = document.getElementById('share-tw');
-  if (sfb) sfb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl + '&quote=' + pageTitle;
-  if (stw) stw.href = 'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + pageTitle;
+  // Stocker les infos pour le partage
+  window._shareUrl   = 'https://cannes-echecs.fr/';
+  window._shareTitle = a.title;
+  window._shareText  = (EXTRAITS[id] || a.title) + ' — Cannes Échecs';
+  // Afficher le bouton natif sur mobile si disponible
+  const btnNative = document.getElementById('share-native');
+  if (btnNative) btnNative.style.display = navigator.share ? 'inline-flex' : 'none';
   // Articles suggérés : 3 suivants dans ARCHIVE_ORDER
   const others = ARCHIVE_ORDER.filter(function(k) { return k !== id && ARTICLES[k]; }).slice(0, 3);
   const rel = document.getElementById('art-related');
@@ -2990,6 +2992,28 @@ function goToArticle(id) {
     rel.innerHTML = others.map(function(k) { return buildCard(k, ARTICLES[k], false); }).join('');
   }
   goTo('article');
+}
+
+// ── PARTAGE ARTICLE ─────────────────────────────────
+function shareFb() {
+  const url = 'https://www.facebook.com/sharer/sharer.php?u='
+    + encodeURIComponent(window._shareUrl || 'https://cannes-echecs.fr/')
+    + '&quote=' + encodeURIComponent(window._shareTitle || '');
+  window.open(url, 'fb-share', 'width=600,height=400,noopener');
+}
+function shareTw() {
+  const url = 'https://twitter.com/intent/tweet?url='
+    + encodeURIComponent(window._shareUrl || 'https://cannes-echecs.fr/')
+    + '&text=' + encodeURIComponent((window._shareTitle || '') + ' — Cannes Échecs ♟️');
+  window.open(url, 'tw-share', 'width=600,height=400,noopener');
+}
+function shareNative() {
+  if (!navigator.share) return;
+  navigator.share({
+    title: window._shareTitle || 'Cannes Échecs',
+    text:  window._shareText  || '',
+    url:   window._shareUrl   || 'https://cannes-echecs.fr/'
+  }).catch(function() {}); // annulation utilisateur silencieuse
 }
 
 // ── FORMULAIRE CONTACT ──────────────────────────────
