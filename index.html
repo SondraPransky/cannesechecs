@@ -401,6 +401,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    RESPONSIVE — TABLET (≤ 1024px)
    ===================================================== */
 @media(max-width:1024px){
+  /* Grilles CSS classes */
   .home-hero-grid{grid-template-columns:1fr;gap:40px}
   .fij-grid{grid-template-columns:1fr;gap:40px}
   .club-histoire-grid{grid-template-columns:1fr;gap:40px}
@@ -410,6 +411,18 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .valeurs-grid{grid-template-columns:repeat(2,1fr)}
   .actu-grid{grid-template-columns:repeat(2,1fr)}
   .archive-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Inline grids — tablet */
+  #page-horaires [style*="grid-template-columns:60%"],
+  #page-contact  [style*="grid-template-columns:60%"],
+  #page-tournois [style*="grid-template-columns:60%"],
+  #page-tournois [style*="grid-template-columns:40%"],
+  #page-activites[style*="grid-template-columns:55%"],
+  #page-activites[style*="grid-template-columns:2fr"] { grid-template-columns: 1fr !important }
+
+  #page-adhesion [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
+  #page-horaires [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
+  #page-fij      [style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2,1fr) !important }
 }
 
 /* =====================================================
@@ -485,47 +498,111 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .article-hero{padding:40px 0 32px}
   .article-content-wrap .container{padding:0 16px}
 
-  /* ── INLINE GRIDS — override universel par page ──────
-     Couvre toutes les grilles inline (60%/40%, 55%/45%, repeat(2-4,1fr))
-     sans modifier le HTML. !important nécessaire pour battre les styles inline. */
+  /* ══════════════════════════════════════════════════════
+     INLINE GRIDS — override universel toutes pages
+     !important nécessaire pour battre les styles inline
+     ══════════════════════════════════════════════════════ */
+  #page-home     [style*="grid-template-columns"],
+  #page-club     [style*="grid-template-columns"],
+  #page-activites[style*="grid-template-columns"],
   #page-horaires [style*="grid-template-columns"],
   #page-adhesion [style*="grid-template-columns"],
   #page-contact  [style*="grid-template-columns"],
   #page-tournois [style*="grid-template-columns"],
   #page-fij      [style*="grid-template-columns"],
-  #page-partenaires [style*="grid-template-columns"],
+  #page-partenaires[style*="grid-template-columns"],
   #page-agenda   [style*="grid-template-columns"],
-  #page-club     [style*="grid-template-columns"] {
+  #page-organigramme[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+    gap: 20px !important;
   }
 
-  /* Flex rows → colonne sur mobile (ex: boutons côte à côte) */
-  #page-horaires [style*="display:flex"][style*="gap"],
-  #page-adhesion [style*="display:flex"][style*="gap"],
-  #page-contact  [style*="display:flex"][style*="gap:16px"],
-  #page-tournois [style*="display:flex"][style*="gap:12px"] {
-    flex-wrap: wrap;
+  /* Exceptions : grilles qui doivent rester sur 2 colonnes */
+  /* (aucune pour l'instant — toutes passent en 1 col sur mobile) */
+
+  /* Table horaires — scrollable horizontalement */
+  #page-horaires table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    font-size: 13px;
   }
+  #page-horaires table th,
+  #page-horaires table td { padding: 10px 12px !important; white-space: nowrap; }
+
+  /* Adhesion — cacher la ligne de connexion entre les 3 étapes */
+  #page-adhesion [style*="position:absolute"][style*="height:2px"]{ display:none !important }
 
   /* FIJ hero card */
   .fij-hero-card{padding:20px;border-radius:14px}
-  .cd-num{font-size:34px !important}
-  .fij-hero-stats{grid-template-columns:1fr !important}
+  .cd-num{font-size:32px !important}
+  .fij-hero-stats{grid-template-columns:1fr 1fr !important}
 
   /* FIJ page countdown */
-  .fij-cd-num{font-size:44px !important}
+  .fij-cd-num{font-size:40px !important}
+  .fij-cd-sep{font-size:36px}
   .fij-mini-stats{grid-template-columns:repeat(3,1fr)}
+  .fij-tarif-encart .tarif-prix{font-size:36px}
 
-  /* h2 inline trop grands */
-  #page-fij h2[style*="font-size"],
-  #page-club h2[style*="font-size"],
-  #page-activites h2[style*="font-size"],
-  #page-tournois h2[style*="font-size"],
-  #page-horaires h2[style*="font-size"],
-  #page-adhesion h2[style*="font-size"] {
-    font-size: 28px !important;
+  /* Forces grid : 2 col sur mobile (OK), 1 col < 420px */
+  @media(max-width:420px){
+    .forces-grid{grid-template-columns:1fr}
+    .palmares-grid{grid-template-columns:1fr}
   }
+
+  /* Flex rows → wrap sur mobile */
+  .fij-btns{flex-direction:column}
+  .fij-btns .btn{width:100%;justify-content:center}
+
+  /* h2 inline trop grands — toutes les pages */
+  #page-home     h2[style*="font-size"],
+  #page-club     h2[style*="font-size"],
+  #page-activites h2[style*="font-size"],
+  #page-horaires h2[style*="font-size"],
+  #page-adhesion h2[style*="font-size"],
+  #page-contact  h2[style*="font-size"],
+  #page-tournois h2[style*="font-size"],
+  #page-fij      h2[style*="font-size"],
+  #page-partenaires h2[style*="font-size"],
+  #page-agenda   h2[style*="font-size"],
+  #page-organigramme h2[style*="font-size"],
+  #page-article  h2[style*="font-size"] { font-size: 26px !important; }
+
+  /* h1 inline trop grands */
+  #page-home     h1[style*="font-size"],
+  #page-club     h1[style*="font-size"],
+  #page-horaires h1[style*="font-size"],
+  #page-adhesion h1[style*="font-size"],
+  #page-contact  h1[style*="font-size"],
+  #page-tournois h1[style*="font-size"],
+  #page-fij      h1[style*="font-size"],
+  #page-partenaires h1[style*="font-size"],
+  #page-agenda   h1[style*="font-size"],
+  #page-organigramme h1[style*="font-size"],
+  #page-actualites h1[style*="font-size"],
+  #page-activites h1[style*="font-size"] { font-size: 34px !important; }
+
+  /* Cours particuliers (adhésion) — flex row avec prix */
+  #page-adhesion [style*="display:flex;align-items:center;justify-content:space-between"] {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 16px;
+  }
+
+  /* Bande contact (page-contact) */
+  #page-contact [style*="display:flex;align-items:center;gap:14px;justify-content:center"] {
+    justify-content: flex-start !important;
+  }
+
+  /* Agenda sidebar → passe après le contenu */
+  #page-agenda [style*="display:grid"][style*="gap:40px"] { gap: 32px !important; }
+
+  /* Section tab activités — padding réduit */
+  #page-activites .tab-panel { padding: 36px 0 !important; }
+
+  /* Partager boutons article */
+  .article-share { flex-wrap: wrap; gap: 8px; }
 }
 
 /* =====================================================
