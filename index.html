@@ -124,7 +124,7 @@ img{max-width:100%;display:block}
 a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .link-all{cursor:pointer}
 .footer-col ul li a{cursor:pointer}
-.nav-hamburger{display:none}   /* caché sur desktop, affiché via media query mobile */
+.nav-hamburger{display:none}   /* base — surchargé par les media queries ci-dessous */
 
 /* Carte avec bordure hover dorée (tarifs, adhesion, agenda) */
 .card-hover{transition:border-color .2s,box-shadow .2s}
@@ -390,6 +390,11 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .tab-btn.tab-active{color:var(--bleu);border-bottom-color:var(--gold)}
 .tab-panel{display:none}
 .tab-panel.tab-panel-active{display:block}
+
+/* Hamburger caché explicitement sur desktop */
+@media(min-width:769px){
+  .nav-hamburger{display:none !important}
+}
 
 /* =====================================================
    RESPONSIVE — TABLET (≤ 1024px)
