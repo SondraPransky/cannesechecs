@@ -661,6 +661,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <a onclick="goTo('actualites')">Actualités</a>
           <a onclick="goTo('club')">Présentation</a>
           <a onclick="goTo('organigramme')">Organigramme</a>
+          <a onclick="goTo('horaires')">Horaires & Tarifs</a>
           <a onclick="goTo('adhesion')">Formules d'adhésion</a>
           <a onclick="goTo('agenda')">Agenda</a>
           <a onclick="goTo('contact')">Contact</a>
@@ -675,9 +676,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="nav-item">
         <button class="nav-link" id="nav-activites">Activités <span class="chevron">▾</span></button>
         <div class="dropdown">
-          <a onclick="goTo('activites')">Cours & Formation</a>
-          <a onclick="goTo('activites')">Stages</a>
-          <a onclick="goTo('activites')">Interventions scolaires</a>
+          <a onclick="goToTab('activites','cours')">Cours & Formation</a>
+          <a onclick="goToTab('activites','stages')">Stages</a>
+          <a onclick="goToTab('activites','scolaire')">Interventions scolaires</a>
         </div>
       </div>
       <div class="nav-item">
@@ -698,7 +699,12 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <button class="nav-mobile-link" onclick="mobileGoTo('actualites')">Actualités</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('club')">Le Club</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('organigramme')">Organigramme</button>
-    <button class="nav-mobile-link" onclick="mobileGoTo('activites')">Activités & Cours</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('horaires')">Horaires & Tarifs</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('adhesion')">Adhésion</button>
+    <div class="nav-mobile-sep"></div>
+    <button class="nav-mobile-link" onclick="mobileGoTo('activites','cours')">Cours & Formation</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('activites','stages')">Stages</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('activites','scolaire')">Interventions scolaires</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('tournois')">Tournois</button>
     <div class="nav-mobile-sep"></div>
     <button class="nav-mobile-link" onclick="mobileGoTo('agenda')">Agenda</button>
@@ -1710,7 +1716,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div class="gold-bar"></div>
           <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:24px">Cannes Échecs organise des tournois inter-établissements à destination des élèves du primaire et du secondaire, en partenariat avec l'Éducation Nationale.</p>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-outline-white" onclick="goTo('activites')">En savoir plus sur nos interventions →</button>
+            <button class="btn btn-outline-white" onclick="goToTab('activites','scolaire')">En savoir plus sur nos interventions →</button>
             <button class="btn btn-outline-white" onclick="goTo('contact')">Organiser un tournoi dans votre école →</button>
           </div>
         </div>
@@ -2143,10 +2149,21 @@ function toggleMobileNav() {
   document.querySelector('.navbar').classList.toggle('nav-open');
   document.body.style.overflow = document.querySelector('.navbar').classList.contains('nav-open') ? 'hidden' : '';
 }
-function mobileGoTo(page) {
+function mobileGoTo(page, tab) {
   document.querySelector('.navbar').classList.remove('nav-open');
   document.body.style.overflow = '';
+  goToTab(page, tab);
+}
+
+// Naviguer vers une page ET activer un onglet spécifique
+function goToTab(page, tab) {
   goTo(page);
+  if (!tab) return;
+  // Activer le bon onglet après navigation
+  const container = document.getElementById('page-' + page);
+  if (!container) return;
+  const btn = container.querySelector('[data-tab="' + tab + '"]');
+  if (btn) btn.click();
 }
 
 // ── ROUTER ──────────────────────────────────────────
