@@ -191,7 +191,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    ===================================================== */
 .footer{background:#0A0910}
 .footer-main{padding:60px 0 40px;border-bottom:1px solid rgba(255,255,255,.07)}
-.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.footer-social{display:flex;gap:10px;margin-top:20px}
+.footer-social a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:14px;transition:all .2s;text-decoration:none}
+.footer-social a:hover{background:rgba(201,168,76,.25);color:var(--gold)}
 .footer-brand-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.8;max-width:280px;margin-bottom:24px}
 .footer-brand-info{list-style:none;display:flex;flex-direction:column;gap:8px}
 .footer-brand-info li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.5)}
@@ -790,7 +793,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <p class="desc">Le FIJ est le plus grand festival de jeux de société du monde, organisé chaque année au Palais des Festivals de Cannes. Cannes Échecs y organise les tournois d'échecs officiels, homologués FIDE.</p>
           <ul class="fij-list">
             <li>Tournois A (2200+), B (≤ 2100) et C (≤ 1600) — tous niveaux</li>
-            <li>9 rondes Swiss · 1h30+30 min · Normes MI et GMI possibles</li>
+            <li>9 rondes · 1h30+30 min · Normes MI et GMI possibles</li>
             <li>Palais des Festivals, Cannes — Chaque année en février</li>
           </ul>
           <div class="fij-btns">
@@ -800,7 +803,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div class="fij-mini-stats">
             <div class="fij-ms"><div class="n">100 000+</div><div class="l">visiteurs du festival</div></div>
             <div class="fij-ms"><div class="n">3</div><div class="l">tournois A / B / C</div></div>
-            <div class="fij-ms"><div class="n">9</div><div class="l">rondes Swiss</div></div>
+            <div class="fij-ms"><div class="n">9</div><div class="l">rondes</div></div>
           </div>
         </div>
         <div>
@@ -1998,7 +2001,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             </div>
             <div style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold);cursor:pointer">
               <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px;line-height:1.1">FÉV.</span><span style="font-size:14px;line-height:1.1">2027</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">♟ Tournois d'Échecs · 4 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Tournois au Festival International des Jeux</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes Swiss · Homologué FIDE</div></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">♟ Tournois d'Échecs · 4 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Tournois au Festival International des Jeux</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE</div></div>
               <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
             </div>
             <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
@@ -2075,14 +2078,20 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div class="footer-logo-row">
           <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="footer-logo-img"
                onerror="this.style.display='none';document.getElementById('footer-logo-fallback').style.display='flex'">
-          <div id="footer-logo-fallback" style="display:none;width:88px;height:88px;background:var(--gold);border-radius:12px;align-items:center;justify-content:center;font-size:40px;color:var(--bleu)">♟</div>
+          <div id="footer-logo-fallback" style="display:none;width:88px;height:88px;background:var(--gold);border-radius:12px;align-items:center;justify-content:center;font-size:40px;color:var(--noir)">♟</div>
         </div>
+        <p class="footer-brand-desc">Club d'échecs de référence sur la Côte d'Azur depuis 1987. Cours, compétitions, scolaire et FIJ. Label Club Formateur FFE.</p>
         <ul class="footer-brand-info">
           <li><span class="ico">📍</span> 3 Av. du Petit Juas, 06400 Cannes</li>
           <li><span class="ico">🕐</span> Lun–Ven · 13h30–18h30</li>
           <li><span class="ico">✉</span> info@cannes-echecs.fr</li>
           <li><span class="ico">📞</span> 04 93 39 41 39</li>
         </ul>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/canneschessclub" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.instagram.com/cannes_echecs" target="_blank" rel="noopener" title="Instagram">ig</a>
+          <a href="https://x.com/CannesChessClub" target="_blank" rel="noopener" title="X / Twitter">𝕏</a>
+        </div>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Le Club</div>
@@ -2817,7 +2826,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
 //                           3) ajouter l'extrait dans EXTRAITS
 const ARCHIVE_ORDER = [
   'selection-france-2026','scolaire-cannes-2026',
-  'top12f','mulhouse','quartier','albi',
+  'mulhouse','top12f','quartier','albi',
   'pico-paques','open-paques',
   'stan-academique','sainte-marie-academie',
   'pico-mars','cannes2-n1','fij-open-a','paca-jeunes',
