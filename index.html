@@ -645,8 +645,24 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   /* Agenda sidebar → passe après le contenu */
   #page-agenda [style*="display:grid"][style*="gap:40px"] { gap: 32px !important; }
 
-  /* Section tab activités — padding réduit */
-  #page-activites .tab-panel { padding: 36px 0 !important; }
+  /* Tabs activités + tournois — padding compact */
+  #page-activites .tab-panel,
+  #page-tournois  .tab-panel { padding: 28px 0 !important; }
+
+  /* Tournois mobile — panneau bleu calendrier */
+  #page-tournois .tab-panel [style*="background:var(--bleu)"][style*="border-radius:14px"] {
+    padding: 18px !important;
+  }
+  /* Tournois mobile — titres panels */
+  #page-tournois .tab-panel h2 { font-size: 24px !important; }
+  /* Tournois mobile — badge + h2 + description : ordre naturel OK car grille → 1 col */
+  /* Tournois mobile — chips format Pâques (flex row) → wrap compact */
+  #page-tournois [style*="display:flex"][style*="gap:10px"][style*="flex-wrap"] { gap: 6px !important; }
+  /* Tournois mobile — résultats scolaires */
+  #page-tournois [style*="background:rgba(201,168,76,.12)"],
+  #page-tournois [style*="background:rgba(255,255,255,.07)"] { padding: 10px 14px !important; }
+  /* Tournois tab bar — texte plus petit pour tenir sur l'écran */
+  #page-tournois .tab-btn { padding: 14px 12px !important; font-size: 11px !important; }
 
   /* Partager boutons article */
   .article-share { flex-wrap: wrap; gap: 8px; }
