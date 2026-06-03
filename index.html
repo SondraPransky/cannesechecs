@@ -120,6 +120,32 @@ img{max-width:100%;display:block}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
 .badge-event::before{content:'★';font-size:9px}
 
+/* INTERACTIONS GLOBALES */
+a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
+.link-all{cursor:pointer}
+.footer-col ul li a{cursor:pointer}
+.nav-hamburger{display:none}   /* caché sur desktop, affiché via media query mobile */
+
+/* Carte avec bordure hover dorée (tarifs, adhesion, agenda) */
+.card-hover{transition:border-color .2s,box-shadow .2s}
+.card-hover:hover{border-color:var(--gold) !important;box-shadow:var(--sh-sm)}
+
+/* Item liste avec bordure hover (activités, partenaires institutionnels) */
+.item-hover{transition:border-color .2s}
+.item-hover:hover{border-color:var(--gold) !important}
+
+/* Carte partenaire avec lift au hover */
+.partner-card{transition:border-color .2s,transform .2s,box-shadow .2s}
+.partner-card:hover{border-color:var(--gold) !important;transform:translateY(-4px);box-shadow:var(--sh-md)}
+
+/* Carte sur fond sombre avec highlight gold au hover */
+.dark-card-hover{transition:background .2s}
+.dark-card-hover:hover{background:rgba(201,168,76,.15) !important}
+
+/* Onglet nav ancre dans une section (ex: page Tournois) */
+.section-tab{display:block;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;transition:color .2s,border-color .2s}
+.section-tab:hover{color:var(--bleu);border-bottom-color:var(--gold)}
+
 /* HERO PARTAGÉ */
 .hero-shared{position:relative;overflow:hidden;display:flex;align-items:center;padding:80px 0 60px}
 .hero-shared::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:56px 56px;pointer-events:none}
@@ -621,7 +647,7 @@ img{max-width:100%;display:block}
           <span class="surtitre">Vie du club</span>
           <h2 style="font-size:42px;color:var(--bleu)">Dernières actualités</h2>
         </div>
-        <a class="link-all" onclick="goTo('actualites')" style="cursor:pointer">Toutes les actualités →</a>
+        <a class="link-all" onclick="goTo('actualites')">Toutes les actualités →</a>
       </div>
       <!-- Les 3 dernières actus sont générées automatiquement depuis ARTICLES (JS) -->
       <div class="actu-grid" id="home-actus-grid"></div>
@@ -711,7 +737,7 @@ img{max-width:100%;display:block}
 
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,#0A1F38 100%);min-height:360px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Le Club</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Le Club</span></div>
       <div class="badge badge-event" style="margin-bottom:16px">Association Cannes Échecs</div>
       <h1 style="font-size:58px;color:#fff">Le <em>Club</em></h1>
       <p class="hero-desc">Plus de 30 ans d'excellence échiquéenne sur la Côte d'Azur</p>
@@ -814,7 +840,7 @@ img{max-width:100%;display:block}
 
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:300px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Actualités</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Actualités</span></div>
       <h1 style="font-size:54px;color:#fff">Actualités</h1>
       <p class="hero-desc">Résultats, événements, vie du club — toute l'info Cannes Échecs.</p>
     </div>
@@ -896,7 +922,7 @@ img{max-width:100%;display:block}
 <div id="page-activites" class="page">
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 100%);min-height:320px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Activités</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Activités</span></div>
       <h1 style="font-size:54px;color:#fff">Nos <em>activités</em></h1>
       <p class="hero-desc">Du cours débutant aux séances de compétition — trouvez votre niveau.</p>
     </div>
@@ -938,19 +964,19 @@ img{max-width:100%;display:block}
       <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Saison 2026–2027</span><h2 style="font-size:38px;color:var(--bleu)">Compétitions</h2></div>
       <div style="display:grid;grid-template-columns:2fr 1fr;gap:40px">
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
             <div style="font-size:28px">🏆</div>
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Nationale</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Championnat de France par équipes</div><div style="font-size:13px;color:var(--muted)">Nationale 1 · Nationale 2 · Régionale</div></div>
           </div>
-          <div style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
             <div style="font-size:28px">🥇</div>
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Jeunes</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Championnats jeunes</div><div style="font-size:13px;color:var(--muted)">U8 · U10 · U12 · U14 · U18</div></div>
           </div>
-          <div style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
             <div style="font-size:28px">⭐</div>
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Événement phare</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Tournois au Festival International des Jeux</div><div style="font-size:13px;color:var(--muted)">Chaque février · Palais des Festivals, Cannes</div></div>
           </div>
-          <div style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
             <div style="font-size:28px">🎯</div>
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Interne mensuel</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Tournois PICO</div><div style="font-size:13px;color:var(--muted)">Chaque mois · Membres uniquement</div></div>
           </div>
@@ -1093,7 +1119,7 @@ img{max-width:100%;display:block}
 <div id="page-horaires" class="page">
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);min-height:280px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Horaires & Tarifs</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Horaires & Tarifs</span></div>
       <h1 style="font-size:52px;color:#fff">Horaires & <em>Tarifs</em></h1>
       <p style="font-size:14px;color:rgba(255,255,255,.4);margin-top:8px;font-style:italic">Saison 2026–2027 · Mis à jour en septembre 2026</p>
     </div>
@@ -1154,21 +1180,21 @@ img{max-width:100%;display:block}
         <p style="font-size:15px;color:var(--muted);margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto">Tous les tarifs incluent la licence FFE et l'accès illimité au club pendant les heures d'ouverture.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto">
-        <div style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">École Échecs</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Enfants</div>
           <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
           <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
           <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
         </div>
-        <div style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Cours adultes</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Échecs Adultes</div>
           <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
           <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
           <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
         </div>
-        <div style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Licence A</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Accès libre</div>
           <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">60<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
@@ -1199,7 +1225,7 @@ img{max-width:100%;display:block}
 <div id="page-adhesion" class="page">
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);min-height:300px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Adhésion</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Adhésion</span></div>
       <div class="badge badge-event" style="margin-bottom:16px">Saison 2026–2027 ouverte</div>
       <h1 style="font-size:52px;color:#fff">Rejoindre le <em>club</em></h1>
       <p class="hero-desc">Inscription en ligne sécurisée via HelloAsso. Confirmation immédiate.</p>
@@ -1244,7 +1270,7 @@ img{max-width:100%;display:block}
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto">
 
         <!-- Pitchounets -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">200€</div>
@@ -1258,7 +1284,7 @@ img{max-width:100%;display:block}
         </div>
 
         <!-- Compétition -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">120€</div>
@@ -1272,7 +1298,7 @@ img{max-width:100%;display:block}
         </div>
 
         <!-- École Échecs Enfants -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
@@ -1286,7 +1312,7 @@ img{max-width:100%;display:block}
         </div>
 
         <!-- Échecs Adultes -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
@@ -1315,7 +1341,7 @@ img{max-width:100%;display:block}
         </div>
 
         <!-- Licence A -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm);transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">60€</div>
@@ -1348,7 +1374,7 @@ img{max-width:100%;display:block}
 <div id="page-contact" class="page">
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);min-height:300px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Contact</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Contact</span></div>
       <h1 style="font-size:52px;color:#fff">Contactez-<em>nous</em></h1>
       <p class="hero-desc">Une question sur les cours, les tarifs, les inscriptions ? Nous répondons sous 48h.</p>
     </div>
@@ -1430,7 +1456,7 @@ img{max-width:100%;display:block}
 <div id="page-tournois" class="page">
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:300px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Tournois</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Tournois</span></div>
       <h1 style="font-size:54px;color:#fff">Nos <em>tournois</em></h1>
       <p class="hero-desc">Compétitions régulières, accessibles à tous les niveaux.</p>
     </div>
@@ -1439,10 +1465,10 @@ img{max-width:100%;display:block}
   <!-- Nav ancres -->
   <div style="background:#fff;border-bottom:2px solid var(--border);position:sticky;top:64px;z-index:100">
     <div class="container" style="display:flex;gap:0;overflow-x:auto">
-      <a href="#pico" style="display:block;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;transition:all .2s" onmouseover="this.style.color='var(--bleu)';this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.color='var(--muted)';this.style.borderBottomColor='transparent'">Tournois PICO</a>
-      <a href="#paques" style="display:block;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;transition:all .2s" onmouseover="this.style.color='var(--bleu)';this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.color='var(--muted)';this.style.borderBottomColor='transparent'">Open de Pâques</a>
-      <a href="#rapide" style="display:block;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;transition:all .2s" onmouseover="this.style.color='var(--bleu)';this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.color='var(--muted)';this.style.borderBottomColor='transparent'">Rapide du vendredi</a>
-      <a href="#scolaire-t" style="display:block;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;transition:all .2s" onmouseover="this.style.color='var(--bleu)';this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.color='var(--muted)';this.style.borderBottomColor='transparent'">Scolaires</a>
+      <a href="#pico" class="section-tab">Tournois PICO</a>
+      <a href="#paques" class="section-tab">Open de Pâques</a>
+      <a href="#rapide" class="section-tab">Rapide du vendredi</a>
+      <a href="#scolaire-t" class="section-tab">Scolaires</a>
     </div>
   </div>
 
@@ -1556,10 +1582,10 @@ img{max-width:100%;display:block}
           </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.15)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="font-size:24px;margin-bottom:10px">🏫</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Tournoi inter-écoles</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Printemps · Primaires Cannes</div></div>
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.15)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="font-size:24px;margin-bottom:10px">🎓</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Tournoi collèges</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Décembre · Inter-établissements</div></div>
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.15)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="font-size:24px;margin-bottom:10px">🏆</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Sélection départementale</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Mars · Qualificatif régional</div></div>
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.15)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="font-size:24px;margin-bottom:10px">♟</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Simultanée pédagogique</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Tout au long de l'année</div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px"><div style="font-size:24px;margin-bottom:10px">🏫</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Tournoi inter-écoles</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Printemps · Primaires Cannes</div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px"><div style="font-size:24px;margin-bottom:10px">🎓</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Tournoi collèges</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Décembre · Inter-établissements</div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px"><div style="font-size:24px;margin-bottom:10px">🏆</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Sélection départementale</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Mars · Qualificatif régional</div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px"><div style="font-size:24px;margin-bottom:10px">♟</div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:4px">Simultanée pédagogique</div><div style="font-size:12px;color:rgba(255,255,255,.5)">Tout au long de l'année</div></div>
         </div>
       </div>
     </div>
@@ -1724,7 +1750,7 @@ img{max-width:100%;display:block}
 <div id="page-partenaires" class="page">
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:300px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Partenaires</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Partenaires</span></div>
       <h1 style="font-size:52px;color:#fff">Nos <em>partenaires</em></h1>
       <p class="hero-desc">Ils soutiennent Cannes Échecs et contribuent au rayonnement des échecs sur la Côte d'Azur.</p>
     </div>
@@ -1738,7 +1764,7 @@ img{max-width:100%;display:block}
         <h2 style="font-size:40px;color:var(--bleu)">Ils nous font confiance</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px">
-        <div style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='var(--sh-md)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none';this.style.boxShadow='none'">
+        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px">
           <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏛</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Ville de Cannes</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Partenaire Institutionnel</div>
@@ -1750,7 +1776,7 @@ img{max-width:100%;display:block}
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Partenaire Fédéral</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
         </div>
-        <div style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='var(--sh-md)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none';this.style.boxShadow='none'">
+        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px">
           <div style="width:80px;height:80px;background:linear-gradient(135deg,#2d5a8e,#1a3a5c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏔</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Région Sud PACA</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Partenaire Régional</div>
@@ -1765,11 +1791,11 @@ img{max-width:100%;display:block}
           <h3 style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu)">Partenaires associés</h3>
         </div>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:28px">
-          <div style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:20px">🏛️</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Mairie de Cannes</span></div>
-          <div style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:20px">🏔️</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Département Alpes-Maritimes</span></div>
-          <div style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:20px">🌊</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Région PACA</span></div>
-          <div style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:20px">🎓</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Cannes Université</span></div>
-          <div style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:20px">🎭</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">SEMEC</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🏛️</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Mairie de Cannes</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🏔️</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Département Alpes-Maritimes</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🌊</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Région PACA</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🎓</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Cannes Université</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🎭</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">SEMEC</span></div>
         </div>
       </div>
     </div>
@@ -1793,9 +1819,9 @@ img{max-width:100%;display:block}
           <button class="btn btn-gold" onclick="goTo('contact')">Nous contacter pour un partenariat →</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.12)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.12)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="background:rgba(201,168,76,.2);color:var(--gold);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
-          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.12)'" onmouseout="this.style.background='rgba(255,255,255,.07)'"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(201,168,76,.2);color:var(--gold);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
         </div>
       </div>
     </div>
@@ -1809,7 +1835,7 @@ img{max-width:100%;display:block}
 <div id="page-agenda" class="page">
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:280px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')" style="cursor:pointer">Accueil</a><span>›</span><span>Agenda</span></div>
+      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Agenda</span></div>
       <h1 style="font-size:52px;color:#fff">Agenda</h1>
       <p class="hero-desc">Tous les événements du club — tournois, cours, stages et soirées.</p>
     </div>
@@ -1835,12 +1861,12 @@ img{max-width:100%;display:block}
           <span class="surtitre">Prochains événements</span>
           <h2 style="font-size:34px;color:var(--bleu);margin-bottom:24px">À venir</h2>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;transition:all .2s;cursor:pointer" onmouseover="this.style.borderColor='var(--gold)';this.style.boxShadow='var(--sh-sm)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+            <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">05</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
               <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Soirée · 19h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit</div></div>
               <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
             </div>
-            <div style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;transition:all .2s;cursor:pointer" onmouseover="this.style.borderColor='var(--gold)';this.style.boxShadow='var(--sh-sm)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+            <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
               <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Tournoi · 19h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Tournoi PICO — Septembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes rapides · Membres · Accès libre</div></div>
               <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
@@ -1850,7 +1876,7 @@ img{max-width:100%;display:block}
               <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">♟ Tournois d'Échecs · 4 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Tournois au Festival International des Jeux</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes Swiss · Homologué FIDE</div></div>
               <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
             </div>
-            <div style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;transition:all .2s;cursor:pointer" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div class="card-hover" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px;cursor:pointer">
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
               <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Saison 2026–2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Reprise des cours — Rentrée</div><div style="font-size:13px;color:var(--muted)">Accueil des nouveaux membres · Évaluation de niveau</div></div>
               <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Formation</div>
@@ -1891,7 +1917,7 @@ img{max-width:100%;display:block}
 <div id="page-organigramme" class="page">
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:280px">
     <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('club')" style="cursor:pointer">Le Club</a><span>›</span><span>Organigramme</span></div>
+      <div class="breadcrumb"><a onclick="goTo('club')">Le Club</a><span>›</span><span>Organigramme</span></div>
       <h1 style="font-size:52px;color:#fff">Organi<em>gramme</em></h1>
       <p class="hero-desc">La structure associative de Cannes Échecs.</p>
     </div>
@@ -1936,21 +1962,21 @@ img{max-width:100%;display:block}
       <div class="footer-col">
         <div class="footer-col-title">Le Club</div>
         <ul>
-          <li><a onclick="goTo('club')" style="cursor:pointer">Présentation</a></li>
-          <li><a onclick="goTo('actualites')" style="cursor:pointer">Actualités</a></li>
-          <li><a onclick="goTo('agenda')" style="cursor:pointer">Agenda</a></li>
-          <li><a onclick="goTo('adhesion')" style="cursor:pointer">Adhésion</a></li>
-          <li><a onclick="goTo('contact')" style="cursor:pointer">Contact</a></li>
+          <li><a onclick="goTo('club')">Présentation</a></li>
+          <li><a onclick="goTo('actualites')">Actualités</a></li>
+          <li><a onclick="goTo('agenda')">Agenda</a></li>
+          <li><a onclick="goTo('adhesion')">Adhésion</a></li>
+          <li><a onclick="goTo('contact')">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Activités</div>
         <ul>
-          <li><a onclick="goTo('activites')" style="cursor:pointer">Cours & Formation</a></li>
-          <li><a onclick="goTo('activites')" style="cursor:pointer">Stages</a></li>
-          <li><a onclick="goTo('activites')" style="cursor:pointer">Scolaire</a></li>
-          <li><a onclick="goTo('tournois')" style="cursor:pointer">Tournois</a></li>
-          <li><a onclick="goTo('fij')" style="cursor:pointer">FIJ 2027</a></li>
+          <li><a onclick="goTo('activites')">Cours & Formation</a></li>
+          <li><a onclick="goTo('activites')">Stages</a></li>
+          <li><a onclick="goTo('activites')">Scolaire</a></li>
+          <li><a onclick="goTo('tournois')">Tournois</a></li>
+          <li><a onclick="goTo('fij')">FIJ 2027</a></li>
         </ul>
       </div>
     </div>
