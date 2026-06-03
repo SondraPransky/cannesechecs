@@ -1138,30 +1138,30 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <!-- Onglet Compétitions -->
   <div class="tab-panel" id="tab-competitions" style="padding:60px 0;background:var(--ivoire);display:none">
     <div class="container">
-      <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Saison 2026–2027</span><h2 style="font-size:38px;color:var(--bleu)">Compétitions</h2></div>
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:40px">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
-            <div style="font-size:28px">🏆</div>
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Nationale</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Championnat de France par équipes</div><div style="font-size:13px;color:var(--muted)">Nationale 1 · Nationale 2 · Régionale</div></div>
-          </div>
-          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
-            <div style="font-size:28px">🥇</div>
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Jeunes</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Championnats jeunes</div><div style="font-size:13px;color:var(--muted)">U8 · U10 · U12 · U14 · U18</div></div>
-          </div>
-          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
-            <div style="font-size:28px">⭐</div>
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Événement phare</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Tournois au Festival International des Jeux</div><div style="font-size:13px;color:var(--muted)">Chaque février · Palais des Festivals, Cannes</div></div>
-          </div>
-          <div class="item-hover" style="background:#fff;border-radius:10px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
-            <div style="font-size:28px">🎯</div>
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Interne mensuel</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Tournois PICO</div><div style="font-size:13px;color:var(--muted)">Chaque mois · Membres uniquement</div></div>
-          </div>
+      <h2 style="font-size:34px;color:var(--bleu);margin-bottom:8px">Compétitions</h2>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:640px;margin-bottom:32px">Cannes Échecs engage ses membres dans les compétitions officielles FFE (Championnat de France par équipes, championnats jeunes) et organise ses propres tournois internes tout au long de l'année.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+        <div style="background:#fff;border-radius:12px;padding:24px;border:1px solid var(--border)">
+          <div style="font-size:28px;margin-bottom:10px">🏆</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:6px">Compétitions officielles</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">Championnat de France par équipes · Championnats jeunes FFE (U8→U18) · Interclubs régionaux</div>
         </div>
-        <div style="background:var(--bleu);border-radius:12px;padding:28px;color:#fff;align-self:start">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:16px">Prêt à concourir ?</div>
-          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px">Licenciez-vous FFE depuis notre club et participez dès cette saison aux compétitions officielles.</p>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Prendre une licence →</button>
+        <div style="background:#fff;border-radius:12px;padding:24px;border:1px solid var(--border)">
+          <div style="font-size:28px;margin-bottom:10px">🎯</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:6px">Tournois du club</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">PICO mensuel · Open de Pâques · Rapide du vendredi · Tournois scolaires · FIJ Cannes</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bleu);border-radius:12px;padding:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:8px">Dates, formats et inscriptions</div>
+          <p style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;max-width:480px">Consultez la page Tournois pour les calendriers détaillés, les formats de jeu et les modalités d'inscription à chaque compétition.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0">
+          <button class="btn btn-gold" onclick="goTo('tournois')">Voir les tournois →</button>
+          <button class="btn btn-outline-white btn-sm" onclick="goTo('adhesion')">Prendre une licence FFE</button>
         </div>
       </div>
     </div>
