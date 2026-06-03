@@ -501,9 +501,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   /* Section actus header */
   .section-actus-header{flex-direction:column;align-items:flex-start;gap:12px}
 
-  /* Footer */
-  .footer-grid{grid-template-columns:1fr;gap:28px}
-  .footer-main{padding:28px 0 16px}
+  /* Footer — colonnes de liens masquées sur mobile (doublons du menu hamburger) */
+  .footer-col{display:none}
+  .footer-grid{grid-template-columns:1fr;gap:0}
+  .footer-main{padding:24px 0 16px}
   .footer-bottom{flex-direction:column;align-items:center;gap:10px;padding:16px 0 !important;text-align:center;border-top:1px solid rgba(255,255,255,.12);margin-top:4px}
   .footer-copy{font-size:13px;color:rgba(255,255,255,.6);text-align:center;width:100%;padding:0 24px}
   .footer-links{justify-content:center;gap:24px;width:100%;padding:0 24px}
