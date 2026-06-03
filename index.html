@@ -435,8 +435,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-activites[style*="grid-template-columns:55%"],
   #page-activites[style*="grid-template-columns:2fr"] { grid-template-columns: 1fr !important }
 
-  #page-adhesion [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
-  #page-horaires [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
+  #page-adhesion    [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
+  #page-horaires    [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
+  #page-partenaires [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
   #page-fij      [style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2,1fr) !important }
 }
 
@@ -667,6 +668,22 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-tournois [style*="background:rgba(255,255,255,.07)"] { padding: 10px 14px !important; }
   /* Tournois tab bar — texte plus petit pour tenir sur l'écran */
   #page-tournois .tab-btn { padding: 14px 12px !important; font-size: 11px !important; }
+
+  /* Partenaires mobile */
+  /* Cartes partenaires principales — padding réduit */
+  #page-partenaires .partner-card,
+  #page-partenaires [style*="border:2px solid var(--gold)"][style*="border-radius:12px"] {
+    padding: 24px 16px !important;
+  }
+  /* Partenaires associés (flex wrap) — gap réduit, items plus petits */
+  #page-partenaires [style*="flex-wrap:wrap"][style*="gap:28px"] {
+    gap: 10px !important;
+  }
+  #page-partenaires .item-hover {
+    padding: 12px 16px !important;
+    font-size: 12px !important;
+  }
+  /* Niveaux partenariat (OR/ARGENT/BRONZE) — déjà flex colonne, OK */
 
   /* Partager boutons article */
   .article-share { flex-wrap: wrap; gap: 8px; }
