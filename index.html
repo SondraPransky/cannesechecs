@@ -455,30 +455,39 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .nav-mobile-sep{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
   .nav-mobile-cta{margin-top:16px;background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center}
 
-  /* Typographie */
-  .home-hero h1{font-size:38px;line-height:1.1}
-  .home-hero .sub{font-size:18px}
-  .hero-shared h1{font-size:34px}
-  .section-header h2{font-size:28px}
-  .cta-inner h2{font-size:30px}
-  #art-title{font-size:30px !important}
+  /* ── Éléments décoratifs masqués sur mobile ── */
+  .surtitre{display:none}          /* labels "VIE DU CLUB", "SAISON 2026-2027"… */
+  .gold-bar{display:none}          /* barre or décorative sous les titres */
 
-  /* Sections padding */
-  .home-hero{padding:48px 0}
-  .hero-shared{padding:48px 0 36px;min-height:auto !important}
+  /* Typographie */
+  .home-hero h1{font-size:34px;line-height:1.1}
+  .home-hero .sub{font-size:16px;margin-bottom:12px}
+  .home-hero .desc{font-size:14px;margin-bottom:20px}
+  .hero-shared h1{font-size:30px}
+  .section-header h2{font-size:24px}
+  .section-header{margin-bottom:20px}
+  .cta-inner h2{font-size:26px}
+  #art-title{font-size:26px !important}
+
+  /* Sections padding — compact sur mobile */
+  .home-hero{padding:28px 0}
+  .hero-shared{padding:28px 0 20px;min-height:auto !important}
   .section-actus,.section-forces,.section-fij,.section-cta,
   .club-histoire,.club-valeurs,.club-palmares,.club-equipe,
-  .archive-grid-section,.article-related,.article-content-wrap{padding:40px 0}
+  .archive-grid-section,.article-related,.article-content-wrap{padding:28px 0}
 
   /* Hero home */
-  .home-hero-grid{grid-template-columns:1fr;gap:28px}
-  .home-hero-btns{flex-direction:column}
+  .home-hero-grid{grid-template-columns:1fr;gap:20px}
+  .home-hero-badge{margin-bottom:10px}
+  .home-hero-btns{flex-direction:column;gap:8px}
   .home-hero-btns .btn{width:100%;justify-content:center}
 
-  /* Barre stats */
+  /* Barre stats — plus compacte */
+  .stats-band{padding:14px 0}
   .stats-band-inner{flex-wrap:wrap}
-  .sb-item{width:50%;border-left:none !important;border-top:1px solid rgba(255,255,255,.08);padding:14px 0}
-  .sb-num{font-size:30px}
+  .sb-item{width:50%;border-left:none !important;border-top:1px solid rgba(255,255,255,.08);padding:10px 0}
+  .sb-num{font-size:26px}
+  .sb-label{font-size:9px}
 
   /* Grilles */
   .actu-grid{grid-template-columns:1fr}
@@ -500,8 +509,31 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .footer-main{padding:40px 0 28px}
 
   /* Article */
-  .article-hero{padding:40px 0 32px}
+  .article-hero{padding:24px 0 18px}
+  .article-content-wrap{padding:24px 0 !important}
   .article-content-wrap .container{padding:0 16px}
+  .article-featured-img{margin-bottom:24px}
+  .article-meta{margin:10px 0}
+  .article-related{padding:24px 0 !important}
+
+  /* Section tab activités — padding réduit */
+  #page-activites .tab-panel{padding:24px 0 !important}
+
+  /* Footer */
+  .footer-main{padding:28px 0 20px}
+
+  /* Inline padding sections pages internes */
+  #page-horaires [style*="padding:80px"],
+  #page-adhesion [style*="padding:80px"],
+  #page-contact  [style*="padding:80px"],
+  #page-tournois [style*="padding:80px"],
+  #page-fij      [style*="padding:80px"],
+  #page-partenaires [style*="padding:80px"],
+  #page-agenda   [style*="padding:80px"],
+  #page-organigramme [style*="padding:80px"] {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
 
   /* ══════════════════════════════════════════════════════
      INLINE GRIDS — override universel toutes pages
