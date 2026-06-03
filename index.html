@@ -366,6 +366,95 @@ img{max-width:100%;display:block}
 .tab-panel.tab-panel-active{display:block}
 
 /* =====================================================
+   RESPONSIVE — TABLET (≤ 1024px)
+   ===================================================== */
+@media(max-width:1024px){
+  .home-hero-grid{grid-template-columns:1fr;gap:40px}
+  .fij-grid{grid-template-columns:1fr;gap:40px}
+  .club-histoire-grid{grid-template-columns:1fr;gap:40px}
+  .forces-grid{grid-template-columns:repeat(2,1fr)}
+  .palmares-grid{grid-template-columns:repeat(2,1fr)}
+  .equipe-grid{grid-template-columns:repeat(2,1fr)}
+  .valeurs-grid{grid-template-columns:repeat(2,1fr)}
+  .actu-grid{grid-template-columns:repeat(2,1fr)}
+  .archive-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* =====================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ===================================================== */
+@media(max-width:768px){
+  /* Conteneur */
+  .container{padding:0 16px}
+  .tab-bar-inner{padding:0 16px}
+
+  /* Navbar desktop → hamburger */
+  .nav-menu,.nav-cta{display:none}
+  .nav-hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px;background:none;border:none;flex-shrink:0}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+  .navbar.nav-open .nav-hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .navbar.nav-open .nav-hamburger span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .navbar.nav-open .nav-hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* Menu mobile overlay */
+  .nav-mobile{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--bleu);z-index:199;padding:20px 16px;overflow-y:auto;flex-direction:column;gap:2px}
+  .navbar.nav-open .nav-mobile{display:flex}
+  .nav-mobile-link{padding:14px 16px;color:rgba(255,255,255,.85);font-size:16px;font-weight:500;border-radius:8px;cursor:pointer;border:none;background:none;text-align:left;width:100%;font-family:'Inter',sans-serif;transition:all .2s}
+  .nav-mobile-link:hover,.nav-mobile-link.active{background:rgba(255,255,255,.1);color:#fff}
+  .nav-mobile-link.gold{color:var(--gold)}
+  .nav-mobile-sep{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+  .nav-mobile-cta{margin-top:16px;background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center}
+
+  /* Typographie */
+  .home-hero h1{font-size:38px;line-height:1.1}
+  .home-hero .sub{font-size:18px}
+  .hero-shared h1{font-size:34px}
+  .section-header h2{font-size:28px}
+  .cta-inner h2{font-size:30px}
+  #art-title{font-size:30px !important}
+
+  /* Sections padding */
+  .home-hero{padding:48px 0}
+  .hero-shared{padding:48px 0 36px;min-height:auto !important}
+  .section-actus,.section-forces,.section-fij,.section-cta,
+  .club-histoire,.club-valeurs,.club-palmares,.club-equipe,
+  .archive-grid-section,.article-related,.article-content-wrap{padding:40px 0}
+
+  /* Hero home */
+  .home-hero-grid{grid-template-columns:1fr;gap:28px}
+  .home-hero-btns{flex-direction:column}
+  .home-hero-btns .btn{width:100%;justify-content:center}
+
+  /* Barre stats */
+  .stats-band-inner{flex-wrap:wrap}
+  .sb-item{width:50%;border-left:none !important;border-top:1px solid rgba(255,255,255,.08);padding:14px 0}
+  .sb-num{font-size:30px}
+
+  /* Grilles */
+  .actu-grid{grid-template-columns:1fr}
+  .archive-grid{grid-template-columns:1fr}
+  .forces-grid{grid-template-columns:repeat(2,1fr)}
+  .palmares-grid{grid-template-columns:repeat(2,1fr)}
+  .equipe-grid{grid-template-columns:repeat(2,1fr)}
+  .valeurs-grid{grid-template-columns:1fr}
+  .club-histoire-grid{grid-template-columns:1fr;gap:28px}
+  .fij-grid{grid-template-columns:1fr;gap:28px}
+
+  /* Section actus header */
+  .section-actus-header{flex-direction:column;align-items:flex-start;gap:12px}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+  .footer-links{justify-content:center}
+  .footer-main{padding:40px 0 28px}
+
+  /* Article */
+  .article-hero{padding:40px 0 32px}
+  .article-content-wrap .container{padding:0 16px}
+}
+
+/* =====================================================
    GALERIE PHOTOS — PAGE ARTICLE
    ===================================================== */
 .art-gallery{margin-top:48px;padding-top:36px;border-top:1px solid var(--border)}
@@ -443,6 +532,25 @@ img{max-width:100%;display:block}
       </div>
     </div>
     <button class="nav-cta" onclick="goTo('adhesion')">S'inscrire</button>
+    <!-- Hamburger (mobile uniquement) -->
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Menu mobile overlay -->
+  <div class="nav-mobile" id="nav-mobile">
+    <button class="nav-mobile-link" onclick="mobileGoTo('actualites')">Actualités</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('club')">Le Club</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('organigramme')">Organigramme</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('activites')">Activités & Cours</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('tournois')">Tournois</button>
+    <div class="nav-mobile-sep"></div>
+    <button class="nav-mobile-link" onclick="mobileGoTo('agenda')">Agenda</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('partenaires')">Partenaires</button>
+    <button class="nav-mobile-link" onclick="mobileGoTo('contact')">Contact</button>
+    <div class="nav-mobile-sep"></div>
+    <button class="nav-mobile-link gold" onclick="mobileGoTo('fij')">★ FIJ 2027</button>
+    <button class="nav-mobile-cta" onclick="mobileGoTo('adhesion')">S'inscrire →</button>
   </div>
 </nav>
 
@@ -1871,6 +1979,17 @@ img{max-width:100%;display:block}
      JAVASCRIPT — ROUTER + INTERACTIONS
      ===================================================== -->
 <script>
+// ── MENU MOBILE ─────────────────────────────────────
+function toggleMobileNav() {
+  document.querySelector('.navbar').classList.toggle('nav-open');
+  document.body.style.overflow = document.querySelector('.navbar').classList.contains('nav-open') ? 'hidden' : '';
+}
+function mobileGoTo(page) {
+  document.querySelector('.navbar').classList.remove('nav-open');
+  document.body.style.overflow = '';
+  goTo(page);
+}
+
 // ── ROUTER ──────────────────────────────────────────
 const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
 
