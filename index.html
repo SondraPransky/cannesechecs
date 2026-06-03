@@ -191,10 +191,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    ===================================================== */
 .footer{background:#0A0910}
 .footer-main{padding:60px 0 40px;border-bottom:1px solid rgba(255,255,255,.07)}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
-.footer-social{display:flex;gap:10px;margin-top:20px}
-.footer-social a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:14px;transition:all .2s;text-decoration:none}
-.footer-social a:hover{background:rgba(201,168,76,.25);color:var(--gold)}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
 .footer-brand-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.8;max-width:280px;margin-bottom:24px}
 .footer-brand-info{list-style:none;display:flex;flex-direction:column;gap:8px}
 .footer-brand-info li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.5)}
@@ -2073,7 +2070,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
      ===================================================== -->
 <footer class="footer">
   <div class="container footer-main">
-    <div class="footer-grid">
+    <div class="footer-grid" style="max-width:900px;margin:0 auto">
       <div>
         <div class="footer-logo-row">
           <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="footer-logo-img"
