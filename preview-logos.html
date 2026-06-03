@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cannes Échecs — Prévisualisation Logos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:   #C9A84C;
+      --noir:   #0F0E17;
+      --ivoire: #FAF8F4;
+      --surface-dark: #1A1925;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #2A2A2A;
+      color: #ccc;
+      padding: 40px 24px;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--gold);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 48px;
+    }
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid #333;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+    }
+    .logo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-card .label {
+      font-size: 11px;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1px;
+      color: #666;
+    }
+    .bg-dark {
+      background: var(--noir);
+      border-radius: 10px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-mid {
+      background: var(--surface-dark);
+      border-radius: 10px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-light {
+      background: var(--ivoire);
+      border-radius: 10px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-white {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    img { display: block; }
+
+    /* Simulation header */
+    .nav-demo {
+      background: var(--noir);
+      height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      border-radius: 10px;
+      gap: 48px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .nav-demo img { height: 40px; }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      margin-left: auto;
+      align-items: center;
+    }
+    .nav-links span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(250,248,244,0.75);
+    }
+    .nav-links .active { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--noir);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0 18px;
+      height: 38px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    /* Simulation footer logo */
+    .footer-demo {
+      background: var(--noir);
+      padding: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 500px;
+    }
+    .footer-demo img { width: 60px; }
+    .footer-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--ivoire);
+      letter-spacing: 2px;
+    }
+    .footer-text p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .footer-text small {
+      font-size: 12px;
+      color: #555;
+      display: block;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .size-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .size-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .size-demo .label {
+      font-size: 10px;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1px;
+      color: #555;
+    }
+    .bg-dark-inline {
+      background: var(--noir);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Cannes Échecs</h1>
+  <p class="subtitle">Design System · Prévisualisation des logos · 2026</p>
+
+  <!-- ── 1. Marque seule ── -->
+  <div class="section">
+    <div class="section-label">01 — Marque seule (symbole)</div>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="bg-dark"><img src="logo-mark.svg" width="100" alt="Mark dark"></div>
+        <span class="label">Fond noir</span>
+      </div>
+      <div class="logo-card">
+        <div class="bg-mid"><img src="logo-mark.svg" width="100" alt="Mark mid"></div>
+        <span class="label">Fond surface dark</span>
+      </div>
+      <div class="logo-card">
+        <div class="bg-light"><img src="logo-mark.svg" width="100" alt="Mark light"></div>
+        <span class="label">Fond ivoire</span>
+      </div>
+      <div class="logo-card">
+        <div class="bg-white"><img src="logo-mark.svg" width="100" alt="Mark white"></div>
+        <span class="label">Fond blanc</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. Logo vertical complet ── -->
+  <div class="section">
+    <div class="section-label">02 — Logo vertical complet</div>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="bg-dark"><img src="logo-dark.svg" width="150" alt="Logo dark"></div>
+        <span class="label">Version fond sombre</span>
+      </div>
+      <div class="logo-card">
+        <div class="bg-light"><img src="logo-light.svg" width="150" alt="Logo light"></div>
+        <span class="label">Version fond clair</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. Logo horizontal ── -->
+  <div class="section">
+    <div class="section-label">03 — Logo horizontal (navigation)</div>
+    <div class="logo-grid">
+      <div class="logo-card" style="width:100%; max-width:700px">
+        <div class="bg-dark" style="width:100%">
+          <img src="logo-horizontal-dark.svg" width="260" alt="Logo horizontal dark">
+        </div>
+        <span class="label">Version fond sombre — usage principal header</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. Simulation navigation réelle ── -->
+  <div class="section">
+    <div class="section-label">04 — Simulation : barre de navigation</div>
+    <div style="display:flex; justify-content:center;">
+      <div class="nav-demo">
+        <img src="logo-horizontal-dark.svg" alt="Logo nav">
+        <div class="nav-links">
+          <span class="active">Club</span>
+          <span>Tournois</span>
+          <span>Activités</span>
+          <span>Actualités</span>
+          <div class="nav-cta">S'inscrire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. Tailles diverses ── -->
+  <div class="section">
+    <div class="section-label">05 — Lisibilité à différentes tailles</div>
+    <div class="size-row">
+      <div class="size-demo">
+        <div class="bg-dark-inline"><img src="logo-mark.svg" width="180"></div>
+        <span class="label">180px</span>
+      </div>
+      <div class="size-demo">
+        <div class="bg-dark-inline"><img src="logo-mark.svg" width="120"></div>
+        <span class="label">120px</span>
+      </div>
+      <div class="size-demo">
+        <div class="bg-dark-inline"><img src="logo-mark.svg" width="80"></div>
+        <span class="label">80px</span>
+      </div>
+      <div class="size-demo">
+        <div class="bg-dark-inline"><img src="logo-mark.svg" width="48"></div>
+        <span class="label">48px</span>
+      </div>
+      <div class="size-demo">
+        <div class="bg-dark-inline"><img src="logo-mark.svg" width="32"></div>
+        <span class="label">32px — favicon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. Simulation footer ── -->
+  <div class="section">
+    <div class="section-label">06 — Simulation : footer</div>
+    <div style="display:flex; justify-content:center;">
+      <div class="footer-demo">
+        <img src="logo-mark.svg" alt="Logo footer">
+        <div class="footer-text">
+          <p>Cannes</p>
+          <h3>Échecs</h3>
+          <small>Le 1ᵉʳ club de formation jeunes de France</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
