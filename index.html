@@ -406,9 +406,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    RESPONSIVE — TABLET (≤ 1024px)
    ===================================================== */
 @media(max-width:1024px){
-  /* Footer tablette — colonnes liens masquées, brand seul centré */
+  /* Footer tablette — colonnes liens masquées, brand centré */
   .footer-col{display:none}
-  .footer-grid{grid-template-columns:1fr !important;max-width:600px}
+  .footer-grid{grid-template-columns:1fr !important;max-width:600px;margin:0 auto}
+  .footer-main{padding-left:32px !important;padding-right:32px !important}
 
   /* Grilles CSS classes */
   .home-hero-grid{grid-template-columns:1fr;gap:40px}
