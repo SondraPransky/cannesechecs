@@ -766,17 +766,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .palm-record .lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:8px}
 
 /* Section champions du monde (hero premium) */
-.wc-hero{background:linear-gradient(135deg,#0F0E17 0%,#1a1730 50%,var(--bleu) 100%);border-radius:24px;padding:48px;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,.3)}
-.wc-hero::before{content:'♚';position:absolute;right:-30px;top:50%;transform:translateY(-50%);font-size:340px;color:rgba(201,168,76,.06);line-height:1;pointer-events:none}
-.wc-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
-.wc-avatar{width:160px;height:160px;border-radius:20px;background:linear-gradient(135deg,var(--gold),var(--gold-h));display:flex;align-items:center;justify-content:center;font-size:80px;flex-shrink:0;box-shadow:0 12px 40px rgba(201,168,76,.35)}
-.wc-crown{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:32px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
-.wc-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.45);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;border-radius:30px;margin-bottom:16px}
-.wc-name{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;color:#fff;line-height:1.05;margin-bottom:6px}
-.wc-title{font-size:16px;color:var(--gold);font-weight:600;margin-bottom:16px}
-.wc-desc{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;max-width:560px}
-.wc-stats{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
-.wc-stat .n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold);line-height:1}
+.wc-hero{background:linear-gradient(135deg,#0F0E17 0%,#1a1730 50%,var(--bleu) 100%);border-radius:20px;padding:32px 36px;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,.3)}
+.wc-hero::before{content:'♚';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-size:220px;color:rgba(201,168,76,.06);line-height:1;pointer-events:none}
+.wc-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center}
+.wc-avatar{width:120px;height:120px;border-radius:16px;background:linear-gradient(135deg,var(--gold),var(--gold-h));display:flex;align-items:center;justify-content:center;font-size:60px;flex-shrink:0;box-shadow:0 10px 32px rgba(201,168,76,.35)}
+.wc-crown{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:26px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.wc-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.45);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:30px;margin-bottom:12px}
+.wc-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;line-height:1.05;margin-bottom:5px}
+.wc-title{font-size:14px;color:var(--gold);font-weight:600;margin-bottom:12px}
+.wc-desc{font-size:14px;color:rgba(255,255,255,.7);line-height:1.65;max-width:560px}
+.wc-stats{display:flex;gap:24px;margin-top:18px;flex-wrap:wrap}
+.wc-stat .n{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1}
 .wc-stat .l{font-size:11px;color:rgba(255,255,255,.5);font-family:'Montserrat',sans-serif;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
 
 /* Cartes GM (Pragg, Nihal…) */
@@ -2335,7 +2335,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="container">
       <div class="section-header center light" style="margin-bottom:40px">
         <span class="surtitre">Ils ont porté nos couleurs</span>
-        <h2 style="font-size:42px;color:#fff">Des légendes mondiales à Cannes</h2>
+        <h2 style="font-size:42px;color:#fff">Des légendes à Cannes</h2>
       </div>
 
       <!-- Gukesh — carte hero -->
@@ -2375,6 +2375,22 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <div class="gm-name">Vaishali Rameshbabu</div>
             <div class="gm-role">Grand Maître International</div>
             <p class="gm-desc">L'une des meilleures joueuses du monde, qualifiée pour le Tournoi des Candidates. Elle défend elle aussi les couleurs cannoises sur l'échiquier.</p>
+          </div>
+        </div>
+        <div class="gm-card">
+          <div class="gm-avatar">♜</div>
+          <div>
+            <div class="gm-name">Vladislav Tkachiev</div>
+            <div class="gm-role">Grand Maître · Champion d'Europe 2007</div>
+            <p class="gm-desc">Grand Maître franco-kazakh, champion d'Europe individuel et figure emblématique des échecs internationaux, passé par Cannes.</p>
+          </div>
+        </div>
+        <div class="gm-card">
+          <div class="gm-avatar">♝</div>
+          <div>
+            <div class="gm-name">Murtas Kashgaleyev</div>
+            <div class="gm-role">Grand Maître International</div>
+            <p class="gm-desc">Grand Maître kazakh, vainqueur de nombreux opens internationaux, il a lui aussi porté les couleurs cannoises.</p>
           </div>
         </div>
         <div class="gm-card" style="grid-column:1/-1">
