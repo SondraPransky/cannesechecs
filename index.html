@@ -2029,8 +2029,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Lundi 22 février</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ouverture & Ronde 1</div>
-          <div style="font-size:14px;color:var(--muted)">Accueil des joueurs · Ronde 1</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Pointage & Ronde 1</div>
+          <div style="font-size:14px;color:var(--muted)">Pointage obligatoire de 12h00 à 14h30 · Ronde 1 à 16h30</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
@@ -2677,7 +2677,7 @@ function updateNavActive(id) {
 }
 
 // ── COMPTE À REBOURS ────────────────────────────────
-const FIJ_DATE = new Date('2027-02-22T14:00:00');  // FIJ 2027 — Ronde 1 (lundi 22 février)
+const FIJ_DATE = new Date('2027-02-22T16:30:00');  // FIJ 2027 — Ronde 1 (lundi 22 février, 16h30)
 const FIJ_OPEN = new Date('2026-11-01T00:00:00');  // Ouverture estimée inscriptions
 
 function pad(n) { return String(n).padStart(2,'0'); }
