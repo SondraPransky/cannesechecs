@@ -3638,11 +3638,25 @@ function openLightbox(i) {
   lbUpdate();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Empile un état pour que le bouton "retour" (mobile/navigateur) ferme la photo
+  history.pushState({lightbox:true}, '');
 }
 function lbClose() {
+  // Si l'état lightbox est dans l'historique, revenir en arrière ferme via popstate
+  if (history.state && history.state.lightbox) {
+    history.back();
+  } else {
+    lbForceClose();
+  }
+}
+function lbForceClose() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
+// Bouton retour navigateur / téléphone → ferme la photo
+window.addEventListener('popstate', function() {
+  if (document.getElementById('lightbox').classList.contains('open')) lbForceClose();
+});
 function lbNav(dir) {
   lbIndex = (lbIndex + dir + currentGallery.length) % currentGallery.length;
   lbUpdate();
