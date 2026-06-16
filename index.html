@@ -462,6 +462,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .container{padding:0 16px}
   .tab-bar-inner{padding:0 16px}
 
+  /* ── Anti-débordement horizontal (mobile) ── */
+  html{overflow-x:clip}                              /* filet : pas de scroll latéral parasite (n'affecte pas position:sticky) */
+  .btn{white-space:normal}                           /* boutons à texte long : retour à la ligne au lieu de déborder */
+  [style*="display:grid"] > *,
+  .gm-card,.champ-card,.wc-hero-inner > *{min-width:0}  /* permet aux colonnes de se réduire (évite le débordement min-content) */
+  #page-activites .container[style*="display:flex"]{overflow-x:auto;scrollbar-width:none}  /* onglets Activités scrollables */
+  #page-activites .container[style*="display:flex"]::-webkit-scrollbar{display:none}
+
   /* Navbar desktop → hamburger */
   .nav-menu,.nav-cta{display:none}
   .nav-hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px;background:none;border:none;flex-shrink:0}
@@ -831,6 +839,36 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .palm-tl-year{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
 .palm-tl-title{font-size:15px;color:var(--text);line-height:1.5}
 .palm-tl-title strong{color:var(--bleu)}
+
+/* ═══ RESPONSIVE PALMARÈS — placé APRÈS le CSS de base pour gagner dans la cascade ═══ */
+@media(max-width:1024px){
+  .gm-grid{grid-template-columns:1fr}
+  .champ-grid{grid-template-columns:repeat(2,1fr)}
+  .legend-grid{grid-template-columns:repeat(2,1fr)}
+  .coach-feature{grid-template-columns:1fr;gap:28px;text-align:center}
+  .coach-portrait{max-width:240px;margin:0 auto}
+  .coach-medals{justify-content:center}
+}
+@media(max-width:768px){
+  .palm-records{grid-template-columns:repeat(3,1fr)}
+  .palm-record{padding:18px 6px}
+  .palm-record .num{font-size:30px}
+  .palm-record .lbl{font-size:9px}
+  .wc-hero{padding:26px 18px;border-radius:16px}
+  .wc-hero-inner{grid-template-columns:1fr !important;gap:22px;text-align:center}
+  .wc-avatar{width:110px;height:110px;font-size:56px;margin:0 auto}
+  .wc-name{font-size:32px}
+  .wc-title{font-size:14px}
+  .wc-desc{font-size:13px}
+  .wc-stats{justify-content:center;gap:18px}
+  .gm-grid{grid-template-columns:1fr !important}
+  .gm-card{flex-direction:column;text-align:center;gap:14px}
+  .coach-feature{padding:26px 18px}
+  .coach-portrait{max-width:170px}
+  .champ-grid{grid-template-columns:1fr}
+  .legend-grid{grid-template-columns:repeat(2,1fr)}
+  .palm-timeline{padding-left:26px}
+}
 </style>
 </head>
 <body>
