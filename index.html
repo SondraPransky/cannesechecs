@@ -62,6 +62,8 @@
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* =====================================================
@@ -679,30 +681,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
   /* Partager boutons article */
   .article-share { flex-wrap: wrap; gap: 8px; }
-
-  /* ── PALMARÈS mobile ── */
-  .palm-record{padding:18px 8px}
-  .palm-record .num{font-size:32px}
-  .palm-record .lbl{font-size:9px}
-  /* Carte Gukesh → vertical centré */
-  .wc-hero{padding:28px 22px;border-radius:18px}
-  .wc-hero::before{font-size:200px;right:-50px}
-  .wc-hero-inner{grid-template-columns:1fr;gap:24px;text-align:center}
-  .wc-avatar{width:120px;height:120px;font-size:60px;margin:0 auto}
-  .wc-name{font-size:34px}
-  .wc-title{font-size:14px}
-  .wc-stats{justify-content:center;gap:20px}
-  .gm-card{padding:20px;flex-direction:column;text-align:center;gap:14px}
-  /* Entraîneur */
-  .coach-feature{padding:28px 20px}
-  .coach-portrait{max-width:180px}
-  .coach-medals{justify-content:center}
-  /* Jeunes champions → 1 colonne */
-  .champ-grid{grid-template-columns:1fr}
-  /* Légendes → 2 colonnes */
-  .legend-grid{grid-template-columns:repeat(2,1fr)}
-  /* Timeline */
-  .palm-timeline{padding-left:28px}
 }
 @media(max-width:420px){
   .forces-grid{grid-template-columns:1fr}
@@ -734,106 +712,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .lb-prev{left:16px}
 .lb-next{right:16px}
 .lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.1em}
-
-/* =====================================================
-   PAGE PALMARÈS
-   ===================================================== */
-/* Bandeau records */
-.palm-records{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1)}
-.palm-record{background:var(--bleu);padding:32px 20px;text-align:center}
-.palm-record .num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:var(--gold);line-height:1}
-.palm-record .lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:8px}
-
-/* Section champions du monde (hero premium) */
-.wc-hero{background:linear-gradient(135deg,#0F0E17 0%,#1a1730 50%,var(--bleu) 100%);border-radius:20px;padding:32px 36px;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,.3)}
-.wc-hero::before{content:'♚';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-size:220px;color:rgba(201,168,76,.06);line-height:1;pointer-events:none}
-.wc-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center}
-.wc-avatar{width:120px;height:120px;border-radius:16px;background:linear-gradient(135deg,var(--gold),var(--gold-h));display:flex;align-items:center;justify-content:center;font-size:60px;flex-shrink:0;box-shadow:0 10px 32px rgba(201,168,76,.35)}
-.wc-crown{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:26px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
-.wc-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.45);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:30px;margin-bottom:12px}
-.wc-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;line-height:1.05;margin-bottom:5px}
-.wc-title{font-size:14px;color:var(--gold);font-weight:600;margin-bottom:12px}
-.wc-desc{font-size:14px;color:rgba(255,255,255,.7);line-height:1.65;max-width:560px}
-.wc-stats{display:flex;gap:24px;margin-top:18px;flex-wrap:wrap}
-.wc-stat .n{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1}
-.wc-stat .l{font-size:11px;color:rgba(255,255,255,.5);font-family:'Montserrat',sans-serif;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
-
-/* Cartes GM (Pragg, Nihal…) */
-.gm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
-.gm-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px;display:flex;gap:20px;align-items:center;transition:border-color .25s,transform .25s}
-.gm-card:hover{border-color:rgba(201,168,76,.45);transform:translateY(-3px)}
-.gm-avatar{width:84px;height:84px;border-radius:14px;background:linear-gradient(135deg,var(--bleu),#2d5a8e);display:flex;align-items:center;justify-content:center;font-size:40px;flex-shrink:0}
-.gm-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;line-height:1.1}
-.gm-role{font-size:12px;color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:4px 0 8px}
-.gm-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6}
-
-/* Carte entraîneur (Romuald) */
-.coach-feature{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:center;background:#fff;border-radius:20px;padding:44px;box-shadow:var(--sh-lg);border:1px solid var(--border)}
-.coach-portrait{aspect-ratio:1;border-radius:18px;background:linear-gradient(150deg,var(--bleu),#0A1F38);display:flex;align-items:center;justify-content:center;font-size:90px;position:relative;overflow:hidden}
-.coach-portrait::after{content:'';position:absolute;inset:0;background:repeating-conic-gradient(rgba(201,168,76,.06) 0% 25%,transparent 0% 50%);background-size:30px 30px}
-.coach-medals{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.coach-medal{background:var(--gold-pale);border:1px solid rgba(201,168,76,.35);border-radius:8px;padding:10px 16px;text-align:center}
-.coach-medal .n{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--bleu);line-height:1}
-.coach-medal .l{font-size:10px;color:var(--muted);font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
-
-/* Grille jeunes champions */
-.champ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.champ-card{background:#fff;border-radius:16px;padding:28px 24px;text-align:center;border:1px solid var(--border);box-shadow:var(--sh-sm);transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
-.champ-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-h))}
-.champ-card:hover{transform:translateY(-6px);box-shadow:var(--sh-md)}
-.champ-card.gold-card{border-color:var(--gold);box-shadow:var(--sh-gold),var(--sh-sm)}
-.champ-medal{font-size:40px;margin-bottom:12px;display:block}
-.champ-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--bleu);margin-bottom:4px}
-.champ-cat{display:inline-block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-pale);padding:4px 12px;border-radius:20px;margin-bottom:10px}
-.champ-detail{font-size:13px;color:var(--muted);line-height:1.6}
-
-/* Légendes (maîtres) */
-.legend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.legend-card{background:var(--ivoire);border-radius:12px;padding:24px 18px;text-align:center;border:1px solid var(--border);transition:border-color .2s}
-.legend-card:hover{border-color:var(--gold)}
-.legend-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),#2d5a8e);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px;border:2px solid var(--gold)}
-.legend-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);line-height:1.15;margin-bottom:4px}
-.legend-title{font-size:11px;color:var(--muted);line-height:1.5}
-
-/* Timeline palmarès collectif */
-.palm-timeline{max-width:720px;margin:0 auto;position:relative;padding-left:36px}
-.palm-timeline::before{content:'';position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.15))}
-.palm-tl-item{position:relative;padding-bottom:24px}
-.palm-tl-item:last-child{padding-bottom:0}
-.palm-tl-item::before{content:'';position:absolute;left:-32px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(201,168,76,.2)}
-.palm-tl-year{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
-.palm-tl-title{font-size:15px;color:var(--text);line-height:1.5}
-.palm-tl-title strong{color:var(--bleu)}
-
-/* ═══ RESPONSIVE PALMARÈS — placé APRÈS le CSS de base pour gagner dans la cascade ═══ */
-@media(max-width:1024px){
-  .gm-grid{grid-template-columns:1fr}
-  .champ-grid{grid-template-columns:repeat(2,1fr)}
-  .legend-grid{grid-template-columns:repeat(2,1fr)}
-  .coach-feature{grid-template-columns:1fr;gap:28px;text-align:center}
-  .coach-portrait{max-width:240px;margin:0 auto}
-  .coach-medals{justify-content:center}
-}
-@media(max-width:768px){
-  .palm-records{grid-template-columns:repeat(3,1fr)}
-  .palm-record{padding:18px 6px}
-  .palm-record .num{font-size:30px}
-  .palm-record .lbl{font-size:9px}
-  .wc-hero{padding:26px 18px;border-radius:16px}
-  .wc-hero-inner{grid-template-columns:1fr !important;gap:22px;text-align:center}
-  .wc-avatar{width:110px;height:110px;font-size:56px;margin:0 auto}
-  .wc-name{font-size:32px}
-  .wc-title{font-size:14px}
-  .wc-desc{font-size:13px}
-  .wc-stats{justify-content:center;gap:18px}
-  .gm-grid{grid-template-columns:1fr !important}
-  .gm-card{flex-direction:column;text-align:center;gap:14px}
-  .coach-feature{padding:26px 18px}
-  .coach-portrait{max-width:170px}
-  .champ-grid{grid-template-columns:1fr}
-  .legend-grid{grid-template-columns:repeat(2,1fr)}
-  .palm-timeline{padding-left:26px}
-}
 </style>
 </head>
 <body>
@@ -2451,10 +2329,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 </div><!-- fin page-organigramme -->
 
 
-<!-- ═══════════════════════════════════════════════════
-     PAGE PALMARÈS
-     ═══════════════════════════════════════════════════ -->
-
 </main><!-- fin #app -->
 
 
@@ -2568,6 +2442,21 @@ function goToTab(page, tab) {
 
 // ── ROUTER ──────────────────────────────────────────
 const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
+const PAGE_TITLES = {
+  home:'Cannes Échecs — Club d\'échecs · Côte d\'Azur',
+  club:'Le Club — Cannes Échecs',
+  actualites:'Actualités — Cannes Échecs',
+  article:'Article — Cannes Échecs',
+  activites:'Nos Activités — Cannes Échecs',
+  horaires:'Horaires & Tarifs — Cannes Échecs',
+  adhesion:'Adhésion — Cannes Échecs',
+  contact:'Contact — Cannes Échecs',
+  tournois:'Tournois — Cannes Échecs',
+  fij:'FIJ 2027 — Cannes Échecs',
+  partenaires:'Partenaires — Cannes Échecs',
+  agenda:'Agenda — Cannes Échecs',
+  organigramme:'Organigramme — Cannes Échecs'
+};
 
 function goTo(id) {
   // Masquer toutes les pages
@@ -2583,6 +2472,7 @@ function goTo(id) {
     document.getElementById('page-home').classList.add('active');
   }
   window.scrollTo({top: 0, behavior: 'smooth'});
+  document.title = PAGE_TITLES[id] || 'Cannes Échecs';
   // Mettre à jour les états actifs de la nav
   updateNavActive(id);
 }
@@ -3261,9 +3151,9 @@ const EXTRAITS = {
   'quartier'           : "Stand animé par Nicolas et Joffrey à la Place du Marché (La Bocca). Prochain RDV le 5 juin place Taras Chevtchenko.",
   'albi'               : "Rajat Makkar Champion de France U20, 3 médailles de bronze (Dobre, Duchatel, Lyubimov). Cannes 3ᵉ au classement des clubs.",
   'pico-paques'        : "70 enfants pour le Pico de Pâques. Chocolats, bonne humeur et palmarès complet en 4 catégories.",
-  'open-paques'        : "George Marwan Vayanos s'impose devant Andy Caen et Alexis Cahen. Nombreux prix dans toutes les catégories d'âge et de niveau.",
-  'stan-academique'    : "Parcours sans-faute (5/5) du collège Stanislas à Draguignan. Qualifiés pour la finale nationale à Bischeim en juin.",
-  'sainte-marie-academie': "Le club accueillait 10 écoles des AM et du Var. Sainte-Marie décroche l'unique place qualificative pour la finale nationale.",
+  'open-paques'        : "Beau tournoi de Pâques à Cannes. George Marwan Vayanos s'impose dans une atmosphère conviviale et compétitive.",
+  'stan-academique'    : "Stan remporte la finale académique des collèges à Draguignan (5/5). Qualifié pour la finale nationale à Bischeim.",
+  'sainte-marie-academie': "Sainte-Marie remporte la finale académique scolaire — 10 écoles des AM/Var. Qualifiée pour la finale nationale dans le Gers.",
   'pico-mars'          : "Record de participation avec 91 enfants malgré la météo. Palmarès complet en CP, CE, CM et Collèges. Prochain Pico le 11 avril.",
   'cannes2-n1'         : "Victoire 9-7 contre Sainte-Foy Échecs en dernière ronde. Cannes II 1ʳᵉ du groupe Sud de Nationale 1 !",
   'fij-open-a'         : "Beau plateau pour l'Open A du 39ᵉ FIJ Cannes. Bogdanov s'impose devant Droin et Harshavardhan. Classement complet des 14 premiers.",
@@ -3391,6 +3281,7 @@ function goToArticle(id) {
     rel.innerHTML = others.map(function(k) { return buildCard(k, ARTICLES[k], false); }).join('');
   }
   goTo('article');
+  document.title = a.title + ' — Cannes Échecs';
 }
 
 // ── AGENDA — TÉLÉCHARGEMENT ICS ─────────────────────
@@ -3500,11 +3391,15 @@ function sendContact(e) {
   const btn = e.target.querySelector('[type="submit"]');
   btn.textContent = 'Envoi en cours…';
   btn.disabled = true;
-  const formData = new FormData(e.target);
-  fetch('https://formspree.io/f/XXXX-VOTRE-ID-FORMSPREE', {
+  fetch('https://formsubmit.co/ajax/info@cannes-echecs.fr', {
     method: 'POST',
-    body: formData,
-    headers: { 'Accept': 'application/json' }
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      name: nom.value.trim(),
+      email: email.value.trim(),
+      message: message.value.trim(),
+      _subject: 'Message depuis cannes-echecs.fr'
+    })
   }).then(function(response) {
     if (response.ok) {
       fb.style.display = 'block';
