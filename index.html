@@ -2517,6 +2517,28 @@ function updateCountdowns() {
 
 // ── ARTICLES DATA ────────────────────────────────────
 const ARTICLES = {
+  'top16-2026': {
+    cat:'Compétition · National', badge:'Top 16', emoji:'🔥',
+    bg:'linear-gradient(135deg,#8B6914,#1a0f00)',
+    title:'Top 16 — 6ème place nationale et norme de GMI pour Gary !',
+    date:'15 juin 2026',
+    img:'photos/top16.jpg',
+    gallery:[
+      'photos/top16.jpg',
+      'photos/top16_2.jpg',
+      'photos/top16_3.jpg',
+      'photos/top16_4.jpg',
+    ],
+    body:`<p>Notre Dream Team termine à une très belle <strong>6ème place</strong> dans ce Top 16 toujours plus relevé ! Une fierté de voir cette équipe composée de jeunes joueurs principalement formés au club, encadrés par notre fantastique triplette indienne, <strong>se maintenir dans l'élite nationale</strong> ! 💪</p>
+<h2>Norme de GMI pour Gary !</h2>
+<p>Cerise sur le gâteau, <strong>Gary réalise sa 1ère norme de GMI</strong> au terme d'un tournoi incroyable avec notamment <strong>5 victoires dans les 5 derniers matchs</strong> ! 😍🔥</p>
+<h2>Médailles individuelles</h2>
+<p><strong>Pranesh</strong> remporte la médaille du <strong>meilleur 2ème échiquier</strong>, tandis que <strong>Gary</strong> revient à la maison avec celle du <strong>meilleur 6ème échiquier</strong> ! 🥇🥇</p>
+<h2>Bravo à toute l'équipe !</h2>
+<p>Bravo à <strong>Karthikeyan, Pranesh, Adhiban, Guillaume, Rajat, Benjamin, Lucas, Gary, Marlies, Émilie et Romu</strong> pour cette magnifique saison et pour avoir porté haut les couleurs du club ! 💪👏</p>
+<p>Un grand merci à notre <strong>Présidente Mathilde</strong>, présente sur place, pour son soutien ! 🤩</p>
+<p style="margin-top:24px;padding:16px;background:var(--gold-pale);border-left:3px solid var(--gold);border-radius:4px;font-weight:600">Vivement la saison prochaine ! ♟️</p>`
+  },
   'stemarie-france-2026': {
     cat:'Compétition · Scolaire', badge:'Scolaire', emoji:'✨',
     bg:'linear-gradient(135deg,#1a3a6c,#0a1f3e)',
@@ -3206,7 +3228,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
 //                           2) ajouter la clé ici dans ARCHIVE_ORDER
 //                           3) ajouter l'extrait dans EXTRAITS
 const ARCHIVE_ORDER = [
-  'stemarie-france-2026','stan-champion-france-2026',
+  'top16-2026','stemarie-france-2026','stan-champion-france-2026',
   'quartier-maria-2026','solidarite-croisette',
   'selection-france-2026','scolaire-cannes-2026',
   'mulhouse','top12f','quartier','albi',
@@ -3221,6 +3243,7 @@ const ARCHIVE_ORDER = [
 
 // Résumés affichés dans les cartes (≈ 120 chars)
 const EXTRAITS = {
+  'top16-2026'               : "6ème place nationale au Top 16 et 1ère norme de GMI pour Gary ! Médailles individuelles pour Pranesh et Gary. Bravo à toute l'équipe !",
   'stemarie-france-2026'     : "8ème place nationale parmi 28 écoles pour Sainte-Marie de Cannes. Une belle aventure pour Paul, Victor, Maxime, Edan, Pauline, Gabriel, Rafael et Charlotte !",
   'stan-champion-france-2026': "Les élèves du collège Stanislas — membres de Cannes Échecs — Champions de France des collèges à Bischheim ! Bravo à Andy, Nikita, Valentin, Julia et toute l'équipe !",
   'quartier-maria-2026'   : "Stand animé par Joffrey place Commandant Maria. Un après-midi convivial pour les enfants du quartier.",
