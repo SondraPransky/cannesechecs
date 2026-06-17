@@ -1954,9 +1954,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
             <div id="fij-sb-inscrits" style="margin-bottom:16px"></div>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px 18px">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Prochaine ronde</div>
+              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Prochaine ronde</div>
               <div id="fij-sb-ronde-label" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:12px;line-height:1.3"></div>
-              <div style="display:flex;justify-content:center;align-items:flex-start;gap:6px">
+              <div id="fij-sb-countdown" style="display:flex;justify-content:center;align-items:flex-start;gap:6px">
                 <div style="text-align:center"><span id="fij-sb-h" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">H</span></div>
                 <div style="font-size:32px;color:rgba(201,168,76,.3);padding:4px 3px 0">:</div>
                 <div style="text-align:center"><span id="fij-sb-m" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Min</span></div>
@@ -2596,14 +2596,27 @@ function updateCountdowns() {
       ['fij-cd-j','fij-cd-h','fij-cd-m','fij-cd-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d2b,h2b,m2b,s2b][i]);});
     }
   } else if (state === 'encours') {
-    // Prochaine ronde
-    var nextRonde = null;
-    for(var i=0;i<FIJ_RONDES.length;i++){if(FIJ_RONDES[i].date>now){nextRonde=FIJ_RONDES[i];break;}}
-    if (nextRonde) {
-      var lbl=document.getElementById('fij-sb-ronde-label');
-      if(lbl) lbl.textContent = nextRonde.label;
+    // Ronde en cours si démarrée depuis moins de 2h, sinon prochaine ronde
+    var TWO_H = 7200000;
+    var currentRonde = null, nextRonde = null;
+    for(var i=0;i<FIJ_RONDES.length;i++){
+      var r=FIJ_RONDES[i];
+      if(r.date<=now && now-r.date<TWO_H){ currentRonde=r; break; }
+      if(r.date>now){ nextRonde=r; break; }
+    }
+    var lbl=document.getElementById('fij-sb-ronde-label');
+    var hdr=document.getElementById('fij-sb-ronde-header');
+    var cdDiv=document.getElementById('fij-sb-countdown');
+    if(currentRonde){
+      if(hdr) hdr.textContent='Ronde en cours';
+      if(lbl) lbl.textContent=currentRonde.label;
+      if(cdDiv) cdDiv.style.display='none';
+    } else if(nextRonde){
+      if(hdr) hdr.textContent='Prochaine ronde';
+      if(lbl) lbl.textContent=nextRonde.label;
+      if(cdDiv) cdDiv.style.display='';
       var diffR=nextRonde.date-now;
-      var hr=Math.floor(diffR/3600000), mr=Math.floor((diffR%3600000)/60000), sr=Math.floor((diffR%60000)/1000);
+      var hr=Math.floor(diffR/3600000),mr=Math.floor((diffR%3600000)/60000),sr=Math.floor((diffR%60000)/1000);
       ['fij-sb-h','fij-sb-m','fij-sb-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([hr,mr,sr][i]);});
     }
   }
