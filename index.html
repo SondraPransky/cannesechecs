@@ -2469,14 +2469,15 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 // ── HELLOASSO — LIENS D'INSCRIPTION ─────────────────
 // ⚠️ Remplacer chaque URL provisoire par le vrai lien HelloAsso
 // ── INSCRIPTIONS FIJ — à mettre à jour quand les inscriptions ouvrent ───────
-// url  : lien echecs.asso.fr vers la liste des inscrits ('' = pas encore disponible)
-// count: nombre d'inscrits actuels (0 = ne pas afficher)
-// La section disparaît automatiquement si url='' ET count=0 pour tous les opens.
+// url     : lien echecs.asso.fr liste des inscrits ('' = pas encore disponible)
+// count   : nombre d'inscrits actuels (0 = ne pas afficher)
+// pairings: lien echecs.asso.fr appariements ('' = pas encore disponible)
+// La section disparaît automatiquement si url='' ET count=0 ET pairings='' pour tous les opens.
 // Pour masquer manuellement après le FIJ → panneau admin (?admin dans l'URL)
 const FIJ_INSCRITS = {
-  openA : { url : '', count : 0 },
-  openB : { url : '', count : 0 },
-  openC : { url : '', count : 0 },
+  openA : { url : '', count : 0, pairings : '' },
+  openB : { url : '', count : 0, pairings : '' },
+  openC : { url : '', count : 0, pairings : '' },
 };
 
 const HELLOASSO = {
@@ -3494,13 +3495,22 @@ function renderFijInscrits() {
     { key:'openC', label:'Open C', border:'var(--muted)' },
   ];
   var rows = OPENS.filter(function(o) {
-    return FIJ_INSCRITS[o.key].url || FIJ_INSCRITS[o.key].count > 0;
+    var d = FIJ_INSCRITS[o.key];
+    return d.url || d.pairings || d.count > 0;
   }).map(function(o) {
     var d = FIJ_INSCRITS[o.key];
     var letter = o.label.slice(-1);
-    var linkHtml = d.url
-      ? '<a href="' + d.url + '" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--gold)">Liste des inscrits →</a>'
-      : '<span style="font-size:12px;color:var(--muted);font-style:italic">Inscriptions à venir</span>';
+    var fijStarted = new Date() >= FIJ_RONDES[0].date;
+    var linkHtml;
+    if (fijStarted) {
+      linkHtml = d.pairings
+        ? '<a href="' + d.pairings + '" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--gold)">Appariements →</a>'
+        : '<span style="font-size:12px;color:var(--muted);font-style:italic">Appariements à venir</span>';
+    } else {
+      linkHtml = d.url
+        ? '<a href="' + d.url + '" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--gold)">Liste des inscrits →</a>'
+        : '<span style="font-size:12px;color:var(--muted);font-style:italic">Inscriptions à venir</span>';
+    }
     var countHtml = d.count > 0
       ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:10px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
       : '';
