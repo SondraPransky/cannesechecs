@@ -3692,7 +3692,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 });
 
 // ── HERO WIDGET ─────────────────────────────────────
-// Usage : setHeroWidget('fij') | setHeroWidget('rentree') | setHeroWidget('actu', { label, titre, desc, date, lien })
 const HERO_WIDGETS = {
   fij: () => `
     <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
@@ -3721,6 +3720,39 @@ const HERO_WIDGETS = {
       <div class="fij-hs"><div class="n">200+</div><div class="l">membres</div></div>
       <div class="fij-hs"><div class="n">Dès 60€</div><div class="l">/saison</div></div>
     </div>`,
+  pico: () => `
+    <div class="fij-hero-card-label">♟ PICO · Tournoi mensuel homologué</div>
+    <h3 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h3>
+    <div class="cd-title" style="margin-bottom:10px">Prochaine date</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi homologué FFE · Tous niveaux · Dès 13h30<br>Inscription via HelloAsso</div>
+    <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les PICO →</button>
+    <div class="fij-hero-stats">
+      <div class="fij-hs"><div class="n">9</div><div class="l">dates / saison</div></div>
+      <div class="fij-hs"><div class="n">13h30</div><div class="l">début</div></div>
+    </div>`,
+  paques: () => `
+    <div class="fij-hero-card-label">🐣 Tournoi Open · Pâques 2027</div>
+    <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
+    <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi open homologué FFE · Tous niveaux<br>Prix garantis · Inscription HelloAsso</div>
+    <button class="btn btn-gold btn-full btn-sm" onclick="window.open(HELLOASSO.paques,'_blank')">S'inscrire sur HelloAsso →</button>
+    <div class="fij-hero-stats">
+      <div class="fij-hs"><div class="n">Open</div><div class="l">homologué FFE</div></div>
+      <div class="fij-hs"><div class="n">Pâques</div><div class="l">2027</div></div>
+    </div>`,
+  qualification: () => `
+    <div class="fij-hero-card-label">🏅 Championnats · Qualification</div>
+    <h3 style="font-size:22px">Qualifications<br>en cours !</h3>
+    <div class="cd-title" style="margin-bottom:10px">Prochaine échéance</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Championnats départementaux & régionaux<br>Sélection équipes — Top 16 · Top 12 Féminin</div>
+    <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les tournois →</button>
+    <div class="fij-hero-stats">
+      <div class="fij-hs"><div class="n">FFE</div><div class="l">homologué</div></div>
+      <div class="fij-hs"><div class="n">Top 16</div><div class="l">Top 12 Féminin</div></div>
+    </div>`,
   actu: (d = {}) => `
     <div class="fij-hero-card-label">📰 ${d.label || 'À la une'}</div>
     <h3 style="font-size:20px;line-height:1.35">${d.titre || 'Titre de l\'actualité à mettre en avant'}</h3>
@@ -3728,18 +3760,67 @@ const HERO_WIDGETS = {
     <div style="font-size:11px;font-family:\'Montserrat\',sans-serif;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">${d.date || 'Janvier 2026'}</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('${d.lien || 'actualites'}')">${d.cta || 'Lire l\'article →'}</button>`
 };
+
 function setHeroWidget(mode, data) {
   const w = document.getElementById('hero-widget');
   if (!w || !HERO_WIDGETS[mode]) return;
   w.innerHTML = HERO_WIDGETS[mode](data);
-  updateCountdowns(); // rebranche le countdown si mode fij
+  updateCountdowns();
+  try { localStorage.setItem('ace_widget', mode); } catch(e) {}
 }
 
+// ── PANNEAU SWITCHER (Ctrl+Shift+W) ─────────────────
+(function(){
+  const LABELS = {
+    auto:          '🔄 Auto (par date)',
+    fij:           '★ FIJ 2027',
+    rentree:       '🍂 Rentrée',
+    pico:          '♟ PICO mensuel',
+    paques:        '🐣 Open Pâques',
+    qualification: '🏅 Qualification',
+    actu:          '📰 Actualité',
+  };
+  function buildPanel() {
+    const p = document.createElement('div');
+    p.id = 'widget-switcher';
+    p.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:#0d2240;border:1px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;box-shadow:0 8px 40px rgba(0,0,0,.6);min-width:200px;display:none;font-family:Montserrat,sans-serif';
+    p.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:12px">Widget accueil</div>'
+      + Object.entries(LABELS).map(([k,v]) =>
+          `<button id="sw-${k}" onclick="selectWidget('${k}')" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px;transition:background .15s">${v}</button>`
+        ).join('')
+      + '<div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:10px;text-align:center">Ctrl+Shift+W pour fermer</div>';
+    document.body.appendChild(p);
+  }
+  window.selectWidget = function(mode) {
+    if (mode === 'auto') {
+      try { localStorage.removeItem('ace_widget'); } catch(e) {}
+      const m = new Date().getMonth()+1;
+      setHeroWidget(m>=6&&m<=8?'rentree':'fij');
+    } else {
+      setHeroWidget(mode);
+    }
+    Object.keys(LABELS).forEach(k => {
+      const b = document.getElementById('sw-'+k);
+      if (b) b.style.background = (k===mode) ? 'rgba(201,168,76,.18)' : 'transparent';
+    });
+  };
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key==='W') {
+      let p = document.getElementById('widget-switcher');
+      if (!p) { buildPanel(); p = document.getElementById('widget-switcher'); }
+      p.style.display = p.style.display==='none' ? 'block' : 'none';
+    }
+  });
+})();
+
 // ── INIT ────────────────────────────────────────────
-renderArchiveGrid();   // génère la grille archive depuis ARTICLES
-renderHomeActus();     // génère les 3 dernières actus de la home
-// Juin–Août → widget rentrée ; reste de l'année → widget FIJ
-(function(){ const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); })();
+renderArchiveGrid();
+renderHomeActus();
+(function(){
+  let saved; try { saved = localStorage.getItem('ace_widget'); } catch(e) {}
+  if (saved && HERO_WIDGETS[saved]) { setHeroWidget(saved); }
+  else { const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); }
+})();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
 goTo('home');
