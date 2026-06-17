@@ -1918,32 +1918,63 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <!-- Inscrits FIJ 2027 — masquable depuis le panneau admin (?admin) -->
           <div id="fij-inscrits-section"></div>
         </div>
-        <!-- Colonne Inscription -->
-        <div style="background:linear-gradient(160deg,var(--noir) 0%,var(--bleu) 100%);border-radius:16px;padding:32px;position:sticky;top:80px">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
-          <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px">
-            <div style="text-align:center"><span id="fij-cd-j" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Jours</span></div>
-            <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
-            <div style="text-align:center"><span id="fij-cd-h" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Heures</span></div>
-            <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
-            <div style="text-align:center"><span id="fij-cd-m" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Min</span></div>
-            <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
-            <div style="text-align:center"><span id="fij-cd-s" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Sec</span></div>
-          </div>
-          <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
-          <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:rgba(255,255,255,.7)">
-              <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Avant le 31/12/2026</div><div>Junior : 45 €</div><div>Senior : 75 €</div></div>
-              <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Standard</div><div>Junior : 55 €</div><div>Senior : 85 €</div></div>
+        <!-- Colonne latérale — 3 états automatiques selon la date -->
+        <div id="fij-sidebar" style="background:linear-gradient(160deg,var(--noir) 0%,var(--bleu) 100%);border-radius:16px;padding:32px;position:sticky;top:80px">
+
+          <!-- ÉTAT 1 : avant le FIJ -->
+          <div id="fij-sidebar-avant">
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
+            <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px">
+              <div style="text-align:center"><span id="fij-cd-j" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Jours</span></div>
+              <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
+              <div style="text-align:center"><span id="fij-cd-h" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Heures</span></div>
+              <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
+              <div style="text-align:center"><span id="fij-cd-m" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Min</span></div>
+              <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
+              <div style="text-align:center"><span id="fij-cd-s" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Sec</span></div>
             </div>
-            <div style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
+            <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
+            <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
+              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:rgba(255,255,255,.7)">
+                <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Avant le 31/12/2026</div><div>Junior : 45 €</div><div>Senior : 75 €</div></div>
+                <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Standard</div><div>Junior : 55 €</div><div>Senior : 85 €</div></div>
+              </div>
+              <div style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:10px;color:rgba(255,255,255,.4)">visiteurs du festival</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:10px;color:rgba(255,255,255,.4)">FIJ 2027</div></div>
+            </div>
+            <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:10px;color:rgba(255,255,255,.4)">visiteurs du festival</div></div>
-            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:10px;color:rgba(255,255,255,.4)">FIJ 2027</div></div>
+
+          <!-- ÉTAT 2 : FIJ en cours -->
+          <div id="fij-sidebar-encours" style="display:none">
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
+            <div id="fij-sb-inscrits" style="margin-bottom:16px"></div>
+            <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px 18px">
+              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Prochaine ronde</div>
+              <div id="fij-sb-ronde-label" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:12px;line-height:1.3"></div>
+              <div style="display:flex;justify-content:center;align-items:flex-start;gap:6px">
+                <div style="text-align:center"><span id="fij-sb-h" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">H</span></div>
+                <div style="font-size:32px;color:rgba(201,168,76,.3);padding:4px 3px 0">:</div>
+                <div style="text-align:center"><span id="fij-sb-m" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Min</span></div>
+                <div style="font-size:32px;color:rgba(201,168,76,.3);padding:4px 3px 0">:</div>
+                <div style="text-align:center"><span id="fij-sb-s" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Sec</span></div>
+              </div>
+            </div>
           </div>
-          <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>
+
+          <!-- ÉTAT 3 : FIJ terminé -->
+          <div id="fij-sidebar-fini" style="display:none">
+            <div style="text-align:center;padding:28px 0 20px">
+              <div style="font-size:52px;margin-bottom:14px">🏆</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:10px">FIJ 2027 terminé !</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">Merci à tous les participants.<br>Rendez-vous pour le FIJ 2028 !</div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -2502,29 +2533,79 @@ function updateNavActive(id) {
 // ── COMPTE À REBOURS ────────────────────────────────
 const FIJ_DATE = new Date('2027-02-22T16:30:00');  // FIJ 2027 — Ronde 1 (lundi 22 février, 16h30)
 const FIJ_OPEN = new Date('2026-11-01T00:00:00');  // Ouverture estimée inscriptions
+const FIJ_FIN  = new Date('2027-02-28T19:00:00');  // Fin de la remise des prix
+const FIJ_RONDES = [
+  { n:1,  date:new Date('2027-02-22T16:30:00'), label:'Ronde 1 · Lun. 22 fév. à 16h30' },
+  { n:2,  date:new Date('2027-02-23T09:00:00'), label:'Ronde 2 · Mar. 23 fév. à 9h00'  },
+  { n:3,  date:new Date('2027-02-23T16:00:00'), label:'Ronde 3 · Mar. 23 fév. à 16h00' },
+  { n:4,  date:new Date('2027-02-24T15:00:00'), label:'Ronde 4 · Mer. 24 fév. à 15h00' },
+  { n:5,  date:new Date('2027-02-25T09:00:00'), label:'Ronde 5 · Jeu. 25 fév. à 9h00'  },
+  { n:6,  date:new Date('2027-02-25T16:00:00'), label:'Ronde 6 · Jeu. 25 fév. à 16h00' },
+  { n:7,  date:new Date('2027-02-26T15:00:00'), label:'Ronde 7 · Ven. 26 fév. à 15h00' },
+  { n:8,  date:new Date('2027-02-27T15:00:00'), label:'Ronde 8 · Sam. 27 fév. à 15h00' },
+  { n:9,  date:new Date('2027-02-28T10:00:00'), label:'Ronde 9 · Dim. 28 fév. à 10h00' },
+  { n:10, date:new Date('2027-02-28T16:30:00'), label:'Remise des prix · Dim. 28 fév. à 16h30' },
+];
 
 function pad(n) { return String(n).padStart(2,'0'); }
 
+var _fijState = null;
+function renderFijSbInscrits() {
+  var el = document.getElementById('fij-sb-inscrits');
+  if (!el) return;
+  var opens = [{k:'openA',l:'Open A'},{k:'openB',l:'Open B'},{k:'openC',l:'Open C'}];
+  el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'
+    + opens.map(function(o) {
+        var c = FIJ_INSCRITS[o.k].count;
+        return '<div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
+          + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1">' + (c || '—') + '</div>'
+          + '<div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
+          + '</div>';
+      }).join('') + '</div>';
+}
 function updateCountdowns() {
-  const now = new Date();
-  // Countdown home (vers ouverture inscriptions)
-  const diff1 = FIJ_OPEN - now;
+  var now = new Date();
+  // ── Home widget (vers ouverture inscriptions) ──
+  var diff1 = FIJ_OPEN - now;
   if (diff1 > 0) {
-    const d = Math.floor(diff1/86400000);
-    const h = Math.floor((diff1%86400000)/3600000);
-    const m = Math.floor((diff1%3600000)/60000);
-    ['h-cd-j','h-cd-h','h-cd-m'].forEach((id,i) => { const el=document.getElementById(id); if(el) el.textContent=pad([d,h,m][i]); });
+    var d1=Math.floor(diff1/86400000), h1=Math.floor((diff1%86400000)/3600000), m1=Math.floor((diff1%3600000)/60000);
+    ['h-cd-j','h-cd-h','h-cd-m'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d1,h1,m1][i]);});
   }
-  // Countdown FIJ (vers fermeture inscriptions)
-  const diff2 = FIJ_DATE - now;
+  // ── Hero widget (vers ronde 1) ──
+  var diff2 = FIJ_DATE - now;
   if (diff2 > 0) {
-    const d = Math.floor(diff2/86400000);
-    const h = Math.floor((diff2%86400000)/3600000);
-    const m = Math.floor((diff2%3600000)/60000);
-    const s = Math.floor((diff2%60000)/1000);
-    ['f-cd-j','f-cd-h','f-cd-m','f-cd-s'].forEach((id,i) => { const el=document.getElementById(id); if(el) el.textContent=pad([d,h,m,s][i]); });
-    // FIJ page countdowns
-    ['fij-cd-j','fij-cd-h','fij-cd-m','fij-cd-s'].forEach((id,i) => { const el=document.getElementById(id); if(el) el.textContent=pad([d,h,m,s][i]); });
+    var d2=Math.floor(diff2/86400000),h2=Math.floor((diff2%86400000)/3600000),m2=Math.floor((diff2%3600000)/60000),s2=Math.floor((diff2%60000)/1000);
+    ['f-cd-j','f-cd-h','f-cd-m','f-cd-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d2,h2,m2,s2][i]);});
+  }
+  // ── Sidebar FIJ — 3 états ──
+  var state = now < FIJ_RONDES[0].date ? 'avant' : now < FIJ_FIN ? 'encours' : 'fini';
+  if (state !== _fijState) {
+    _fijState = state;
+    var avant=document.getElementById('fij-sidebar-avant');
+    var encours=document.getElementById('fij-sidebar-encours');
+    var fini=document.getElementById('fij-sidebar-fini');
+    if(avant)   avant.style.display   = state==='avant'   ? '' : 'none';
+    if(encours) encours.style.display = state==='encours' ? '' : 'none';
+    if(fini)    fini.style.display    = state==='fini'    ? '' : 'none';
+    if(state==='encours') renderFijSbInscrits();
+  }
+  if (state === 'avant') {
+    // Countdown page FIJ (même valeurs que hero widget)
+    if (diff2 > 0) {
+      var d2b=Math.floor(diff2/86400000),h2b=Math.floor((diff2%86400000)/3600000),m2b=Math.floor((diff2%3600000)/60000),s2b=Math.floor((diff2%60000)/1000);
+      ['fij-cd-j','fij-cd-h','fij-cd-m','fij-cd-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d2b,h2b,m2b,s2b][i]);});
+    }
+  } else if (state === 'encours') {
+    // Prochaine ronde
+    var nextRonde = null;
+    for(var i=0;i<FIJ_RONDES.length;i++){if(FIJ_RONDES[i].date>now){nextRonde=FIJ_RONDES[i];break;}}
+    if (nextRonde) {
+      var lbl=document.getElementById('fij-sb-ronde-label');
+      if(lbl) lbl.textContent = nextRonde.label;
+      var diffR=nextRonde.date-now;
+      var hr=Math.floor(diffR/3600000), mr=Math.floor((diffR%3600000)/60000), sr=Math.floor((diffR%60000)/1000);
+      ['fij-sb-h','fij-sb-m','fij-sb-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([hr,mr,sr][i]);});
+    }
   }
 }
 
