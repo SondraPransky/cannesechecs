@@ -287,6 +287,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .link-all{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--bleu);border-bottom:2px solid var(--gold);padding-bottom:2px;transition:color .2s}
 .link-all:hover{color:var(--gold)}
 .actu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+#home-actus-grid{grid-template-columns:repeat(4,1fr)}
 .actu-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--sh-sm);border:1px solid var(--border);transition:transform .2s,box-shadow .2s;cursor:pointer}
 .actu-card:hover{transform:translateY(-5px);box-shadow:var(--sh-md)}
 .actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px}
@@ -859,7 +860,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
         <a class="link-all" onclick="goTo('actualites')">Toutes les actualités →</a>
       </div>
-      <!-- Les 3 dernières actus sont générées automatiquement depuis ARTICLES (JS) -->
+      <!-- Les 4 dernières actus sont générées automatiquement depuis ARTICLES (JS) -->
       <div class="actu-grid" id="home-actus-grid"></div>
     </div>
   </section>
@@ -3329,13 +3330,13 @@ function renderArchiveGrid() {
     .join('');
 }
 
-// ── RENDU : 3 dernières actus (page Accueil) ─────────
+// ── RENDU : 4 dernières actus (page Accueil) ─────────
 function renderHomeActus() {
   const grid = document.getElementById('home-actus-grid');
   if (!grid) return;
   grid.innerHTML = ARCHIVE_ORDER
     .filter(function(k) { return !!ARTICLES[k]; })
-    .slice(0, 3)
+    .slice(0, 4)
     .map(function(k)    { return buildCard(k, ARTICLES[k], true); })
     .join('');
 }
