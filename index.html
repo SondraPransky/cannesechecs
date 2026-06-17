@@ -50,7 +50,8 @@
     "addressCountry": "FR"
   },
   "openingHoursSpecification": [
-    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "13:30", "closes": "18:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Thursday","Friday"], "opens": "13:30", "closes": "18:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "17:00", "closes": "19:00" },
     { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "13:30", "closes": "20:00" }
   ],
   "sameAs": [
@@ -1412,7 +1413,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="container">
       <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Détente & plaisir</span><h2 style="font-size:38px;color:var(--bleu)">Jouer sans compétition</h2></div>
       <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Pas de compétition ? Aucun problème. Le club accueille les amateurs de tous âges qui souhaitent simplement jouer, progresser à leur rythme et partager un moment convivial autour d'un échiquier.</p>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Le club est ouvert du lundi au vendredi de 13h30 à 18h30. Venez jouer librement, sans inscription préalable.</p>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Le club est ouvert lundi, jeudi et vendredi de 13h30 à 18h30, et le mercredi de 13h30 à 20h. Venez jouer librement, sans inscription préalable.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <button class="btn btn-gold" onclick="goTo('horaires')">Voir les horaires →</button>
         <button class="btn btn-outline-dark" onclick="goTo('adhesion')">Prendre une licence →</button>
@@ -1454,7 +1455,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <thead><tr style="background:var(--bleu);color:#fff"><th style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Jour</th><th style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Horaires</th><th style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Activité</th></tr></thead>
             <tbody>
               <tr style="border-bottom:1px solid var(--border)"><td style="padding:12px 16px;font-weight:600;color:var(--bleu)">Lundi</td><td style="padding:12px 16px">13h30–18h30</td><td style="padding:12px 16px;color:var(--muted)">Parties libres · Accès club</td></tr>
-              <tr style="border-bottom:1px solid var(--border);background:var(--ivoire)"><td style="padding:12px 16px;font-weight:600;color:var(--bleu)">Mardi</td><td style="padding:12px 16px">13h30–19h00</td><td style="padding:12px 16px;color:var(--muted)">Parties libres · Accès club · <strong style="color:var(--bleu)">Cours jeunes 17h00–19h00</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:var(--ivoire)"><td style="padding:12px 16px;font-weight:600;color:var(--bleu)">Mardi</td><td style="padding:12px 16px">17h00–19h00</td><td style="padding:12px 16px;color:var(--muted)"><strong style="color:var(--bleu)">Cours jeunes uniquement</strong></td></tr>
               <tr style="border-bottom:1px solid var(--border)"><td style="padding:12px 16px;font-weight:600;color:var(--bleu)">Mercredi</td><td style="padding:12px 16px">13h30–20h00</td><td style="padding:12px 16px;color:var(--muted)">Pitchounets 13h30 · Jeunes 13h30–17h30 · Adultes débutants 17h30 · Adultes confirmés 18h30</td></tr>
               <tr style="border-bottom:1px solid var(--border);background:var(--ivoire)"><td style="padding:12px 16px;font-weight:600;color:var(--bleu)">Jeudi</td><td style="padding:12px 16px">13h30–18h30</td><td style="padding:12px 16px;color:var(--muted)">Parties libres · Accès club</td></tr>
               <tr style="border-bottom:1px solid var(--border)"><td style="padding:12px 16px;font-weight:600;color:var(--bleu)">Vendredi</td><td style="padding:12px 16px">13h30–18h30</td><td style="padding:12px 16px;color:var(--muted)">Parties libres · Rapide du vendredi (soirée)</td></tr>
@@ -1751,7 +1752,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           </div>
           <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border-left:4px solid var(--gold)">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h4>
-            <div style="font-size:14px;color:var(--text);line-height:1.8">Lun–Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : cours dès 13h30</div>
+            <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : 13h30–20h · cours dès 13h30</div>
           </div>
           <div style="background:var(--bleu);border-radius:12px;padding:24px;color:#fff">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h4>
@@ -2734,7 +2735,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
         <ul class="footer-brand-info">
           <li><span class="ico">📍</span> 3 Av. du Petit Juas, 06400 Cannes</li>
-          <li><span class="ico">🕐</span> Lun–Ven · 13h30–18h30</li>
+          <li><span class="ico">🕐</span> Lun/Jeu/Ven 13h30–18h30 · Mar 17h–19h · Mer 13h30–20h</li>
           <li><span class="ico">✉</span> info@cannes-echecs.fr</li>
           <li><span class="ico">📞</span> 04 93 39 41 39</li>
         </ul>
