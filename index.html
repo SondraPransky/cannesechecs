@@ -2517,6 +2517,18 @@ function updateCountdowns() {
 
 // ── ARTICLES DATA ────────────────────────────────────
 const ARTICLES = {
+  'solidarite-croisette': {
+    cat:'Vie du club · Événement', badge:'Solidarité', emoji:'🙌',
+    bg:'linear-gradient(135deg,#1a3a6c,#0a1f3e)',
+    title:'Les échecs au service de la solidarité',
+    date:'6 juin 2026',
+    body:`<p>Aujourd'hui, plusieurs jeunes de Cannes Échecs ont troqué la salle de jeu pour la Croisette afin de participer à une belle action solidaire en partenariat avec le <strong>Secours Populaire Français</strong>.</p>
+<p>Le principe était simple : défier les passants autour d'un échiquier, partager notre passion et récolter des fonds pour une bonne cause.</p>
+<p>Entre parties amicales, rencontres, sourires et belles surprises, nos jeunes ont passé un excellent moment tout en représentant fièrement le club.</p>
+<p>Grâce à leur énergie et à la générosité des participants, <strong>106 € ont été collectés</strong> au profit du Secours Populaire 👏</p>
+<p>Un immense merci à tous les enfants présents pour leur enthousiasme et leur engagement, ainsi qu'aux parents qui ont accompagné et soutenu cette initiative 💙</p>
+<p style="margin-top:24px;padding:16px;background:#f0f4ff;border-left:3px solid var(--bleu);border-radius:4px;font-style:italic">Les échecs permettent de progresser, de partager, mais aussi d'agir ensemble pour les autres. Et aujourd'hui, nos jeunes l'ont parfaitement démontré 🙌♟️✨</p>`
+  },
   'selection-france-2026': {
     cat:'Vie du club · Distinctions', badge:'Vie du club', emoji:'🔥',
     bg:'linear-gradient(135deg,#002395,#001066)',
@@ -3131,6 +3143,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
 //                           2) ajouter la clé ici dans ARCHIVE_ORDER
 //                           3) ajouter l'extrait dans EXTRAITS
 const ARCHIVE_ORDER = [
+  'solidarite-croisette',
   'selection-france-2026','scolaire-cannes-2026',
   'mulhouse','top12f','quartier','albi',
   'pico-paques','open-paques',
@@ -3144,6 +3157,7 @@ const ARCHIVE_ORDER = [
 
 // Résumés affichés dans les cartes (≈ 120 chars)
 const EXTRAITS = {
+  'solidarite-croisette'  : "Nos jeunes sur la Croisette pour une action solidaire avec le Secours Populaire. 106 € collectés grâce à leur énergie et à la générosité des passants.",
   'selection-france-2026': "9 Cannois sélectionnés par la FFE : Haute Performance, Programme de Performance, Championnats d'Europe et du Monde U20.",
   'scolaire-cannes-2026': "130 enfants réunis à l'école Eugène Vial. Palmarès complet en 5 catégories : Maternelles, CP, CE, CM et Collèges.",
   'top12f'             : "Reversées dans la Poule de la Mort, nos joueuses n'ont pu éviter la descente en N1F malgré de beaux combats. Tout le cœur de l'équipe.",
