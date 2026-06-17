@@ -3761,58 +3761,11 @@ function setHeroWidget(mode, data) {
   try { localStorage.setItem('ace_widget', mode); } catch(e) {}
 }
 
-// ── PANNEAU SWITCHER (Ctrl+Shift+W) ─────────────────
-(function(){
-  const LABELS = {
-    auto:          '🔄 Auto (par date)',
-    fij:           '★ FIJ 2027',
-    rentree:       '🍂 Rentrée',
-    pico:          '♟ PICO mensuel',
-    paques:        '🐣 Open Pâques',
-    qualification: '🏅 Qualification',
-    actu:          '📰 Actualité',
-  };
-  function buildPanel() {
-    const p = document.createElement('div');
-    p.id = 'widget-switcher';
-    p.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:#0d2240;border:1px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;box-shadow:0 8px 40px rgba(0,0,0,.6);min-width:200px;display:none;font-family:Montserrat,sans-serif';
-    p.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:12px">Widget accueil</div>'
-      + Object.entries(LABELS).map(([k,v]) =>
-          `<button id="sw-${k}" onclick="selectWidget('${k}')" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px;transition:background .15s">${v}</button>`
-        ).join('')
-      + '<div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:10px;text-align:center">Ctrl+Shift+W pour fermer</div>';
-    document.body.appendChild(p);
-  }
-  window.selectWidget = function(mode) {
-    if (mode === 'auto') {
-      try { localStorage.removeItem('ace_widget'); } catch(e) {}
-      const m = new Date().getMonth()+1;
-      setHeroWidget(m>=6&&m<=8?'rentree':'fij');
-    } else {
-      setHeroWidget(mode);
-    }
-    Object.keys(LABELS).forEach(k => {
-      const b = document.getElementById('sw-'+k);
-      if (b) b.style.background = (k===mode) ? 'rgba(201,168,76,.18)' : 'transparent';
-    });
-  };
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.shiftKey && e.key==='W') {
-      let p = document.getElementById('widget-switcher');
-      if (!p) { buildPanel(); p = document.getElementById('widget-switcher'); }
-      p.style.display = p.style.display==='none' ? 'block' : 'none';
-    }
-  });
-})();
-
 // ── INIT ────────────────────────────────────────────
 renderArchiveGrid();
 renderHomeActus();
-(function(){
-  let saved; try { saved = localStorage.getItem('ace_widget'); } catch(e) {}
-  if (saved && HERO_WIDGETS[saved]) { setHeroWidget(saved); }
-  else { const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); }
-})();
+// Juin–Août → rentrée ; reste de l'année → FIJ
+(function(){ const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); })();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
 goTo('home');
