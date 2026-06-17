@@ -2517,6 +2517,20 @@ function updateCountdowns() {
 
 // ── ARTICLES DATA ────────────────────────────────────
 const ARTICLES = {
+  'quartier-maria-2026': {
+    cat:'Vie du club · Événement', badge:'Vie du club', emoji:'♟️',
+    bg:'linear-gradient(135deg,#0a3a1a,#051a0a)',
+    title:'Quartier en Fête — Cannes Échecs toujours présent !',
+    date:'8 juin 2026',
+    img:'photos/quartierenfete_commandantmaria1.jpg',
+    gallery:[
+      'photos/quartierenfete_commandantmaria1.jpg',
+      'photos/quartierenfete_commandantmaria2.jpg',
+    ],
+    body:`<p>Le club était une nouvelle fois présent à l'occasion de <strong>Quartier en Fête</strong>, place Commandant Maria ce vendredi !</p>
+<p>Notre stand, toujours aussi populaire et animé par <strong>Joffrey</strong>, n'a pas désempli pour le plus grand plaisir des enfants présents 😎♟️</p>
+<p>Un grand merci aux familles et aux habitants du quartier pour leur accueil chaleureux, et à Joffrey pour son enthousiasme communicatif !</p>`
+  },
   'solidarite-croisette': {
     cat:'Vie du club · Événement', badge:'Solidarité', emoji:'🙌',
     bg:'linear-gradient(135deg,#1a3a6c,#0a1f3e)',
@@ -3151,7 +3165,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
 //                           2) ajouter la clé ici dans ARCHIVE_ORDER
 //                           3) ajouter l'extrait dans EXTRAITS
 const ARCHIVE_ORDER = [
-  'solidarite-croisette',
+  'quartier-maria-2026','solidarite-croisette',
   'selection-france-2026','scolaire-cannes-2026',
   'mulhouse','top12f','quartier','albi',
   'pico-paques','open-paques',
@@ -3165,6 +3179,7 @@ const ARCHIVE_ORDER = [
 
 // Résumés affichés dans les cartes (≈ 120 chars)
 const EXTRAITS = {
+  'quartier-maria-2026'   : "Stand animé par Joffrey place Commandant Maria. Un après-midi convivial pour les enfants du quartier.",
   'solidarite-croisette'  : "Nos jeunes sur la Croisette pour une action solidaire avec le Secours Populaire. 106 € collectés grâce à leur énergie et à la générosité des passants.",
   'selection-france-2026': "9 Cannois sélectionnés par la FFE : Haute Performance, Programme de Performance, Championnats d'Europe et du Monde U20.",
   'scolaire-cannes-2026': "130 enfants réunis à l'école Eugène Vial. Palmarès complet en 5 catégories : Maternelles, CP, CE, CM et Collèges.",
