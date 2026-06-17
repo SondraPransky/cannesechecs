@@ -1915,6 +1915,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div style="font-size:12px;color:var(--muted);line-height:1.5">Idéal pour progresser en compétition<br>Seniors : 75 € · Juniors : 45 €</div>
             </div>
           </div>
+          <!-- Inscrits FIJ 2027 — masquable depuis le panneau admin (?admin) -->
+          <div id="fij-inscrits-section"></div>
         </div>
         <!-- Colonne Inscription -->
         <div style="background:linear-gradient(160deg,var(--noir) 0%,var(--bleu) 100%);border-radius:16px;padding:32px;position:sticky;top:80px">
@@ -2401,6 +2403,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 <script>
 // ── HELLOASSO — LIENS D'INSCRIPTION ─────────────────
 // ⚠️ Remplacer chaque URL provisoire par le vrai lien HelloAsso
+// ── INSCRIPTIONS FIJ — à mettre à jour quand les inscriptions ouvrent ───────
+// url  : lien echecs.asso.fr vers la liste des inscrits ('' = pas encore disponible)
+// count: nombre d'inscrits actuels (0 = ne pas afficher)
+// La section disparaît automatiquement si url='' ET count=0 pour tous les opens.
+// Pour masquer manuellement après le FIJ → panneau admin (?admin dans l'URL)
+const FIJ_INSCRITS = {
+  openA : { url : '', count : 0 },
+  openB : { url : '', count : 0 },
+  openC : { url : '', count : 0 },
+};
+
 const HELLOASSO = {
   adhesion : 'https://www.helloasso.com/associations/cannes-echecs/adhesions/LIEN-ADHESION-2026-2027',
   fij      : 'https://www.helloasso.com/associations/cannes-echecs/evenements/LIEN-FIJ-2027',
@@ -3340,6 +3353,41 @@ function renderHomeActus() {
     .join('');
 }
 
+// ── RENDU : inscrits FIJ (page FIJ) ─────────────────
+function renderFijInscrits() {
+  var sec = document.getElementById('fij-inscrits-section');
+  if (!sec) return;
+  var off = false;
+  try { off = localStorage.getItem('ace_fij_inscrits') === 'off'; } catch(e) {}
+  if (off) { sec.style.display = 'none'; return; }
+  var OPENS = [
+    { key:'openA', label:'Open A', border:'var(--gold)' },
+    { key:'openB', label:'Open B', border:'var(--bleu)' },
+    { key:'openC', label:'Open C', border:'var(--muted)' },
+  ];
+  var rows = OPENS.filter(function(o) {
+    return FIJ_INSCRITS[o.key].url || FIJ_INSCRITS[o.key].count > 0;
+  }).map(function(o) {
+    var d = FIJ_INSCRITS[o.key];
+    var letter = o.label.slice(-1);
+    var linkHtml = d.url
+      ? '<a href="' + d.url + '" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--gold)">Liste des inscrits →</a>'
+      : '<span style="font-size:12px;color:var(--muted);font-style:italic">Inscriptions à venir</span>';
+    var countHtml = d.count > 0
+      ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:10px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
+      : '';
+    return '<div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--ivoire);border-radius:10px;border-left:4px solid ' + o.border + '">'
+      + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:700;color:var(--bleu);min-width:24px;text-align:center">' + letter + '</div>'
+      + '<div style="flex:1"><div style="font-family:\'Montserrat\',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--bleu);margin-bottom:3px">' + o.label + '</div>' + linkHtml + '</div>'
+      + countHtml
+      + '</div>';
+  });
+  if (rows.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  sec.innerHTML = '<h3 style="font-family:\'Cormorant Garamond\',serif;font-size:22px;color:var(--bleu);margin-bottom:14px;margin-top:28px">Inscrits FIJ 2027</h3>'
+    + '<div style="display:flex;flex-direction:column;gap:10px">' + rows.join('') + '</div>';
+}
+
 // ── PAGE ARTICLE DYNAMIQUE ────────────────────────────
 function goToArticle(id) {
   const a = ARTICLES[id];
@@ -3788,8 +3836,27 @@ function setHeroWidget(mode, data) {
     + Object.entries(LABELS).map(([k,v]) =>
         `<button id="sw-${k}" onclick="selectWidget('${k}')" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px">${v}</button>`
       ).join('')
+    + '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:12px 0">'
+    + '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">🎟️ Inscrits FIJ</div>'
+    + '<button id="sw-inscrits" onclick="toggleFijInscrits()" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px"></button>'
     + '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:10px;text-align:center">Accès admin</div>';
   document.body.appendChild(p);
+  function updateFijInscritBtn() {
+    var b = document.getElementById('sw-inscrits');
+    if (!b) return;
+    var off = false;
+    try { off = localStorage.getItem('ace_fij_inscrits') === 'off'; } catch(e) {}
+    b.textContent = off ? '🚫 Inscrits masqués' : '✅ Inscrits visibles';
+    b.style.background = off ? 'rgba(220,60,60,.18)' : 'rgba(201,168,76,.18)';
+  }
+  updateFijInscritBtn();
+  window.toggleFijInscrits = function() {
+    var off = false;
+    try { off = localStorage.getItem('ace_fij_inscrits') === 'off'; } catch(e) {}
+    try { localStorage.setItem('ace_fij_inscrits', off ? 'on' : 'off'); } catch(e) {}
+    renderFijInscrits();
+    updateFijInscritBtn();
+  };
   window.selectWidget = function(mode) {
     const m = new Date().getMonth()+1;
     if (mode === 'auto') { try{localStorage.removeItem('ace_widget')}catch(e){} setHeroWidget(m>=6&&m<=8?'rentree':'fij'); }
@@ -3804,6 +3871,7 @@ function setHeroWidget(mode, data) {
 // ── INIT ────────────────────────────────────────────
 renderArchiveGrid();
 renderHomeActus();
+renderFijInscrits();
 (function(){
   let saved; try { saved = localStorage.getItem('ace_widget'); } catch(e) {}
   if (saved && HERO_WIDGETS[saved]) { setHeroWidget(saved); }
