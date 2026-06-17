@@ -3738,7 +3738,8 @@ function setHeroWidget(mode, data) {
 // ── INIT ────────────────────────────────────────────
 renderArchiveGrid();   // génère la grille archive depuis ARTICLES
 renderHomeActus();     // génère les 3 dernières actus de la home
-setHeroWidget('fij');
+// Juin–Août → widget rentrée ; reste de l'année → widget FIJ
+(function(){ const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); })();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
 goTo('home');
