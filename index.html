@@ -1896,58 +1896,74 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px">Le <strong>Festival International des Jeux</strong> se tient chaque année en février au Palais des Festivals de Cannes. Avec plus de 100 000 visiteurs et 60 000 m² d'exposition, c'est l'un des plus grands rendez-vous de jeux au monde. Cannes Échecs y organise les tournois d'échecs officiels depuis de nombreuses années.</p>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:28px">Les tournois sont homologués <strong>FIDE</strong>, avec des normes de Maître International (MI) et de Grand-Maître International (GMI) possibles dans le tournoi A. La cadence est de 1h30 pour 40 coups, puis 30 minutes avec 30 secondes par coup dès le 1er coup.</p>
           <div style="background:var(--ivoire);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:16px 20px;font-style:italic;color:var(--bleu);font-size:16px;line-height:1.6;margin-bottom:28px">"Le tournoi du FIJ, c'est jouer aux échecs dans l'une des plus belles villes de France, au cœur d'un festival qui fait vibrer 100 000 passionnés de jeux."</div>
-          <!-- Catégories -->
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--bleu);margin-bottom:16px">Tournois — par classement Elo</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-            <div style="background:var(--ivoire);border-radius:10px;padding:20px;text-align:center;border-top:4px solid var(--gold)">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--bleu)">A</div>
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:6px 0">2200 et +</div>
-              <div style="font-size:12px;color:var(--muted);line-height:1.5">Normes MI / GMI possibles<br>Seniors : 75 € · Juniors : 45 €</div>
-            </div>
-            <div style="background:var(--ivoire);border-radius:10px;padding:20px;text-align:center;border-top:4px solid var(--bleu)">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--bleu)">B</div>
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:6px 0">1600–2200 Elo</div>
-              <div style="font-size:12px;color:var(--muted);line-height:1.5">Seniors : 75 € · Juniors : 45 €</div>
-            </div>
-            <div style="background:var(--ivoire);border-radius:10px;padding:20px;text-align:center;border-top:4px solid var(--muted)">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--bleu)">C</div>
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:6px 0">≤ 1600 Elo</div>
-              <div style="font-size:12px;color:var(--muted);line-height:1.5">Idéal pour progresser en compétition<br>Seniors : 75 € · Juniors : 45 €</div>
-            </div>
-          </div>
-          <!-- Dotation -->
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--bleu);margin-bottom:16px;margin-top:32px">Dotation</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <!-- Catégories + Dotation fusionnées -->
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--bleu);margin-bottom:20px">Tournois — par classement Elo</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
             <!-- Open A -->
-            <div style="background:var(--ivoire);border-radius:10px;padding:18px;border-top:4px solid var(--gold)">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Open A</div>
-              <div style="font-size:13px;color:var(--bleu);font-weight:700;text-align:center;margin-bottom:10px">Total : 6 000 €</div>
-              <div style="font-size:12px;color:var(--muted);line-height:2">
-                <div style="display:flex;justify-content:space-between"><span>🥇 1er</span><span style="font-weight:600;color:var(--bleu)">1 800 €</span></div>
-                <div style="display:flex;justify-content:space-between"><span>🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">1 200 €</span></div>
-                <div style="display:flex;justify-content:space-between"><span>🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">700 €</span></div>
+            <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
+              <div style="background:linear-gradient(150deg,#1a0c00,#7a5212);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">A</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">A</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.04em">2 200 Elo et +</div>
+              </div>
+              <div style="background:var(--ivoire);padding:18px">
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
+                <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 6 000 €</div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥇 1er</span><span style="font-weight:600;color:var(--bleu)">1 800 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">1 200 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">700 €</span></div>
+                <div style="border-top:1px solid var(--border);margin:12px 0 10px"></div>
+                <div style="font-size:11px;color:#8B6914;font-weight:600">✦ Normes MI / GMI possibles</div>
               </div>
             </div>
+
             <!-- Open B -->
-            <div style="background:var(--ivoire);border-radius:10px;padding:18px;border-top:4px solid var(--bleu)">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Open B</div>
-              <div style="font-size:13px;color:var(--bleu);font-weight:700;text-align:center;margin-bottom:10px">Total : 3 000 €</div>
-              <div style="font-size:12px;color:var(--muted);line-height:2">
-                <div style="display:flex;justify-content:space-between"><span>🥇 1er</span><span style="font-weight:600;color:var(--bleu)">600 €</span></div>
-                <div style="display:flex;justify-content:space-between"><span>🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">500 €</span></div>
-                <div style="display:flex;justify-content:space-between"><span>🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">400 €</span></div>
+            <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
+              <div style="background:linear-gradient(150deg,#060f22,#1a2a5c);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">B</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">B</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.04em">1 600 – 2 200 Elo</div>
+              </div>
+              <div style="background:var(--ivoire);padding:18px">
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
+                <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 3 000 €</div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥇 1er</span><span style="font-weight:600;color:var(--bleu)">600 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">500 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">400 €</span></div>
               </div>
             </div>
+
             <!-- Open C -->
-            <div style="background:var(--ivoire);border-radius:10px;padding:18px;border-top:4px solid var(--muted)">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Open C</div>
-              <div style="font-size:13px;color:var(--bleu);font-weight:700;text-align:center;margin-bottom:10px">Total : 1 000 €</div>
-              <div style="font-size:12px;color:var(--muted);line-height:2">
-                <div style="display:flex;justify-content:space-between"><span>🥇 1er</span><span style="font-weight:600;color:var(--bleu)">300 €</span></div>
-                <div style="display:flex;justify-content:space-between"><span>🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">200 €</span></div>
-                <div style="display:flex;justify-content:space-between"><span>🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">100 €</span></div>
+            <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
+              <div style="background:linear-gradient(150deg,#0f0f1e,#2e3350);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">C</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">C</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.04em">≤ 1 600 Elo</div>
+              </div>
+              <div style="background:var(--ivoire);padding:18px">
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
+                <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 1 000 €</div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥇 1er</span><span style="font-weight:600;color:var(--bleu)">300 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">200 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">100 €</span></div>
+                <div style="border-top:1px solid var(--border);margin:12px 0 10px"></div>
+                <div style="font-size:11px;color:var(--muted)">Idéal pour progresser en compétition</div>
               </div>
             </div>
+
           </div>
           <!-- Inscrits FIJ 2027 — masquable depuis le panneau admin (?admin) -->
           <div id="fij-inscrits-section"></div>
@@ -2077,6 +2093,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:46px;color:#fff;margin-bottom:12px">Réservez votre place<br>au <em style="color:var(--gold)">FIJ 2027</em></h2>
       <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px">Places limitées · Inscription sécurisée via HelloAsso · Confirmation immédiate</p>
       <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
+      <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:rgba(201,168,76,.7);text-decoration:none">info@cannes-echecs.fr</a></p>
     </div>
   </section>
 </div><!-- fin page-fij -->
