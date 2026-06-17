@@ -2517,6 +2517,27 @@ function updateCountdowns() {
 
 // ── ARTICLES DATA ────────────────────────────────────
 const ARTICLES = {
+  'stemarie-france-2026': {
+    cat:'Compétition · Scolaire', badge:'Scolaire', emoji:'✨',
+    bg:'linear-gradient(135deg,#1a3a6c,#0a1f3e)',
+    title:"8ème place nationale pour Sainte-Marie de Cannes !",
+    date:'15 juin 2026',
+    img:'photos/chptfrancestemarie1.jpg',
+    gallery:[
+      'photos/chptfrancestemarie1.jpg',
+      'photos/chptfrancestemarie2.jpg',
+      'photos/chptfrancestemarie3.jpg',
+      'photos/chptfrancestemarie4.jpg',
+    ],
+    body:`<p>Une expérience inoubliable pour les enfants de l'école <strong>Sainte-Marie de Cannes</strong> ! ✨ Un voyage riche en émotions, en apprentissage, en esprit d'équipe et en plaisir.</p>
+<p>Ils ont terminé à une très belle <strong>8ème place parmi les 28 meilleures écoles de France</strong> 👏♟️</p>
+<h2>Bravo aux joueurs !</h2>
+<p>Un grand bravo à tous les enfants : <strong>Paul, Victor, Maxime, Edan, Pauline, Gabriel, Rafael et Charlotte</strong> !</p>
+<h2>Merci à tous</h2>
+<p>Un immense merci à notre entraîneur <strong>Nicolas</strong> pour son accompagnement, ainsi qu'aux mamans présentes sur place — <strong>Florence, Elena et Anna</strong> — pour leur précieux soutien.</p>
+<p>Merci également à l'école <strong>Sainte-Marie</strong>, et tout particulièrement à la directrice, pour son aide déterminante dans la réussite de ce beau projet.</p>
+<p>Merci enfin à la <strong>Ligue PACA</strong> et au <strong>comité départemental</strong> !</p>`
+  },
   'stan-champion-france-2026': {
     cat:'Compétition · National', badge:'Champion de France', emoji:'🏆',
     bg:'linear-gradient(135deg,#8B6914,#3a2a05)',
@@ -3185,7 +3206,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
 //                           2) ajouter la clé ici dans ARCHIVE_ORDER
 //                           3) ajouter l'extrait dans EXTRAITS
 const ARCHIVE_ORDER = [
-  'stan-champion-france-2026',
+  'stemarie-france-2026','stan-champion-france-2026',
   'quartier-maria-2026','solidarite-croisette',
   'selection-france-2026','scolaire-cannes-2026',
   'mulhouse','top12f','quartier','albi',
@@ -3200,6 +3221,7 @@ const ARCHIVE_ORDER = [
 
 // Résumés affichés dans les cartes (≈ 120 chars)
 const EXTRAITS = {
+  'stemarie-france-2026'     : "8ème place nationale parmi 28 écoles pour Sainte-Marie de Cannes. Une belle aventure pour Paul, Victor, Maxime, Edan, Pauline, Gabriel, Rafael et Charlotte !",
   'stan-champion-france-2026': "Les élèves du collège Stanislas — membres de Cannes Échecs — Champions de France des collèges à Bischheim ! Bravo à Andy, Nikita, Valentin, Julia et toute l'équipe !",
   'quartier-maria-2026'   : "Stand animé par Joffrey place Commandant Maria. Un après-midi convivial pour les enfants du quartier.",
   'solidarite-croisette'  : "Nos jeunes sur la Croisette pour une action solidaire avec le Secours Populaire. 106 € collectés grâce à leur énergie et à la générosité des passants.",
