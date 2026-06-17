@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -327,11 +327,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire-text p{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px}
 .club-histoire-img{border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:linear-gradient(135deg,var(--bleu),#0A1F38);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:80px}
 .club-palmares{padding:80px 0;background:var(--bleu)}
-.palmares-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
-.palmares-item{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:28px 16px;text-align:center}
-.palmares-icon{font-size:28px;margin-bottom:10px;display:block}
-.palmares-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block}
-.palmares-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:6px}
 .club-equipe{padding:80px 0;background:#fff}
 .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:12px;border:1px solid var(--border);transition:all .2s}
@@ -413,7 +408,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .fij-grid{grid-template-columns:1fr;gap:40px}
   .club-histoire-grid{grid-template-columns:1fr;gap:40px}
   .forces-grid{grid-template-columns:repeat(2,1fr)}
-  .palmares-grid{grid-template-columns:repeat(2,1fr)}
   .equipe-grid{grid-template-columns:repeat(2,1fr)}
   .valeurs-grid{grid-template-columns:repeat(2,1fr)}
   .actu-grid{grid-template-columns:repeat(2,1fr)}
@@ -509,7 +503,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .actu-grid{grid-template-columns:1fr}
   .archive-grid{grid-template-columns:1fr}
   .forces-grid{grid-template-columns:repeat(2,1fr)}
-  .palmares-grid{grid-template-columns:repeat(2,1fr)}
   .equipe-grid{grid-template-columns:repeat(2,1fr)}
   .valeurs-grid{grid-template-columns:1fr}
   .club-histoire-grid{grid-template-columns:1fr;gap:28px}
@@ -546,8 +539,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-fij      [style*="padding:80px"],
   #page-partenaires [style*="padding:80px"],
   #page-agenda   [style*="padding:80px"],
-  #page-organigramme [style*="padding:80px"],
-  #page-palmares [style*="padding:80px"] {
+  #page-organigramme [style*="padding:80px"] {
     padding-top: 28px !important;
     padding-bottom: 28px !important;
   }
@@ -618,8 +610,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-partenaires h2[style*="font-size"],
   #page-agenda   h2[style*="font-size"],
   #page-organigramme h2[style*="font-size"],
-  #page-palmares h2[style*="font-size"],
-  #page-palmares h3[style*="font-size"],
   #page-article  h2[style*="font-size"] { font-size: 26px !important; }
 
   /* h1 inline trop grands */
@@ -633,7 +623,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-partenaires h1[style*="font-size"],
   #page-agenda   h1[style*="font-size"],
   #page-organigramme h1[style*="font-size"],
-  #page-palmares h1[style*="font-size"],
   #page-actualites h1[style*="font-size"],
   #page-activites h1[style*="font-size"] { font-size: 34px !important; }
 
@@ -718,7 +707,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 }
 @media(max-width:420px){
   .forces-grid{grid-template-columns:1fr}
-  .palmares-grid{grid-template-columns:1fr}
 }
 
 /* =====================================================
@@ -871,7 +859,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div class="dropdown">
           <a onclick="goTo('actualites')">Actualités</a>
           <a onclick="goTo('club')">Présentation</a>
-          <a onclick="goTo('palmares')">Palmarès & Champions</a>
           <a onclick="goTo('organigramme')">Organigramme</a>
           <a onclick="goTo('horaires')">Horaires & Tarifs</a>
           <a onclick="goTo('adhesion')">Formules d'adhésion</a>
@@ -910,7 +897,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <div class="nav-mobile" id="nav-mobile">
     <button class="nav-mobile-link" onclick="mobileGoTo('actualites')">Actualités</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('club')">Le Club</button>
-    <button class="nav-mobile-link" onclick="mobileGoTo('palmares')">Palmarès & Champions</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('organigramme')">Organigramme</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('horaires')">Horaires & Tarifs</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('adhesion')">Adhésion</button>
@@ -1134,7 +1120,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--gold);line-height:1">5</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'Montserrat',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-top:4px">Oscars FFE</div></div>
         <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--gold);line-height:1">200+</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'Montserrat',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-top:4px">Membres</div></div>
       </div>
-      <button class="btn btn-gold" onclick="goTo('palmares')">Découvrir notre palmarès complet →</button>
+      <button class="btn btn-gold" onclick="goTo('actualites')">Voir nos résultats →</button>
     </div>
   </section>
 
@@ -2484,252 +2470,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 <!-- ═══════════════════════════════════════════════════
      PAGE PALMARÈS
      ═══════════════════════════════════════════════════ -->
-<div id="page-palmares" class="page">
-
-  <!-- Hero -->
-  <section class="hero-shared" style="background:linear-gradient(135deg,var(--noir) 0%,var(--bleu) 100%);min-height:270px">
-    <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Palmarès</span></div>
-      <span class="surtitre">Excellence & formation depuis 1985</span>
-      <h1 style="font-size:58px;color:#fff">Notre <em>palmarès</em></h1>
-      <p class="hero-desc">Un club qui a vu grandir des champions du monde et qui forme l'élite de demain sur la Côte d'Azur.</p>
-    </div>
-  </section>
-
-  <!-- Bandeau records -->
-  <div class="palm-records">
-    <div class="palm-record"><div class="num">10×</div><div class="lbl">Champion de France Jeunes</div></div>
-    <div class="palm-record"><div class="num">5</div><div class="lbl">Oscars meilleur club jeunes</div></div>
-    <div class="palm-record"><div class="num">200+</div><div class="lbl">Membres licenciés</div></div>
-  </div>
-
-  <!-- Champions du monde passés par Cannes -->
-  <section style="padding:80px 0;background:linear-gradient(180deg,var(--noir),#12101f)">
-    <div class="container">
-      <div class="section-header center light" style="margin-bottom:40px">
-        <span class="surtitre">Ils ont porté nos couleurs</span>
-        <h2 style="font-size:42px;color:#fff">Des légendes à Cannes</h2>
-      </div>
-
-      <!-- Gukesh — carte hero -->
-      <div class="wc-hero" style="margin-bottom:24px">
-        <div class="wc-hero-inner">
-          <div style="position:relative">
-            <span class="wc-crown">👑</span>
-            <div class="wc-avatar">♚</div>
-          </div>
-          <div>
-            <div class="wc-badge">★ Champion du Monde 2024</div>
-            <div class="wc-name">Gukesh Dommaraju</div>
-            <div class="wc-title">Plus jeune Champion du Monde de l'histoire</div>
-            <p class="wc-desc">Toujours licencié à Cannes Échecs, Gukesh défend nos couleurs sur l'échiquier. Vainqueur de notre Festival International des Jeux en 2020, il devient en décembre 2024, à 18 ans, le plus jeune Champion du Monde de l'histoire des échecs. Une immense fierté pour tout le club.</p>
-            <div class="wc-stats">
-              <div class="wc-stat"><div class="n">2024</div><div class="l">Titre mondial</div></div>
-              <div class="wc-stat"><div class="n">2700+</div><div class="l">Classement Elo</div></div>
-              <div class="wc-stat"><div class="n">FIJ 2020</div><div class="l">Vainqueur à Cannes</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Autres GM -->
-      <div class="gm-grid">
-        <div class="gm-card" style="grid-column:1/-1">
-          <div class="gm-avatar">♔</div>
-          <div>
-            <div class="gm-name">Étienne Bacrot</div>
-            <div class="gm-role">Grand Maître · 6× Champion de France</div>
-            <p class="gm-desc">Plus jeune Grand Maître du monde en 1997 (à 14 ans), ex-numéro 1 français et joueur du top 10 mondial. Immense prodige, il a porté les couleurs de Cannes Échecs dès 1993.</p>
-          </div>
-        </div>
-        <div class="gm-card">
-          <div class="gm-avatar">♛</div>
-          <div>
-            <div class="gm-name">Praggnanandhaa R.</div>
-            <div class="gm-role">Grand Maître International · ~2750 Elo</div>
-            <p class="gm-desc">Prodige indien, finaliste de la Coupe du Monde 2023 et candidat au titre mondial. Toujours membre du club, il défend les couleurs de Cannes.</p>
-          </div>
-        </div>
-        <div class="gm-card">
-          <div class="gm-avatar">♕</div>
-          <div>
-            <div class="gm-name">Vaishali Rameshbabu</div>
-            <div class="gm-role">Grand Maître International</div>
-            <p class="gm-desc">L'une des meilleures joueuses du monde, qualifiée pour le Tournoi des Candidates. Elle défend elle aussi les couleurs cannoises sur l'échiquier.</p>
-          </div>
-        </div>
-        <div class="gm-card">
-          <div class="gm-avatar">♜</div>
-          <div>
-            <div class="gm-name">Vladislav Tkachiev</div>
-            <div class="gm-role">Grand Maître · Champion d'Europe 2007</div>
-            <p class="gm-desc">Grand Maître franco-russe, champion d'Europe individuel et figure emblématique des échecs internationaux, passé par Cannes.</p>
-          </div>
-        </div>
-        <div class="gm-card">
-          <div class="gm-avatar">♝</div>
-          <div>
-            <div class="gm-name">Murtas Kashgaleyev</div>
-            <div class="gm-role">Grand Maître International</div>
-            <p class="gm-desc">Grand Maître kazakh, vainqueur de nombreux opens internationaux, il a lui aussi porté les couleurs cannoises.</p>
-          </div>
-        </div>
-        <div class="gm-card">
-          <div class="gm-avatar">♞</div>
-          <div>
-            <div class="gm-name">Aravindh Chithambaram</div>
-            <div class="gm-role">Grand Maître International · ~2700 Elo</div>
-            <p class="gm-desc">Prodige indien du top mondial, vainqueur de prestigieux super-tournois internationaux. Il défend les couleurs cannoises sur l'échiquier.</p>
-          </div>
-        </div>
-        <div class="gm-card">
-          <div class="gm-avatar">♛</div>
-          <div>
-            <div class="gm-name">Kateryna Lagno</div>
-            <div class="gm-role">Grand Maître · Élite mondiale féminine</div>
-            <p class="gm-desc">Ancienne championne du monde de blitz et de rapide, figure du top 5 mondial féminin pendant plus d'une décennie. Une immense championne passée par Cannes Échecs.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Les jeunes de Cannes Échecs -->
-  <section style="padding:80px 0;background:#fff">
-    <div class="container">
-      <div class="section-header center" style="margin-bottom:40px">
-        <span class="surtitre">La fierté du club</span>
-        <h2 style="font-size:42px;color:var(--bleu)">Les jeunes de Cannes Échecs</h2>
-      </div>
-
-      <!-- La nouvelle génération -->
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--bleu);text-align:center;margin:8px 0 28px">La nouvelle génération</h3>
-      <div class="champ-grid" style="margin-bottom:24px">
-        <div class="champ-card gold-card">
-          <span class="champ-medal">🥇</span>
-          <div class="champ-name">Louis Auribault</div>
-          <span class="champ-cat">Champion d'Europe U14</span>
-          <p class="champ-detail">Médaille d'or européenne 2023</p>
-        </div>
-        <div class="champ-card">
-          <span class="champ-medal">🥈</span>
-          <div class="champ-name">Émilie Nègre</div>
-          <span class="champ-cat">Vice-championne France U14</span>
-          <p class="champ-detail">7,5/9 invaincue · Sportive de Haut Niveau</p>
-        </div>
-        <div class="champ-card">
-          <span class="champ-medal">🌍</span>
-          <div class="champ-name">Cyrielle Duchatel</div>
-          <span class="champ-cat">Collectifs Nationaux</span>
-          <p class="champ-detail">9ᵉ France U12F · Sportive de Haut Niveau</p>
-        </div>
-        <div class="champ-card">
-          <span class="champ-medal">✨</span>
-          <div class="champ-name">Émilie Alfano</div>
-          <span class="champ-cat">Espoirs · Haut Niveau</span>
-          <p class="champ-detail">Sélection nationale · Programme de performance</p>
-        </div>
-        <div class="champ-card">
-          <span class="champ-medal">🥇</span>
-          <div class="champ-name">Marie-Isabelle Dobre</div>
-          <span class="champ-cat">Championne PACA U10F</span>
-          <p class="champ-detail">Qualifiée pour le Championnat de France · Multiples podiums</p>
-        </div>
-        <div class="champ-card">
-          <span class="champ-medal">♟</span>
-          <div class="champ-name">Ian Lyubimov</div>
-          <span class="champ-cat">Espoir U12</span>
-          <p class="champ-detail">Qualifié pour le Championnat de France</p>
-        </div>
-      </div>
-
-      <!-- Les champions confirmés -->
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--bleu);text-align:center;margin:48px 0 28px">Nos champions confirmés</h3>
-      <div class="champ-grid">
-        <div class="champ-card gold-card">
-          <span class="champ-medal">♟</span>
-          <div class="champ-name">Guillaume Lamard</div>
-          <span class="champ-cat">Grand Maître International</span>
-          <p class="champ-detail">Champion de France Pupille 09 · Minime 13 · Cadet 14<br><strong style="color:var(--bleu)">GMI 2024 · Joue en Top 16</strong></p>
-        </div>
-        <div class="champ-card gold-card">
-          <span class="champ-medal">🌍</span>
-          <div class="champ-name">Gary Giroyan</div>
-          <span class="champ-cat">Maître International</span>
-          <p class="champ-detail">Champion de France Poussin 06 · Champion d'Europe 2008<br><strong style="color:var(--bleu)">Joue en Top 16</strong></p>
-        </div>
-        <div class="champ-card gold-card">
-          <span class="champ-medal">🥇</span>
-          <div class="champ-name">Rajat Makkar</div>
-          <span class="champ-cat">Champion de France U20</span>
-          <p class="champ-detail">Titre national 2026 · Sportif de Haut Niveau<br><strong style="color:var(--bleu)">Joue en Top 16</strong></p>
-        </div>
-        <div class="champ-card gold-card">
-          <span class="champ-medal">🏅</span>
-          <div class="champ-name">Mathieu Acher</div>
-          <span class="champ-cat">Multiple Champion de France</span>
-          <p class="champ-detail">Pupille 01 · Minime 05 · Cadet 06 &amp; 07 · Junior 09<br><strong style="color:var(--bleu)">Maître International</strong></p>
-        </div>
-      </div>
-      <p style="text-align:center;margin-top:28px"><a class="link-all" onclick="goTo('actualites')">Voir tous les résultats dans nos actualités →</a></p>
-    </div>
-  </section>
-
-  <!-- Romuald De Labaca — l'entraîneur -->
-  <section style="padding:80px 0;background:var(--ivoire)">
-    <div class="container">
-      <div class="section-header center" style="margin-bottom:40px">
-        <span class="surtitre">L'artisan de nos succès</span>
-        <h2 style="font-size:42px;color:var(--bleu)">L'architecte de tous nos titres</h2>
-      </div>
-      <div class="coach-feature">
-        <div>
-          <div class="coach-portrait">♟</div>
-        </div>
-        <div>
-          <div class="badge badge-gold" style="margin-bottom:14px">Entraîneur du club depuis 2003</div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--bleu);margin-bottom:12px">Romuald De Labaca</h3>
-          <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:8px">Entraîneur emblématique de Cannes Échecs depuis 2003, Romuald De Labaca est l'homme derrière l'incroyable épopée du club au niveau national. Sous sa direction, l'équipe jeunes a remporté <strong>l'intégralité de ses titres de Champion de France</strong> — un record absolu inégalé dans l'histoire des échecs français.</p>
-          <p style="font-size:15px;color:var(--text);line-height:1.8">Formateur passionné et stratège hors pair, il a accompagné des centaines de jeunes du premier coup de cavalier jusqu'au plus haut niveau international.</p>
-          <div class="coach-medals">
-            <div class="coach-medal"><div class="n">10×</div><div class="l">Champion de France</div></div>
-            <div class="coach-medal"><div class="n">20+</div><div class="l">Ans au sommet</div></div>
-            <div class="coach-medal"><div class="n">2003</div><div class="l">Depuis</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Palmarès collectif -->
-  <section style="padding:80px 0;background:#fff">
-    <div class="container">
-      <div class="section-header center" style="margin-bottom:40px">
-        <span class="surtitre">Plus de 30 ans au sommet</span>
-        <h2 style="font-size:42px;color:var(--bleu)">Le palmarès du club</h2>
-      </div>
-      <div class="palm-timeline">
-        <div class="palm-tl-item"><div class="palm-tl-year">Record national</div><div class="palm-tl-title"><strong>10× Champion de France Jeunes par Équipes</strong> — un record absolu, jamais égalé depuis la création de la compétition</div></div>
-        <div class="palm-tl-item"><div class="palm-tl-year">2024</div><div class="palm-tl-title"><strong>Vice-champion de France</strong> Jeunes par équipes</div></div>
-        <div class="palm-tl-item"><div class="palm-tl-year">Distinctions FFE</div><div class="palm-tl-title"><strong>5 Oscars</strong> du meilleur club jeunes de France · Labels Club Formateur & Meilleur organisateur</div></div>
-        <div class="palm-tl-item"><div class="palm-tl-year">Élite nationale</div><div class="palm-tl-title">Présence en <strong>Top 12</strong> (1ʳᵉ division nationale) et <strong>Top 12 Féminin</strong></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section-cta">
-    <div class="cta-inner">
-      <div class="badge badge-event" style="margin-bottom:20px">Rejoignez l'aventure</div>
-      <h2>Et si le prochain<br><em>champion, c'était vous ?</em></h2>
-      <p>De l'initiation au haut niveau, Cannes Échecs forme tous les talents. Rejoignez le club qui a vu grandir des champions du monde.</p>
-      <div class="cta-btns">
-        <button class="btn btn-gold btn-lg" onclick="goTo('adhesion')">Rejoindre le club →</button>
-        <button class="btn btn-outline-white btn-lg" onclick="goTo('activites')">Découvrir nos cours</button>
-      </div>
-    </div>
-  </section>
-</div><!-- fin page-palmares -->
 
 </main><!-- fin #app -->
 
@@ -2757,7 +2497,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div class="footer-col-title">Le Club</div>
         <ul>
           <li><a onclick="goTo('club')">Présentation</a></li>
-          <li><a onclick="goTo('palmares')">Palmarès & Champions</a></li>
           <li><a onclick="goTo('actualites')">Actualités</a></li>
           <li><a onclick="goTo('agenda')">Agenda</a></li>
           <li><a onclick="goTo('adhesion')">Adhésion</a></li>
@@ -2844,7 +2583,7 @@ function goToTab(page, tab) {
 }
 
 // ── ROUTER ──────────────────────────────────────────
-const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme','palmares'];
+const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
 
 function goTo(id) {
   // Masquer toutes les pages
@@ -2866,7 +2605,7 @@ function goTo(id) {
 
 function updateNavActive(id) {
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const map = {club:'nav-club',actualites:'nav-club',article:'nav-club',organigramme:'nav-club',horaires:'nav-club',adhesion:'nav-club',contact:'nav-club',palmares:'nav-club',activites:'nav-activites',tournois:'nav-tournois',fij:'nav-fij',partenaires:'nav-partenaires',agenda:'nav-agenda'};
+  const map = {club:'nav-club',actualites:'nav-club',article:'nav-club',organigramme:'nav-club',horaires:'nav-club',adhesion:'nav-club',contact:'nav-club',activites:'nav-activites',tournois:'nav-tournois',fij:'nav-fij',partenaires:'nav-partenaires',agenda:'nav-agenda'};
   if (map[id]) {
     const el = document.getElementById(map[id]);
     if (el) el.classList.add('active');
