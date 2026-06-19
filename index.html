@@ -3056,7 +3056,7 @@ const ARTICLES = {
     bg:'linear-gradient(135deg,#0a3a5c,#051d2d)',
     title:'Top Jeunes à Vincennes — Cannes qualifié pour la Poule Haute !',
     date:'4 janvier 2026',
-    img:'photos/topjeunesvincennes.jpg',
+    img:'photos/topjeunesvincennes3.jpg',
     gallery:[
       'photos/topjeunesvincennes.jpg',
       'photos/topjeunesvincennes2.jpg',
@@ -3510,9 +3510,15 @@ function catToFilter(cat) {
 // ── HELPER : construit le HTML d'une carte article ───
 // showExtrait=true → affiche le résumé (archive, home)
 // showExtrait=false → carte compacte (section "À lire aussi")
+function getCover(id, a) {
+  try { var ov = localStorage.getItem('ace_cover_' + id); if (ov) return ov; } catch(e) {}
+  return a.img || null;
+}
+
 function buildCard(key, a, showExtrait) {
-  const imgHtml = a.img
-    ? '<div class="actu-img" style="background:#111;background-image:url(\'' + a.img + '\');background-size:cover;background-position:center"></div>'
+  const imgSrc = getCover(key, a);
+  const imgHtml = imgSrc
+    ? '<div class="actu-img" style="background:#111;background-image:url(\'' + imgSrc + '\');background-size:cover;background-position:center"></div>'
     : '<div class="actu-img" style="background:' + a.bg + '" role="img" aria-label="' + a.badge + '"><span aria-hidden="true">' + a.emoji + '</span></div>';
   const extraitHtml = (showExtrait && EXTRAITS[key])
     ? '<p class="actu-extrait">' + EXTRAITS[key] + '</p>'
@@ -3604,12 +3610,13 @@ function goToArticle(id) {
   if (title) title.textContent = a.title;
   if (date)  date.innerHTML = '<span>📅</span> ' + a.date;
   if (cat)   cat.innerHTML  = '<span>🏷</span> ' + a.cat;
-  // Image : photo réelle si disponible, sinon gradient + emoji
+  // Image : photo réelle si disponible (avec override localStorage), sinon gradient + emoji
   const img = document.getElementById('art-img');
+  const coverSrc = getCover(id, a);
   if (img) {
-    if (a.img) {
+    if (coverSrc) {
       img.style.background = '#111';
-      img.style.backgroundImage = "url('" + a.img + "')";
+      img.style.backgroundImage = "url('" + coverSrc + "')";
       img.style.backgroundSize = 'cover';
       img.style.backgroundPosition = 'center';
       img.textContent = '';
@@ -3663,6 +3670,7 @@ function goToArticle(id) {
   }
   goTo('article');
   document.title = a.title + ' — Cannes Échecs';
+  if (location.search.includes('admin') && window.updateAdminCoverPanel) updateAdminCoverPanel(id, a);
 }
 
 // ── AGENDA — TÉLÉCHARGEMENT ICS ─────────────────────
@@ -4090,6 +4098,12 @@ function setHeroWidget(mode, data) {
     + '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:12px 0">'
     + '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">🎟️ Inscrits FIJ</div>'
     + '<button id="sw-inscrits" onclick="toggleFijInscrits()" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px"></button>'
+    + '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:12px 0">'
+    + '<div id="admin-cover-section" style="display:none">'
+    +   '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">📷 Couverture article</div>'
+    +   '<div id="admin-cover-thumbs" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px"></div>'
+    +   '<button id="admin-cover-reset" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.5);font-size:11px;font-family:Montserrat,sans-serif;padding:5px 10px;border-radius:7px;cursor:pointer">↩ Réinitialiser</button>'
+    + '</div>'
     + '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:10px;text-align:center">Accès admin</div>';
   document.body.appendChild(p);
   function updateFijInscritBtn() {
@@ -4116,6 +4130,31 @@ function setHeroWidget(mode, data) {
       const b = document.getElementById('sw-'+k);
       if (b) b.style.background = k===mode ? 'rgba(201,168,76,.18)' : 'transparent';
     });
+  };
+  window.updateAdminCoverPanel = function(id, a) {
+    var sec = document.getElementById('admin-cover-section');
+    if (!sec) return;
+    var gallery = a.gallery || [];
+    if (!gallery.length) { sec.style.display = 'none'; return; }
+    sec.style.display = '';
+    var currentCover = getCover(id, a);
+    var thumbs = document.getElementById('admin-cover-thumbs');
+    if (thumbs) thumbs.innerHTML = gallery.map(function(src, i) {
+      var active = src === currentCover;
+      return '<img src="' + src + '" onclick="setArticleCover(\'' + id + '\',\'' + src + '\')" '
+        + 'title="Photo ' + (i+1) + '" '
+        + 'style="width:50px;height:38px;object-fit:cover;border-radius:4px;cursor:pointer;'
+        + (active ? 'outline:2px solid #c9a84c;' : 'opacity:.5;') + '">';
+    }).join('');
+    var reset = document.getElementById('admin-cover-reset');
+    if (reset) reset.onclick = function() {
+      try { localStorage.removeItem('ace_cover_' + id); } catch(e) {}
+      goToArticle(id);
+    };
+  };
+  window.setArticleCover = function(id, src) {
+    try { localStorage.setItem('ace_cover_' + id, src); } catch(e) {}
+    goToArticle(id);
   };
 })();
 
