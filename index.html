@@ -159,9 +159,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .hero-shared::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:56px 56px;pointer-events:none}
 .hero-shared .container{position:relative;z-index:1}
 .hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
-.breadcrumb{display:none !important}  /* fil d'Ariane masqué sur toutes les pages */
+.breadcrumb{display:none}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
 .hero-shared .breadcrumb span{color:rgba(255,255,255,.2)}
-.hero-shared h1{font-size:58px;color:#fff;margin-bottom:12px}
+.hero-shared h1{font-size:54px;color:#fff;margin-bottom:12px}
 .hero-shared h1 em{color:var(--gold);font-style:italic}
 .hero-shared .hero-desc{font-size:17px;color:rgba(255,255,255,.65);max-width:580px;line-height:1.7}
 
@@ -496,11 +496,13 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .home-hero-btns{flex-direction:column;gap:8px}
   .home-hero-btns .btn{width:100%;justify-content:center}
 
-  /* Barre stats — masquée sur mobile */
-  .stats-band{display:none}
+  /* Barre stats — visible sur mobile, flex-wrap */
+  .stats-band{padding:16px 0}
+  .stats-band-inner{flex-wrap:wrap;gap:10px 0;justify-content:center}
+  .stat-item{flex:0 0 50%;text-align:center}
 
-  /* Sections CTA finales — masquées sur mobile */
-  .section-cta{display:none}
+  /* Sections CTA finales — visible sur mobile, padding réduit */
+  .section-cta{padding:40px 0}
 
   /* Grilles */
   .actu-grid{grid-template-columns:1fr}
@@ -574,16 +576,13 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   /* Exceptions : grilles qui doivent rester sur 2 colonnes */
   /* (aucune pour l'instant — toutes passent en 1 col sur mobile) */
 
-  /* Table horaires — scrollable horizontalement */
-  #page-horaires table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    font-size: 13px;
-  }
-  #page-horaires table th,
-  #page-horaires table td { padding: 10px 12px !important; white-space: nowrap; }
+  /* Table horaires — liste empilée sur mobile */
+  #page-horaires table,#page-horaires table thead,#horaires-tbody{display:block}
+  #page-horaires table thead{display:none}
+  #horaires-tbody tr{display:block;padding:10px 0;border-bottom:1px solid var(--border) !important;background:none !important}
+  #horaires-tbody td{display:block;padding:2px 0 !important;white-space:normal !important;border:none}
+  #horaires-tbody td:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
+  #horaires-tbody td[colspan]{color:#9ca3af;font-style:italic}
 
   /* Adhesion — cacher la ligne de connexion entre les 3 étapes */
   #page-adhesion [style*="position:absolute"][style*="height:2px"]{ display:none !important }
@@ -697,7 +696,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    GALERIE PHOTOS — PAGE ARTICLE
    ===================================================== */
 .art-gallery{margin-top:48px;padding-top:36px;border-top:1px solid var(--border)}
-.art-gallery-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.art-gallery-label{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
 .art-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 @media(max-width:640px){.art-gallery-grid{grid-template-columns:repeat(2,1fr)}}
 .art-gallery-item{aspect-ratio:4/3;overflow:hidden;border-radius:8px;cursor:pointer;background:var(--noir2);position:relative}
@@ -718,7 +717,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .lb-nav:hover{background:rgba(0,0,0,.8)}
 .lb-prev{left:16px}
 .lb-next{right:16px}
-.lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.1em}
+.lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:13px;letter-spacing:.1em}
 </style>
 </head>
 <body>
@@ -955,7 +954,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,#0A1F38 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Le Club</span></div>
-      <h1 style="font-size:58px;color:#fff">Le <em>Club</em></h1>
+      <h1>Le <em>Club</em></h1>
       <p class="hero-desc">Plus de 30 ans d'excellence échiquéenne sur la Côte d'Azur</p>
     </div>
   </section>
@@ -972,7 +971,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <p>Notre philosophie : rendre les échecs accessibles à tous, du débutant de 5 ans au joueur classé, en passant par les scolaires que nous accompagnons depuis plus de trois décennies.</p>
           <p>Aujourd'hui, avec plus de 200 membres actifs et un palmarès national exceptionnel, Cannes Échecs reste un club vivant, ambitieux et profondément ancré dans le tissu culturel cannois.</p>
         </div>
-        <div class="club-histoire-img">♟</div>
+        <div class="club-histoire-img" aria-hidden="true">♟</div>
       </div>
     </div>
   </section>
@@ -1009,7 +1008,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Actualités</span></div>
-      <h1 style="font-size:54px;color:#fff">Actualités</h1>
+      <h1>Actualités</h1>
       <p class="hero-desc">Résultats, événements, vie du club — toute l'info Cannes Échecs.</p>
     </div>
   </section>
@@ -1092,7 +1091,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Activités</span></div>
-      <h1 style="font-size:54px;color:#fff">Nos <em>activités</em></h1>
+      <h1>Nos <em>activités</em></h1>
       <p class="hero-desc">Du cours débutant aux séances de compétition — trouvez votre niveau.</p>
     </div>
   </section>
@@ -1301,7 +1300,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Horaires & Tarifs</span></div>
-      <h1 style="font-size:52px;color:#fff">Horaires & <em>Tarifs</em></h1>
+      <h1>Horaires & <em>Tarifs</em></h1>
       <p style="font-size:14px;color:rgba(255,255,255,.4);margin-top:8px;font-style:italic">Saison 2026–2027 · Mis à jour en septembre 2026</p>
     </div>
   </section>
@@ -1399,7 +1398,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Adhésion</span></div>
       <div class="badge badge-event" style="margin-bottom:16px">Saison 2026–2027 ouverte</div>
-      <h1 style="font-size:52px;color:#fff">Rejoindre le <em>club</em></h1>
+      <h1>Rejoindre le <em>club</em></h1>
       <p class="hero-desc">Inscription en ligne sécurisée via HelloAsso. Confirmation immédiate.</p>
     </div>
   </section>
@@ -1547,7 +1546,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Contact</span></div>
-      <h1 style="font-size:52px;color:#fff">Contactez-<em>nous</em></h1>
+      <h1>Contactez-<em>nous</em></h1>
       <p class="hero-desc">Une question sur les cours, les tarifs, les inscriptions ? Nous répondons sous 48h.</p>
     </div>
   </section>
@@ -1579,10 +1578,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <h2 style="font-size:36px;color:var(--bleu);margin-bottom:28px">Envoyez-nous<br>un message</h2>
           <form id="contact-form" onsubmit="sendContact(event)" novalidate>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-            <div><label style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Prénom & Nom *</label><input id="cf-nom" type="text" name="nom" required placeholder="Votre nom" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;transition:border-color .2s,box-shadow .2s"></div>
-            <div><label style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input id="cf-email" type="email" name="email" required placeholder="votre@email.fr" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;transition:border-color .2s,box-shadow .2s"></div>
+            <div><label for="cf-nom" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Prénom & Nom *</label><input id="cf-nom" type="text" name="nom" required placeholder="Votre nom" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;transition:border-color .2s,box-shadow .2s"></div>
+            <div><label for="cf-email" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input id="cf-email" type="email" name="email" required placeholder="votre@email.fr" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;transition:border-color .2s,box-shadow .2s"></div>
           </div>
-          <div style="margin-bottom:16px"><label style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Objet</label>
+          <div style="margin-bottom:16px"><label for="cf-sujet" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Objet</label>
             <select id="cf-sujet" name="sujet" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;color:var(--noir);transition:border-color .2s,box-shadow .2s">
               <option value="cours">Renseignements sur les cours</option>
               <option value="tarifs">Tarifs et inscriptions</option>
@@ -1592,7 +1591,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <option value="autre">Autre</option>
             </select>
           </div>
-          <div style="margin-bottom:16px"><label style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Message *</label><textarea id="cf-message" name="message" rows="5" required placeholder="Votre message..." style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></div>
+          <div style="margin-bottom:16px"><label for="cf-message" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Message *</label><textarea id="cf-message" name="message" rows="5" required placeholder="Votre message..." style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></div>
           <div style="margin-bottom:20px;display:flex;align-items:flex-start;gap:10px"><input id="cf-rgpd" type="checkbox" name="rgpd" required style="margin-top:3px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0"><label for="cf-rgpd" style="font-size:13px;color:var(--muted)">J'accepte que mes données soient utilisées pour traiter ma demande.</label></div>
           <div id="cf-feedback" style="display:none;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14px;font-weight:600"></div>
           <button type="submit" class="btn btn-gold btn-full" style="font-size:13px;padding:16px">Envoyer mon message →</button>
@@ -1632,7 +1631,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Tournois</span></div>
-      <h1 style="font-size:54px;color:#fff">Nos <em>tournois</em></h1>
+      <h1>Nos <em>tournois</em></h1>
       <p class="hero-desc">Compétitions régulières, accessibles à tous les niveaux.</p>
     </div>
   </section>
@@ -2099,7 +2098,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Partenaires</span></div>
-      <h1 style="font-size:52px;color:#fff">Nos <em>partenaires</em></h1>
+      <h1>Nos <em>partenaires</em></h1>
       <p class="hero-desc">Ils soutiennent Cannes Échecs et contribuent au rayonnement des échecs sur la Côte d'Azur.</p>
     </div>
   </section>
@@ -2184,7 +2183,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Agenda</span></div>
-      <h1 style="font-size:52px;color:#fff">Agenda</h1>
+      <h1>Agenda</h1>
       <p class="hero-desc">Tous les événements du club — tournois, cours, stages et soirées.</p>
     </div>
   </section>
@@ -2386,7 +2385,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('club')">Le Club</a><span>›</span><span>Organigramme</span></div>
-      <h1 style="font-size:52px;color:#fff">Organi<em>gramme</em></h1>
+      <h1>Organi<em>gramme</em></h1>
       <p class="hero-desc">La structure associative de Cannes Échecs.</p>
     </div>
   </section>
@@ -2417,7 +2416,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="footer-grid" style="max-width:900px;margin:0 auto">
       <div>
         <div class="footer-logo-row">
-          <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="footer-logo-img"
+          <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="footer-logo-img" loading="lazy"
                onerror="this.style.display='none';document.getElementById('footer-logo-fallback').style.display='flex'">
           <div id="footer-logo-fallback" style="display:none;width:88px;height:88px;background:var(--gold);border-radius:12px;align-items:center;justify-content:center;font-size:40px;color:var(--noir)">♟</div>
         </div>
@@ -3514,7 +3513,7 @@ function catToFilter(cat) {
 function buildCard(key, a, showExtrait) {
   const imgHtml = a.img
     ? '<div class="actu-img" style="background:#111;background-image:url(\'' + a.img + '\');background-size:cover;background-position:center"></div>'
-    : '<div class="actu-img" style="background:' + a.bg + '">' + a.emoji + '</div>';
+    : '<div class="actu-img" style="background:' + a.bg + '" role="img" aria-label="' + a.badge + '"><span aria-hidden="true">' + a.emoji + '</span></div>';
   const extraitHtml = (showExtrait && EXTRAITS[key])
     ? '<p class="actu-extrait">' + EXTRAITS[key] + '</p>'
     : '';
@@ -3758,7 +3757,7 @@ function sendContact(e) {
   // Validation
   const errors = [];
   if (!nom.value.trim())     errors.push('Veuillez indiquer votre nom.');
-  if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value))
+  if (!email.value.trim() || !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email.value))
     errors.push('Veuillez indiquer une adresse email valide.');
   if (!message.value.trim()) errors.push('Veuillez écrire un message.');
   if (!rgpd.checked)         errors.push('Veuillez accepter la politique de données.');
