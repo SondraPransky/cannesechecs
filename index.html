@@ -2421,7 +2421,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="footer-grid" style="max-width:900px;margin:0 auto">
       <div>
         <div class="footer-logo-row">
-          <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="footer-logo-img" loading="lazy"
+          <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="footer-logo-img" loading="lazy" decoding="async"
                onerror="this.style.display='none';document.getElementById('footer-logo-fallback').style.display='flex'">
           <div id="footer-logo-fallback" style="display:none;width:88px;height:88px;background:var(--gold);border-radius:12px;align-items:center;justify-content:center;font-size:40px;color:var(--noir)">♟</div>
         </div>
@@ -3640,7 +3640,7 @@ function goToArticle(id) {
     if (currentGallery.length) {
       const items = currentGallery.map(function(src, i) {
         return '<div class="art-gallery-item" onclick="openLightbox(' + i + ')">'
-          + '<img src="' + src + '" alt="' + a.title + ' — photo ' + (i + 1) + '" loading="lazy"></div>';
+          + '<img src="' + src + '" alt="' + a.title + ' — photo ' + (i + 1) + '" loading="lazy" decoding="async"></div>';
       }).join('');
       galleryEl.innerHTML = '<p class="art-gallery-label">Photos</p>'
         + '<div class="art-gallery-grid">' + items + '</div>';
@@ -4188,7 +4188,7 @@ function renderEquipe() {
   if (!grid) return;
   grid.innerHTML = EQUIPE.map(function(m) {
     var av = (m.avatar && m.avatar.indexOf('photos/') === 0)
-      ? '<img src="' + m.avatar + '" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt="' + m.nom + '">'
+      ? '<img src="' + m.avatar + '" loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt="' + m.nom + '">'
       : '<div class="team-avatar">' + m.avatar + '</div>';
     return '<div class="team-card">' + av
       + '<div class="team-name">' + m.nom + '</div>'
