@@ -1330,7 +1330,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           </div>
           <div>
             <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">✉ Email</div>
-            <div style="font-size:14px">info@cannes-echecs.fr</div>
+            <a href="mailto:info@cannes-echecs.fr" style="font-size:14px;color:inherit;text-decoration:none">info@cannes-echecs.fr</a>
           </div>
         </div>
       </div>
@@ -1565,7 +1565,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px">✉</div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><div style="font-size:15px;font-weight:600;color:var(--noir)">info@cannes-echecs.fr</div></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><a href="mailto:info@cannes-echecs.fr" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">info@cannes-echecs.fr</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px">📍</div>
@@ -2428,7 +2428,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <ul class="footer-brand-info">
           <li><span class="ico">📍</span> 3 Av. du Petit Juas, 06400 Cannes</li>
           <li><span class="ico">🕐</span> Lun/Jeu/Ven 13h30–18h30 · Mar 17h–19h · Mer 13h30–20h</li>
-          <li><span class="ico">✉</span> info@cannes-echecs.fr</li>
+          <li><span class="ico">✉</span> <a href="mailto:info@cannes-echecs.fr" style="color:inherit;text-decoration:none">info@cannes-echecs.fr</a></li>
           <li><span class="ico">📞</span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
         </ul>
       </div>
@@ -3821,13 +3821,13 @@ function sendContact(e) {
 function showLegal(type) {
   const content = {
     mentions: '<h2 style="font-size:24px;color:var(--bleu);margin-bottom:16px">Mentions légales</h2>'
-      + '<p><strong>Éditeur :</strong> Association Cannes Échecs<br>3 Avenue du Petit Juas — 06400 Cannes<br>Email : info@cannes-echecs.fr · Tél : <a href="tel:+33493394139" style="color:inherit">04 93 39 41 39</a></p>'
+      + '<p><strong>Éditeur :</strong> Association Cannes Échecs<br>3 Avenue du Petit Juas — 06400 Cannes<br>Email : <a href="mailto:info@cannes-echecs.fr" style="color:inherit">info@cannes-echecs.fr</a> · Tél : <a href="tel:+33493394139" style="color:inherit">04 93 39 41 39</a></p>'
       + '<p style="margin-top:12px"><strong>Hébergeur :</strong> GitHub Pages (Microsoft)</p>'
       + '<p style="margin-top:12px"><strong>Directeur de publication :</strong> La Présidente de l\'association</p>'
       ,
     confidentialite: '<h2 style="font-size:24px;color:var(--bleu);margin-bottom:16px">Confidentialité</h2>'
       + '<p>Ce site ne collecte aucune donnée personnelle sans votre consentement. Les données saisies dans le formulaire de contact sont utilisées uniquement pour répondre à votre demande.</p>'
-      + '<p style="margin-top:12px">Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données en contactant : info@cannes-echecs.fr</p>'
+      + '<p style="margin-top:12px">Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données en contactant : <a href="mailto:info@cannes-echecs.fr" style="color:var(--bleu)">info@cannes-echecs.fr</a></p>'
   };
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
