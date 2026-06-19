@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page introuvable — Cannes Échecs</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="logo-cannes-echecs.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #1E3A5F;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    background-image: repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%, transparent 0% 50%);
+    background-size: 56px 56px;
+  }
+  .piece {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 24px;
+    opacity: .6;
+  }
+  .code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(96px, 20vw, 160px);
+    font-weight: 700;
+    color: #C9A84C;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 700;
+    font-style: italic;
+    color: rgba(255,255,255,.9);
+    margin-bottom: 16px;
+  }
+  .desc {
+    font-size: 15px;
+    color: rgba(255,255,255,.55);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 40px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 8px;
+    background: #C9A84C;
+    color: #0F0E17;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .btn:hover { background: #B8963C; transform: translateY(-2px); }
+  .redirect {
+    margin-top: 28px;
+    font-size: 12px;
+    color: rgba(255,255,255,.3);
+  }
+  .redirect span { color: #C9A84C; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="piece" aria-hidden="true">♟</div>
+  <div class="code">404</div>
+  <div class="title">Page introuvable</div>
+  <p class="desc">Cette page n'existe pas ou a été déplacée. Retournez à l'accueil pour continuer votre navigation.</p>
+  <a class="btn" href="/">Retour à l'accueil →</a>
+  <p class="redirect">Redirection automatique dans <span id="countdown">10</span> secondes</p>
+
+  <script>
+    var n = 10;
+    var el = document.getElementById('countdown');
+    var t = setInterval(function() {
+      n--;
+      el.textContent = n;
+      if (n <= 0) { clearInterval(t); window.location.href = '/'; }
+    }, 1000);
+  </script>
+</body>
+</html>
