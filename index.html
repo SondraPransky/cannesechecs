@@ -414,6 +414,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .valeurs-grid{grid-template-columns:repeat(2,1fr)}
   .actu-grid{grid-template-columns:repeat(2,1fr)}
   .archive-grid{grid-template-columns:repeat(2,1fr)}
+  #home-actus-grid{grid-template-columns:repeat(2,1fr)}
 
   /* Inline grids — tablet */
   #page-horaires    [style*="grid-template-columns:60%"],
@@ -504,6 +505,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   /* Grilles */
   .actu-grid{grid-template-columns:1fr}
   .archive-grid{grid-template-columns:1fr}
+  #home-actus-grid{grid-template-columns:1fr}
   .forces-grid{grid-template-columns:repeat(2,1fr)}
   .equipe-grid{grid-template-columns:repeat(2,1fr)}
   .valeurs-grid{grid-template-columns:1fr}
@@ -3495,7 +3497,7 @@ function renderHomeActus() {
   grid.innerHTML = ARCHIVE_ORDER
     .filter(function(k) { return !!ARTICLES[k]; })
     .slice(0, 4)
-    .map(function(k)    { return buildCard(k, ARTICLES[k], true); })
+    .map(function(k)    { return buildCard(k, ARTICLES[k], false); })
     .join('');
 }
 
