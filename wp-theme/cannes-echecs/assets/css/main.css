@@ -397,7 +397,11 @@ a[onclick]{cursor:pointer}
   .section-cta{display:none}
   .actu-grid{grid-template-columns:1fr}
   .archive-grid{grid-template-columns:1fr}
-  #home-actus-grid{grid-template-columns:1fr}
+  /* Accueil : carousel horizontal au lieu de 4 cartes empilées */
+  .section-actus .container{overflow:hidden}
+  #home-actus-grid{grid-template-columns:repeat(4,80vw);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px;gap:12px}
+  #home-actus-grid::-webkit-scrollbar{display:none}
+  #home-actus-grid > *{scroll-snap-align:start}
   .forces-grid{grid-template-columns:repeat(2,1fr)}
   .equipe-grid{grid-template-columns:repeat(2,1fr)}
   .valeurs-grid{grid-template-columns:1fr}
