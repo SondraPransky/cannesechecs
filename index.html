@@ -188,7 +188,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
 /* Dropdown */
 .dropdown{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--sh-lg);opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s;z-index:300;overflow:hidden}
-.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-item:hover .dropdown,.nav-item.open .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
 .dropdown a{display:block;padding:11px 18px;font-size:14px;color:var(--noir);border-bottom:1px solid var(--ivoire2);transition:all .15s;cursor:pointer}
 .dropdown a:last-child{border-bottom:none}
 .dropdown a:hover{background:var(--ivoire);color:var(--bleu)}
@@ -1029,7 +1029,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="container">
       <!-- Cartes générées automatiquement par renderArchiveGrid() (JS) -->
       <div class="archive-grid"></div>
-      <div class="pagination" style="opacity:.5;pointer-events:none" title="Toutes les actualités sont affichées">
+      <div class="pagination" style="display:none" title="Toutes les actualités sont affichées">
         <button class="pg-btn pg-active">1</button>
       </div>
     </div>
@@ -2593,6 +2593,15 @@ function goTo(id) {
   document.title = PAGE_TITLES[id] || 'Cannes Échecs';
   // Mettre à jour les états actifs de la nav
   updateNavActive(id);
+  // Restaurer l'onglet depuis le hash URL (ex: #activites-stages)
+  var hash = location.hash.replace('#', '');
+  if (hash.startsWith(id + '-')) {
+    var tabKey = hash.slice(id.length + 1);
+    setTimeout(function() {
+      var btn = target && target.querySelector('[data-tab="' + tabKey + '"]');
+      if (btn) btn.click();
+    }, 0);
+  }
 }
 
 function updateNavActive(id) {
@@ -3636,7 +3645,17 @@ function goToArticle(id) {
   window._shareText  = (EXTRAITS[id] || a.title) + ' — Cannes Échecs';
   // Afficher le bouton natif sur mobile si disponible
   const btnNative = document.getElementById('share-native');
-  if (btnNative) btnNative.style.display = navigator.share ? 'inline-flex' : 'none';
+  const btnFb = document.getElementById('share-fb');
+  const btnTw = document.getElementById('share-tw');
+  if (navigator.share) {
+    if (btnNative) btnNative.style.display = 'inline-flex';
+    if (btnFb) btnFb.style.display = 'none';
+    if (btnTw) btnTw.style.display = 'none';
+  } else {
+    if (btnNative) btnNative.style.display = 'none';
+    if (btnFb) btnFb.style.display = '';
+    if (btnTw) btnTw.style.display = '';
+  }
   // Articles suggérés : 3 suivants dans ARCHIVE_ORDER
   const others = ARCHIVE_ORDER.filter(function(k) { return k !== id && ARTICLES[k]; }).slice(0, 3);
   const rel = document.getElementById('art-related');
@@ -3711,13 +3730,13 @@ function shareFb() {
   const url = 'https://www.facebook.com/sharer/sharer.php?u='
     + encodeURIComponent(window._shareUrl || 'https://cannes-echecs.fr/')
     + '&quote=' + encodeURIComponent(window._shareTitle || '');
-  window.open(url, 'fb-share', 'width=600,height=400,noopener');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 function shareTw() {
   const url = 'https://twitter.com/intent/tweet?url='
     + encodeURIComponent(window._shareUrl || 'https://cannes-echecs.fr/')
     + '&text=' + encodeURIComponent((window._shareTitle || '') + ' — Cannes Échecs ♟️');
-  window.open(url, 'tw-share', 'width=600,height=400,noopener');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 function shareNative() {
   if (!navigator.share) return;
@@ -3938,8 +3957,45 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
       target.style.display = '';
       target.classList.add('tab-panel-active');
     }
+    // Mettre à jour le hash pour permettre le partage de lien direct
+    try {
+      const pid = container.id.replace('page-', '');
+      history.replaceState(null, '', location.pathname + location.search + '#' + pid + '-' + this.dataset.tab);
+    } catch(e) {}
   });
 });
+
+// ── DROPDOWN — SUPPORT TACTILE / CLICK ──────────────
+(function() {
+  function closeAll() {
+    document.querySelectorAll('.nav-item').forEach(function(i) {
+      var d = i.querySelector('.dropdown');
+      if (d) { d.style.opacity = ''; d.style.visibility = ''; d.style.transform = ''; }
+    });
+  }
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    var dd = item.querySelector('.dropdown');
+    if (!dd) return;
+    var btn = item.querySelector('.nav-link');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      var isOpen = dd.style.visibility === 'visible';
+      closeAll();
+      if (!isOpen) {
+        dd.style.opacity = '1';
+        dd.style.visibility = 'visible';
+        dd.style.transform = 'translateY(0)';
+        e.stopPropagation();
+      }
+    });
+    dd.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { closeAll(); });
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target || typeof e.target.closest !== 'function' || !e.target.closest('.nav-item')) closeAll();
+  });
+})();
 
 // ── HERO WIDGET ─────────────────────────────────────
 const HERO_WIDGETS = {
