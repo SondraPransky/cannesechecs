@@ -27,3 +27,14 @@ Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
 ## Mainteneurs non-techniques
 Romuald de Labaca et Marlies Bensdorp De Labaca mettront à jour le site.
 Aucune compétence technique. Toute procédure doit rester simple.
+
+## ⚠️ RÈGLE ABSOLUE — Site WordPress
+**Le site FINAL sera sous WordPress. Le site statique actuel est PROVISOIRE.**
+
+- Avant toute proposition de feature admin ou de gestion de contenu, se demander :
+  "Est-ce que Romuald ou Marlies peut faire ça depuis l'interface WordPress admin ?"
+- Si la réponse est non → trouver une autre approche ou signaler la limitation.
+- NE JAMAIS proposer "Mathilde n'a qu'à modifier 3 lignes de code" comme solution permanente.
+- Les limitations actuelles (localStorage, JS à éditer) sont acceptables en **transition seulement**.
+- Sur WordPress : penser ACF (Advanced Custom Fields) pour tout contenu variable
+  (URLs FIJ, compteurs, dates, textes widgets, articles, horaires, équipe, etc.).
