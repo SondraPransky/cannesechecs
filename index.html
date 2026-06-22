@@ -30,6 +30,8 @@
 <!-- ═══ Favicon ═══ -->
 <link rel="icon" type="image/png" href="logo-cannes-echecs.png">
 <link rel="apple-touch-icon" href="logo-cannes-echecs.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1E3A5F">
 
 <!-- ═══ Données structurées (Google) ═══ -->
 <script type="application/ld+json">
@@ -398,6 +400,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    RESPONSIVE — TABLET (≤ 1024px)
    ===================================================== */
 @media(max-width:1024px){
+  /* Barre stats accueil — masquée sur tablette et mobile (déjà présente dans le hero) */
+  .stats-band{display:none}
+
   /* Tournois tablette — onglets compacts */
   #page-tournois .tab-btn { padding: 14px 14px; font-size: 11px; }
   #page-tournois .tab-bar-inner { padding: 0 16px; }
@@ -2434,6 +2439,11 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <li><span class="ico">✉</span> <a href="mailto:info@cannes-echecs.fr" style="color:inherit;text-decoration:none">info@cannes-echecs.fr</a></li>
           <li><span class="ico">📞</span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
         </ul>
+        <div style="display:flex;gap:10px;margin-top:18px">
+          <a href="https://www.facebook.com/canneschessclub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Facebook</a>
+          <a href="https://www.instagram.com/cannes_echecs" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Instagram</a>
+          <a href="https://x.com/CannesChessClub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">X / Twitter</a>
+        </div>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Le Club</div>

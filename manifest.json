@@ -1,0 +1,14 @@
+{
+  "name": "Cannes Échecs",
+  "short_name": "Cannes Échecs",
+  "description": "Club d'échecs de référence sur la Côte d'Azur depuis 1985.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#1E3A5F",
+  "theme_color": "#1E3A5F",
+  "lang": "fr",
+  "icons": [
+    { "src": "logo-cannes-echecs.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "logo-cannes-echecs.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
