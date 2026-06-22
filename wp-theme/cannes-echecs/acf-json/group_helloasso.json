@@ -1,0 +1,27 @@
+{
+  "key": "group_helloasso",
+  "title": "HelloAsso — URLs",
+  "fields": [
+    { "key": "field_ha_adhesion",   "label": "Adhésion",          "name": "ha_adhesion",   "type": "url", "instructions": "URL HelloAsso du formulaire d'adhésion 2026-2027", "required": 1 },
+    { "key": "field_ha_fij",        "label": "FIJ 2027",          "name": "ha_fij",        "type": "url", "instructions": "URL HelloAsso inscription FIJ" },
+    { "key": "field_ha_paques",     "label": "Open de Pâques",    "name": "ha_paques",     "type": "url", "instructions": "URL HelloAsso Open Pâques 2027" },
+    { "key": "field_ha_pico_sep",   "label": "PICO Septembre",    "name": "ha_pico_sep",   "type": "url" },
+    { "key": "field_ha_pico_oct",   "label": "PICO Octobre",      "name": "ha_pico_oct",   "type": "url" },
+    { "key": "field_ha_pico_nov",   "label": "PICO Novembre",     "name": "ha_pico_nov",   "type": "url" },
+    { "key": "field_ha_pico_dec",   "label": "PICO Décembre",     "name": "ha_pico_dec",   "type": "url" },
+    { "key": "field_ha_pico_jan",   "label": "PICO Janvier",      "name": "ha_pico_jan",   "type": "url" },
+    { "key": "field_ha_pico_mar",   "label": "PICO Mars",         "name": "ha_pico_mar",   "type": "url" },
+    { "key": "field_ha_pico_avr",   "label": "PICO Avril",        "name": "ha_pico_avr",   "type": "url" },
+    { "key": "field_ha_pico_mai",   "label": "PICO Mai",          "name": "ha_pico_mai",   "type": "url" },
+    { "key": "field_ha_pico_jun",   "label": "PICO Juin",         "name": "ha_pico_jun",   "type": "url" }
+  ],
+  "location": [
+    [{ "param": "options_page", "operator": "==", "value": "liens-helloasso" }]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true
+}

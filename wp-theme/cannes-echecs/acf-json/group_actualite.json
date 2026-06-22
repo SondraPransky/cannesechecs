@@ -1,0 +1,21 @@
+{
+  "key": "group_actualite",
+  "title": "Actualité — Champs",
+  "fields": [
+    { "key": "field_actu_categorie",  "label": "Catégorie",        "name": "categorie",  "type": "select",  "required": 1, "choices": { "resultats": "Résultats", "formation": "Formation", "tournois": "Tournois", "scolaire": "Scolaire", "club": "Vie du club", "animation": "Animation" }, "default_value": "club", "instructions": "Catégorie de l'article (utilisée pour les filtres)" },
+    { "key": "field_actu_badge",      "label": "Badge",            "name": "badge",      "type": "text",    "instructions": "Texte court affiché en badge doré (ex : Résultat, Tournoi, À la une)", "default_value": "Actualité" },
+    { "key": "field_actu_emoji",      "label": "Emoji",            "name": "emoji",      "type": "text",    "instructions": "Emoji affiché quand il n'y a pas d'image (ex : 🏆)", "default_value": "♟" },
+    { "key": "field_actu_bg_gradient","label": "Couleur de fond",  "name": "bg_gradient","type": "select",  "instructions": "Dégradé de fond quand pas d'image", "choices": { "linear-gradient(135deg,var(--bleu) 0%,#0A1F38 100%)": "Bleu (défaut)", "linear-gradient(135deg,#1a3a5c 0%,#102436 100%)": "Bleu foncé", "linear-gradient(135deg,var(--gold) 0%,var(--gold-h) 100%)": "Or", "linear-gradient(135deg,#7c3aed 0%,#4f46e5 100%)": "Violet", "linear-gradient(135deg,#059669 0%,#065f46 100%)": "Vert" }, "default_value": "linear-gradient(135deg,var(--bleu) 0%,#0A1F38 100%)" },
+    { "key": "field_actu_image_principale", "label": "Image principale", "name": "image_principale", "type": "image",   "instructions": "Image à la une de l'article. Format recommandé : 1200×630px", "return_format": "array", "preview_size": "medium" },
+    { "key": "field_actu_gallery",    "label": "Galerie photos",   "name": "gallery",    "type": "gallery", "instructions": "Photos supplémentaires affichées sous le texte de l'article", "return_format": "array", "preview_size": "medium", "insert": "append" }
+  ],
+  "location": [
+    [{ "param": "post_type", "operator": "==", "value": "actualite" }]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true
+}
