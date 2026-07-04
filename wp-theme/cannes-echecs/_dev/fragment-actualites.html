@@ -1,0 +1,31 @@
+<div id="page-actualites" class="page active">
+
+  <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
+    <div class="container">
+      <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Accueil</a><span>›</span><span>Actualités</span></div>
+      <h1>Actualités</h1>
+      <p class="hero-desc">Résultats, événements, vie du club — toute l'info Cannes Échecs.</p>
+    </div>
+  </section>
+
+  <div class="archive-filtres">
+    <div class="container archive-filtres-inner">
+      <button class="filtre-btn active-gold">Toutes</button>
+      <button class="filtre-btn">Résultats</button>
+      <button class="filtre-btn" title="À venir — aucun article de formation pour l'instant">Formation</button>
+      <button class="filtre-btn">Tournois</button>
+      <button class="filtre-btn">Scolaire</button>
+      <button class="filtre-btn">Club</button>
+    </div>
+  </div>
+
+  <section class="archive-grid-section">
+    <div class="container">
+      <!-- Cartes générées automatiquement par renderArchiveGrid() (JS) -->
+      <div class="archive-grid"></div>
+      <div class="pagination" style="display:none" title="Toutes les actualités sont affichées">
+        <button class="pg-btn pg-active">1</button>
+      </div>
+    </div>
+  </section>
+</div><!-- fin page-actualites -->

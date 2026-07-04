@@ -1,6 +1,48 @@
-// Cannes Échecs — main.js
-// Les constantes de données (HELLOASSO, FIJ_*, ARTICLES, ARCHIVE_ORDER, EXTRAITS)
-// sont injectées par PHP dans un <script> inline placé avant ce fichier.
+
+// ── HELLOASSO — LIENS D'INSCRIPTION ─────────────────
+// ⚠️ Remplacer chaque URL provisoire par le vrai lien HelloAsso
+// ── INSCRIPTIONS FIJ — à mettre à jour quand les inscriptions ouvrent ───────
+// url     : lien echecs.asso.fr liste des inscrits ('' = pas encore disponible)
+// count   : nombre d'inscrits actuels (0 = ne pas afficher)
+// pairings: lien echecs.asso.fr appariements ('' = pas encore disponible)
+// La section disparaît automatiquement si url='' ET count=0 ET pairings='' pour tous les opens.
+// Pour masquer manuellement après le FIJ → panneau admin (?admin dans l'URL)
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DONNÉES DU SITE — MODIFIER ICI POUR METTRE À JOUR LE CONTENU
+// ══════════════════════════════════════════════════════════════════════════════
+
+// 1. SAISON EN COURS ── changer cette seule ligne met à jour tout le site
+
+// 2. HORAIRES DU LOCAL (planning hebdomadaire)
+//    ferme:true     → ligne grisée "Fermé"
+//    highlight:true → activité affichée en bleu gras
+
+// 3. ÉQUIPE DU CLUB
+//    avatar : emoji 👤 ou chemin vers photo (ex: 'photos/joffrey.jpg')
+
+
+// ── HELLOASSO — garde-fou liens non renseignés ──────
+// Tant que les URLs réelles ne remplacent pas les LIEN-*, on affiche un
+// message au lieu d'envoyer le visiteur vers une page HelloAsso inexistante.
+function haOpen(url) {
+  if (!url || url.indexOf('LIEN-') > -1) { haNotice(); return; }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+function haNotice() {
+  var old = document.getElementById('ha-notice');
+  if (old) old.remove();
+  var n = document.createElement('div');
+  n.id = 'ha-notice';
+  n.setAttribute('role', 'status');
+  n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;background:var(--bleu);color:#fff;border:1px solid rgba(201,168,76,.5);border-radius:12px;padding:18px 40px 18px 22px;max-width:440px;width:calc(100% - 32px);box-shadow:0 8px 32px rgba(0,0,0,.35);font-size:14px;line-height:1.6';
+  n.innerHTML = '<strong style="color:var(--gold)">Inscriptions en ligne bientôt disponibles</strong><br>'
+    + 'En attendant, contactez le club : <a href="tel:+33493394139" style="color:var(--gold)">04 93 39 41 39</a> · '
+    + '<a href="mailto:info@cannes-echecs.fr" style="color:var(--gold)">info@cannes-echecs.fr</a>'
+    + '<button onclick="this.parentElement.remove()" aria-label="Fermer" style="position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;line-height:1">×</button>';
+  document.body.appendChild(n);
+  setTimeout(function() { if (n.parentElement) n.remove(); }, 8000);
+}
 
 // ── MENU MOBILE ─────────────────────────────────────
 function toggleMobileNav() {
@@ -13,59 +55,15 @@ function mobileGoTo(page, tab) {
   goToTab(page, tab);
 }
 
-function goToTab(page, tab) {
-  goTo(page);
-  if (!tab) return;
-  const container = document.getElementById('page-' + page);
-  if (!container) return;
-  const btn = container.querySelector('[data-tab="' + tab + '"]');
-  if (btn) btn.click();
-}
+// Naviguer vers une page ET activer un onglet spécifique
+
+// Naviguer vers Contact avec l'objet du message pré-rempli
 
 // ── ROUTER ──────────────────────────────────────────
-const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
-const PAGE_TITLES = {
-  home:"Cannes Échecs — Club d'échecs · Côte d'Azur",
-  club:'Le Club — Cannes Échecs',
-  actualites:'Actualités — Cannes Échecs',
-  article:'Article — Cannes Échecs',
-  activites:'Nos Activités — Cannes Échecs',
-  horaires:'Horaires & Tarifs — Cannes Échecs',
-  adhesion:'Adhésion — Cannes Échecs',
-  contact:'Contact — Cannes Échecs',
-  tournois:'Tournois — Cannes Échecs',
-  fij:'FIJ 2027 — Cannes Échecs',
-  partenaires:'Partenaires — Cannes Échecs',
-  agenda:'Agenda — Cannes Échecs',
-  organigramme:'Organigramme — Cannes Échecs'
-};
 
-function goTo(id) {
-  pages.forEach(p => {
-    const el = document.getElementById('page-' + p);
-    if (el) el.classList.remove('active');
-  });
-  const target = document.getElementById('page-' + id);
-  if (target) {
-    target.classList.add('active');
-  } else {
-    document.getElementById('page-home').classList.add('active');
-  }
-  window.scrollTo({top: 0, behavior: 'smooth'});
-  document.title = PAGE_TITLES[id] || 'Cannes Échecs';
-  updateNavActive(id);
-}
-
-function updateNavActive(id) {
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const map = {club:'nav-club',actualites:'nav-club',article:'nav-club',organigramme:'nav-club',horaires:'nav-club',adhesion:'nav-club',contact:'nav-club',activites:'nav-activites',tournois:'nav-tournois',fij:'nav-fij',partenaires:'nav-partenaires',agenda:'nav-agenda'};
-  if (map[id]) {
-    const el = document.getElementById(map[id]);
-    if (el) el.classList.add('active');
-  }
-}
 
 // ── COMPTE À REBOURS ────────────────────────────────
+
 function pad(n) { return String(n).padStart(2,'0'); }
 
 var _fijState = null;
@@ -82,19 +80,21 @@ function renderFijSbInscrits() {
           + '</div>';
       }).join('') + '</div>';
 }
-
 function updateCountdowns() {
   var now = new Date();
+  // ── Home widget (vers ouverture inscriptions) ──
   var diff1 = FIJ_OPEN - now;
   if (diff1 > 0) {
     var d1=Math.floor(diff1/86400000), h1=Math.floor((diff1%86400000)/3600000), m1=Math.floor((diff1%3600000)/60000);
     ['h-cd-j','h-cd-h','h-cd-m'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d1,h1,m1][i]);});
   }
+  // ── Hero widget (vers ronde 1) ──
   var diff2 = FIJ_DATE - now;
   if (diff2 > 0) {
     var d2=Math.floor(diff2/86400000),h2=Math.floor((diff2%86400000)/3600000),m2=Math.floor((diff2%3600000)/60000),s2=Math.floor((diff2%60000)/1000);
     ['f-cd-j','f-cd-h','f-cd-m','f-cd-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d2,h2,m2,s2][i]);});
   }
+  // ── Sidebar FIJ — 3 états ──
   var state = now < FIJ_RONDES[0].date ? 'avant' : now < FIJ_FIN ? 'encours' : 'fini';
   if (state !== _fijState) {
     _fijState = state;
@@ -107,11 +107,13 @@ function updateCountdowns() {
     if(state==='encours') renderFijSbInscrits();
   }
   if (state === 'avant') {
+    // Countdown page FIJ (même valeurs que hero widget)
     if (diff2 > 0) {
       var d2b=Math.floor(diff2/86400000),h2b=Math.floor((diff2%86400000)/3600000),m2b=Math.floor((diff2%3600000)/60000),s2b=Math.floor((diff2%60000)/1000);
       ['fij-cd-j','fij-cd-h','fij-cd-m','fij-cd-s'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d2b,h2b,m2b,s2b][i]);});
     }
   } else if (state === 'encours') {
+    // Ronde en cours si démarrée depuis moins de 2h, sinon prochaine ronde
     var TWO_H = 7200000;
     var currentRonde = null, nextRonde = null;
     for(var i=0;i<FIJ_RONDES.length;i++){
@@ -137,7 +139,8 @@ function updateCountdowns() {
   }
 }
 
-// ── HELPERS ARTICLES ────────────────────────────────
+
+// ── HELPER : catégorie article → filtre CSS ──────────
 function catToFilter(cat) {
   if (cat.includes('Tournoi'))                                    return 'tournois';
   if (cat.includes('Scolaire'))                                   return 'scolaire';
@@ -145,42 +148,16 @@ function catToFilter(cat) {
   return 'resultats';
 }
 
-function buildCard(key, a, showExtrait) {
-  const imgHtml = a.img
-    ? '<div class="actu-img" style="background:#111;background-image:url(\'' + a.img + '\');background-size:cover;background-position:center"></div>'
-    : '<div class="actu-img" style="background:' + a.bg + '">' + a.emoji + '</div>';
-  const extraitHtml = (showExtrait && EXTRAITS[key])
-    ? '<p class="actu-extrait">' + EXTRAITS[key] + '</p>'
-    : '';
-  return '<div class="actu-card" data-cat="' + catToFilter(a.cat) + '" onclick="goToArticle(\'' + key + '\')">'
-    + imgHtml
-    + '<div class="actu-body">'
-    + '<div class="actu-cat">' + a.cat + '</div>'
-    + '<h3 class="actu-title">' + a.title + '</h3>'
-    + extraitHtml
-    + '<div class="actu-footer"><span class="actu-date">' + a.date + '</span><span class="actu-lire">Lire →</span></div>'
-    + '</div></div>';
-}
+// ── HELPER : construit le HTML d'une carte article ───
+// showExtrait=true → affiche le résumé (archive, home)
+// showExtrait=false → carte compacte (section "À lire aussi")
 
-function renderArchiveGrid() {
-  const grid = document.querySelector('#page-actualites .archive-grid');
-  if (!grid) return;
-  grid.innerHTML = ARCHIVE_ORDER
-    .filter(function(k) { return !!ARTICLES[k]; })
-    .map(function(k)    { return buildCard(k, ARTICLES[k], true); })
-    .join('');
-}
 
-function renderHomeActus() {
-  const grid = document.getElementById('home-actus-grid');
-  if (!grid) return;
-  grid.innerHTML = ARCHIVE_ORDER
-    .filter(function(k) { return !!ARTICLES[k]; })
-    .slice(0, 4)
-    .map(function(k)    { return buildCard(k, ARTICLES[k], false); })
-    .join('');
-}
+// ── RENDU : grille archive (page Actualités) ─────────
 
+// ── RENDU : 4 dernières actus (page Accueil) ─────────
+
+// ── RENDU : inscrits FIJ (page FIJ) ─────────────────
 function renderFijInscrits() {
   var sec = document.getElementById('fij-inscrits-section');
   if (!sec) return;
@@ -224,62 +201,7 @@ function renderFijInscrits() {
     + '<div style="display:flex;flex-direction:column;gap:10px">' + rows.join('') + '</div>';
 }
 
-function goToArticle(id) {
-  const a = ARTICLES[id];
-  if (!a) { goTo('article'); return; }
-  const badge = document.getElementById('art-badge');
-  const title = document.getElementById('art-title');
-  const date  = document.getElementById('art-date');
-  const cat   = document.getElementById('art-cat');
-  if (badge) badge.textContent = a.badge;
-  if (title) title.textContent = a.title;
-  if (date)  date.innerHTML = '<span>📅</span> ' + a.date;
-  if (cat)   cat.innerHTML  = '<span>🏷</span> ' + a.cat;
-  const img = document.getElementById('art-img');
-  if (img) {
-    if (a.img) {
-      img.style.background = '#111';
-      img.style.backgroundImage = "url('" + a.img + "')";
-      img.style.backgroundSize = 'cover';
-      img.style.backgroundPosition = 'center';
-      img.textContent = '';
-    } else {
-      img.style.background = a.bg;
-      img.style.backgroundImage = '';
-      img.textContent = a.emoji;
-    }
-  }
-  const body = document.getElementById('art-body');
-  if (body) body.innerHTML = a.body;
-  currentGallery = a.gallery || [];
-  const galleryEl = document.getElementById('art-gallery');
-  if (galleryEl) {
-    if (currentGallery.length) {
-      const items = currentGallery.map(function(src, i) {
-        return '<div class="art-gallery-item" onclick="openLightbox(' + i + ')">'
-          + '<img src="' + src + '" alt="' + a.title + ' — photo ' + (i + 1) + '" loading="lazy"></div>';
-      }).join('');
-      galleryEl.innerHTML = '<p class="art-gallery-label">Photos</p>'
-        + '<div class="art-gallery-grid">' + items + '</div>';
-      galleryEl.style.display = '';
-    } else {
-      galleryEl.innerHTML = '';
-      galleryEl.style.display = 'none';
-    }
-  }
-  window._shareUrl   = 'https://cannes-echecs.fr/';
-  window._shareTitle = a.title;
-  window._shareText  = (EXTRAITS[id] || a.title) + ' — Cannes Échecs';
-  const btnNative = document.getElementById('share-native');
-  if (btnNative) btnNative.style.display = navigator.share ? 'inline-flex' : 'none';
-  const others = ARCHIVE_ORDER.filter(function(k) { return k !== id && ARTICLES[k]; }).slice(0, 3);
-  const rel = document.getElementById('art-related');
-  if (rel) {
-    rel.innerHTML = others.map(function(k) { return buildCard(k, ARTICLES[k], false); }).join('');
-  }
-  goTo('article');
-  document.title = a.title + ' — Cannes Échecs';
-}
+// ── PAGE ARTICLE DYNAMIQUE ────────────────────────────
 
 // ── AGENDA — TÉLÉCHARGEMENT ICS ─────────────────────
 function downloadICS() {
@@ -307,11 +229,19 @@ function downloadICS() {
     { start:'20270611T180000Z', end:'20270611T210000Z', summary:'Rapide du vendredi — Cannes Échecs', desc:'Parties rapides 10+5 · Membres · Gratuit · Veille du PICO' },
     { start:'20270612T113000Z', end:'20270612T163000Z', summary:'PICO Juin — Cannes Échecs', desc:'Tournoi mensuel · 5 rondes · Membres · 13h30' }
   ];
-  let ics = 'BEGIN:VCALENDAR' + CRLF + 'VERSION:2.0' + CRLF + 'PRODID:-//Cannes Echecs//FR' + CRLF
-    + 'X-WR-CALNAME:Agenda Cannes Échecs' + CRLF + 'X-WR-TIMEZONE:Europe/Paris' + CRLF;
+  let ics = 'BEGIN:VCALENDAR' + CRLF
+    + 'VERSION:2.0' + CRLF
+    + 'PRODID:-//Cannes Echecs//FR' + CRLF
+    + 'X-WR-CALNAME:Agenda Cannes Échecs' + CRLF
+    + 'X-WR-TIMEZONE:Europe/Paris' + CRLF;
   events.forEach(function(e) {
-    ics += 'BEGIN:VEVENT' + CRLF + 'DTSTART:' + e.start + CRLF + 'DTEND:' + e.end + CRLF
-      + 'SUMMARY:' + e.summary + CRLF + 'DESCRIPTION:' + e.desc + CRLF + 'LOCATION:' + loc + CRLF + 'END:VEVENT' + CRLF;
+    ics += 'BEGIN:VEVENT' + CRLF
+      + 'DTSTART:' + e.start + CRLF
+      + 'DTEND:' + e.end + CRLF
+      + 'SUMMARY:' + e.summary + CRLF
+      + 'DESCRIPTION:' + e.desc + CRLF
+      + 'LOCATION:' + loc + CRLF
+      + 'END:VEVENT' + CRLF;
   });
   ics += 'END:VCALENDAR';
   const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
@@ -323,6 +253,7 @@ function downloadICS() {
 }
 
 function openGoogleCalendar() {
+  // Ouvre le premier événement (reprise des cours) sur Google Calendar
   const url = 'https://calendar.google.com/calendar/r/eventedit'
     + '?text=Reprise+des+cours+%E2%80%94+Cann%C3%A8s+%C3%89checs'
     + '&dates=20260909T073000Z/20260909T173000Z'
@@ -336,13 +267,13 @@ function shareFb() {
   const url = 'https://www.facebook.com/sharer/sharer.php?u='
     + encodeURIComponent(window._shareUrl || 'https://cannes-echecs.fr/')
     + '&quote=' + encodeURIComponent(window._shareTitle || '');
-  window.open(url, 'fb-share', 'width=600,height=400,noopener');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 function shareTw() {
   const url = 'https://twitter.com/intent/tweet?url='
     + encodeURIComponent(window._shareUrl || 'https://cannes-echecs.fr/')
     + '&text=' + encodeURIComponent((window._shareTitle || '') + ' — Cannes Échecs ♟️');
-  window.open(url, 'tw-share', 'width=600,height=400,noopener');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 function shareNative() {
   if (!navigator.share) return;
@@ -350,7 +281,7 @@ function shareNative() {
     title: window._shareTitle || 'Cannes Échecs',
     text:  window._shareText  || '',
     url:   window._shareUrl   || 'https://cannes-echecs.fr/'
-  }).catch(function() {});
+  }).catch(function() {}); // annulation utilisateur silencieuse
 }
 
 // ── FORMULAIRE CONTACT ──────────────────────────────
@@ -361,15 +292,20 @@ function sendContact(e) {
   const message = document.getElementById('cf-message');
   const rgpd    = document.getElementById('cf-rgpd');
   const fb      = document.getElementById('cf-feedback');
+  const honey   = document.getElementById('cf-honey');
+  if (honey && honey.value) { e.target.reset(); return; } // champ piège rempli → bot, on ignore
+  // Validation
   const errors = [];
   if (!nom.value.trim())     errors.push('Veuillez indiquer votre nom.');
-  if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value))
+  if (!email.value.trim() || !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email.value))
     errors.push('Veuillez indiquer une adresse email valide.');
   if (!message.value.trim()) errors.push('Veuillez écrire un message.');
   if (!rgpd.checked)         errors.push('Veuillez accepter la politique de données.');
   if (errors.length) {
     fb.style.display = 'block';
-    fb.style.background = '#fef2f2'; fb.style.border = '1px solid #fca5a5'; fb.style.color = '#b91c1c';
+    fb.style.background = '#fef2f2';
+    fb.style.border = '1px solid #fca5a5';
+    fb.style.color = '#b91c1c';
     fb.innerHTML = errors.map(function(e){ return '• ' + e; }).join('<br>');
     return;
   }
@@ -379,35 +315,53 @@ function sendContact(e) {
   fetch('https://formsubmit.co/ajax/info@cannes-echecs.fr', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ name: nom.value.trim(), email: email.value.trim(), message: message.value.trim(), _subject: 'Message depuis cannes-echecs.fr' })
+    body: JSON.stringify({
+      name: nom.value.trim(),
+      email: email.value.trim(),
+      message: message.value.trim(),
+      _subject: 'Message depuis cannes-echecs.fr'
+    })
   }).then(function(response) {
     if (response.ok) {
-      fb.style.display = 'block'; fb.style.background = '#f0fdf4'; fb.style.border = '1px solid #86efac'; fb.style.color = '#15803d';
+      fb.style.display = 'block';
+      fb.style.background = '#f0fdf4';
+      fb.style.border = '1px solid #86efac';
+      fb.style.color = '#15803d';
       fb.textContent = '✓ Message envoyé ! Nous vous répondrons sous 48h à ' + email.value;
       e.target.reset();
-    } else { throw new Error('Erreur serveur'); }
+    } else {
+      throw new Error('Erreur serveur');
+    }
   }).catch(function() {
-    fb.style.display = 'block'; fb.style.background = '#fef2f2'; fb.style.border = '1px solid #fca5a5'; fb.style.color = '#b91c1c';
+    fb.style.display = 'block';
+    fb.style.background = '#fef2f2';
+    fb.style.border = '1px solid #fca5a5';
+    fb.style.color = '#b91c1c';
     fb.innerHTML = 'L\'envoi a échoué. Contactez-nous directement : <a href="mailto:info@cannes-echecs.fr" style="color:var(--bleu)">info@cannes-echecs.fr</a>';
-  }).finally(function() { btn.textContent = 'Envoyer mon message →'; btn.disabled = false; });
+  }).finally(function() {
+    btn.textContent = 'Envoyer mon message →';
+    btn.disabled = false;
+  });
 }
 
-// ── MENTIONS LÉGALES ────────────────────────────────
+// ── MENTIONS LÉGALES / CONFIDENTIALITÉ ──────────────
 function showLegal(type) {
   const content = {
     mentions: '<h2 style="font-size:24px;color:var(--bleu);margin-bottom:16px">Mentions légales</h2>'
-      + '<p><strong>Éditeur :</strong> Association Cannes Échecs<br>3 Avenue du Petit Juas — 06400 Cannes<br>Email : info@cannes-echecs.fr · Tél : 04 93 39 41 39</p>'
-      + '<p style="margin-top:12px"><strong>Hébergeur :</strong> o2switch</p>'
-      + '<p style="margin-top:12px"><strong>Directeur de publication :</strong> La Présidente de l\'association</p>',
+      + '<p><strong>Éditeur :</strong> Association Cannes Échecs<br>3 Avenue du Petit Juas — 06400 Cannes<br>Email : <a href="mailto:info@cannes-echecs.fr" style="color:inherit">info@cannes-echecs.fr</a> · Tél : <a href="tel:+33493394139" style="color:inherit">04 93 39 41 39</a></p>'
+      + '<p style="margin-top:12px"><strong>Hébergeur :</strong> GitHub Pages (Microsoft)</p>'
+      + '<p style="margin-top:12px"><strong>Directeur de publication :</strong> La Présidente de l\'association</p>'
+      ,
     confidentialite: '<h2 style="font-size:24px;color:var(--bleu);margin-bottom:16px">Confidentialité</h2>'
       + '<p>Ce site ne collecte aucune donnée personnelle sans votre consentement. Les données saisies dans le formulaire de contact sont utilisées uniquement pour répondre à votre demande.</p>'
-      + '<p style="margin-top:12px">Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données en contactant : info@cannes-echecs.fr</p>'
+      + '<p style="margin-top:12px">Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données en contactant : <a href="mailto:info@cannes-echecs.fr" style="color:var(--bleu)">info@cannes-echecs.fr</a></p>'
   };
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
   overlay.innerHTML = '<div style="background:#fff;border-radius:16px;padding:40px;max-width:560px;width:100%;position:relative;max-height:80vh;overflow-y:auto">'
     + '<button onclick="this.closest(\'[style]\').remove()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted)">×</button>'
-    + content[type] + '</div>';
+    + content[type]
+    + '</div>';
   overlay.addEventListener('click', function(e){ if(e.target===this) this.remove(); });
   document.body.appendChild(overlay);
 }
@@ -417,18 +371,26 @@ let currentGallery = [];
 let lbIndex = 0;
 
 function openLightbox(i) {
-  lbIndex = i; lbUpdate();
+  lbIndex = i;
+  lbUpdate();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Empile un état pour que le bouton "retour" (mobile/navigateur) ferme la photo
   history.pushState({lightbox:true}, '');
 }
 function lbClose() {
-  if (history.state && history.state.lightbox) { history.back(); } else { lbForceClose(); }
+  // Si l'état lightbox est dans l'historique, revenir en arrière ferme via popstate
+  if (history.state && history.state.lightbox) {
+    history.back();
+  } else {
+    lbForceClose();
+  }
 }
 function lbForceClose() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
+// Bouton retour navigateur / téléphone → ferme la photo
 window.addEventListener('popstate', function() {
   if (document.getElementById('lightbox').classList.contains('open')) lbForceClose();
 });
@@ -443,26 +405,62 @@ function lbUpdate() {
   document.querySelector('.lb-prev').style.display = showNav ? '' : 'none';
   document.querySelector('.lb-next').style.display = showNav ? '' : 'none';
 }
-document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) lbClose(); });
+// Fermer en cliquant sur le fond
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) lbClose();
+});
+// Navigation clavier
 document.addEventListener('keydown', function(e) {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
   if (e.key === 'ArrowRight') lbNav(1);
   if (e.key === 'ArrowLeft')  lbNav(-1);
   if (e.key === 'Escape')     lbClose();
 });
+
+// Swipe tactile sur le lightbox (mobile)
 let lbTouchX = null;
-document.getElementById('lightbox').addEventListener('touchstart', function(e) { lbTouchX = e.touches[0].clientX; }, {passive: true});
+document.getElementById('lightbox').addEventListener('touchstart', function(e) {
+  lbTouchX = e.touches[0].clientX;
+}, {passive: true});
 document.getElementById('lightbox').addEventListener('touchend', function(e) {
   if (lbTouchX === null) return;
   const dx = e.changedTouches[0].clientX - lbTouchX;
-  if (Math.abs(dx) > 50) lbNav(dx < 0 ? 1 : -1);
+  if (Math.abs(dx) > 50) lbNav(dx < 0 ? 1 : -1); // swipe gauche = suivant
   lbTouchX = null;
 }, {passive: true});
 
-// ── FILTRES ─────────────────────────────────────────
+// ── AGENDA — masquage automatique des événements passés ──
+// Lit le jour + le mois affichés dans la vignette date de chaque événement ;
+// l'année est déduite de la SAISON (juil–déc → 1re année, jan–juin → 2e année).
+function hideOldAgendaEvents(now) {
+  now = now || new Date();
+  var MOIS = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
+  var yrs = SAISON.match(/\d{4}/g) || [];
+  var y1 = parseInt(yrs[0], 10) || now.getFullYear();
+  var y2 = parseInt(yrs[1], 10) || y1 + 1;
+  var visibles = 0;
+  document.querySelectorAll('.agenda-event').forEach(function(ev) {
+    var spans = ev.querySelectorAll('span');
+    var day = parseInt(spans[0] && spans[0].textContent, 10);
+    var key = (spans[1] ? spans[1].textContent : '').trim().toLowerCase().replace('.', '');
+    var mo = MOIS[key] !== undefined ? MOIS[key] : MOIS[key.slice(0, 3)];
+    if (isNaN(day) || mo === undefined) { visibles++; return; }
+    var year = mo >= 6 ? y1 : y2;
+    if (new Date(year, mo, day, 23, 59, 59) < now) {
+      ev.dataset.past = '1';
+      ev.style.display = 'none';
+    } else { visibles++; }
+  });
+  var empty = document.getElementById('agenda-empty');
+  if (empty && visibles === 0) empty.style.display = 'block';
+}
+hideOldAgendaEvents();
+
+// ── FILTRES (Agenda + Archive Actualités) ────────────
 document.querySelectorAll('.filtre-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     const label = this.textContent.trim().toLowerCase();
+    // Agenda
     if (this.closest('#page-agenda')) {
       document.querySelectorAll('#page-agenda .filtre-btn').forEach(b => b.classList.remove('active-gold'));
       this.classList.add('active-gold');
@@ -470,7 +468,7 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       const cat = agendaMap[label] !== undefined ? agendaMap[label] : null;
       let visible = 0;
       document.querySelectorAll('.agenda-event').forEach(ev => {
-        const show = !cat || ev.dataset.cat === cat;
+        const show = (!cat || ev.dataset.cat === cat) && ev.dataset.past !== '1';
         ev.style.display = show ? '' : 'none';
         if (show) visible++;
       });
@@ -478,6 +476,7 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
       return;
     }
+    // Actualités (+ autres pages avec archive-filtres)
     const container = this.closest('[class*="filtres"]');
     if (container) container.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active','active-gold'));
     this.classList.add('active-gold');
@@ -503,27 +502,72 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
   });
 });
 
-// ── TABS ────────────────────────────────────────────
+
+// ── TABS (Activités + Tournois + toute page) ─────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     const container = this.closest('.page');
     if (!container) return;
+    // Désactiver tous les boutons
     container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+    // Masquer tous les panels (retire style inline + classe)
     container.querySelectorAll('.tab-panel').forEach(p => {
       p.classList.remove('tab-panel-active');
       p.style.display = 'none';
     });
+    // Activer le bouton cliqué
     this.classList.add('tab-active');
+    // Afficher le panel correspondant
     const target = container.querySelector('#tab-' + this.dataset.tab);
-    if (target) { target.style.display = ''; target.classList.add('tab-panel-active'); }
+    if (target) {
+      target.style.display = '';
+      target.classList.add('tab-panel-active');
+    }
+    // Mettre à jour le hash pour permettre le partage de lien direct
+    try {
+      const pid = container.id.replace('page-', '');
+      history.replaceState(null, '', location.pathname + location.search + '#' + pid + '-' + this.dataset.tab);
+    } catch(e) {}
   });
 });
+
+// ── DROPDOWN — SUPPORT TACTILE / CLICK ──────────────
+(function() {
+  function closeAll() {
+    document.querySelectorAll('.nav-item').forEach(function(i) {
+      var d = i.querySelector('.dropdown');
+      if (d) { d.style.opacity = ''; d.style.visibility = ''; d.style.transform = ''; }
+    });
+  }
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    var dd = item.querySelector('.dropdown');
+    if (!dd) return;
+    var btn = item.querySelector('.nav-link');
+    if (!btn) return;
+    btn.addEventListener('click', function(e) {
+      var isOpen = dd.style.visibility === 'visible';
+      closeAll();
+      if (!isOpen) {
+        dd.style.opacity = '1';
+        dd.style.visibility = 'visible';
+        dd.style.transform = 'translateY(0)';
+        e.stopPropagation();
+      }
+    });
+    dd.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { closeAll(); });
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target || typeof e.target.closest !== 'function' || !e.target.closest('.nav-item')) closeAll();
+  });
+})();
 
 // ── HERO WIDGET ─────────────────────────────────────
 const HERO_WIDGETS = {
   fij: () => `
     <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
-    <h3>Festival International<br>des Jeux — Cannes</h3>
+    <h3>Festival International <br>des Jeux — Cannes</h3>
     <div class="cd-title">Ouverture des inscriptions dans</div>
     <div class="cd-row">
       <div class="cd-item"><span class="cd-num" id="h-cd-j">--</span><span class="cd-label">Jours</span></div>
@@ -538,7 +582,7 @@ const HERO_WIDGETS = {
       <div class="fij-hs"><div class="n">A · B · C</div><div class="l">tournois par Elo</div></div>
     </div>`,
   rentree: () => `
-    <div class="fij-hero-card-label">🍂 Saison 2026–2027 · Inscriptions ouvertes</div>
+    <div class="fij-hero-card-label">🍂 Saison ${SAISON} · Inscriptions ouvertes</div>
     <h3 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h3>
     <div class="cd-title" style="margin-bottom:10px">Reprise des cours</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">Mercredi 9 septembre 2026</div>
@@ -552,7 +596,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">♟ PICO · Tournoi mensuel homologué</div>
     <h3 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Prochaine date</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi homologué FFE · Tous niveaux · Dès 13h30<br>Inscription via HelloAsso</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les PICO →</button>
     <div class="fij-hero-stats">
@@ -563,9 +607,9 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🐣 Tournoi Open · Pâques 2027</div>
     <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi open homologué FFE · Tous niveaux<br>Prix garantis · Inscription HelloAsso</div>
-    <button class="btn btn-gold btn-full btn-sm" onclick="window.open(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
+    <button class="btn btn-gold btn-full btn-sm" onclick="haOpen(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
     <div class="fij-hero-stats">
       <div class="fij-hs"><div class="n">Open</div><div class="l">homologué FFE</div></div>
       <div class="fij-hs"><div class="n">Pâques</div><div class="l">2027</div></div>
@@ -574,7 +618,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🏅 Championnats · Qualification</div>
     <h3 style="font-size:22px">Qualifications<br>en cours !</h3>
     <div class="cd-title" style="margin-bottom:10px">Prochaine échéance</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Championnats départementaux & régionaux<br>Sélection équipes — Top 16 · Top 12 Féminin</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les tournois →</button>
     <div class="fij-hero-stats">
@@ -583,10 +627,10 @@ const HERO_WIDGETS = {
     </div>`,
   actu: (d = {}) => `
     <div class="fij-hero-card-label">📰 ${d.label || 'À la une'}</div>
-    <h3 style="font-size:20px;line-height:1.35">${d.titre || "Titre de l'actualité à mettre en avant"}</h3>
-    <div style="font-size:13px;color:rgba(255,255,255,.6);margin:12px 0 8px;line-height:1.65">${d.desc || "Courte description de l'actualité."}</div>
-    <div style="font-size:11px;font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">${d.date || 'Janvier 2026'}</div>
-    <button class="btn btn-gold btn-full btn-sm" onclick="goTo('${d.lien || 'actualites'}')">${d.cta || "Lire l'article →"}</button>`
+    <h3 style="font-size:20px;line-height:1.35">${d.titre || 'Titre de l\'actualité à mettre en avant'}</h3>
+    <div style="font-size:13px;color:rgba(255,255,255,.6);margin:12px 0 8px;line-height:1.65">${d.desc || 'Courte description de l\'actualité sur deux ou trois lignes.'}</div>
+    <div style="font-size:11px;font-family:\'Montserrat\',sans-serif;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">${d.date || 'Janvier 2026'}</div>
+    <button class="btn btn-gold btn-full btn-sm" onclick="goTo('${d.lien || 'actualites'}')">${d.cta || 'Lire l\'article →'}</button>`
 };
 
 function setHeroWidget(mode, data) {
@@ -597,63 +641,147 @@ function setHeroWidget(mode, data) {
   try { localStorage.setItem('ace_widget', mode); } catch(e) {}
 }
 
-// ── PANNEAU ADMIN (visible avec ?admin dans l'URL) ──
-(function(){
-  if (!location.search.includes('admin')) return;
-  const LABELS = {
-    auto:'🔄 Auto (par date)', fij:'★ FIJ 2027', rentree:'🍂 Rentrée',
-    pico:'♟ PICO mensuel', paques:'🐣 Open Pâques', qualification:'🏅 Qualification', actu:'📰 Actualité'
-  };
-  const p = document.createElement('div');
-  p.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:#0d2240;border:1px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;box-shadow:0 8px 40px rgba(0,0,0,.6);min-width:200px;font-family:Montserrat,sans-serif';
-  p.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:12px">🔧 Widget accueil</div>'
-    + Object.entries(LABELS).map(([k,v]) =>
-        `<button id="sw-${k}" onclick="selectWidget('${k}')" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px">${v}</button>`
-      ).join('')
-    + '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:12px 0">'
-    + '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">🎟️ Inscrits FIJ</div>'
-    + '<button id="sw-inscrits" onclick="toggleFijInscrits()" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px"></button>'
-    + '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:10px;text-align:center">Accès admin</div>';
-  document.body.appendChild(p);
-  function updateFijInscritBtn() {
-    var b = document.getElementById('sw-inscrits');
-    if (!b) return;
-    var off = false; try { off = localStorage.getItem('ace_fij_inscrits') === 'off'; } catch(e) {}
-    b.textContent = off ? '🚫 Inscrits masqués' : '✅ Inscrits visibles';
-    b.style.background = off ? 'rgba(220,60,60,.18)' : 'rgba(201,168,76,.18)';
-  }
-  updateFijInscritBtn();
-  window.toggleFijInscrits = function() {
-    var off = false; try { off = localStorage.getItem('ace_fij_inscrits') === 'off'; } catch(e) {}
-    try { localStorage.setItem('ace_fij_inscrits', off ? 'on' : 'off'); } catch(e) {}
-    renderFijInscrits(); updateFijInscritBtn();
-  };
-  window.selectWidget = function(mode) {
-    const m = new Date().getMonth()+1;
-    if (mode === 'auto') { try{localStorage.removeItem('ace_widget')}catch(e){} setHeroWidget(m>=6&&m<=8?'rentree':'fij'); }
-    else { setHeroWidget(mode); }
-    Object.keys(LABELS).forEach(k => {
-      const b = document.getElementById('sw-'+k);
-      if (b) b.style.background = k===mode ? 'rgba(201,168,76,.18)' : 'transparent';
-    });
-  };
-})();
+// ── PANNEAU ADMIN WIDGET (visible seulement avec ?admin dans l'URL) ──
+
+// ── HORAIRES ──────────────────────────────────────────────────────────────────
+function renderHoraires() {
+  var tbody = document.getElementById('horaires-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = HORAIRES.map(function(h, i) {
+    var bg = i % 2 === 1 ? ';background:var(--ivoire)' : '';
+    if (h.ferme) return '<tr style="border-bottom:1px solid var(--border)' + bg + '">'
+      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:#9ca3af;font-style:italic;text-align:left">' + h.jour + '</th>'
+      + '<td colspan="2" style="padding:12px 16px;color:#9ca3af;font-style:italic">' + h.detail + '</td></tr>';
+    var det = h.highlight
+      ? '<strong style="color:var(--bleu)">' + h.detail + '</strong>'
+      : h.detail;
+    return '<tr style="border-bottom:1px solid var(--border)' + bg + '">'
+      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:var(--bleu);text-align:left">' + h.jour + '</th>'
+      + '<td style="padding:12px 16px">' + h.h + '</td>'
+      + '<td style="padding:12px 16px;color:var(--muted)">' + det + '</td></tr>';
+  }).join('');
+}
+
+// ── ÉQUIPE ────────────────────────────────────────────────────────────────────
+function renderEquipe() {
+  var grid = document.getElementById('equipe-grid');
+  if (!grid) return;
+  grid.innerHTML = EQUIPE.map(function(m) {
+    var av = (m.avatar && /^(https?:|photos\/)/.test(m.avatar))
+      ? '<img src="' + m.avatar + '" loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt="' + m.nom + '">'
+      : '<div class="team-avatar">' + m.avatar + '</div>';
+    return '<div class="team-card">' + av
+      + '<div class="team-name">' + m.nom + '</div>'
+      + '<div class="team-role">' + m.role + '</div></div>';
+  }).join('');
+}
+
+// ── SAISON — injection automatique dans tous les nœuds texte HTML ─────────────
+function renderSaison() {
+  var re = /2026[–—-]2027/g;
+  var walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    { acceptNode: function(n) {
+        var tag = n.parentElement && n.parentElement.tagName;
+        return (tag === 'SCRIPT' || tag === 'STYLE') ? NodeFilter.FILTER_SKIP : NodeFilter.FILTER_ACCEPT;
+      }
+    },
+    false
+  );
+  var node, nodes = [];
+  while ((node = walker.nextNode())) nodes.push(node);
+  nodes.forEach(function(n) {
+    if (re.test(n.textContent)) { re.lastIndex = 0; n.textContent = n.textContent.replace(/2026[–—-]2027/g, SAISON); }
+    re.lastIndex = 0;
+  });
+}
 
 // ── INIT ────────────────────────────────────────────
-renderArchiveGrid();
-renderHomeActus();
 renderFijInscrits();
-(function(){
-  let saved; try { saved = localStorage.getItem('ace_widget'); } catch(e) {}
-  if (saved && HERO_WIDGETS[saved]) { setHeroWidget(saved); }
-  else { const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); }
-})();
+renderHoraires();
+renderEquipe();
+renderSaison();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
-goTo('home');
+
+// ── ACCESSIBILITÉ — liens onclick sans href ──────────
 document.querySelectorAll('a[onclick]:not([href])').forEach(function(a) {
   a.setAttribute('tabindex', '0');
   a.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); a.click(); }
   });
 });
+
+
+// ═══════════════════════════════════════════════════════════
+// WORDPRESS — NAVIGATION MULTI-PAGES (remplace le routeur SPA)
+// CE_URLS, CE_HERO_MODE et les données ACF sont injectés par
+// functions.php (wp_add_inline_script, avant ce fichier).
+// ═══════════════════════════════════════════════════════════
+function goTo(id) {
+  if (window.CE_URLS && CE_URLS[id]) window.location.href = CE_URLS[id];
+}
+function goToTab(page, tab) {
+  if (window.CE_URLS && CE_URLS[page]) window.location.href = CE_URLS[page] + (tab ? '#' + page + '-' + tab : '');
+}
+function goToArticle(slug) {
+  if (window.CE_URLS && CE_URLS.actualites) window.location.href = CE_URLS.actualites + slug + '/';
+}
+function goToContactSujet(sujet) {
+  if (window.CE_URLS && CE_URLS.contact) window.location.href = CE_URLS.contact + '#sujet-' + sujet;
+}
+function renderHomeActus() {}   // rendu côté PHP — front-page.php
+function renderArchiveGrid() {} // rendu côté PHP — archive-actualite.php
+
+// Lien de nav actif selon l'URL courante
+(function() {
+  if (!window.CE_URLS) return;
+  var path = location.pathname;
+  var map = { club:'nav-club', actualites:'nav-club', organigramme:'nav-club', horaires:'nav-club',
+              adhesion:'nav-club', contact:'nav-club', activites:'nav-activites', tournois:'nav-tournois',
+              fij:'nav-fij', partenaires:'nav-partenaires', agenda:'nav-agenda' };
+  Object.keys(map).forEach(function(slug) {
+    if (path.indexOf('/' + slug) === 0) {
+      var el = document.getElementById(map[slug]);
+      if (el) el.classList.add('active');
+    }
+  });
+})();
+
+// Hash à l'arrivée : #page-onglet (onglets) ou #sujet-xxx (objet contact)
+(function() {
+  var hash = location.hash.replace('#', '');
+  if (!hash) return;
+  if (hash.indexOf('sujet-') === 0) {
+    var s = document.getElementById('cf-sujet');
+    if (s) s.value = hash.slice(6);
+    return;
+  }
+  var i = hash.indexOf('-');
+  if (i > 0) {
+    var btn = document.querySelector('[data-tab="' + hash.slice(i + 1) + '"]');
+    if (btn) btn.click();
+  }
+})();
+
+// Widget héro — mode choisi dans WP admin (Réglages CE → Infos Club)
+(function() {
+  if (!document.getElementById('hero-widget')) return;
+  var mode = window.CE_HERO_MODE;
+  if (mode && typeof HERO_WIDGETS !== 'undefined' && HERO_WIDGETS[mode]) { setHeroWidget(mode, window.CE_HERO_DATA); return; }
+  var m = new Date().getMonth() + 1;
+  setHeroWidget(m >= 6 && m <= 8 ? 'rentree' : 'fij');
+})();
+
+// Galerie d'article (single-actualite.php) + bouton de partage natif
+(function() {
+  if (window.CE_GALLERY && window.CE_GALLERY.length) currentGallery = window.CE_GALLERY;
+  var bn = document.getElementById('share-native');
+  if (bn && navigator.share) {
+    bn.style.display = 'inline-flex';
+    var bf = document.getElementById('share-fb'), bt = document.getElementById('share-tw');
+    if (bf) bf.style.display = 'none';
+    if (bt) bt.style.display = 'none';
+  }
+})();

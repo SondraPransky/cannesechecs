@@ -2,7 +2,7 @@
    VARIABLES & RESET
    ===================================================== */
 :root{
-  --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;
+  --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;--gold-text:#7E6420;
   --noir:#0F0E17;--noir2:#1A1925;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;
   --bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
   --sh-sm:0 2px 8px rgba(15,14,23,.10);
@@ -24,7 +24,7 @@ img{max-width:100%;display:block}
    ===================================================== */
 .container{max-width:1200px;margin:0 auto;padding:0 40px}
 .chess-bg{background-image:repeating-conic-gradient(rgba(30,58,95,.05) 0% 25%,transparent 0% 50%);background-size:48px 48px}
-.surtitre{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
+.surtitre{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
 .gold-bar{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0}
 .section-header{margin-bottom:48px}
 .section-header h2{font-size:42px;color:var(--bleu)}
@@ -54,26 +54,38 @@ img{max-width:100%;display:block}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
 .badge-event::before{content:'★';font-size:9px}
 
-/* FOCUS */
+/* FOCUS — accessibilité clavier */
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px rgba(201,168,76,.2)}
 .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--gold);color:var(--noir);padding:12px 20px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:0 0 8px 0}
+.skip-link:focus{left:0}
+h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 
 /* INTERACTIONS GLOBALES */
-a[onclick]{cursor:pointer}
+a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .link-all{cursor:pointer}
 .footer-col ul li a{cursor:pointer}
-.nav-hamburger{display:none}
-.nav-mobile{display:none}
+.nav-hamburger{display:none}   /* base — surchargé par les media queries ci-dessous */
+.nav-mobile{display:none}      /* menu mobile caché par défaut sur desktop */
 
+/* Carte avec bordure hover dorée (tarifs, adhesion, agenda) */
 .card-hover{transition:border-color .2s,box-shadow .2s}
 .card-hover:hover{border-color:var(--gold) !important;box-shadow:var(--sh-sm)}
+
+/* Item liste avec bordure hover (activités, partenaires institutionnels) */
 .item-hover{transition:border-color .2s}
 .item-hover:hover{border-color:var(--gold) !important}
+
+/* Carte partenaire avec lift au hover */
 .partner-card{transition:border-color .2s,transform .2s,box-shadow .2s}
 .partner-card:hover{border-color:var(--gold) !important;transform:translateY(-4px);box-shadow:var(--sh-md)}
+
+/* Carte sur fond sombre avec highlight gold au hover */
 .dark-card-hover{transition:background .2s}
 .dark-card-hover:hover{background:rgba(201,168,76,.15) !important}
+
+/* Onglet nav ancre dans une section (ex: page Tournois) */
 .section-tab{display:block;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none;transition:color .2s,border-color .2s}
 .section-tab:hover{color:var(--bleu);border-bottom-color:var(--gold)}
 
@@ -82,9 +94,9 @@ a[onclick]{cursor:pointer}
 .hero-shared::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:56px 56px;pointer-events:none}
 .hero-shared .container{position:relative;z-index:1}
 .hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
-.breadcrumb{display:none !important}
+.breadcrumb{display:none}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
 .hero-shared .breadcrumb span{color:rgba(255,255,255,.2)}
-.hero-shared h1{font-size:58px;color:#fff;margin-bottom:12px}
+.hero-shared h1{font-size:54px;color:#fff;margin-bottom:12px}
 .hero-shared h1 em{color:var(--gold);font-style:italic}
 .hero-shared .hero-desc{font-size:17px;color:rgba(255,255,255,.65);max-width:580px;line-height:1.7}
 
@@ -111,7 +123,7 @@ a[onclick]{cursor:pointer}
 
 /* Dropdown */
 .dropdown{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--sh-lg);opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s;z-index:300;overflow:hidden}
-.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-item:hover .dropdown,.nav-item.open .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
 .dropdown a{display:block;padding:11px 18px;font-size:14px;color:var(--noir);border-bottom:1px solid var(--ivoire2);transition:all .15s;cursor:pointer}
 .dropdown a:last-child{border-bottom:none}
 .dropdown a:hover{background:var(--ivoire);color:var(--bleu)}
@@ -142,6 +154,7 @@ a[onclick]{cursor:pointer}
 /* =====================================================
    PAGE ACCUEIL
    ===================================================== */
+/* Hero home */
 .home-hero{background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 60%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
 .home-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:56px 56px}
 .home-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
@@ -234,7 +247,7 @@ a[onclick]{cursor:pointer}
 .force-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:6px 0}
 .force-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6}
 
-/* CTA finale */
+/* CTA finale partagée */
 .section-cta{background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);padding:80px 0;text-align:center;position:relative;overflow:hidden}
 .section-cta::before{content:'♟';position:absolute;font-size:300px;opacity:.03;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold);pointer-events:none;line-height:1}
 .cta-inner{max-width:640px;margin:0 auto;position:relative;z-index:1}
@@ -308,6 +321,7 @@ a[onclick]{cursor:pointer}
 .tab-panel{display:none}
 .tab-panel.tab-panel-active{display:block}
 
+/* Hamburger caché explicitement sur desktop */
 @media(min-width:769px){
   .nav-hamburger{display:none !important}
 }
@@ -316,12 +330,20 @@ a[onclick]{cursor:pointer}
    RESPONSIVE — TABLET (≤ 1024px)
    ===================================================== */
 @media(max-width:1024px){
+  /* Barre stats accueil — masquée sur tablette et mobile (déjà présente dans le hero) */
+  .stats-band{display:none}
+
+  /* Tournois tablette — onglets compacts */
   #page-tournois .tab-btn { padding: 14px 14px; font-size: 11px; }
   #page-tournois .tab-bar-inner { padding: 0 16px; }
+
+  /* Footer tablette — colonnes liens masquées, brand centré */
   .footer-col{display:none}
   .footer-grid{grid-template-columns:1fr !important;max-width:600px;margin:0 auto}
   .footer-main{padding-left:32px !important;padding-right:32px !important}
   .footer-bottom{padding-left:32px !important;padding-right:32px !important}
+
+  /* Grilles CSS classes */
   .home-hero-grid{grid-template-columns:1fr;gap:40px}
   .fij-grid{grid-template-columns:1fr;gap:40px}
   .club-histoire-grid{grid-template-columns:1fr;gap:40px}
@@ -331,6 +353,8 @@ a[onclick]{cursor:pointer}
   .actu-grid{grid-template-columns:repeat(2,1fr)}
   .archive-grid{grid-template-columns:repeat(2,1fr)}
   #home-actus-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Inline grids — tablet */
   #page-horaires    [style*="grid-template-columns:60%"],
   #page-contact     [style*="grid-template-columns:60%"],
   #page-tournois    [style*="grid-template-columns:60%"],
@@ -341,6 +365,7 @@ a[onclick]{cursor:pointer}
   #page-partenaires [style*="grid-template-columns:40%"],
   #page-fij         [style*="grid-template-columns:55%"],
   #page-agenda      [style*="grid-template-columns:65%"] { grid-template-columns: 1fr !important }
+
   #page-adhesion    [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
   #page-horaires    [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
   #page-partenaires [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2,1fr) !important }
@@ -351,20 +376,27 @@ a[onclick]{cursor:pointer}
    RESPONSIVE — MOBILE (≤ 768px)
    ===================================================== */
 @media(max-width:768px){
+  /* Conteneur */
   .container{padding:0 16px}
   .tab-bar-inner{padding:0 16px}
-  html{overflow-x:clip}
-  .btn{white-space:normal}
+
+  /* ── Anti-débordement horizontal (mobile) ── */
+  html{overflow-x:clip}                              /* filet : pas de scroll latéral parasite (n'affecte pas position:sticky) */
+  .btn{white-space:normal}                           /* boutons à texte long : retour à la ligne au lieu de déborder */
   [style*="display:grid"] > *,
-  .gm-card,.champ-card,.wc-hero-inner > *{min-width:0}
-  #page-activites .container[style*="display:flex"]{overflow-x:auto;scrollbar-width:none}
+  .gm-card,.champ-card,.wc-hero-inner > *{min-width:0}  /* permet aux colonnes de se réduire (évite le débordement min-content) */
+  #page-activites .container[style*="display:flex"]{overflow-x:auto;scrollbar-width:none}  /* onglets Activités scrollables */
   #page-activites .container[style*="display:flex"]::-webkit-scrollbar{display:none}
+
+  /* Navbar desktop → hamburger */
   .nav-menu,.nav-cta{display:none}
   .nav-hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px;background:none;border:none;flex-shrink:0}
   .nav-hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
   .navbar.nav-open .nav-hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .navbar.nav-open .nav-hamburger span:nth-child(2){opacity:0;transform:scaleX(0)}
   .navbar.nav-open .nav-hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* Menu mobile overlay */
   .nav-mobile{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--bleu);z-index:199;padding:20px 16px;overflow-y:auto;flex-direction:column;gap:2px}
   .navbar.nav-open .nav-mobile{display:flex}
   .nav-mobile-link{padding:14px 16px;color:rgba(255,255,255,.85);font-size:16px;font-weight:500;border-radius:8px;cursor:pointer;border:none;background:none;text-align:left;width:100%;font-family:'Inter',sans-serif;transition:all .2s}
@@ -372,8 +404,12 @@ a[onclick]{cursor:pointer}
   .nav-mobile-link.gold{color:var(--gold)}
   .nav-mobile-sep{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
   .nav-mobile-cta{margin-top:16px;background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center}
-  .surtitre{display:none}
-  .gold-bar{display:none}
+
+  /* ── Éléments décoratifs masqués sur mobile ── */
+  .surtitre{display:none}          /* labels "VIE DU CLUB", "SAISON 2026-2027"… */
+  .gold-bar{display:none}          /* barre or décorative sous les titres */
+
+  /* Typographie */
   .home-hero h1{font-size:34px;line-height:1.1}
   .home-hero .sub{font-size:16px;margin-bottom:12px}
   .home-hero .desc{font-size:14px;margin-bottom:20px}
@@ -382,19 +418,31 @@ a[onclick]{cursor:pointer}
   .section-header{margin-bottom:20px}
   .cta-inner h2{font-size:26px}
   #art-title{font-size:26px !important}
+
+  /* Sections padding — compact sur mobile */
   .home-hero{padding:28px 0}
   .hero-shared{padding:28px 0 20px;min-height:auto !important}
   .section-actus,.section-forces,.section-fij,.section-cta,
   .club-histoire,.club-valeurs,.club-equipe,
   .archive-grid-section,.article-related,.article-content-wrap{padding:28px 0}
+
+  /* Hero home */
   .home-hero-grid{grid-template-columns:1fr;gap:20px}
   .home-hero-badge{display:none !important}
   .home-hero .badge-event{display:none !important}
   .section-fij .badge-event{display:none !important}
   .home-hero-btns{flex-direction:column;gap:8px}
   .home-hero-btns .btn{width:100%;justify-content:center}
-  .stats-band{display:none}
-  .section-cta{display:none}
+
+  /* Barre stats — visible sur mobile, flex-wrap */
+  .stats-band{padding:16px 0}
+  .stats-band-inner{flex-wrap:wrap;gap:10px 0;justify-content:center}
+  .stat-item{flex:0 0 50%;text-align:center}
+
+  /* Sections CTA finales — visible sur mobile, padding réduit */
+  .section-cta{padding:40px 0}
+
+  /* Grilles */
   .actu-grid{grid-template-columns:1fr}
   .archive-grid{grid-template-columns:1fr}
   /* Accueil : carousel horizontal au lieu de 4 cartes empilées */
@@ -407,7 +455,11 @@ a[onclick]{cursor:pointer}
   .valeurs-grid{grid-template-columns:1fr}
   .club-histoire-grid{grid-template-columns:1fr;gap:28px}
   .fij-grid{grid-template-columns:1fr;gap:28px}
+
+  /* Section actus header */
   .section-actus-header{flex-direction:column;align-items:flex-start;gap:12px}
+
+  /* Footer — colonnes de liens masquées sur mobile (doublons du menu hamburger) */
   .footer-col{display:none}
   .footer-grid{grid-template-columns:1fr;gap:0}
   .footer-main{padding:24px 20px 16px !important}
@@ -415,13 +467,19 @@ a[onclick]{cursor:pointer}
   .footer-copy{font-size:13px;color:rgba(255,255,255,.6);text-align:center;width:100%;padding:0 24px}
   .footer-links{justify-content:center;gap:24px;width:100%;padding:0 24px}
   .footer-links a{font-size:13px;color:rgba(255,255,255,.7)}
+
+  /* Article */
   .article-hero{padding:24px 0 18px}
   .article-content-wrap{padding:24px 0 !important}
   .article-content-wrap .container{padding:0 16px}
   .article-featured-img{margin-bottom:24px}
   .article-meta{margin:10px 0}
   .article-related{padding:24px 0 !important}
+
+  /* Section tab activités — padding réduit */
   #page-activites .tab-panel{padding:24px 0 !important}
+
+  /* Inline padding sections pages internes */
   #page-horaires [style*="padding:80px"],
   #page-adhesion [style*="padding:80px"],
   #page-contact  [style*="padding:80px"],
@@ -433,6 +491,11 @@ a[onclick]{cursor:pointer}
     padding-top: 28px !important;
     padding-bottom: 28px !important;
   }
+
+  /* ══════════════════════════════════════════════════════
+     INLINE GRIDS — override universel toutes pages
+     !important nécessaire pour battre les styles inline
+     ══════════════════════════════════════════════════════ */
   #page-home     [style*="grid-template-columns"],
   #page-club     [style*="grid-template-columns"],
   #page-activites[style*="grid-template-columns"],
@@ -447,26 +510,40 @@ a[onclick]{cursor:pointer}
     grid-template-columns: 1fr !important;
     gap: 20px !important;
   }
-  #page-horaires table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    font-size: 13px;
-  }
-  #page-horaires table th,
-  #page-horaires table td { padding: 10px 12px !important; white-space: nowrap; }
+
+  /* Exceptions : grilles qui doivent rester sur 2 colonnes */
+  /* (aucune pour l'instant — toutes passent en 1 col sur mobile) */
+
+  /* Table horaires — liste empilée sur mobile */
+  #page-horaires table,#page-horaires table thead,#horaires-tbody{display:block}
+  #page-horaires table thead{display:none}
+  #horaires-tbody tr{display:block;padding:10px 0;border-bottom:1px solid var(--border) !important;background:none !important}
+  #horaires-tbody td,#horaires-tbody th{display:block;padding:2px 0 !important;white-space:normal !important;border:none;text-align:left}
+  #horaires-tbody tr>*:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
+  #horaires-tbody td[colspan]{color:#9ca3af;font-style:italic}
+
+  /* Adhesion — cacher la ligne de connexion entre les 3 étapes */
   #page-adhesion [style*="position:absolute"][style*="height:2px"]{ display:none !important }
+
+  /* FIJ hero card */
   .fij-hero-card{padding:20px;border-radius:14px}
   .cd-num{font-size:32px !important}
   .fij-hero-stats{grid-template-columns:1fr 1fr !important}
+
+  /* FIJ hero — réduire la hauteur sur mobile */
   #page-fij [style*="min-height:500px"]{min-height:auto !important;padding:36px 0 !important}
+
+  /* FIJ page countdown */
   .fij-cd-num{font-size:40px !important}
   .fij-cd-sep{font-size:36px}
   .fij-mini-stats{grid-template-columns:repeat(3,1fr)}
   .fij-tarif-encart .tarif-prix{font-size:36px}
+
+  /* Flex rows → wrap sur mobile */
   .fij-btns{flex-direction:column}
   .fij-btns .btn{width:100%;justify-content:center}
+
+  /* h2 inline trop grands — toutes les pages */
   #page-home     h2[style*="font-size"],
   #page-club     h2[style*="font-size"],
   #page-activites h2[style*="font-size"],
@@ -479,6 +556,8 @@ a[onclick]{cursor:pointer}
   #page-agenda   h2[style*="font-size"],
   #page-organigramme h2[style*="font-size"],
   #page-article  h2[style*="font-size"] { font-size: 26px !important; }
+
+  /* h1 inline trop grands */
   #page-home     h1[style*="font-size"],
   #page-club     h1[style*="font-size"],
   #page-horaires h1[style*="font-size"],
@@ -491,29 +570,60 @@ a[onclick]{cursor:pointer}
   #page-organigramme h1[style*="font-size"],
   #page-actualites h1[style*="font-size"],
   #page-activites h1[style*="font-size"] { font-size: 34px !important; }
+
+  /* Cours particuliers (adhésion) — flex row avec prix */
   #page-adhesion [style*="display:flex;align-items:center;justify-content:space-between"] {
     flex-direction: column;
     align-items: flex-start !important;
     gap: 16px;
   }
+
+  /* Bande contact (page-contact) */
   #page-contact [style*="display:flex;align-items:center;gap:14px;justify-content:center"] {
     justify-content: flex-start !important;
   }
+
+  /* Agenda sidebar → passe après le contenu */
   #page-agenda [style*="display:grid"][style*="gap:40px"] { gap: 32px !important; }
+
+  /* Tabs activités + tournois — padding compact */
   #page-activites .tab-panel,
   #page-tournois  .tab-panel { padding: 28px 0 !important; }
-  #page-tournois .tab-panel [style*="background:var(--bleu)"][style*="border-radius:14px"] { padding: 18px !important; }
+
+  /* Tournois mobile — panneau bleu calendrier */
+  #page-tournois .tab-panel [style*="background:var(--bleu)"][style*="border-radius:14px"] {
+    padding: 18px !important;
+  }
+  /* Tournois mobile — titres panels */
   #page-tournois .tab-panel h2 { font-size: 24px !important; }
+  /* Tournois mobile — badge + h2 + description : ordre naturel OK car grille → 1 col */
+  /* Tournois mobile — chips format Pâques (flex row) → wrap compact */
   #page-tournois [style*="display:flex"][style*="gap:10px"][style*="flex-wrap"] { gap: 6px !important; }
+  /* Tournois mobile — résultats scolaires */
   #page-tournois [style*="background:rgba(201,168,76,.12)"],
   #page-tournois [style*="background:rgba(255,255,255,.07)"] { padding: 10px 14px !important; }
+  /* Tournois tab bar — texte plus petit pour tenir sur l'écran */
   #page-tournois .tab-btn { padding: 14px 12px !important; font-size: 11px !important; }
+
+  /* Partenaires mobile */
+  /* Cartes partenaires principales — padding réduit */
   #page-partenaires .partner-card,
-  #page-partenaires [style*="border:2px solid var(--gold)"][style*="border-radius:12px"] { padding: 24px 16px !important; }
-  #page-partenaires [style*="flex-wrap:wrap"][style*="gap:28px"] { gap: 10px !important; }
-  #page-partenaires .item-hover { padding: 12px 16px !important; font-size: 12px !important; }
+  #page-partenaires [style*="border:2px solid var(--gold)"][style*="border-radius:12px"] {
+    padding: 24px 16px !important;
+  }
+  /* Partenaires associés (flex wrap) — gap réduit, items plus petits */
+  #page-partenaires [style*="flex-wrap:wrap"][style*="gap:28px"] {
+    gap: 10px !important;
+  }
+  #page-partenaires .item-hover {
+    padding: 12px 16px !important;
+    font-size: 12px !important;
+  }
+  /* Niveaux partenariat (OR/ARGENT/BRONZE) — badges compact */
   #page-partenaires .dark-card-hover { padding: 14px !important; gap: 10px !important; }
   #page-partenaires [style*="font-size:9px"][style*="text-transform:uppercase"] { font-size: 8px !important; padding: 4px 7px !important; }
+
+  /* Partager boutons article */
   .article-share { flex-wrap: wrap; gap: 8px; }
 }
 @media(max-width:420px){
@@ -524,7 +634,7 @@ a[onclick]{cursor:pointer}
    GALERIE PHOTOS — PAGE ARTICLE
    ===================================================== */
 .art-gallery{margin-top:48px;padding-top:36px;border-top:1px solid var(--border)}
-.art-gallery-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.art-gallery-label{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
 .art-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 @media(max-width:640px){.art-gallery-grid{grid-template-columns:repeat(2,1fr)}}
 .art-gallery-item{aspect-ratio:4/3;overflow:hidden;border-radius:8px;cursor:pointer;background:var(--noir2);position:relative}
@@ -545,27 +655,17 @@ a[onclick]{cursor:pointer}
 .lb-nav:hover{background:rgba(0,0,0,.8)}
 .lb-prev{left:16px}
 .lb-next{right:16px}
+.lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:13px;letter-spacing:.1em}
 
 /* =====================================================
-   FIJ — stats band, sidebar, inscrits
+   ADDITIONS WORDPRESS (multi-pages)
    ===================================================== */
-.fij-stats-band{background:var(--bleu);padding:32px 0}
-.fij-stats-inner{display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:24px}
-.fij-stat{text-align:center;color:#fff}
-.fij-stat-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1}
-.fij-stat-label{font-size:12px;color:rgba(255,255,255,.5);font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
-
-/* =====================================================
-   AGENDA
-   ===================================================== */
-.agenda-month-header{margin-top:20px}
-.agenda-item{background:#fff}
-.agenda-item:hover{background:var(--ivoire)}
-
-/* =====================================================
-   PAGINAION / MISC
-   ===================================================== */
-.pagination{display:flex;justify-content:center;gap:8px;margin-top:40px}
-.pg-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:#fff;color:var(--text);cursor:pointer;font-size:13px;transition:all .2s}
-.pg-btn.pg-active,.pg-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--noir);font-weight:700}
-.lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.1em}
+.actu-card{display:block}
+.archive-grid-section .navigation.pagination{margin-top:36px}
+.archive-grid-section .nav-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.archive-grid-section .page-numbers{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 12px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--bleu);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;text-decoration:none}
+.archive-grid-section .page-numbers.current{background:var(--bleu);color:#fff;border-color:var(--bleu)}
+.archive-grid-section .page-numbers:hover:not(.current){border-color:var(--gold)}
+.article-nav{display:flex;justify-content:space-between;gap:16px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+.article-nav a{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:var(--bleu);max-width:48%}
+.article-nav a:hover{color:var(--gold-text)}

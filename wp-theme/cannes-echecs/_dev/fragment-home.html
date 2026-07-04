@@ -1,0 +1,138 @@
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <div class="container">
+      <div class="home-hero-grid">
+        <div>
+
+          <h1>Cannes<br><em>Échecs</em></h1>
+          <p class="sub">Club d'excellence depuis 1985</p>
+          <p class="desc">Plus de 200 membres, 10 titres de Champion de France Jeunes, 30 ans d'intervention scolaire. Le club de référence de la Côte d'Azur, en plein cœur de Cannes.</p>
+          <div class="home-hero-btns">
+            <button class="btn btn-gold" onclick="goTo('adhesion')">Rejoindre le club →</button>
+            <button class="btn btn-outline-white" onclick="goTo('club')">Découvrir le club</button>
+          </div>
+        </div>
+        <div>
+          <div class="fij-hero-card" id="hero-widget">
+            <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
+            <h3>Festival International <br>des Jeux — Cannes</h3>
+            <div class="cd-title">Ouverture des inscriptions dans</div>
+            <div class="cd-row">
+              <div class="cd-item"><span class="cd-num" id="h-cd-j">--</span><span class="cd-label">Jours</span></div>
+              <div class="cd-sep">:</div>
+              <div class="cd-item"><span class="cd-num" id="h-cd-h">--</span><span class="cd-label">Heures</span></div>
+              <div class="cd-sep">:</div>
+              <div class="cd-item"><span class="cd-num" id="h-cd-m">--</span><span class="cd-label">Min</span></div>
+            </div>
+            <button class="btn btn-gold btn-full btn-sm" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
+            <div class="fij-hero-stats">
+              <div class="fij-hs"><div class="n">100 000+</div><div class="l">visiteurs FIJ</div></div>
+              <div class="fij-hs"><div class="n">A · B · C</div><div class="l">tournois par Elo</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barre stats -->
+  <div class="stats-band">
+    <div class="container stats-band-inner">
+      <div class="sb-item"><div class="sb-num">200+</div><div class="sb-label">Membres actifs</div></div>
+      <div class="sb-item"><div class="sb-num">10×</div><div class="sb-label">Champion de France Jeunes</div></div>
+      <div class="sb-item"><div class="sb-num">30+</div><div class="sb-label">Ans d'intervention scolaire</div></div>
+      <div class="sb-item"><div class="sb-num">FFE</div><div class="sb-label">Label Club Formateur</div></div>
+    </div>
+  </div>
+
+  <!-- Dernières actualités -->
+  <section class="section-actus">
+    <div class="container">
+      <div class="section-actus-header">
+        <div>
+          <span class="surtitre">Vie du club</span>
+          <h2 style="font-size:42px;color:var(--bleu)">Dernières actualités</h2>
+        </div>
+        <a class="link-all" href="<?php echo esc_url(home_url('/actualites/')); ?>">Toutes les actualités →</a>
+      </div>
+      <!-- Les 4 dernières actus sont générées automatiquement depuis ARTICLES (JS) -->
+      <div class="actu-grid" id="home-actus-grid"></div>
+    </div>
+  </section>
+
+  <!-- Section FIJ -->
+  <section class="section-fij">
+    <div class="container">
+      <div class="fij-grid">
+        <div class="fij-text">
+          <div class="badge badge-event" style="margin-bottom:16px">Événement annuel · Chaque février à Cannes</div>
+          <h2>Festival International <br>des <em>Jeux</em></h2>
+          <div class="gold-bar"></div>
+          <p class="desc">Le FIJ est le plus grand festival de jeux de société du monde, organisé chaque année au Palais des Festivals de Cannes. Cannes Échecs y organise les tournois d'échecs officiels, homologués FIDE.</p>
+          <ul class="fij-list">
+            <li>Tournois A (2200+), B (1600–2200) et C (≤ 1600) — tous niveaux</li>
+            <li>9 rondes · 1h30/40 coups + 30 min + 30s/coup · Normes MI et GMI possibles</li>
+            <li>Palais des Festivals (Salon des Ambassadeurs) — Chaque année en février</li>
+          </ul>
+          <div class="fij-btns">
+            <button class="btn btn-gold" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
+            <button class="btn btn-outline-white" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso</button>
+          </div>
+          <div class="fij-mini-stats">
+            <div class="fij-ms"><div class="n">100 000+</div><div class="l">visiteurs du festival</div></div>
+            <div class="fij-ms"><div class="n">3</div><div class="l">tournois A / B / C</div></div>
+            <div class="fij-ms"><div class="n">9</div><div class="l">rondes</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="fij-cd-box">
+            <div class="cd-title">FIJ 2027 — Coup d'envoi dans</div>
+            <div class="fij-cd-row">
+              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-j">--</span><span class="fij-cd-label">Jours</span></div>
+              <div class="fij-cd-sep">:</div>
+              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-h">--</span><span class="fij-cd-label">Heures</span></div>
+              <div class="fij-cd-sep">:</div>
+              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-m">--</span><span class="fij-cd-label">Min</span></div>
+              <div class="fij-cd-sep">:</div>
+              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-s">--</span><span class="fij-cd-label">Sec</span></div>
+            </div>
+            <button class="btn btn-gold btn-full" style="margin-bottom:12px" onclick="goTo('fij')">Voir les tarifs & s'inscrire →</button>
+            <p style="font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin-top:12px;font-style:italic">Inscription via HelloAsso · MI / GMI : participation gratuite</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forces du club -->
+  <section class="section-forces">
+    <div class="container" style="position:relative;z-index:1">
+      <div class="section-header center light">
+        <span class="surtitre">Pourquoi nous rejoindre</span>
+        <h2 style="font-size:42px;color:#fff">Un club d'exception</h2>
+      </div>
+      <div class="forces-grid">
+        <div class="force-card"><span class="force-icon">🏆</span><span class="force-num">10×</span><div class="force-label">Champion de France Jeunes</div><p class="force-desc">Un palmarès qui témoigne de l'excellence de notre formation</p></div>
+        <div class="force-card"><span class="force-icon">📚</span><span class="force-num">30+</span><div class="force-label">Ans scolaire</div><p class="force-desc">Partenaire de l'Éducation Nationale depuis plus de trois décennies</p></div>
+        <div class="force-card"><span class="force-icon">👥</span><span class="force-num">200+</span><div class="force-label">Membres actifs</div><p class="force-desc">Une communauté soudée du débutant de 5 ans au joueur classé</p></div>
+        <div class="force-card"><span class="force-icon">🎖</span><span class="force-num">FFE</span><div class="force-label">Label Club Formateur</div><p class="force-desc">Reconnu par la Fédération Française des Échecs</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <div class="cta-inner">
+      <div class="badge badge-event" style="margin-bottom:20px">Saison 2026–2027 ouverte</div>
+      <h2>Rejoignez<br><em>Cannes Échecs</em></h2>
+      <p>Inscription en ligne sécurisée via HelloAsso. Dès 60€/an, licence FFE incluse. Tous niveaux, tous âges.</p>
+      <div class="cta-btns">
+        <button class="btn btn-gold btn-lg" onclick="goTo('adhesion')">S'inscrire maintenant →</button>
+        <button class="btn btn-outline-white btn-lg" onclick="goTo('club')">En savoir plus</button>
+      </div>
+      <p class="cta-note">Paiement sécurisé · Confirmation immédiate · Annulation possible</p>
+    </div>
+  </section>
+</div><!-- fin page-home -->

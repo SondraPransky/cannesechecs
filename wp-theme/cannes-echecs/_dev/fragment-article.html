@@ -1,0 +1,43 @@
+<div id="page-article" class="page active">
+
+  <section class="article-hero">
+    <div class="container" style="max-width:800px">
+      <div class="breadcrumb" style="color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:20px">
+        <a href="<?php echo esc_url(home_url('/')); ?>" style="color:rgba(255,255,255,.4)">Accueil</a><span>›</span>
+        <a href="<?php echo esc_url(home_url('/actualites/')); ?>" style="color:rgba(255,255,255,.4)">Actualités</a><span>›</span>
+        <span style="color:rgba(255,255,255,.6)">Article</span>
+      </div>
+      <div id="art-badge" class="badge badge-gold" style="margin-bottom:16px">Actualité</div>
+      <h1 id="art-title" style="font-size:46px;color:#fff;line-height:1.1;margin-bottom:16px">Titre de l'article</h1>
+      <div class="article-meta">
+        <div id="art-date" class="meta-item"><span>📅</span> Date</div>
+        <div id="art-cat" class="meta-item"><span>🏷</span> Catégorie</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="article-content-wrap">
+    <div class="container" style="max-width:800px">
+      <div id="art-img" class="article-featured-img">♟</div>
+      <div id="art-body" class="article-body">
+        <p style="color:var(--muted);font-style:italic;text-align:center;padding:40px 0">Sélectionnez un article depuis les actualités.</p>
+      </div>
+      <!-- Galerie photos générée dynamiquement par goToArticle() si a.gallery est défini -->
+      <div id="art-gallery" class="art-gallery" style="display:none"></div>
+      <div class="article-share">
+        <span class="share-label">Partager :</span>
+        <button id="share-native" class="share-btn" style="background:var(--bleu);color:#fff;display:none" onclick="shareNative()">⬆ Partager</button>
+        <button id="share-fb" class="share-btn share-fb" onclick="shareFb()">Facebook</button>
+        <button id="share-tw" class="share-btn share-tw" onclick="shareTw()">X / Twitter</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="article-related">
+    <div class="container">
+      <span class="surtitre">À lire aussi</span>
+      <h2 style="font-size:36px;color:var(--bleu);margin-bottom:30px">Autres actualités</h2>
+      <div id="art-related" class="actu-grid"></div>
+    </div>
+  </section>
+</div><!-- fin page-article -->

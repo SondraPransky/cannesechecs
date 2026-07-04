@@ -3,8 +3,8 @@ Theme Name: Cannes Échecs
 Theme URI: https://cannes-echecs.fr
 Author: Cannes Échecs
 Author URI: https://cannes-echecs.fr
-Description: Thème WordPress pour le site officiel de Cannes Échecs. SPA monopage avec routeur JS. Administration via ACF Pro (FIJ, HelloAsso, infos club) et Custom Post Type "Actualité".
-Version: 1.0.0
+Description: Thème WordPress pour le site officiel de Cannes Échecs. Multi-pages : une URL par page, un permalien par actualité (SEO + partage). Administration via ACF Pro (FIJ, HelloAsso, infos club) et Custom Post Type "Actualité".
+Version: 2.0.0
 Requires at least: 6.4
 Requires PHP: 8.0
 License: Propriétaire — usage interne Cannes Échecs uniquement

@@ -1,0 +1,95 @@
+{
+  "key": "group_club",
+  "title": "Infos du Club",
+  "fields": [
+    {
+      "key": "field_club_tab_general",
+      "label": "🏛 Général",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    { "key": "field_club_saison", "label": "Saison en cours", "name": "saison", "type": "text", "default_value": "2026–2027", "instructions": "Affichée partout sur le site (ex : 2026–2027). Utiliser le tiret long –." },
+    {
+      "key": "field_club_hero_widget",
+      "label": "Widget de la page d'accueil",
+      "name": "hero_widget",
+      "type": "select",
+      "instructions": "L'encart doré en haut à droite de l'accueil. « Auto » affiche Rentrée en été, FIJ le reste de l'année.",
+      "choices": {
+        "": "🔄 Auto (selon la saison)",
+        "fij": "★ FIJ",
+        "rentree": "🍂 Rentrée",
+        "pico": "♟ PICO mensuel",
+        "paques": "🐣 Open de Pâques",
+        "qualification": "🏅 Qualifications",
+        "actu": "📰 Actualité à la une"
+      },
+      "default_value": "",
+      "allow_null": 1
+    },
+    { "key": "field_club_hero_actu_label", "label": "À la une — étiquette", "name": "hero_actu_label", "type": "text", "default_value": "À la une",
+      "conditional_logic": [[{ "field": "field_club_hero_widget", "operator": "==", "value": "actu" }]] },
+    { "key": "field_club_hero_actu_titre", "label": "À la une — titre", "name": "hero_actu_titre", "type": "text",
+      "conditional_logic": [[{ "field": "field_club_hero_widget", "operator": "==", "value": "actu" }]] },
+    { "key": "field_club_hero_actu_desc", "label": "À la une — description", "name": "hero_actu_desc", "type": "textarea", "rows": 3,
+      "conditional_logic": [[{ "field": "field_club_hero_widget", "operator": "==", "value": "actu" }]] },
+    { "key": "field_club_hero_actu_date", "label": "À la une — date affichée", "name": "hero_actu_date", "type": "text", "instructions": "Texte libre, ex : Janvier 2027",
+      "conditional_logic": [[{ "field": "field_club_hero_widget", "operator": "==", "value": "actu" }]] },
+    { "key": "field_club_hero_actu_cta", "label": "À la une — texte du bouton", "name": "hero_actu_cta", "type": "text", "default_value": "Lire l'article →",
+      "conditional_logic": [[{ "field": "field_club_hero_widget", "operator": "==", "value": "actu" }]] },
+    {
+      "key": "field_club_tab_horaires",
+      "label": "🕐 Horaires",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_club_horaires",
+      "label": "Planning hebdomadaire",
+      "name": "horaires",
+      "type": "repeater",
+      "instructions": "Les 7 jours affichés sur la page Horaires & Tarifs. Laisser vide pour utiliser le planning par défaut.",
+      "layout": "table",
+      "button_label": "Ajouter un jour",
+      "sub_fields": [
+        { "key": "field_club_horaires_jour",      "label": "Jour",       "name": "jour",      "type": "text", "wrapper": { "width": "15" } },
+        { "key": "field_club_horaires_h",         "label": "Horaires",   "name": "horaires",  "type": "text", "wrapper": { "width": "20" }, "instructions": "Ex : 13h30–18h30. Vide si fermé." },
+        { "key": "field_club_horaires_detail",    "label": "Activité",   "name": "detail",    "type": "text", "wrapper": { "width": "45" } },
+        { "key": "field_club_horaires_ferme",     "label": "Fermé",      "name": "ferme",     "type": "true_false", "wrapper": { "width": "10" } },
+        { "key": "field_club_horaires_highlight", "label": "En avant",   "name": "highlight", "type": "true_false", "wrapper": { "width": "10" }, "instructions": "Affiche l'activité en bleu gras" }
+      ]
+    },
+    {
+      "key": "field_club_tab_equipe",
+      "label": "👥 Équipe",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_club_equipe",
+      "label": "Membres de l'équipe",
+      "name": "equipe",
+      "type": "repeater",
+      "instructions": "Affichés sur la page Contact / Organigramme. Sans photo, un avatar générique 👤 est utilisé.",
+      "layout": "table",
+      "button_label": "Ajouter un membre",
+      "sub_fields": [
+        { "key": "field_club_equipe_nom",   "label": "Prénom / Nom", "name": "nom",   "type": "text", "wrapper": { "width": "30" } },
+        { "key": "field_club_equipe_role",  "label": "Rôle",         "name": "role",  "type": "text", "wrapper": { "width": "35" } },
+        { "key": "field_club_equipe_photo", "label": "Photo",        "name": "photo", "type": "image", "return_format": "array", "preview_size": "thumbnail", "wrapper": { "width": "35" } }
+      ]
+    }
+  ],
+  "location": [
+    [{ "param": "options_page", "operator": "==", "value": "infos-club" }]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true
+}
