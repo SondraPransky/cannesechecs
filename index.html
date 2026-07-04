@@ -75,7 +75,7 @@
    VARIABLES & RESET
    ===================================================== */
 :root{
-  --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;
+  --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;--gold-text:#7E6420;
   --noir:#0F0E17;--noir2:#1A1925;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;
   --bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
   --sh-sm:0 2px 8px rgba(15,14,23,.10);
@@ -97,7 +97,7 @@ img{max-width:100%;display:block}
    ===================================================== */
 .container{max-width:1200px;margin:0 auto;padding:0 40px}
 .chess-bg{background-image:repeating-conic-gradient(rgba(30,58,95,.05) 0% 25%,transparent 0% 50%);background-size:48px 48px}
-.surtitre{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
+.surtitre{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
 .gold-bar{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0}
 .section-header{margin-bottom:48px}
 .section-header h2{font-size:42px;color:var(--bleu)}
@@ -131,6 +131,9 @@ img{max-width:100%;display:block}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px rgba(201,168,76,.2)}
 .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--gold);color:var(--noir);padding:12px 20px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:0 0 8px 0}
+.skip-link:focus{left:0}
+h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 
 /* INTERACTIONS GLOBALES */
 a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
@@ -588,8 +591,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-horaires table,#page-horaires table thead,#horaires-tbody{display:block}
   #page-horaires table thead{display:none}
   #horaires-tbody tr{display:block;padding:10px 0;border-bottom:1px solid var(--border) !important;background:none !important}
-  #horaires-tbody td{display:block;padding:2px 0 !important;white-space:normal !important;border:none}
-  #horaires-tbody td:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
+  #horaires-tbody td,#horaires-tbody th{display:block;padding:2px 0 !important;white-space:normal !important;border:none;text-align:left}
+  #horaires-tbody tr>*:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
   #horaires-tbody td[colspan]{color:#9ca3af;font-style:italic}
 
   /* Adhesion — cacher la ligne de connexion entre les 3 étapes */
@@ -729,6 +732,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 </style>
 </head>
 <body>
+<a class="skip-link" href="#app">Aller au contenu principal</a>
 
 <!-- =====================================================
      NAVBAR
@@ -809,7 +813,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 <!-- =====================================================
      PAGES
      ===================================================== -->
-<main id="app">
+<main id="app" tabindex="-1">
 
 <!-- ═══════════════════════════════════════════════════
      PAGE ACCUEIL
@@ -833,7 +837,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div>
           <div class="fij-hero-card" id="hero-widget">
             <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
-            <h3>Festival International<br>des Jeux — Cannes</h3>
+            <h3>Festival International <br>des Jeux — Cannes</h3>
             <div class="cd-title">Ouverture des inscriptions dans</div>
             <div class="cd-row">
               <div class="cd-item"><span class="cd-num" id="h-cd-j">--</span><span class="cd-label">Jours</span></div>
@@ -884,7 +888,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="fij-grid">
         <div class="fij-text">
           <div class="badge badge-event" style="margin-bottom:16px">Événement annuel · Chaque février à Cannes</div>
-          <h2>Festival International<br>des <em>Jeux</em></h2>
+          <h2>Festival International <br>des <em>Jeux</em></h2>
           <div class="gold-bar"></div>
           <p class="desc">Le FIJ est le plus grand festival de jeux de société du monde, organisé chaque année au Palais des Festivals de Cannes. Cannes Échecs y organise les tournois d'échecs officiels, homologués FIDE.</p>
           <ul class="fij-list">
@@ -894,7 +898,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           </ul>
           <div class="fij-btns">
             <button class="btn btn-gold" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
-            <button class="btn btn-outline-white" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso</button>
+            <button class="btn btn-outline-white" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso</button>
           </div>
           <div class="fij-mini-stats">
             <div class="fij-ms"><div class="n">100 000+</div><div class="l">visiteurs du festival</div></div>
@@ -1170,7 +1174,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <div class="tab-panel" id="tab-stages" style="padding:60px 0;background:var(--ivoire);display:none">
     <div class="container">
       <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Vacances scolaires</span><h2 style="font-size:38px;color:var(--bleu)">Stages</h2></div>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:36px">Cannes Échecs organise des stages intensifs pendant les vacances scolaires. Tous niveaux, encadrés par nos formateurs agréés. Inscriptions en ligne via HelloAsso.</p>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:20px">Cannes Échecs organise des stages intensifs pendant les vacances scolaires. Tous niveaux, encadrés par nos formateurs agréés. Inscriptions en ligne via HelloAsso à l'ouverture de chaque stage.</p>
+      <button class="btn btn-gold" style="margin-bottom:36px" onclick="goToContactSujet('stage')">Être prévenu du prochain stage →</button>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
 
         <!-- Stage Toussaint -->
@@ -1321,7 +1326,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <span class="surtitre">Planning hebdomadaire</span>
           <h2 style="font-size:36px;color:var(--bleu);margin-bottom:24px">Horaires d'ouverture</h2>
           <table style="width:100%;border-collapse:collapse;font-size:14px;font-family:'Inter',sans-serif">
-            <thead><tr style="background:var(--bleu);color:#fff"><th style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Jour</th><th style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Horaires</th><th style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Activité</th></tr></thead>
+            <thead><tr style="background:var(--bleu);color:#fff"><th scope="col" style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Jour</th><th scope="col" style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Horaires</th><th scope="col" style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Activité</th></tr></thead>
             <tbody id="horaires-tbody"></tbody>
           </table>
         </div>
@@ -1388,10 +1393,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     </div>
   </section>
 
-  <!-- Carte -->
-  <div style="line-height:0">
-    <iframe src="https://maps.google.com/maps?q=3%20Avenue%20du%20Petit%20Juas%2006400%20Cannes&z=15&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" title="Cannes Échecs — 3 Avenue du Petit Juas, 06400 Cannes"></iframe>
-  </div>
 
   <section class="section-cta">
     <div class="cta-inner">
@@ -1464,7 +1465,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Licence FFE incluse</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ Mercredi 13h30–14h30</li>
           </ul>
-          <button class="btn btn-gold btn-full" onclick="window.open(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
 
         <!-- Compétition -->
@@ -1478,7 +1479,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Interclubs FFE inclus</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ Licence FFE incluse</li>
           </ul>
-          <button class="btn btn-gold btn-full" onclick="window.open(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
 
         <!-- École Échecs Enfants -->
@@ -1492,7 +1493,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 1h pratique encadrée</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ Licence FFE incluse</li>
           </ul>
-          <button class="btn btn-gold btn-full" onclick="window.open(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
 
         <!-- Échecs Adultes -->
@@ -1506,7 +1507,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Débutants 17h30 · Confirmés 18h30</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ Licence FFE incluse</li>
           </ul>
-          <button class="btn btn-gold btn-full" onclick="window.open(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
 
         <!-- Famille -->
@@ -1521,7 +1522,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Licences FFE incluses</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ 3 membres : <strong>750€</strong></li>
           </ul>
-          <button class="btn btn-gold btn-full" onclick="window.open(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
 
         <!-- Licence A -->
@@ -1535,7 +1536,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Accès libre au club</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ Participation PICO gratuite</li>
           </ul>
-          <button class="btn btn-gold btn-full" onclick="window.open(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
 
       </div>
@@ -1590,6 +1591,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <span class="surtitre">Formulaire de contact</span>
           <h2 style="font-size:36px;color:var(--bleu);margin-bottom:28px">Envoyez-nous<br>un message</h2>
           <form id="contact-form" onsubmit="sendContact(event)" novalidate>
+          <input type="text" id="cf-honey" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
             <div><label for="cf-nom" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Prénom & Nom *</label><input id="cf-nom" type="text" name="nom" required placeholder="Votre nom" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;transition:border-color .2s,box-shadow .2s"></div>
             <div><label for="cf-email" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input id="cf-email" type="email" name="email" required placeholder="votre@email.fr" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;transition:border-color .2s,box-shadow .2s"></div>
@@ -1600,13 +1602,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <option value="tarifs">Tarifs et inscriptions</option>
               <option value="partenariat">Partenariat / sponsoring</option>
               <option value="scolaire">Intervention scolaire</option>
+              <option value="stage">Stages vacances</option>
               <option value="presse">Presse et médias</option>
               <option value="autre">Autre</option>
             </select>
           </div>
           <div style="margin-bottom:16px"><label for="cf-message" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Message *</label><textarea id="cf-message" name="message" rows="5" required placeholder="Votre message..." style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;background:var(--ivoire);outline:none;resize:vertical;transition:border-color .2s,box-shadow .2s"></textarea></div>
           <div style="margin-bottom:20px;display:flex;align-items:flex-start;gap:10px"><input id="cf-rgpd" type="checkbox" name="rgpd" required style="margin-top:3px;accent-color:var(--gold);width:16px;height:16px;flex-shrink:0"><label for="cf-rgpd" style="font-size:13px;color:var(--muted)">J'accepte que mes données soient utilisées pour traiter ma demande.</label></div>
-          <div id="cf-feedback" style="display:none;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14px;font-weight:600"></div>
+          <div id="cf-feedback" role="status" aria-live="polite" style="display:none;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14px;font-weight:600"></div>
           <button type="submit" class="btn btn-gold btn-full" style="font-size:13px;padding:16px">Envoyer mon message →</button>
           </form>
         </div>
@@ -1676,7 +1679,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:14px 18px">
             <div style="font-size:11px;color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">📅 Prochaine édition</div>
             <div style="font-size:16px;font-weight:600;color:var(--bleu)">Samedi 19 septembre 2026 · 13h30</div>
-            <div style="font-size:13px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:10px"><span>Inscription en ligne</span><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 12px" onclick="window.open(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button></div>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:10px"><span>Inscription en ligne</span><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 12px" onclick="haOpen(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button></div>
           </div>
         </div>
         <div style="background:var(--bleu);border-radius:14px;padding:24px">
@@ -1684,23 +1687,23 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="display:flex;flex-direction:column;gap:0">
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">19</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Septembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Septembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Octobre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.oct,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Octobre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.oct,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">14</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Novembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.nov,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Novembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.nov,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Décembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.dec,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Décembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.dec,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Janvier · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.jan,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Janvier · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.jan,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1);opacity:.5;font-style:italic">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:10px;line-height:1.2">FÉV.</span><span style="font-size:10px;line-height:1.2">FIJ</span></div>
@@ -1708,19 +1711,19 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mars · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.mar,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mars · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.mar,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Avril · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.avr,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Avril · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.avr,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mai · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.mai,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mai · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.mai,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
               <div style="background:rgba(201,168,76,.2);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Juin · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="window.open(HELLOASSO.pico.jun,'_blank','noopener,noreferrer')">S'inscrire →</button>
+              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Juin · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.jun,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
           </div>
           <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.45);font-style:italic">Un samedi par mois · Inscription en ligne via HelloAsso</div>
@@ -1746,7 +1749,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <div style="font-size:14px;font-weight:600;color:var(--bleu)">📅 Samedi 27 au lundi 29 mars 2027</div>
             <div style="font-size:13px;color:var(--muted);margin-top:2px">Au club · 3 Av. du Petit Juas, Cannes</div>
           </div>
-          <button class="btn btn-gold" onclick="window.open(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
+          <button class="btn btn-gold" onclick="haOpen(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
         <div style="background:#fff;border-radius:14px;padding:28px;border:1px solid var(--border)">
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--bleu);margin-bottom:20px">Infos pratiques</div>
@@ -1871,10 +1874,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
     <div class="container" style="position:relative;z-index:1">
       <div class="breadcrumb" style="color:rgba(255,255,255,.35);display:flex;gap:8px;font-size:12px;margin-bottom:20px"><a onclick="goTo('home')" style="color:rgba(255,255,255,.35)">Accueil</a><span>›</span><span>FIJ 2027</span></div>
-      <h1 style="font-family:'Cormorant Garamond',serif;line-height:1"><span style="font-size:68px;color:#fff;display:block;margin-bottom:4px">Festival International</span><span style="font-size:68px;color:var(--gold);font-style:italic;display:block;margin-bottom:20px">des Jeux</span></h1>
+      <h1 style="font-family:'Cormorant Garamond',serif;line-height:1"><span style="font-size:68px;color:#fff;display:block;margin-bottom:4px">Festival International </span><span style="font-size:68px;color:var(--gold);font-style:italic;display:block;margin-bottom:20px">des Jeux</span></h1>
       <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:rgba(255,255,255,.55);letter-spacing:.06em">Palais des Festivals — Salon des Ambassadeurs · Du 22 au 28 février 2027</p>
       <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
-        <button class="btn btn-gold btn-lg" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
+        <button class="btn btn-gold btn-lg" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
         <button class="btn btn-outline-white btn-lg" onclick="document.getElementById('fij-details').scrollIntoView({behavior:'smooth'})">Programme complet ↓</button>
       </div>
     </div>
@@ -1988,7 +1991,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
               <div style="text-align:center"><span id="fij-cd-s" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Sec</span></div>
             </div>
-            <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
+            <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
               <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:rgba(255,255,255,.7)">
@@ -2097,7 +2100,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="badge badge-event" style="margin-bottom:20px">Inscriptions ouvertes</div>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:46px;color:#fff;margin-bottom:12px">Réservez votre place<br>au <em style="color:var(--gold)">FIJ 2027</em></h2>
       <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px">Places limitées · Inscription sécurisée via HelloAsso · Confirmation immédiate</p>
-      <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)" onclick="window.open(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
+      <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
       <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:rgba(201,168,76,.7);text-decoration:none">info@cannes-echecs.fr</a></p>
     </div>
   </section>
@@ -2166,7 +2169,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="container">
       <div style="display:grid;grid-template-columns:55% 45%;gap:48px;align-items:center">
         <div>
-          <span class="surtitre">Rejoignez-nous</span>
+          <span class="surtitre" style="color:var(--gold)">Rejoignez-nous</span>
           <h2 style="font-size:38px;color:#fff;margin-bottom:12px">Devenez partenaire<br>de Cannes Échecs</h2>
           <div class="gold-bar"></div>
           <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:20px">Associer votre image à Cannes Échecs, c'est soutenir un club formateur reconnu, présent dans les médias locaux et organisateur d'événements à rayonnement national.</p>
@@ -2553,6 +2556,28 @@ const HELLOASSO = {
   }
 };
 
+// ── HELLOASSO — garde-fou liens non renseignés ──────
+// Tant que les URLs réelles ne remplacent pas les LIEN-*, on affiche un
+// message au lieu d'envoyer le visiteur vers une page HelloAsso inexistante.
+function haOpen(url) {
+  if (!url || url.indexOf('LIEN-') > -1) { haNotice(); return; }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+function haNotice() {
+  var old = document.getElementById('ha-notice');
+  if (old) old.remove();
+  var n = document.createElement('div');
+  n.id = 'ha-notice';
+  n.setAttribute('role', 'status');
+  n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;background:var(--bleu);color:#fff;border:1px solid rgba(201,168,76,.5);border-radius:12px;padding:18px 40px 18px 22px;max-width:440px;width:calc(100% - 32px);box-shadow:0 8px 32px rgba(0,0,0,.35);font-size:14px;line-height:1.6';
+  n.innerHTML = '<strong style="color:var(--gold)">Inscriptions en ligne bientôt disponibles</strong><br>'
+    + 'En attendant, contactez le club : <a href="tel:+33493394139" style="color:var(--gold)">04 93 39 41 39</a> · '
+    + '<a href="mailto:info@cannes-echecs.fr" style="color:var(--gold)">info@cannes-echecs.fr</a>'
+    + '<button onclick="this.parentElement.remove()" aria-label="Fermer" style="position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;line-height:1">×</button>';
+  document.body.appendChild(n);
+  setTimeout(function() { if (n.parentElement) n.remove(); }, 8000);
+}
+
 // ── MENU MOBILE ─────────────────────────────────────
 function toggleMobileNav() {
   document.querySelector('.navbar').classList.toggle('nav-open');
@@ -2573,6 +2598,13 @@ function goToTab(page, tab) {
   if (!container) return;
   const btn = container.querySelector('[data-tab="' + tab + '"]');
   if (btn) btn.click();
+}
+
+// Naviguer vers Contact avec l'objet du message pré-rempli
+function goToContactSujet(sujet) {
+  goTo('contact');
+  var s = document.getElementById('cf-sujet');
+  if (s) s.value = sujet;
 }
 
 // ── ROUTER ──────────────────────────────────────────
@@ -2601,13 +2633,13 @@ function goTo(id) {
   });
   // Afficher la page cible (fallback vers home si inexistante)
   const target = document.getElementById('page-' + id);
-  if (target) {
-    target.classList.add('active');
-  } else {
-    document.getElementById('page-home').classList.add('active');
-  }
+  const shown = target || document.getElementById('page-home');
+  shown.classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
   document.title = PAGE_TITLES[id] || 'Cannes Échecs';
+  // Accessibilité : déplacer le focus sur le titre de la nouvelle page
+  var pageH1 = shown.querySelector('h1');
+  if (pageH1) { pageH1.setAttribute('tabindex', '-1'); pageH1.focus({preventScroll: true}); }
   // Mettre à jour les états actifs de la nav
   updateNavActive(id);
   // Restaurer l'onglet depuis le hash URL (ex: #activites-stages)
@@ -3780,6 +3812,8 @@ function sendContact(e) {
   const message = document.getElementById('cf-message');
   const rgpd    = document.getElementById('cf-rgpd');
   const fb      = document.getElementById('cf-feedback');
+  const honey   = document.getElementById('cf-honey');
+  if (honey && honey.value) { e.target.reset(); return; } // champ piège rempli → bot, on ignore
   // Validation
   const errors = [];
   if (!nom.value.trim())     errors.push('Veuillez indiquer votre nom.');
@@ -3915,6 +3949,33 @@ document.getElementById('lightbox').addEventListener('touchend', function(e) {
   lbTouchX = null;
 }, {passive: true});
 
+// ── AGENDA — masquage automatique des événements passés ──
+// Lit le jour + le mois affichés dans la vignette date de chaque événement ;
+// l'année est déduite de la SAISON (juil–déc → 1re année, jan–juin → 2e année).
+function hideOldAgendaEvents(now) {
+  now = now || new Date();
+  var MOIS = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
+  var yrs = SAISON.match(/\d{4}/g) || [];
+  var y1 = parseInt(yrs[0], 10) || now.getFullYear();
+  var y2 = parseInt(yrs[1], 10) || y1 + 1;
+  var visibles = 0;
+  document.querySelectorAll('.agenda-event').forEach(function(ev) {
+    var spans = ev.querySelectorAll('span');
+    var day = parseInt(spans[0] && spans[0].textContent, 10);
+    var key = (spans[1] ? spans[1].textContent : '').trim().toLowerCase().replace('.', '');
+    var mo = MOIS[key] !== undefined ? MOIS[key] : MOIS[key.slice(0, 3)];
+    if (isNaN(day) || mo === undefined) { visibles++; return; }
+    var year = mo >= 6 ? y1 : y2;
+    if (new Date(year, mo, day, 23, 59, 59) < now) {
+      ev.dataset.past = '1';
+      ev.style.display = 'none';
+    } else { visibles++; }
+  });
+  var empty = document.getElementById('agenda-empty');
+  if (empty && visibles === 0) empty.style.display = 'block';
+}
+hideOldAgendaEvents();
+
 // ── FILTRES (Agenda + Archive Actualités) ────────────
 document.querySelectorAll('.filtre-btn').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -3927,7 +3988,7 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       const cat = agendaMap[label] !== undefined ? agendaMap[label] : null;
       let visible = 0;
       document.querySelectorAll('.agenda-event').forEach(ev => {
-        const show = !cat || ev.dataset.cat === cat;
+        const show = (!cat || ev.dataset.cat === cat) && ev.dataset.past !== '1';
         ev.style.display = show ? '' : 'none';
         if (show) visible++;
       });
@@ -4026,7 +4087,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 const HERO_WIDGETS = {
   fij: () => `
     <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
-    <h3>Festival International<br>des Jeux — Cannes</h3>
+    <h3>Festival International <br>des Jeux — Cannes</h3>
     <div class="cd-title">Ouverture des inscriptions dans</div>
     <div class="cd-row">
       <div class="cd-item"><span class="cd-num" id="h-cd-j">--</span><span class="cd-label">Jours</span></div>
@@ -4055,7 +4116,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">♟ PICO · Tournoi mensuel homologué</div>
     <h3 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Prochaine date</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi homologué FFE · Tous niveaux · Dès 13h30<br>Inscription via HelloAsso</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les PICO →</button>
     <div class="fij-hero-stats">
@@ -4066,9 +4127,9 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🐣 Tournoi Open · Pâques 2027</div>
     <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi open homologué FFE · Tous niveaux<br>Prix garantis · Inscription HelloAsso</div>
-    <button class="btn btn-gold btn-full btn-sm" onclick="window.open(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
+    <button class="btn btn-gold btn-full btn-sm" onclick="haOpen(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
     <div class="fij-hero-stats">
       <div class="fij-hs"><div class="n">Open</div><div class="l">homologué FFE</div></div>
       <div class="fij-hs"><div class="n">Pâques</div><div class="l">2027</div></div>
@@ -4077,7 +4138,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🏅 Championnats · Qualification</div>
     <h3 style="font-size:22px">Qualifications<br>en cours !</h3>
     <div class="cd-title" style="margin-bottom:10px">Prochaine échéance</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">DATE À RENSEIGNER</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Championnats départementaux & régionaux<br>Sélection équipes — Top 16 · Top 12 Féminin</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les tournois →</button>
     <div class="fij-hero-stats">
@@ -4183,13 +4244,13 @@ function renderHoraires() {
   tbody.innerHTML = HORAIRES.map(function(h, i) {
     var bg = i % 2 === 1 ? ';background:var(--ivoire)' : '';
     if (h.ferme) return '<tr style="border-bottom:1px solid var(--border)' + bg + '">'
-      + '<td style="padding:12px 16px;font-weight:600;color:#9ca3af;font-style:italic">' + h.jour + '</td>'
+      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:#9ca3af;font-style:italic;text-align:left">' + h.jour + '</th>'
       + '<td colspan="2" style="padding:12px 16px;color:#9ca3af;font-style:italic">' + h.detail + '</td></tr>';
     var det = h.highlight
       ? '<strong style="color:var(--bleu)">' + h.detail + '</strong>'
       : h.detail;
     return '<tr style="border-bottom:1px solid var(--border)' + bg + '">'
-      + '<td style="padding:12px 16px;font-weight:600;color:var(--bleu)">' + h.jour + '</td>'
+      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:var(--bleu);text-align:left">' + h.jour + '</th>'
       + '<td style="padding:12px 16px">' + h.h + '</td>'
       + '<td style="padding:12px 16px;color:var(--muted)">' + det + '</td></tr>';
   }).join('');
