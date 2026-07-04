@@ -57,8 +57,21 @@ node build-wp-theme.js
 `header.php` étant régénéré, y reporter toute retouche via le script) ne sont
 pas écrasés, **sauf `header.php` et `footer.php`** qui sont régénérés.
 
+## Import des articles du site statique
+
+Le fichier `wp-theme/wp-import-articles.php` (généré par `node build-wp-import.js`
+à la racine du dépôt) importe les 32 articles + toutes leurs photos :
+
+1. Thème actif + ACF Pro actif.
+2. Copier `wp-import-articles.php` à la racine de WordPress (à côté de `wp-load.php`).
+3. Visiter `https://votre-site/wp-import-articles.php?key=cannes-import-2027`
+   et patienter (les photos sont téléchargées depuis cannes-echecs.fr vers la
+   médiathèque).
+4. **Supprimer le fichier du serveur** une fois l'import terminé.
+
+Relançable sans risque : slugs existants ignorés, images déjà présentes réutilisées.
+
 ## Reste à faire (hors thème)
 
-- Import des articles existants du site statique (script d'import à part)
 - Formulaire de contact : remplacer formsubmit.co par un plugin WP + SMTP
-- Uploader les photos dans la médiathèque
+- Renseigner les URLs HelloAsso + photos équipe (Réglages CE)
