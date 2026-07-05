@@ -89,8 +89,9 @@ body{font-family:'Inter',sans-serif;background:var(--ivoire);color:var(--noir);-
 h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
-.page{display:none}
-.page.active{display:block}
+/* Scopé à #app : WordPress met aussi class="page" sur le <body> des Pages */
+#app > .page{display:none}
+#app > .page.active{display:block}
 
 /* =====================================================
    UTILITAIRES PARTAGÉS
