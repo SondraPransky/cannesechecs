@@ -113,13 +113,16 @@ add_action('after_switch_theme', 'ce_after_switch_theme');
 // ══════════════════════════════════════════════════════════
 // ACF OPTIONS PAGES (nécessite ACF Pro)
 // ══════════════════════════════════════════════════════════
-function ce_register_options_pages() {
+// Avertissement si ACF Pro manque — hooké sur admin_notices directement,
+// car acf/init ne se déclenche jamais quand ACF est absent.
+add_action('admin_notices', function() {
     if (!function_exists('acf_add_options_page')) {
-        add_action('admin_notices', function() {
-            echo '<div class="notice notice-warning"><p><strong>Cannes Échecs :</strong> ACF Pro doit être installé et activé pour accéder aux réglages du site (FIJ, HelloAsso, Infos club).</p></div>';
-        });
-        return;
+        echo '<div class="notice notice-warning"><p><strong>Cannes Échecs :</strong> ACF Pro doit être installé et activé pour accéder aux réglages du site (FIJ, HelloAsso, Infos club) et aux champs des actualités.</p></div>';
     }
+});
+
+function ce_register_options_pages() {
+    if (!function_exists('acf_add_options_page')) return;
     acf_add_options_page([
         'page_title' => 'Réglages du site',
         'menu_title' => 'Réglages CE',
