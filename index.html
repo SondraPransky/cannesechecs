@@ -316,6 +316,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .forces-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
 .force-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:28px 20px;text-align:center;transition:all .2s}
 .force-card:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);transform:translateY(-4px)}
+.force-link{display:inline-block;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);cursor:pointer}
+.force-card:hover .force-link{color:#fff}
 .force-icon{font-size:30px;margin-bottom:12px;display:block}
 .force-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;display:block}
 .force-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:6px 0}
@@ -947,7 +949,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <h2 style="font-size:42px;color:#fff">Un club d'exception</h2>
       </div>
       <div class="forces-grid">
-        <div class="force-card"><span class="force-icon">🏆</span><span class="force-num">10×</span><div class="force-label">Champion de France Jeunes</div><p class="force-desc">Un palmarès qui témoigne de l'excellence de notre formation</p></div>
+        <div class="force-card"><span class="force-icon">🏆</span><span class="force-num">10×</span><div class="force-label">Champion de France Jeunes</div><p class="force-desc">Un palmarès qui témoigne de l'excellence de notre formation</p><a class="force-link" onclick="goToPalmares()">Voir le palmarès →</a></div>
         <div class="force-card"><span class="force-icon">📚</span><span class="force-num">30+</span><div class="force-label">Ans scolaire</div><p class="force-desc">Partenaire de l'Éducation Nationale depuis plus de trois décennies</p></div>
         <div class="force-card"><span class="force-icon">👥</span><span class="force-num">200+</span><div class="force-label">Membres actifs</div><p class="force-desc">Une communauté soudée du débutant de 5 ans au joueur classé</p></div>
         <div class="force-card"><span class="force-icon">🎖</span><span class="force-num">FFE</span><div class="force-label">Label Club Formateur</div><p class="force-desc">Reconnu par la Fédération Française des Échecs</p></div>
@@ -2655,6 +2657,16 @@ function goToContactSujet(sujet) {
   if (s) s.value = sujet;
 }
 
+// Accueil → page Club, défile jusqu'au bloc palmarès
+// (noScroll évite que le scroll-to-top de goTo écrase le scrollIntoView)
+function goToPalmares() {
+  goTo('club', { noScroll: true });
+  setTimeout(function() {
+    var el = document.querySelector('.club-palmares');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
 // ── ROUTER ──────────────────────────────────────────
 const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
 const PAGE_TITLES = {
@@ -2673,7 +2685,7 @@ const PAGE_TITLES = {
   organigramme:'Organigramme — Cannes Échecs'
 };
 
-function goTo(id) {
+function goTo(id, opts) {
   // Masquer toutes les pages
   pages.forEach(p => {
     const el = document.getElementById('page-' + p);
@@ -2683,7 +2695,8 @@ function goTo(id) {
   const target = document.getElementById('page-' + id);
   const shown = target || document.getElementById('page-home');
   shown.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  // noScroll : laisse l'appelant gérer le défilement (ex : goToPalmares)
+  if (!(opts && opts.noScroll)) window.scrollTo({top: 0, behavior: 'smooth'});
   document.title = PAGE_TITLES[id] || 'Cannes Échecs';
   // Accessibilité : déplacer le focus sur le titre de la nouvelle page
   var pageH1 = shown.querySelector('h1');
