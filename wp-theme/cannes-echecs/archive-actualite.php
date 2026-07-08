@@ -24,6 +24,9 @@ get_header(); ?>
       <button class="filtre-btn">Tournois</button>
       <button class="filtre-btn">Scolaire</button>
       <button class="filtre-btn">Club</button>
+      <div class="archive-search">
+        <input type="search" id="actu-search" placeholder="Rechercher un joueur, un tournoi…" aria-label="Rechercher dans les actualités" autocomplete="off">
+      </div>
     </div>
   </div>
 

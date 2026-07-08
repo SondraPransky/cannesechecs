@@ -243,6 +243,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .forces-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
 .force-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:28px 20px;text-align:center;transition:all .2s}
 .force-card:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);transform:translateY(-4px)}
+.force-link{display:inline-block;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);cursor:pointer}
+.force-card:hover .force-link{color:#fff}
 .force-icon{font-size:30px;margin-bottom:12px;display:block}
 .force-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;display:block}
 .force-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:6px 0}
@@ -270,8 +272,16 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:12px;border:1px solid var(--border);transition:all .2s}
 .team-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-3px)}
 .team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
+.team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 .team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+/* Palmarès — grille des années de titre */
+.palmares-years{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:720px;margin:40px auto 0}
+.palmares-year{border:1.5px solid var(--gold);border-radius:12px;padding:16px 8px;text-align:center;background:rgba(201,168,76,.06)}
+.py-num{display:block;font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:700;color:var(--bleu);line-height:1}
+.py-lbl{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin-top:5px}
+@media(max-width:640px){.palmares-years{grid-template-columns:repeat(3,1fr);gap:10px}}
+@media(max-width:360px){.palmares-years{grid-template-columns:repeat(2,1fr)}}
 
 /* =====================================================
    PAGE ACTUALITÉS (ARCHIVE)
@@ -281,6 +291,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .filtre-btn{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);transition:all .2s}
 .filtre-btn:hover,.filtre-btn.active{background:var(--bleu);border-color:var(--bleu);color:#fff}
 .filtre-btn.active-gold{background:var(--gold);border-color:var(--gold);color:var(--noir)}
+.archive-search{margin-left:auto}
+.archive-search input{font-family:'Inter',sans-serif;font-size:13px;color:var(--noir);width:240px;padding:9px 16px 9px 38px;border:1.5px solid var(--border);border-radius:20px;background:var(--ivoire) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4858' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 14px center;outline:none;transition:border-color .2s,box-shadow .2s}
+.archive-search input::placeholder{color:var(--muted)}
 .archive-grid-section{padding:60px 0;background:var(--ivoire)}
 .archive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
 .pagination{display:flex;justify-content:center;align-items:center;gap:8px}
@@ -446,6 +459,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   /* Grilles */
   .actu-grid{grid-template-columns:1fr}
   .archive-grid{grid-template-columns:1fr}
+  .archive-search{margin-left:0;width:100%;order:99}
+  .archive-search input{width:100%}
   /* Accueil : carousel horizontal au lieu de 4 cartes empilées */
   .section-actus .container{overflow:hidden}
   #home-actus-grid{grid-template-columns:repeat(4,80vw);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px;gap:12px}

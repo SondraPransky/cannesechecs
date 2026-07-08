@@ -59,6 +59,16 @@ function mobileGoTo(page, tab) {
 
 // Naviguer vers Contact avec l'objet du message pré-rempli
 
+// Accueil → page Club, défile jusqu'au bloc palmarès
+// (noScroll évite que le scroll-to-top de goTo écrase le scrollIntoView)
+function goToPalmares() {
+  goTo('club', { noScroll: true });
+  setTimeout(function() {
+    var el = document.querySelector('.club-palmares');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
 // ── ROUTER ──────────────────────────────────────────
 
 
@@ -151,6 +161,11 @@ function catToFilter(cat) {
 // ── HELPER : construit le HTML d'une carte article ───
 // showExtrait=true → affiche le résumé (archive, home)
 // showExtrait=false → carte compacte (section "À lire aussi")
+
+// Normalisation pour la recherche : minuscules, sans accents
+function ceNormalize(s) {
+  return (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
 
 
 // ── RENDU : grille archive (page Actualités) ─────────
@@ -476,31 +491,52 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
       return;
     }
-    // Actualités (+ autres pages avec archive-filtres)
+    // Actualités : catégorie active → recalcul du filtre combiné (catégorie + recherche)
     const container = this.closest('[class*="filtres"]');
     if (container) container.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active','active-gold'));
     this.classList.add('active-gold');
-    const archiveGrid = document.querySelector('#page-actualites .archive-grid');
-    if (!archiveGrid || !this.closest('#page-actualites')) return;
-    const archiveMap = { 'résultats':'resultats', 'formation':'formation', 'tournois':'tournois', 'scolaire':'scolaire', 'club':'club' };
-    const cat = archiveMap[label] || null;
-    archiveGrid.querySelectorAll('.actu-card').forEach(card => {
-      card.style.display = (!cat || card.dataset.cat === cat) ? '' : 'none';
-    });
-    const oldMsg = archiveGrid.parentElement.querySelector('.filtre-empty');
-    if (oldMsg) oldMsg.remove();
-    if (cat) {
-      const visible = archiveGrid.querySelectorAll('.actu-card:not([style*="none"])').length;
-      if (visible === 0) {
-        const msg = document.createElement('p');
-        msg.className = 'filtre-empty';
-        msg.style.cssText = 'text-align:center;color:var(--muted);font-style:italic;padding:48px 0;font-size:15px';
-        msg.textContent = 'Aucun article dans cette catégorie pour le moment.';
-        archiveGrid.parentElement.insertBefore(msg, archiveGrid.nextSibling);
-      }
-    }
+    if (this.closest('#page-actualites')) applyArchiveFilters();
   });
 });
+
+// ── FILTRE COMBINÉ ACTUALITÉS (catégorie + recherche plein texte) ──
+function applyArchiveFilters() {
+  const grid = document.querySelector('#page-actualites .archive-grid');
+  if (!grid) return;
+  const activeBtn = document.querySelector('#page-actualites .filtre-btn.active-gold');
+  const label = activeBtn ? activeBtn.textContent.trim().toLowerCase() : 'toutes';
+  const archiveMap = { 'résultats':'resultats', 'formation':'formation', 'tournois':'tournois', 'scolaire':'scolaire', 'club':'club' };
+  const cat = archiveMap[label] || null;
+  const input = document.getElementById('actu-search');
+  const q = input ? ceNormalize(input.value.trim()) : '';
+  const terms = q.split(/\s+/).filter(Boolean);   // recherche ET : tous les mots présents
+  let visible = 0;
+  grid.querySelectorAll('.actu-card').forEach(card => {
+    const okCat = !cat || card.dataset.cat === cat;
+    const haystack = card.dataset.search || '';
+    const okSearch = terms.every(t => haystack.indexOf(t) > -1);
+    const show = okCat && okSearch;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const oldMsg = grid.parentElement.querySelector('.filtre-empty');
+  if (oldMsg) oldMsg.remove();
+  if (visible === 0) {
+    const msg = document.createElement('p');
+    msg.className = 'filtre-empty';
+    msg.style.cssText = 'text-align:center;color:var(--muted);font-style:italic;padding:48px 0;font-size:15px';
+    msg.textContent = q
+      ? 'Aucun article ne correspond à votre recherche.'
+      : 'Aucun article dans cette catégorie pour le moment.';
+    grid.parentElement.insertBefore(msg, grid.nextSibling);
+  }
+}
+
+// Recherche en direct
+(function() {
+  const input = document.getElementById('actu-search');
+  if (input) input.addEventListener('input', applyArchiveFilters);
+})();
 
 
 // ── TABS (Activités + Tournois + toute page) ─────────
@@ -668,7 +704,7 @@ function renderEquipe() {
   if (!grid) return;
   grid.innerHTML = EQUIPE.map(function(m) {
     var av = (m.avatar && /^(https?:|photos\/)/.test(m.avatar))
-      ? '<img src="' + m.avatar + '" loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt="' + m.nom + '">'
+      ? '<img src="' + m.avatar + '" class="team-photo" loading="lazy" decoding="async" alt="' + m.nom + '">'
       : '<div class="team-avatar">' + m.avatar + '</div>';
     return '<div class="team-card">' + av
       + '<div class="team-name">' + m.nom + '</div>'

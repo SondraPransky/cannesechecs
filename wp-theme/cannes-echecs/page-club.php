@@ -33,6 +33,38 @@ get_header(); ?>
     </div>
   </section>
 
+  <!-- Palmarès -->
+  <section class="club-palmares" style="padding:80px 0;background:#fff">
+    <div class="container">
+      <div class="section-header center" style="margin-bottom:8px">
+        <span class="surtitre">Palmarès national</span>
+        <h2 style="font-size:40px;color:var(--bleu)">10× Champion de <em style="color:var(--gold);font-style:italic">France</em></h2>
+        <p style="font-size:15px;color:var(--text);line-height:1.7;margin-top:14px;max-width:660px;margin-left:auto;margin-right:auto">Au <strong>Championnat de France Interclubs Jeunes</strong> (Top Jeunes), Cannes Échecs détient le <strong>record national de titres</strong> — dont six remportés consécutivement de 2007 à 2012.</p>
+      </div>
+
+      <div class="palmares-years">
+        <div class="palmares-year"><span class="py-num">2007</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2008</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2009</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2010</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2011</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2012</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2015</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2019</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2020</span><span class="py-lbl">Champion</span></div>
+        <div class="palmares-year"><span class="py-num">2022</span><span class="py-lbl">Champion</span></div>
+      </div>
+
+      <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:28px;line-height:1.8">
+        Également <strong style="color:var(--bleu)">4× vice-champion</strong> (1995, 1998, 2013, 2016)
+        et <strong style="color:var(--bleu)">5× médaille de bronze</strong> (1990, 2005, 2006, 2017, 2018).
+      </p>
+      <p style="text-align:center;font-size:12px;margin-top:14px">
+        <a href="https://www.echecs.asso.fr/Tournois/Palmares/TOPJeunes_Palmares.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.04em">Palmarès officiel — Fédération Française des Échecs ↗</a>
+      </p>
+    </div>
+  </section>
+
   <!-- Équipe -->
   <section class="club-equipe" style="background:var(--ivoire)">
     <div class="container">

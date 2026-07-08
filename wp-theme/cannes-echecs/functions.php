@@ -200,7 +200,12 @@ function ce_actu_card(WP_Post $post, bool $show_extrait = false): string {
         $extrait_html = '<p class="actu-extrait">' . esc_html($extrait) . '</p>';
     }
 
-    return '<a class="actu-card" data-cat="' . esc_attr(ce_cat_to_filter($cat)) . '" href="' . esc_url(get_permalink($post)) . '">'
+    // Index de recherche plein texte (même logique que le site statique :
+    // minuscules sans accents), lu par applyArchiveFilters() dans main.js.
+    $search = remove_accents(mb_strtolower($post->post_title . ' ' . $cat . ' ' . wp_strip_all_tags($post->post_content)));
+    $search = mb_substr(preg_replace('/\s+/', ' ', $search), 0, 2000);
+
+    return '<a class="actu-card" data-cat="' . esc_attr(ce_cat_to_filter($cat)) . '" data-search="' . esc_attr($search) . '" href="' . esc_url(get_permalink($post)) . '">'
         . $img_html
         . '<div class="actu-body">'
         . '<div class="actu-cat">' . esc_html($cat) . '</div>'
