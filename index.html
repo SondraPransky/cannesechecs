@@ -2534,8 +2534,8 @@ const HORAIRES = [
 // 3. ÉQUIPE DU CLUB
 //    avatar : emoji 👤 ou chemin vers photo (ex: 'photos/joffrey.jpg')
 const EQUIPE = [
-  { nom:'Joffrey', role:'Animateur',        avatar:'👤' },
-  { nom:'Nicolas', role:'Animateur',         avatar:'👤' },
+  { nom:'Joffrey', role:'Animateur',        avatar:'photos/joffrey.jpg' },
+  { nom:'Nicolas', role:'Animateur',         avatar:'photos/nicolas.jpg' },
   { nom:'Romu',    role:'Directeur sportif', avatar:'👤' },
   { nom:'Marlies', role:'Coordinatrice',     avatar:'👤' },
 ];
@@ -2776,6 +2776,53 @@ function updateCountdowns() {
 // ⚠️  Ajouter la virgule après la dernière } existante avant de coller le bloc.
 // ══════════════════════════════════════════════════════════════════════════════
 const ARTICLES = {
+  'jeux-sophia-karim': {
+    cat:'Compétition · Open', badge:'Résultats', emoji:'🥇',
+    bg:'linear-gradient(135deg,#1a5c7a,#0a2d3a)',
+    title:'Karim remporte les Jeux de Sophia !',
+    date:'30 juin 2026',
+    img:'photos/jeuxsophia.jpg',
+    gallery:[
+      'photos/jeuxsophia.jpg',
+      'photos/jeuxsophia_2.jpg',
+    ],
+    body:`<p>Un grand bravo à notre sympathique joueur <strong>Karim</strong>, qui a remporté les <strong>Jeux de Sophia</strong> ! 🥇</p>
+<p>Le tournoi réunissait plusieurs forts joueurs locaux mais, au terme des <strong>6 rondes</strong> disputées, c'est notre Karim qui sort vainqueur avec <strong>5 sur 6</strong> et un meilleur départage ! 🥳🤩💪</p>
+<p>Félicitations à Karim qui, au-delà de sa bonne humeur communicative de tous les instants, progresse de tournoi en tournoi. Le club est fier de toi ! 💙</p>`
+  },
+  'pico-fin-annee-2026': {
+    cat:'Tournoi · Jeunes', badge:'Tournois', emoji:'☀️',
+    bg:'linear-gradient(135deg,#b5661a,#3a1f05)',
+    title:'Pico de fin d\'année — Emre, Léo, Eden et Artem grands vainqueurs !',
+    date:'22 juin 2026',
+    img:'photos/picojuin2026.jpg',
+    gallery:[
+      'photos/picojuin2026.jpg',
+      'photos/picojuin2026_2.jpg',
+      'photos/picojuin2026_3.jpg',
+      'photos/picojuin2026_4.jpg',
+    ],
+    body:`<p>Ambiance décontractée ce samedi à l'occasion du <strong>Pico de fin d'année</strong>, qui a réuni une soixantaine d'enfants venus fêter l'arrivée de l'été. ☀️♟️</p>
+<p>Un grand merci à tous pour la confiance accordée tout au long de l'année, qui fait du Pico un rendez-vous mensuel incontournable ! 🙏</p>
+<h2>Catégorie CP</h2>
+<p>🥇 <strong>Emre Balzarotti</strong><br>🥈 Konstantsiaa Baydachenko<br>🥉 Maxence Lapeyre</p>
+<h2>Catégorie CE</h2>
+<p>🥇 <strong>Eden Necheb</strong><br>🥈 Lev Duchesnay<br>🥉 Logan Spartoli Feber</p>
+<h2>Catégorie CM</h2>
+<p>🥇 <strong>Léo Vo</strong><br>🥈 Davyd Semenenko<br>🥉 Adam Harrathi</p>
+<h2>Catégorie Collèges</h2>
+<p>🥇 <strong>Artem Maltsev</strong><br>🥈 Mete Balzarotti<br>🥉 Matteo Kehde</p>
+<p>Bravo à tous et rendez-vous en septembre pour le premier Pico de rentrée ! 🌞</p>`
+  },
+  'cyrielle-roza-u14': {
+    cat:'Compétition · Jeunes', badge:'Résultats', emoji:'🥇',
+    bg:'linear-gradient(135deg,#8a6d1f,#3a2c08)',
+    title:'Trophée Roza Lallemand — Cyrielle Championne U14 !',
+    date:'21 juin 2026',
+    img:'photos/cyrielle_roza.jpg',
+    body:`<p>Un grand bravo à notre benjamine <strong>Cyrielle</strong> qui rafle le titre de sa catégorie à l'occasion du <strong>Trophée Roza Lallemand</strong>, organisé ce week-end à <strong>Agde</strong> ! 🥇💪👏🤩</p>
+<p>Félicitations à Cyrielle, qui confirme ainsi sa très bonne forme actuelle ! ✨♟️</p>`
+  },
   'monde-jeunes-2026': {
     cat:'Compétition · International', badge:'Mondial', emoji:'✨',
     bg:'linear-gradient(135deg,#002395,#c60000)',
@@ -3501,6 +3548,9 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
 //                           2) ajouter la clé ici dans ARCHIVE_ORDER
 //                           3) ajouter l'extrait dans EXTRAITS
 const ARCHIVE_ORDER = [
+  'jeux-sophia-karim',
+  'pico-fin-annee-2026',
+  'cyrielle-roza-u14',
   'monde-jeunes-2026','top16-2026','stemarie-france-2026','stan-champion-france-2026',
   'quartier-maria-2026','solidarite-croisette',
   'selection-france-2026','scolaire-cannes-2026',
@@ -3516,6 +3566,9 @@ const ARCHIVE_ORDER = [
 
 // Résumés affichés dans les cartes (≈ 120 chars)
 const EXTRAITS = {
+  'jeux-sophia-karim'        : "Karim remporte les Jeux de Sophia avec 5 sur 6 et un meilleur départage, devant plusieurs forts joueurs locaux. Le club est fier !",
+  'pico-fin-annee-2026'      : "Une soixantaine d'enfants pour le Pico de fin d'année. Emre Balzarotti, Eden Necheb, Léo Vo et Artem Maltsev s'imposent dans leur catégorie.",
+  'cyrielle-roza-u14'        : "Notre benjamine Cyrielle remporte le titre U14 au Trophée Roza Lallemand à Agde ! Une belle confirmation de sa forme actuelle.",
   'monde-jeunes-2026'        : "Émilie Nègre et Émilie Alfano défendent les couleurs cannoises et françaises au Championnat du Monde U18 à Montesilvano (Italie). Allez les filles !",
   'top16-2026'               : "6ème place nationale au Top 16 et 1ère norme de GMI pour Gary ! Médailles individuelles pour Pranesh et Gary. Bravo à toute l'équipe !",
   'stemarie-france-2026'     : "8ème place nationale parmi 28 écoles pour Sainte-Marie de Cannes. Une belle aventure pour Paul, Victor, Maxime, Edan, Pauline, Gabriel, Rafael et Charlotte !",
