@@ -345,6 +345,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:12px;border:1px solid var(--border);transition:all .2s}
 .team-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-3px)}
 .team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
+.team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 .team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 /* Palmarès — grille des années de titre */
@@ -4409,7 +4410,7 @@ function renderEquipe() {
   if (!grid) return;
   grid.innerHTML = EQUIPE.map(function(m) {
     var av = (m.avatar && m.avatar.indexOf('photos/') === 0)
-      ? '<img src="' + m.avatar + '" loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt="' + m.nom + '">'
+      ? '<img src="' + m.avatar + '" class="team-photo" loading="lazy" decoding="async" alt="' + m.nom + '">'
       : '<div class="team-avatar">' + m.avatar + '</div>';
     return '<div class="team-card">' + av
       + '<div class="team-name">' + m.nom + '</div>'
