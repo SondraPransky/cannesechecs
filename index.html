@@ -354,6 +354,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .filtre-btn{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);transition:all .2s}
 .filtre-btn:hover,.filtre-btn.active{background:var(--bleu);border-color:var(--bleu);color:#fff}
 .filtre-btn.active-gold{background:var(--gold);border-color:var(--gold);color:var(--noir)}
+.archive-search{margin-left:auto}
+.archive-search input{font-family:'Inter',sans-serif;font-size:13px;color:var(--noir);width:240px;padding:9px 16px 9px 38px;border:1.5px solid var(--border);border-radius:20px;background:var(--ivoire) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4858' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 14px center;outline:none;transition:border-color .2s,box-shadow .2s}
+.archive-search input::placeholder{color:var(--muted)}
 .archive-grid-section{padding:60px 0;background:var(--ivoire)}
 .archive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
 .pagination{display:flex;justify-content:center;align-items:center;gap:8px}
@@ -519,6 +522,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   /* Grilles */
   .actu-grid{grid-template-columns:1fr}
   .archive-grid{grid-template-columns:1fr}
+  .archive-search{margin-left:0;width:100%;order:99}
+  .archive-search input{width:100%}
   /* Accueil : carousel horizontal au lieu de 4 cartes empilées */
   .section-actus .container{overflow:hidden}
   #home-actus-grid{grid-template-columns:repeat(4,80vw);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px;gap:12px}
@@ -1034,6 +1039,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <button class="filtre-btn">Tournois</button>
       <button class="filtre-btn">Scolaire</button>
       <button class="filtre-btn">Club</button>
+      <div class="archive-search">
+        <input type="search" id="actu-search" placeholder="Rechercher un joueur, un tournoi…" aria-label="Rechercher dans les actualités" autocomplete="off">
+      </div>
     </div>
   </div>
 
@@ -3619,6 +3627,11 @@ function getCover(id, a) {
   return a.img || null;
 }
 
+// Normalisation pour la recherche : minuscules, sans accents
+function ceNormalize(s) {
+  return (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
 function buildCard(key, a, showExtrait) {
   const imgSrc = getCover(key, a);
   const imgHtml = imgSrc
@@ -3627,7 +3640,10 @@ function buildCard(key, a, showExtrait) {
   const extraitHtml = (showExtrait && EXTRAITS[key])
     ? '<p class="actu-extrait">' + EXTRAITS[key] + '</p>'
     : '';
-  return '<div class="actu-card" data-cat="' + catToFilter(a.cat) + '" onclick="goToArticle(\'' + key + '\')">'
+  // Index de recherche : titre + catégorie + extrait + corps (sans HTML), normalisé
+  const searchText = ceNormalize(a.title + ' ' + a.cat + ' ' + (EXTRAITS[key] || '') + ' ' + (a.body || '').replace(/<[^>]+>/g, ' '))
+    .replace(/[<>&"]+/g, ' ').replace(/\s+/g, ' ').trim();
+  return '<div class="actu-card" data-cat="' + catToFilter(a.cat) + '" data-search="' + searchText + '" onclick="goToArticle(\'' + key + '\')">'
     + imgHtml
     + '<div class="actu-body">'
     + '<div class="actu-cat">' + a.cat + '</div>'
@@ -4050,31 +4066,52 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
       return;
     }
-    // Actualités (+ autres pages avec archive-filtres)
+    // Actualités : catégorie active → recalcul du filtre combiné (catégorie + recherche)
     const container = this.closest('[class*="filtres"]');
     if (container) container.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active','active-gold'));
     this.classList.add('active-gold');
-    const archiveGrid = document.querySelector('#page-actualites .archive-grid');
-    if (!archiveGrid || !this.closest('#page-actualites')) return;
-    const archiveMap = { 'résultats':'resultats', 'formation':'formation', 'tournois':'tournois', 'scolaire':'scolaire', 'club':'club' };
-    const cat = archiveMap[label] || null;
-    archiveGrid.querySelectorAll('.actu-card').forEach(card => {
-      card.style.display = (!cat || card.dataset.cat === cat) ? '' : 'none';
-    });
-    const oldMsg = archiveGrid.parentElement.querySelector('.filtre-empty');
-    if (oldMsg) oldMsg.remove();
-    if (cat) {
-      const visible = archiveGrid.querySelectorAll('.actu-card:not([style*="none"])').length;
-      if (visible === 0) {
-        const msg = document.createElement('p');
-        msg.className = 'filtre-empty';
-        msg.style.cssText = 'text-align:center;color:var(--muted);font-style:italic;padding:48px 0;font-size:15px';
-        msg.textContent = 'Aucun article dans cette catégorie pour le moment.';
-        archiveGrid.parentElement.insertBefore(msg, archiveGrid.nextSibling);
-      }
-    }
+    if (this.closest('#page-actualites')) applyArchiveFilters();
   });
 });
+
+// ── FILTRE COMBINÉ ACTUALITÉS (catégorie + recherche plein texte) ──
+function applyArchiveFilters() {
+  const grid = document.querySelector('#page-actualites .archive-grid');
+  if (!grid) return;
+  const activeBtn = document.querySelector('#page-actualites .filtre-btn.active-gold');
+  const label = activeBtn ? activeBtn.textContent.trim().toLowerCase() : 'toutes';
+  const archiveMap = { 'résultats':'resultats', 'formation':'formation', 'tournois':'tournois', 'scolaire':'scolaire', 'club':'club' };
+  const cat = archiveMap[label] || null;
+  const input = document.getElementById('actu-search');
+  const q = input ? ceNormalize(input.value.trim()) : '';
+  const terms = q.split(/\s+/).filter(Boolean);   // recherche ET : tous les mots présents
+  let visible = 0;
+  grid.querySelectorAll('.actu-card').forEach(card => {
+    const okCat = !cat || card.dataset.cat === cat;
+    const haystack = card.dataset.search || '';
+    const okSearch = terms.every(t => haystack.indexOf(t) > -1);
+    const show = okCat && okSearch;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const oldMsg = grid.parentElement.querySelector('.filtre-empty');
+  if (oldMsg) oldMsg.remove();
+  if (visible === 0) {
+    const msg = document.createElement('p');
+    msg.className = 'filtre-empty';
+    msg.style.cssText = 'text-align:center;color:var(--muted);font-style:italic;padding:48px 0;font-size:15px';
+    msg.textContent = q
+      ? 'Aucun article ne correspond à votre recherche.'
+      : 'Aucun article dans cette catégorie pour le moment.';
+    grid.parentElement.insertBefore(msg, grid.nextSibling);
+  }
+}
+
+// Recherche en direct
+(function() {
+  const input = document.getElementById('actu-search');
+  if (input) input.addEventListener('input', applyArchiveFilters);
+})();
 
 
 // ── TABS (Activités + Tournois + toute page) ─────────
