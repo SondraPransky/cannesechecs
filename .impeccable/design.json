@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-09T00:00:00Z",
+  "title": "Design System: Cannes Échecs",
+  "extensions": {
+    "colorMeta": {
+      "gold": { "role": "primary", "displayName": "Or Trophée", "canonical": "#C9A84C", "tonalRamp": ["#2b2410", "#4d4019", "#6f5c23", "#917a2e", "#b3963c", "#c9a84c", "#dbc079", "#f5edd4"] },
+      "bleu": { "role": "secondary", "displayName": "Bleu Marine de Nuit", "canonical": "#1E3A5F", "tonalRamp": ["#0a141f", "#122539", "#1a3253", "#1e3a5f", "#2f5688", "#4a74ab", "#84a3cb", "#cfdcea"] },
+      "noir": { "role": "neutral", "displayName": "Noir d'Encre", "canonical": "#0F0E17", "tonalRamp": ["#0f0e17", "#1a1925", "#2d2b3d", "#454258", "#5f5c73", "#8a8799", "#b9b7c4", "#e8e7ee"] },
+      "ivoire": { "role": "neutral", "displayName": "Ivoire", "canonical": "#FAF8F4", "tonalRamp": ["#3a382f", "#5c5947", "#807c66", "#a8a48c", "#cfcbb8", "#e5e0d8", "#f0ede6", "#faf8f4"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display — Cormorant Garamond", "purpose": "Titre du héro d'accueil (66px). Emphase en <em> italique dorée." },
+      "headline": { "displayName": "Headline — Cormorant Garamond", "purpose": "Titres de section (42px), bleu marine sur clair." },
+      "body": { "displayName": "Body — Inter", "purpose": "Corps de texte 15px, couleur #374151, ligne 65–75ch." },
+      "label": { "displayName": "Surtitre — Montserrat", "purpose": "Cartels et boutons, MAJUSCULES espacées 0.15em." }
+    },
+    "shadows": [
+      { "name": "sh-sm", "value": "0 2px 8px rgba(15,14,23,.10)", "purpose": "Cartes au repos." },
+      { "name": "sh-md", "value": "0 4px 16px rgba(15,14,23,.13)", "purpose": "Cartes actives / survol." },
+      { "name": "sh-lg", "value": "0 8px 32px rgba(15,14,23,.18)", "purpose": "Modales et premier plan." },
+      { "name": "sh-gold", "value": "0 0 0 3px rgba(201,168,76,.25)", "purpose": "Anneau de focus / mise en avant dorée." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "all .2s", "purpose": "Transition par défaut des états (survol, focus)." },
+      { "name": "lift", "value": "translateY(-2px)", "purpose": "Micro-relèvement au survol des boutons et cartes." }
+    ],
+    "breakpoints": [
+      { "name": "container", "value": "1200px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton Principal (Or)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Appel à l'action principal — adhésion, inscription.",
+      "html": "<button class=\"ds-btn-gold\">Rejoindre le club</button>",
+      "css": ".ds-btn-gold { display:inline-flex; align-items:center; gap:8px; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:14px 28px; border:none; border-radius:8px; cursor:pointer; background:#C9A84C; color:#0F0E17; box-shadow:0 4px 16px rgba(201,168,76,.3); transition:all .2s; } .ds-btn-gold:hover { background:#B8963C; transform:translateY(-2px); box-shadow:0 6px 20px rgba(201,168,76,.4); } .ds-btn-gold:focus-visible { outline:none; box-shadow:0 0 0 3px rgba(201,168,76,.45); }"
+    },
+    {
+      "name": "Bouton Contour Marine",
+      "kind": "button",
+      "refersTo": "button-outline-dark",
+      "description": "Action secondaire sur fond clair.",
+      "html": "<button class=\"ds-btn-outline\">Voir le palmarès</button>",
+      "css": ".ds-btn-outline { display:inline-flex; align-items:center; gap:8px; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:14px 28px; border-radius:8px; cursor:pointer; background:transparent; color:#1E3A5F; border:2px solid #1E3A5F; transition:all .2s; } .ds-btn-outline:hover { background:#1E3A5F; color:#fff; transform:translateY(-2px); }"
+    },
+    {
+      "name": "Surtitre + Filet Or",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "Cartel de section : surtitre Montserrat capitalisé suivi du filet or signature.",
+      "html": "<div><span class=\"ds-surtitre\">Le Club</span><div class=\"ds-gold-bar\"></div></div>",
+      "css": ".ds-surtitre { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#7E6420; display:block; } .ds-gold-bar { width:48px; height:3px; background:#C9A84C; border-radius:2px; margin:16px 0; }"
+    },
+    {
+      "name": "Carte",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Conteneur de contenu sur fond clair, relief discret.",
+      "html": "<div class=\"ds-card\"><h3>Cours tous niveaux</h3><p>De l'initiation à la compétition FFE, encadrement par des joueurs classés.</p></div>",
+      "css": ".ds-card { background:#fff; border:1px solid #E5E0D8; border-radius:12px; padding:24px; box-shadow:0 2px 8px rgba(15,14,23,.10); transition:all .2s; } .ds-card:hover { box-shadow:0 4px 16px rgba(15,14,23,.13); transform:translateY(-2px); } .ds-card h3 { font-family:'Cormorant Garamond',Georgia,serif; font-weight:700; font-size:22px; color:#1E3A5F; margin:0 0 8px; } .ds-card p { font-family:'Inter',sans-serif; font-size:15px; line-height:1.6; color:#374151; margin:0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le Palmarès en Vitrine",
+    "overview": "Le système visuel de Cannes Échecs est une salle des trophées. L'or célèbre les titres et les accents ; le bleu marine profond et le noir d'encre forment l'écrin ; l'ivoire chaud est la lumière du musée. Chaque élément existe pour faire briller quelque chose : un chiffre de palmarès, un nom de champion, une date depuis 1985. Le prestige est porté par la retenue et la cohérence. L'écriture typographique est délibérément éditoriale : Cormorant Garamond pour les titres, Inter pour le corps, Montserrat capitalisé pour les cartels. Ce système rejette le site associatif daté : le club a un vrai palmarès, le site doit être à sa hauteur — mais l'élégance reste au service de l'accueil.",
+    "keyCharacteristics": [
+      "Or + bleu marine + ivoire : trois rôles clairs, jamais dilués.",
+      "Typographie de contraste (serif display / sans body / sans label capitalisé).",
+      "Prestige par la preuve (chiffres, titres, dates) plutôt que par l'adjectif.",
+      "Lisibilité renforcée : contrastes francs, pas de gris pâle décoratif.",
+      "Micro-relèvements au survol (translateY(-2px)) — vivant mais sobre."
+    ],
+    "rules": [
+      { "name": "La Règle de la Voix Unique", "body": "L'or est la seule couleur d'accent. Il ne cohabite avec aucun autre accent saturé. Sa rareté fait sa valeur.", "section": "colors" },
+      { "name": "La Règle de l'Écrin", "body": "L'or ne se pose que sur un fond sombre (noir, bleu marine) ou ivoire — jamais sur un autre ton saturé.", "section": "colors" },
+      { "name": "La Règle de l'Italique Dorée", "body": "L'emphase dans un titre se fait par <em> en italique Cormorant couleur or — jamais par du gras coloré ni du soulignement.", "section": "typography" },
+      { "name": "La Règle de l'Ombre Encre", "body": "Toute ombre est teintée noir d'encre rgba(15,14,23,…), jamais rgba(0,0,0,…) pur ni gris.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do garder l'or comme voix d'accent unique et minoritaire.",
+      "Do poser l'or sur fond sombre ou ivoire uniquement.",
+      "Do marquer l'emphase des titres par <em> italique doré.",
+      "Do viser un contraste ≥ 4.5:1 sur le texte courant — public seniors + enfants.",
+      "Do garder des cibles tactiles ≥ 44px et respecter prefers-reduced-motion."
+    ],
+    "donts": [
+      "Don't faire un site associatif daté : template années 2000, tableaux de mise en page, couleurs criardes, Comic Sans, rendu amateur.",
+      "Don't introduire un second accent saturé (vert, rouge, violet) à côté de l'or.",
+      "Don't utiliser du gris clair « pour faire chic » sur du texte.",
+      "Don't poser du texte de couleur en dégradé (background-clip: text).",
+      "Don't utiliser des bordures latérales colorées (border-left > 1px) comme accent."
+    ]
+  }
+}
