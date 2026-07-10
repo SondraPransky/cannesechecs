@@ -36,6 +36,7 @@
   /* ── Interactions ── */
   --press-scale:.96;               /* retour tactile au clic */
   --press-tap:scale .15s ease-out; /* segment de transition reutilisable */
+  --hit-min:40px;                  /* zone de clic minimale (WCAG 2.5.8) */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -94,6 +95,14 @@ h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 /* INTERACTIONS GLOBALES */
 /* Retour tactile au clic — boutons interactifs (valeur : --press-scale) */
 .btn:active,.nav-cta:active,.filtre-btn:active,.pg-btn:active{scale:var(--press-scale)}
+/* Zone de clic >= 40px : pseudo-element hors flux, le rendu visuel ne bouge pas.
+   Extension verticale seulement — les largeurs depassent deja 40px, donc aucun
+   risque de chevauchement avec les elements voisins (gaps de 8 a 12px). */
+.filtre-btn,.nav-cta,.share-btn,.nav-hamburger,.footer-social a{position:relative}
+.filtre-btn::after,.nav-cta::after,.share-btn::after,.nav-hamburger::after,.footer-social a::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:var(--hit-min)}
+/* Bouton de fermeture du bandeau HelloAsso — cible 40x40 */
+#ha-notice .ha-notice-close{position:absolute;top:2px;right:2px;width:var(--hit-min);height:var(--hit-min);display:flex;align-items:center;justify-content:center;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;line-height:1;cursor:pointer;border-radius:var(--r-md);transition:color .2s}
+#ha-notice .ha-notice-close:hover{color:#fff}
 a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .link-all{cursor:pointer}
 .footer-col ul li a{cursor:pointer}
@@ -146,6 +155,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,.1)}
 .nav-link.active{color:var(--gold)}
 .nav-link .chevron{font-size:10px;transition:transform .2s}
+.nav-link:has(.chevron){padding-right:12px}  /* alignement optique : cote icone = cote texte - 2px */
 .nav-item:hover .chevron{transform:rotate(180deg)}
 .nav-link-fij{color:var(--gold) !important;border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:7px 14px !important}
 .nav-link-fij:hover,.nav-link-fij.active{background:rgba(201,168,76,.15) !important;border-color:var(--gold);color:var(--gold) !important}
@@ -684,7 +694,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .art-gallery-label{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
 .art-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 @media(max-width:640px){.art-gallery-grid{grid-template-columns:repeat(2,1fr)}}
-.art-gallery-item{aspect-ratio:4/3;overflow:hidden;border-radius:8px;cursor:pointer;background:var(--noir2);position:relative}
+.art-gallery-item{aspect-ratio:4/3;overflow:hidden;border-radius:8px;cursor:pointer;background:var(--noir2);position:relative;outline:1px solid rgba(0,0,0,.1);outline-offset:-1px}
 .art-gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;display:block}
 .art-gallery-item:hover img{transform:scale(1.06)}
 .art-gallery-item::after{content:'';position:absolute;inset:0;background:rgba(15,14,23,0);transition:background .25s}
@@ -695,7 +705,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    ===================================================== */
 .lightbox{display:none;position:fixed;inset:0;background:rgba(10,10,16,.93);z-index:9999;align-items:center;justify-content:center}
 .lightbox.open{display:flex}
-.lb-img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 48px rgba(0,0,0,.6);user-select:none}
+.lb-img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 48px rgba(0,0,0,.6);user-select:none;outline:1px solid rgba(255,255,255,.1);outline-offset:-1px}
 .lb-close{position:absolute;top:18px;right:18px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;line-height:1;cursor:pointer;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);border-radius:50%;transition:background .2s,transform .2s;padding:0;z-index:3}
 .lb-close:hover{background:var(--gold);color:var(--noir);transform:rotate(90deg)}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:40px;line-height:1;cursor:pointer;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);border-radius:50%;transition:background .2s;padding:0;user-select:none;z-index:3}

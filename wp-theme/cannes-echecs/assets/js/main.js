@@ -39,7 +39,7 @@ function haNotice() {
   n.innerHTML = '<strong style="color:var(--gold)">Inscriptions en ligne bientôt disponibles</strong><br>'
     + 'En attendant, contactez le club : <a href="tel:+33493394139" style="color:var(--gold)">04 93 39 41 39</a> · '
     + '<a href="mailto:info@cannes-echecs.fr" style="color:var(--gold)">info@cannes-echecs.fr</a>'
-    + '<button onclick="this.parentElement.remove()" aria-label="Fermer" style="position:absolute;top:8px;right:10px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;line-height:1">×</button>';
+    + '<button class="ha-notice-close" onclick="this.parentElement.remove()" aria-label="Fermer">×</button>';
   document.body.appendChild(n);
   setTimeout(function() { if (n.parentElement) n.remove(); }, 8000);
 }
