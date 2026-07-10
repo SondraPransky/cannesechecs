@@ -64,12 +64,12 @@ get_header(); ?>
           </form>
         </div>
         <div>
-          <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border-left:4px solid var(--gold)">
+          <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Nous trouver</h4>
             <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px">3 Av. du Petit Juas<br>06400 Cannes</div>
-            <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Itinéraire Google Maps →</a>
+            <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold-text);cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Itinéraire Google Maps →</a>
           </div>
-          <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border-left:4px solid var(--gold)">
+          <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h4>
             <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : 13h30–20h · cours dès 13h30</div>
           </div>

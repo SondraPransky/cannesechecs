@@ -56,7 +56,7 @@ get_header(); ?>
         <!-- Pitchounets -->
         <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">200€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -70,7 +70,7 @@ get_header(); ?>
         <!-- Compétition -->
         <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">120€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -84,7 +84,7 @@ get_header(); ?>
         <!-- École Échecs Enfants -->
         <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -98,7 +98,7 @@ get_header(); ?>
         <!-- Échecs Adultes -->
         <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -113,7 +113,7 @@ get_header(); ?>
         <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--gold);box-shadow:var(--sh-gold),var(--sh-sm);position:relative">
           <div style="position:absolute;top:-12px;left:24px"><div class="badge badge-gold">⭐ Famille</div></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">École Famille</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">2 membres</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Famille</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">2 membres</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">500€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -127,7 +127,7 @@ get_header(); ?>
         <!-- Licence A -->
         <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
             <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">60€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -141,7 +141,7 @@ get_header(); ?>
       </div>
       <!-- Cours particuliers -->
       <div style="max-width:1100px;margin:24px auto 0;background:var(--ivoire);border-radius:12px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border)">
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Cours particuliers</div><div style="font-size:14px;color:var(--muted)">Sur rendez-vous avec l'un de nos entraîneurs</div></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours particuliers</div><div style="font-size:14px;color:var(--muted)">Sur rendez-vous avec l'un de nos entraîneurs</div></div>
         <div style="display:flex;gap:32px;text-align:center">
           <div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--bleu)">40€</div><div style="font-size:11px;color:var(--muted)">/ heure · adhérents</div></div>
           <div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--bleu)">50€</div><div style="font-size:11px;color:var(--muted)">/ heure · non-adhérents</div></div>

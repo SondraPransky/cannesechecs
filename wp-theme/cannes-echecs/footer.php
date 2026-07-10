@@ -63,7 +63,7 @@
 <div id="lightbox" class="lightbox">
   <button class="lb-close" onclick="lbClose()">×</button>
   <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
-  <img class="lb-img" id="lb-img" src="" alt="">
+  <img class="lb-img" id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
   <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
   <div class="lb-counter" id="lb-counter"></div>
 

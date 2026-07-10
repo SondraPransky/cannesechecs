@@ -62,21 +62,21 @@ get_header(); ?>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto">
         <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">École Échecs</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">École Échecs</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Enfants</div>
           <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
           <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
           <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
         </div>
         <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Cours adultes</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">Cours adultes</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Échecs Adultes</div>
           <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
           <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
           <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
         </div>
         <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Licence A</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">Licence A</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Accès libre</div>
           <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">60<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
           <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Sans cours</div>
@@ -85,7 +85,7 @@ get_header(); ?>
       </div>
       <div style="text-align:center;margin-top:28px">
         <p style="font-size:14px;color:var(--muted);margin-bottom:16px">6 formules disponibles · Pitchounets (200€), Compétition (120€), École Famille (500€) et plus</p>
-        <button class="btn btn-outline-gold" onclick="goTo('adhesion')">Voir toutes les formules →</button>
+        <button class="btn btn-outline-dark" onclick="goTo('adhesion')">Voir toutes les formules →</button>
       </div>
     </div>
   </section>

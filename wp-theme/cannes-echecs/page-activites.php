@@ -166,9 +166,9 @@ get_header(); ?>
           <div class="gold-bar"></div>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px">Cannes Échecs intervient dans les établissements scolaires du bassin cannois depuis plus de 30 ans. Nos formateurs agréés par l'Éducation Nationale dispensent des séances hebdomadaires d'initiation aux échecs.</p>
           <div style="display:flex;gap:20px;margin:24px 0;flex-wrap:wrap">
-            <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:700">12</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.08em">Écoles partenaires</div></div>
-            <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:700">600+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.08em">Élèves/an</div></div>
-            <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:700">30+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.08em">Ans de partenariat</div></div>
+            <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold-text);font-weight:700">12</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.08em">Écoles partenaires</div></div>
+            <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold-text);font-weight:700">600+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.08em">Élèves/an</div></div>
+            <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold-text);font-weight:700">30+</div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.08em">Ans de partenariat</div></div>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
             <button class="btn btn-outline-dark" onclick="goTo('contact')">Faire venir les échecs dans votre école →</button>
@@ -176,9 +176,9 @@ get_header(); ?>
           </div>
         </div>
         <div style="background:linear-gradient(135deg,var(--bleu),#0A1F38);border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff;display:flex;flex-direction:column;gap:16px;justify-content:center">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:4px">Bilan 2025–2026</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-pale);margin-bottom:4px">Bilan 2025–2026</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="background:rgba(201,168,76,.15);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold)">🏆 Championnat Ville de Cannes — 130 enfants</div></div>
+            <div style="background:rgba(201,168,76,.15);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)">🏆 Championnat Ville de Cannes — 130 enfants</div></div>
             <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff">🥇 Sainte-Marie — Championne d'Académie</div></div>
             <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff">🥇 Stanislas — Champion Académique collèges</div></div>
             <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff">🥇 Stanislas — Champion Départ. écoles & collèges</div></div>

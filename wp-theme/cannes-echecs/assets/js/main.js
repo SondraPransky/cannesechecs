@@ -204,7 +204,7 @@ function renderFijInscrits() {
     var countHtml = d.count > 0
       ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:10px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
       : '';
-    return '<div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--ivoire);border-radius:10px;border-left:4px solid ' + o.border + '">'
+    return '<div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--ivoire);border-radius:10px;border:1px solid ' + o.border + '">'
       + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:700;color:var(--bleu);min-width:24px;text-align:center">' + letter + '</div>'
       + '<div style="flex:1"><div style="font-family:\'Montserrat\',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--bleu);margin-bottom:3px">' + o.label + '</div>' + linkHtml + '</div>'
       + countHtml
@@ -621,7 +621,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🍂 Saison ${SAISON} · Inscriptions ouvertes</div>
     <h3 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h3>
     <div class="cd-title" style="margin-bottom:10px">Reprise des cours</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px">Mercredi 9 septembre 2026</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px">Mercredi 9 septembre 2026</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Pitchounets · Jeunes · Adultes débutants & confirmés<br>Cours le mardi soir et le mercredi</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('adhesion')">S'inscrire maintenant →</button>
     <div class="fij-hero-stats">
@@ -632,7 +632,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">♟ PICO · Tournoi mensuel homologué</div>
     <h3 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Prochaine date</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi homologué FFE · Tous niveaux · Dès 13h30<br>Inscription via HelloAsso</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les PICO →</button>
     <div class="fij-hero-stats">
@@ -643,7 +643,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🐣 Tournoi Open · Pâques 2027</div>
     <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi open homologué FFE · Tous niveaux<br>Prix garantis · Inscription HelloAsso</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="haOpen(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
     <div class="fij-hero-stats">
@@ -654,7 +654,7 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">🏅 Championnats · Qualification</div>
     <h3 style="font-size:22px">Qualifications<br>en cours !</h3>
     <div class="cd-title" style="margin-bottom:10px">Prochaine échéance</div>
-    <div style="font-size:17px;font-weight:700;color:var(--gold);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
+    <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Championnats départementaux & régionaux<br>Sélection équipes — Top 16 · Top 12 Féminin</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('tournois')">Voir les tournois →</button>
     <div class="fij-hero-stats">

@@ -41,7 +41,7 @@ get_header(); ?>
           <div class="gold-bar"></div>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px">Le <strong>Festival International des Jeux</strong> se tient chaque année en février au Palais des Festivals de Cannes. Avec plus de 100 000 visiteurs et 60 000 m² d'exposition, c'est l'un des plus grands rendez-vous de jeux au monde. Cannes Échecs y organise les tournois d'échecs officiels depuis de nombreuses années.</p>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:28px">Les tournois sont homologués <strong>FIDE</strong>, avec des normes de Maître International (MI) et de Grand-Maître International (GMI) possibles dans le tournoi A. La cadence est de 1h30 pour 40 coups, puis 30 minutes avec 30 secondes par coup dès le 1er coup.</p>
-          <div style="background:var(--ivoire);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:16px 20px;font-style:italic;color:var(--bleu);font-size:16px;line-height:1.6;margin-bottom:28px">"Le tournoi du FIJ, c'est jouer aux échecs dans l'une des plus belles villes de France, au cœur d'un festival qui fait vibrer 100 000 passionnés de jeux."</div>
+          <div style="background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:16px 20px;font-style:italic;color:var(--bleu);font-size:16px;line-height:1.6;margin-bottom:28px">"Le tournoi du FIJ, c'est jouer aux échecs dans l'une des plus belles villes de France, au cœur d'un festival qui fait vibrer 100 000 passionnés de jeux."</div>
           <!-- Catégories + Dotation fusionnées -->
           <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--bleu);margin-bottom:20px">Tournois — par classement Elo</h3>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
@@ -52,7 +52,7 @@ get_header(); ?>
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">A</div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">A</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.04em">2 200 Elo et +</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">2 200 Elo et +</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
@@ -74,7 +74,7 @@ get_header(); ?>
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">B</div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">B</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.04em">1 600 – 2 200 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
@@ -94,7 +94,7 @@ get_header(); ?>
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">C</div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">C</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.04em">≤ 1 600 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">≤ 1 600 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
@@ -119,7 +119,7 @@ get_header(); ?>
 
           <!-- ÉTAT 1 : avant le FIJ -->
           <div id="fij-sidebar-avant">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
             <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px">
               <div style="text-align:center"><span id="fij-cd-j" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Jours</span></div>
               <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
@@ -131,7 +131,7 @@ get_header(); ?>
             </div>
             <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:rgba(255,255,255,.7)">
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Avant le 31/12/2026</div><div>Junior : 45 €</div><div>Senior : 75 €</div></div>
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Standard</div><div>Junior : 55 €</div><div>Senior : 85 €</div></div>
@@ -147,10 +147,10 @@ get_header(); ?>
 
           <!-- ÉTAT 2 : FIJ en cours -->
           <div id="fij-sidebar-encours" style="display:none">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
             <div id="fij-sb-inscrits" style="margin-bottom:16px"></div>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px 18px">
-              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center">Prochaine ronde</div>
+              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Prochaine ronde</div>
               <div id="fij-sb-ronde-label" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:12px;line-height:1.3"></div>
               <div id="fij-sb-countdown" style="display:flex;justify-content:center;align-items:flex-start;gap:6px">
                 <div style="text-align:center"><span id="fij-sb-h" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">H</span></div>
@@ -187,43 +187,43 @@ get_header(); ?>
         <div style="position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.1))"></div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Lundi 22 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Lundi 22 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Pointage & Ronde 1</div>
           <div style="font-size:14px;color:var(--muted)">Pointage obligatoire de 12h00 à 14h30 · Ronde 1 à 16h30</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Mardi 23 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mardi 23 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Rondes 2 & 3</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 2 à 9h00 · Ronde 3 à 16h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Mercredi 24 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mercredi 24 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 4</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 4 à 15h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Jeudi 25 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Jeudi 25 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Rondes 5 & 6</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 5 à 9h00 · Ronde 6 à 16h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Vendredi 26 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Vendredi 26 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 7</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 7 à 15h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Samedi 27 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Samedi 27 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 8</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 8 à 15h00</div>
         </div>
         <div style="position:relative">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Dimanche 28 février (clôture)</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Dimanche 28 février (clôture)</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 9 + Remise des prix</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 9 à 10h00 · Cérémonie de remise des prix & trophées à 16h30</div>
         </div>
@@ -239,7 +239,7 @@ get_header(); ?>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:46px;color:#fff;margin-bottom:12px">Réservez votre place<br>au <em style="color:var(--gold)">FIJ 2027</em></h2>
       <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px">Places limitées · Inscription sécurisée via HelloAsso · Confirmation immédiate</p>
       <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
-      <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:rgba(201,168,76,.7);text-decoration:none">info@cannes-echecs.fr</a></p>
+      <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:var(--gold-pale);text-decoration:none">info@cannes-echecs.fr</a></p>
     </div>
   </section>
 </div><!-- fin page-fij -->

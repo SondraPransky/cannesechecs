@@ -38,7 +38,7 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:8px">
         <span class="surtitre">Palmarès national</span>
-        <h2 style="font-size:40px;color:var(--bleu)">10× Champion de <em style="color:var(--gold);font-style:italic">France</em></h2>
+        <h2 style="font-size:40px;color:var(--bleu)">10× Champion de <em style="color:var(--gold-text);font-style:italic">France</em></h2>
         <p style="font-size:15px;color:var(--text);line-height:1.7;margin-top:14px;max-width:660px;margin-left:auto;margin-right:auto">Au <strong>Championnat de France Interclubs Jeunes</strong> (Top Jeunes), Cannes Échecs détient le <strong>record national de titres</strong> — dont six remportés consécutivement de 2007 à 2012.</p>
       </div>
 

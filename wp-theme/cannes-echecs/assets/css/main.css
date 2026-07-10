@@ -2,9 +2,33 @@
    VARIABLES & RESET
    ===================================================== */
 :root{
+  /* ── Couleurs ── */
   --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;--gold-text:#7E6420;
   --noir:#0F0E17;--noir2:#1A1925;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;
   --bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
+  /* Teintes or récurrentes (chips, pastilles) + verre translucide */
+  --gold-tint:rgba(201,168,76,.2);--gold-tint-border:rgba(201,168,76,.4);--card-glass:rgba(255,255,255,.07);
+  /* ── Typographie : familles ── */
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter',sans-serif;
+  --font-label:'Montserrat',sans-serif;
+  /* ── Échelle typographique (rôles, à réutiliser sous WordPress/ACF) ── */
+  --fs-micro:9px;   /* dates/chips */
+  --fs-label:11px;  /* surtitres, cartels Montserrat */
+  --fs-small:13px;  /* légendes, petits textes */
+  --fs-body:15px;   /* corps courant */
+  --fs-body-lg:17px;/* chapô, corps large */
+  --fs-lead:20px;   /* sous-titres, titres de carte */
+  --fs-h4:24px;
+  --fs-h3:30px;
+  --fs-h2:42px;     /* titres de section */
+  --fs-hero-sub:54px;/* h1 des sous-pages */
+  --fs-hero:66px;   /* h1 accueil */
+  /* ── Rayons ── */
+  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-pill:9999px;--r-circle:50%;
+  /* ── Espacements ── */
+  --sp-1:8px;--sp-2:16px;--sp-3:24px;--sp-4:32px;--sp-5:48px;--sp-6:64px;--sp-8:80px;
+  /* ── Ombres ── */
   --sh-sm:0 2px 8px rgba(15,14,23,.10);
   --sh-md:0 4px 16px rgba(15,14,23,.13);
   --sh-lg:0 8px 32px rgba(15,14,23,.18);
@@ -12,8 +36,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--ivoire);color:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.6}
-h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15}
+body{font-family:var(--font-sans);background:var(--ivoire);color:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.6}
+h1,h2,h3,h4,h5{font-family:var(--font-serif);font-weight:700;line-height:1.15}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
 /* Scopé à #app : WordPress met aussi class="page" sur le <body> des Pages */
@@ -25,16 +49,16 @@ img{max-width:100%;display:block}
    ===================================================== */
 .container{max-width:1200px;margin:0 auto;padding:0 40px}
 .chess-bg{background-image:repeating-conic-gradient(rgba(30,58,95,.05) 0% 25%,transparent 0% 50%);background-size:48px 48px}
-.surtitre{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
+.surtitre{font-family:var(--font-label);font-size:var(--fs-label);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
 .gold-bar{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0}
 .section-header{margin-bottom:48px}
-.section-header h2{font-size:42px;color:var(--bleu)}
+.section-header h2{font-size:var(--fs-h2);color:var(--bleu)}
 .section-header.center{text-align:center}
 .section-header.light h2{color:#fff}
 .section-header.light .surtitre{color:var(--gold)}
 
 /* BOUTONS */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:8px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r-md);cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
 .btn-gold{background:var(--gold);color:var(--noir);box-shadow:0 4px 16px rgba(201,168,76,.3)}
 .btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
 .btn-outline-dark{background:transparent;color:var(--bleu);border:2px solid var(--bleu)}
@@ -44,7 +68,7 @@ img{max-width:100%;display:block}
 .btn-outline-gold{background:transparent;color:var(--gold);border:2px solid var(--gold)}
 .btn-outline-gold:hover{background:rgba(201,168,76,.08);border-color:var(--gold-h);transform:translateY(-2px)}
 .btn-lg{padding:18px 40px;font-size:13px}
-.btn-sm{padding:10px 20px;font-size:11px}
+.btn-sm{padding:10px 20px;font-size:11px;min-height:44px}
 .btn-full{width:100%;justify-content:center}
 
 /* BADGES */
@@ -52,7 +76,7 @@ img{max-width:100%;display:block}
 .badge-gold{background:var(--gold);color:var(--noir)}
 .badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);color:var(--gold)}
 .badge-bleu{background:var(--bleu);color:#fff}
-.badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
+.badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold-pale);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
 .badge-event::before{content:'★';font-size:9px}
 
 /* FOCUS — accessibilité clavier */
@@ -97,7 +121,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
 .breadcrumb{display:none}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
 .hero-shared .breadcrumb span{color:rgba(255,255,255,.2)}
-.hero-shared h1{font-size:54px;color:#fff;margin-bottom:12px}
+.hero-shared h1{font-size:var(--fs-hero-sub);color:#fff;margin-bottom:12px}
 .hero-shared h1 em{color:var(--gold);font-style:italic}
 .hero-shared .hero-desc{font-size:17px;color:rgba(255,255,255,.65);max-width:580px;line-height:1.7}
 
@@ -112,7 +136,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .nav-logo-text .l2{display:block;color:var(--gold);font-weight:700;font-size:15px;line-height:1.1}
 .nav-menu{display:flex;align-items:center;gap:2px}
 .nav-item{position:relative}
-.nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:6px;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);cursor:pointer;transition:all .2s;white-space:nowrap;background:none;border:none;font-family:'Inter',sans-serif}
+.nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;min-height:44px;border-radius:6px;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);cursor:pointer;transition:all .2s;white-space:nowrap;background:none;border:none;font-family:'Inter',sans-serif}
 .nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,.1)}
 .nav-link.active{color:var(--gold)}
 .nav-link .chevron{font-size:10px;transition:transform .2s}
@@ -161,7 +185,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .home-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .home-hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
 .home-hero-badge .dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
-.home-hero h1{font-size:66px;color:#fff;line-height:1.0;margin-bottom:8px}
+.home-hero h1{font-size:var(--fs-hero);color:#fff;line-height:1.0;margin-bottom:8px}
 .home-hero h1 em{color:var(--gold);font-style:italic}
 .home-hero .sub{font-family:'Cormorant Garamond',serif;font-size:26px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:20px}
 .home-hero .desc{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:32px;max-width:460px}
@@ -169,9 +193,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
 /* Carte FIJ dans le hero */
 .fij-hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:32px;backdrop-filter:blur(12px)}
-.fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
 .fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
-.cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:14px}
+.cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
 .cd-row{display:flex;align-items:flex-start;justify-content:center;gap:6px;margin-bottom:20px}
 .cd-item{text-align:center}
 .cd-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--gold);line-height:1;display:block}
@@ -179,7 +203,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .cd-sep{font-size:36px;color:rgba(201,168,76,.3);padding:0 2px;margin-top:4px}
 .fij-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .fij-hs{background:rgba(255,255,255,.07);border-radius:8px;padding:12px;text-align:center}
-.fij-hs .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);font-weight:700;line-height:1}
+.fij-hs .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold-pale);font-weight:700;line-height:1}
 .fij-hs .l{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
 
 /* Barre stats */
@@ -204,7 +228,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
 .fij-mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .fij-ms{background:rgba(255,255,255,.07);border-radius:8px;padding:14px 10px;text-align:center;border:1px solid rgba(255,255,255,.08)}
-.fij-ms .n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:700;line-height:1}
+.fij-ms .n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-pale);font-weight:700;line-height:1}
 .fij-ms .l{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px}
 .fij-cd-box{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:32px;text-align:center}
 .fij-cd-row{display:flex;justify-content:center;align-items:flex-start;gap:8px;margin:16px 0}
@@ -228,7 +252,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .actu-card:hover{transform:translateY(-5px);box-shadow:var(--sh-md)}
 .actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px}
 .actu-body{padding:20px 22px}
-.actu-cat{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.actu-cat{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .actu-cat::before{content:'';width:3px;height:3px;background:var(--gold);border-radius:50%}
 .actu-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.3}
 .actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
@@ -243,7 +267,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .forces-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
 .force-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:28px 20px;text-align:center;transition:all .2s}
 .force-card:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);transform:translateY(-4px)}
-.force-link{display:inline-block;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);cursor:pointer}
+.force-link{display:inline-block;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-pale);cursor:pointer}
 .force-card:hover .force-link{color:#fff}
 .force-icon{font-size:30px;margin-bottom:12px;display:block}
 .force-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;display:block}
@@ -274,7 +298,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
 .team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
-.team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
 /* Palmarès — grille des années de titre */
 .palmares-years{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:720px;margin:40px auto 0}
 .palmares-year{border:1.5px solid var(--gold);border-radius:12px;padding:16px 8px;text-align:center;background:rgba(201,168,76,.06)}
@@ -314,7 +338,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:720px;margin:0 auto}
 .article-body h2{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu);margin:40px 0 16px;line-height:1.2}
 .article-body p{margin-bottom:20px}
-.article-body blockquote{border-left:4px solid var(--gold);padding:16px 24px;background:var(--ivoire);border-radius:0 8px 8px 0;margin:32px 0;font-style:italic;color:var(--bleu);font-size:18px;line-height:1.6}
+.article-body blockquote{padding:20px 28px;background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;margin:32px 0;font-style:italic;color:var(--bleu);font-size:18px;line-height:1.6}
 .article-share{display:flex;align-items:center;gap:12px;padding:24px 0;border-top:1px solid var(--border);margin-top:40px}
 .share-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s}
@@ -672,6 +696,19 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .lb-prev{left:16px}
 .lb-next{right:16px}
 .lb-counter{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:13px;letter-spacing:.1em}
+
+/* =====================================================
+   ACCESSIBILITÉ — mouvement réduit (WCAG 2.3.3)
+   Respecte le réglage système "réduire les animations".
+   ===================================================== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
 
 /* =====================================================
    ADDITIONS WORDPRESS (multi-pages)
