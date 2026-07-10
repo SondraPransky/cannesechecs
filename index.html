@@ -106,6 +106,9 @@
   --sh-md:0 4px 16px rgba(15,14,23,.13);
   --sh-lg:0 8px 32px rgba(15,14,23,.18);
   --sh-gold:0 0 0 3px rgba(201,168,76,.25);
+  /* ── Interactions ── */
+  --press-scale:.96;               /* retour tactile au clic */
+  --press-tap:scale .15s ease-out; /* segment de transition reutilisable */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -132,7 +135,7 @@ img{max-width:100%;display:block}
 .section-header.light .surtitre{color:var(--gold)}
 
 /* BOUTONS */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r-md);cursor:pointer;border:none;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s,transform .2s,scale .15s ease-out;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r-md);cursor:pointer;border:none;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s,transform .2s,var(--press-tap);white-space:nowrap}
 .btn-gold{background:var(--gold);color:var(--noir);box-shadow:0 4px 16px rgba(201,168,76,.3)}
 .btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
 .btn-outline-dark{background:transparent;color:var(--bleu);border:2px solid var(--bleu)}
@@ -144,7 +147,6 @@ img{max-width:100%;display:block}
 .btn-lg{padding:18px 40px;font-size:13px}
 .btn-sm{padding:10px 20px;font-size:11px;min-height:44px}
 .btn-full{width:100%;justify-content:center}
-.btn:active{scale:.96}
 
 /* BADGES */
 .badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
@@ -163,6 +165,8 @@ a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border
 h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 
 /* INTERACTIONS GLOBALES */
+/* Retour tactile au clic — boutons interactifs (valeur : --press-scale) */
+.btn:active,.nav-cta:active,.filtre-btn:active,.pg-btn:active{scale:var(--press-scale)}
 a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .link-all{cursor:pointer}
 .footer-col ul li a{cursor:pointer}
@@ -218,9 +222,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .nav-item:hover .chevron{transform:rotate(180deg)}
 .nav-link-fij{color:var(--gold) !important;border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:7px 14px !important}
 .nav-link-fij:hover,.nav-link-fij.active{background:rgba(201,168,76,.15) !important;border-color:var(--gold);color:var(--gold) !important}
-.nav-cta{background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;border-radius:6px;cursor:pointer;transition:background-color .2s,scale .15s ease-out;white-space:nowrap;border:none}
+.nav-cta{background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;border-radius:6px;cursor:pointer;transition:background-color .2s,var(--press-tap);white-space:nowrap;border:none}
 .nav-cta:hover{background:var(--gold-h)}
-.nav-cta:active{scale:.96}
 
 /* Dropdown */
 .dropdown{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--sh-lg);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .2s,visibility .2s,transform .2s;z-index:300;overflow:hidden}
@@ -388,20 +391,18 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    ===================================================== */
 .archive-filtres{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:64px;z-index:100;padding:14px 0}
 .archive-filtres-inner{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.filtre-btn{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);transition:background-color .2s,border-color .2s,color .2s,scale .15s ease-out}
+.filtre-btn{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);transition:background-color .2s,border-color .2s,color .2s,var(--press-tap)}
 .filtre-btn:hover,.filtre-btn.active{background:var(--bleu);border-color:var(--bleu);color:#fff}
 .filtre-btn.active-gold{background:var(--gold);border-color:var(--gold);color:var(--noir)}
-.filtre-btn:active{scale:.96}
 .archive-search{margin-left:auto}
 .archive-search input{font-family:'Inter',sans-serif;font-size:13px;color:var(--noir);width:240px;padding:9px 16px 9px 38px;border:1.5px solid var(--border);border-radius:20px;background:var(--ivoire) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4858' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 14px center;outline:none;transition:border-color .2s,box-shadow .2s}
 .archive-search input::placeholder{color:var(--muted)}
 .archive-grid-section{padding:60px 0;background:var(--ivoire)}
 .archive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
 .pagination{display:flex;justify-content:center;align-items:center;gap:8px}
-.pg-btn{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s,scale .15s ease-out}
+.pg-btn{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s,var(--press-tap)}
 .pg-btn:hover{border-color:var(--bleu);color:var(--bleu)}
 .pg-btn.pg-active{background:var(--bleu);border-color:var(--bleu);color:#fff}
-.pg-btn:active{scale:.96}
 
 /* =====================================================
    PAGE ARTICLE SINGLE
@@ -519,8 +520,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .nav-mobile-link:hover,.nav-mobile-link.active{background:rgba(255,255,255,.1);color:#fff}
   .nav-mobile-link.gold{color:var(--gold)}
   .nav-mobile-sep{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
-  .nav-mobile-cta{margin-top:16px;background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center;transition:scale .15s ease-out}
-  .nav-mobile-cta:active{scale:.96}
+  .nav-mobile-cta{margin-top:16px;background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px;border-radius:8px;border:none;cursor:pointer;width:100%;text-align:center;transition:var(--press-tap)}
+  .nav-mobile-cta:active{scale:var(--press-scale)}
 
   /* ── Éléments décoratifs masqués sur mobile ── */
   .surtitre{display:none}          /* labels "VIE DU CLUB", "SAISON 2026-2027"… */
