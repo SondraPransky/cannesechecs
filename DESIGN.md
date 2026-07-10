@@ -132,8 +132,29 @@ L'or comme *fond* (boutons, `.gold-bar`, pastilles pleines) porte toujours un te
 - **Body** (400, 15px, line-height 1.6–1.75) : corps de texte en Inter, couleur `#374151`. Longueur de ligne max 65–75ch (les blocs de héro sont bornés à ~460–580px).
 - **Label / Surtitre** (700, 11px, letter-spacing 0.15em, MAJUSCULES) : `.surtitre`, boutons, cartels. En Or Encre (`#7E6420`) sur clair, en or sur sombre.
 
+### Échelle typographique (tokens `:root` — source pour WordPress/ACF)
+Tailles nommées par rôle, définies dans `:root` de `index.html`. À réutiliser au lieu de valeurs `px` ad-hoc :
+
+| Token | Valeur | Usage |
+|---|---|---|
+| `--fs-micro` | 9px | dates, chips calendrier |
+| `--fs-label` | 11px | surtitres, cartels Montserrat |
+| `--fs-small` | 13px | légendes, petits textes |
+| `--fs-body` | 15px | corps courant |
+| `--fs-body-lg` | 17px | chapô, corps large |
+| `--fs-lead` | 20px | sous-titres, titres de carte |
+| `--fs-h4` | 24px | — |
+| `--fs-h3` | 30px | — |
+| `--fs-h2` | 42px | titres de section |
+| `--fs-hero-sub` | 54px | h1 des sous-pages |
+| `--fs-hero` | 66px | h1 accueil |
+
+Familles : `--font-serif` (Cormorant), `--font-sans` (Inter), `--font-label` (Montserrat). Rayons : `--r-sm/md/lg/xl/pill/circle`. Espacements : `--sp-1..8` (8→80px). Teintes : `--gold-tint`, `--gold-tint-border`, `--card-glass`.
+
 ### Named Rules
 **La Règle de l'Italique Dorée.** L'emphase dans un titre se fait par `<em>` en italique Cormorant couleur or — jamais par du gras coloré ni du soulignement. C'est la signature typographique du club.
+
+**La Règle du Token.** Tout nouvel élément réutilise les tokens `:root` (taille, rayon, espacement, couleur) plutôt qu'une valeur `px`/hex en dur. Le futur thème WordPress/ACF s'appuie sur cette échelle.
 
 ## 4. Elevation
 

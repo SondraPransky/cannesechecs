@@ -75,9 +75,33 @@
    VARIABLES & RESET
    ===================================================== */
 :root{
+  /* ── Couleurs ── */
   --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;--gold-text:#7E6420;
   --noir:#0F0E17;--noir2:#1A1925;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;
   --bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
+  /* Teintes or récurrentes (chips, pastilles) + verre translucide */
+  --gold-tint:rgba(201,168,76,.2);--gold-tint-border:rgba(201,168,76,.4);--card-glass:rgba(255,255,255,.07);
+  /* ── Typographie : familles ── */
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter',sans-serif;
+  --font-label:'Montserrat',sans-serif;
+  /* ── Échelle typographique (rôles, à réutiliser sous WordPress/ACF) ── */
+  --fs-micro:9px;   /* dates/chips */
+  --fs-label:11px;  /* surtitres, cartels Montserrat */
+  --fs-small:13px;  /* légendes, petits textes */
+  --fs-body:15px;   /* corps courant */
+  --fs-body-lg:17px;/* chapô, corps large */
+  --fs-lead:20px;   /* sous-titres, titres de carte */
+  --fs-h4:24px;
+  --fs-h3:30px;
+  --fs-h2:42px;     /* titres de section */
+  --fs-hero-sub:54px;/* h1 des sous-pages */
+  --fs-hero:66px;   /* h1 accueil */
+  /* ── Rayons ── */
+  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-pill:9999px;--r-circle:50%;
+  /* ── Espacements ── */
+  --sp-1:8px;--sp-2:16px;--sp-3:24px;--sp-4:32px;--sp-5:48px;--sp-6:64px;--sp-8:80px;
+  /* ── Ombres ── */
   --sh-sm:0 2px 8px rgba(15,14,23,.10);
   --sh-md:0 4px 16px rgba(15,14,23,.13);
   --sh-lg:0 8px 32px rgba(15,14,23,.18);
@@ -85,8 +109,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--ivoire);color:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.6}
-h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.15}
+body{font-family:var(--font-sans);background:var(--ivoire);color:var(--noir);-webkit-font-smoothing:antialiased;line-height:1.6}
+h1,h2,h3,h4,h5{font-family:var(--font-serif);font-weight:700;line-height:1.15}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
 /* Scopé à #app : WordPress met aussi class="page" sur le <body> des Pages */
@@ -98,16 +122,16 @@ img{max-width:100%;display:block}
    ===================================================== */
 .container{max-width:1200px;margin:0 auto;padding:0 40px}
 .chess-bg{background-image:repeating-conic-gradient(rgba(30,58,95,.05) 0% 25%,transparent 0% 50%);background-size:48px 48px}
-.surtitre{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
+.surtitre{font-family:var(--font-label);font-size:var(--fs-label);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
 .gold-bar{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0}
 .section-header{margin-bottom:48px}
-.section-header h2{font-size:42px;color:var(--bleu)}
+.section-header h2{font-size:var(--fs-h2);color:var(--bleu)}
 .section-header.center{text-align:center}
 .section-header.light h2{color:#fff}
 .section-header.light .surtitre{color:var(--gold)}
 
 /* BOUTONS */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:8px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r-md);cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
 .btn-gold{background:var(--gold);color:var(--noir);box-shadow:0 4px 16px rgba(201,168,76,.3)}
 .btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
 .btn-outline-dark{background:transparent;color:var(--bleu);border:2px solid var(--bleu)}
@@ -170,7 +194,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
 .breadcrumb{display:none}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
 .hero-shared .breadcrumb span{color:rgba(255,255,255,.2)}
-.hero-shared h1{font-size:54px;color:#fff;margin-bottom:12px}
+.hero-shared h1{font-size:var(--fs-hero-sub);color:#fff;margin-bottom:12px}
 .hero-shared h1 em{color:var(--gold);font-style:italic}
 .hero-shared .hero-desc{font-size:17px;color:rgba(255,255,255,.65);max-width:580px;line-height:1.7}
 
@@ -234,7 +258,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .home-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .home-hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
 .home-hero-badge .dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
-.home-hero h1{font-size:66px;color:#fff;line-height:1.0;margin-bottom:8px}
+.home-hero h1{font-size:var(--fs-hero);color:#fff;line-height:1.0;margin-bottom:8px}
 .home-hero h1 em{color:var(--gold);font-style:italic}
 .home-hero .sub{font-family:'Cormorant Garamond',serif;font-size:26px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:20px}
 .home-hero .desc{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:32px;max-width:460px}
