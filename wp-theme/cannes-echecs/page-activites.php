@@ -7,7 +7,7 @@
 get_header(); ?>
 
 <div id="page-activites" class="page active">
-  <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 100%);min-height:270px">
+  <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-deep) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Accueil</a><span>›</span><span>Activités</span></div>
       <h1>Nos <em>activités</em></h1>
@@ -175,7 +175,7 @@ get_header(); ?>
             <button class="btn btn-outline-dark" onclick="goToTab('tournois','t-scolaire')">Bilan 2025–2026 →</button>
           </div>
         </div>
-        <div style="background:linear-gradient(135deg,var(--bleu),#0A1F38);border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff;display:flex;flex-direction:column;gap:16px;justify-content:center">
+        <div style="background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff;display:flex;flex-direction:column;gap:16px;justify-content:center">
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-pale);margin-bottom:4px">Bilan 2025–2026</div>
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="background:rgba(201,168,76,.15);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)">🏆 Championnat Ville de Cannes — 130 enfants</div></div>

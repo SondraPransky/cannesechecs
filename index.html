@@ -69,6 +69,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- impeccable-disable-next-line overused-font: trio typographique de marque assume (Cormorant serif + Inter corps + Montserrat cartels), voir DESIGN.md -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* =====================================================
@@ -79,6 +80,7 @@
   --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;--gold-text:#7E6420;
   --noir:#0F0E17;--noir2:#1A1925;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;
   --bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
+  --bleu-deep:#0A1F38;--bleu-mid:#2D5A8E;   /* navy de dégradé : profond (héros/cartes) + clair (tuiles avatar) */
   /* Teintes or récurrentes (chips, pastilles) + verre translucide */
   --gold-tint:rgba(201,168,76,.2);--gold-tint-border:rgba(201,168,76,.4);--card-glass:rgba(255,255,255,.07);
   /* ── Typographie : familles ── */
@@ -138,7 +140,7 @@ img{max-width:100%;display:block}
 /* BOUTONS */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r-md);cursor:pointer;border:none;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s,transform .2s,var(--press-tap);white-space:nowrap}
 .btn-gold{background:var(--gold);color:var(--noir);box-shadow:0 4px 16px rgba(201,168,76,.3)}
-.btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
+.btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px var(--gold-tint-border)}
 .btn-outline-dark{background:transparent;color:var(--bleu);border:2px solid var(--bleu)}
 .btn-outline-dark:hover{background:var(--bleu);color:#fff;transform:translateY(-2px)}
 .btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.45)}
@@ -152,13 +154,13 @@ img{max-width:100%;display:block}
 /* BADGES */
 .badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
 .badge-gold{background:var(--gold);color:var(--noir)}
-.badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);color:var(--gold-text)}  /* Règle de l'Écrin : fond or-tinté clair → or encre (4.88:1) */
+.badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid var(--gold-tint-border);color:var(--gold-text)}  /* Règle de l'Écrin : fond or-tinté clair → or encre (4.88:1) */
 .badge-bleu{background:var(--bleu);color:#fff}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold-pale);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
 .badge-event::before{content:'★';font-size:9px}
 
 /* FOCUS — accessibilité clavier */
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px rgba(201,168,76,.2)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px var(--gold-tint)}
 /* Anneau de focus doré — même motif pour toutes les commandes interactives */
 .btn:focus-visible,.nav-link:focus-visible,.nav-cta:focus-visible,.nav-hamburger:focus-visible,.nav-mobile-link:focus-visible,.nav-mobile-cta:focus-visible,.filtre-btn:focus-visible,.pg-btn:focus-visible,.tab-btn:focus-visible,.share-btn:focus-visible,.lb-close:focus-visible,.footer-social a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -270,7 +272,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    PAGE ACCUEIL
    ===================================================== */
 /* Hero home */
-.home-hero{background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 60%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
+.home-hero{background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-deep) 60%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
 .home-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:56px 56px}
 .home-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .home-hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
@@ -320,7 +322,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-ms{background:rgba(255,255,255,.07);border-radius:8px;padding:14px 10px;text-align:center;border:1px solid rgba(255,255,255,.08)}
 .fij-ms .n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-pale);font-weight:700;line-height:1}
 .fij-ms .l{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px}
-.fij-cd-box{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:32px;text-align:center}
+.fij-cd-box{background:rgba(255,255,255,.05);border:1px solid var(--gold-tint);border-radius:16px;padding:32px;text-align:center}
 .fij-cd-row{display:flex;justify-content:center;align-items:flex-start;gap:8px;margin:16px 0}
 .fij-cd-item{text-align:center}
 .fij-cd-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:var(--gold);line-height:1;display:block;font-variant-numeric:tabular-nums}
@@ -380,12 +382,12 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire{padding:80px 0;background:#fff}
 .club-histoire-grid{display:grid;grid-template-columns:55% 45%;gap:60px;align-items:center}
 .club-histoire-text p{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px}
-.club-histoire-img{border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:linear-gradient(135deg,var(--bleu),#0A1F38);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:80px}
+.club-histoire-img{border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:80px}
 .club-equipe{padding:80px 0;background:#fff}
 .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:12px;border:1px solid var(--border);transition:border-color .2s,box-shadow .2s,transform .2s}
 .team-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-3px)}
-.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
+.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
 .team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 .team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
@@ -424,7 +426,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.5)}
 .article-content-wrap{padding:60px 0;background:#fff}
 .article-content-wrap .container{max-width:800px}
-.article-featured-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:40px;background:linear-gradient(135deg,var(--bleu),#0A1F38);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
+.article-featured-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
 .article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:720px;margin:0 auto}
 .article-body h2{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu);margin:40px 0 16px;line-height:1.2}
 .article-body p{margin-bottom:20px}
@@ -1034,7 +1036,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
      ═══════════════════════════════════════════════════ -->
 <div id="page-club" class="page">
 
-  <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,#0A1F38 100%);min-height:270px">
+  <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--bleu-deep) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Le Club</span></div>
       <h1>Le <em>Club</em></h1>
@@ -1206,7 +1208,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
      PAGE ACTIVITÉS
      ═══════════════════════════════════════════════════ -->
 <div id="page-activites" class="page">
-  <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 100%);min-height:270px">
+  <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-deep) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a onclick="goTo('home')">Accueil</a><span>›</span><span>Activités</span></div>
       <h1>Nos <em>activités</em></h1>
@@ -1374,7 +1376,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <button class="btn btn-outline-dark" onclick="goToTab('tournois','t-scolaire')">Bilan 2025–2026 →</button>
           </div>
         </div>
-        <div style="background:linear-gradient(135deg,var(--bleu),#0A1F38);border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff;display:flex;flex-direction:column;gap:16px;justify-content:center">
+        <div style="background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff;display:flex;flex-direction:column;gap:16px;justify-content:center">
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-pale);margin-bottom:4px">Bilan 2025–2026</div>
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="background:rgba(201,168,76,.15);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)">🏆 Championnat Ville de Cannes — 130 enfants</div></div>
@@ -1792,43 +1794,43 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:16px">Calendrier PICO</div>
           <div style="display:flex;flex-direction:column;gap:0">
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">19</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">19</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Septembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Octobre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.oct,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">14</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">14</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Novembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.nov,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Décembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.dec,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Janvier · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.jan,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1);opacity:.5;font-style:italic">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:10px;line-height:1.2">FÉV.</span><span style="font-size:10px;line-height:1.2">FIJ</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:10px;line-height:1.2">FÉV.</span><span style="font-size:10px;line-height:1.2">FIJ</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.7)">Pas de PICO · <span style="color:var(--gold)">FIJ 2027</span></div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mars · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.mar,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Avril · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.avr,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mai · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.mai,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Juin · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.jun,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
           </div>
@@ -1893,39 +1895,39 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:16px">Prochains vendredis</div>
           <div style="display:flex;flex-direction:column;gap:0">
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">18</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">18</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Sept.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Oct.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Nov.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Déc.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Jan.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Mars</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Avr.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">07</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">07</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Mai</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
-              <div style="background:rgba(201,168,76,.2);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Juin</div>
             </div>
           </div>
@@ -1975,7 +1977,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
      PAGE FIJ 2027
      ═══════════════════════════════════════════════════ -->
 <div id="page-fij" class="page">
-  <section style="background:linear-gradient(160deg,var(--noir) 0%,#0A1F38 50%,var(--bleu) 100%);min-height:500px;display:flex;align-items:center;padding:80px 0;position:relative;overflow:hidden">
+  <section style="background:linear-gradient(160deg,var(--noir) 0%,var(--bleu-deep) 50%,var(--bleu) 100%);min-height:500px;display:flex;align-items:center;padding:80px 0;position:relative;overflow:hidden">
     <div style="position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:56px 56px"></div>
     <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
     <div class="container" style="position:relative;z-index:1">
@@ -2042,7 +2044,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">B</div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">B</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:var(--gold-tint);border:1px solid var(--gold-tint-border);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
@@ -2206,7 +2208,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="badge badge-event" style="margin-bottom:20px">Inscriptions ouvertes</div>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:46px;color:#fff;margin-bottom:12px">Réservez votre place<br>au <em style="color:var(--gold)">FIJ 2027</em></h2>
       <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px">Places limitées · Inscription sécurisée via HelloAsso · Confirmation immédiate</p>
-      <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px rgba(201,168,76,.4)" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
+      <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px var(--gold-tint-border)" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
       <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:var(--gold-pale);text-decoration:none">info@cannes-echecs.fr</a></p>
     </div>
   </section>
@@ -2234,7 +2236,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px">
         <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px">
-          <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏛</div>
+          <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏛</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Ville de Cannes</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Mise à disposition des locaux et subvention annuelle</p>
@@ -2246,7 +2248,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
         </div>
         <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px">
-          <div style="width:80px;height:80px;background:linear-gradient(135deg,#2d5a8e,#1a3a5c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏔</div>
+          <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--bleu-mid),#1a3a5c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏔</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Région Sud PACA</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs de haut niveau</p>
@@ -2289,7 +2291,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
           <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(201,168,76,.2);color:var(--gold-pale);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold-tint);color:var(--gold-pale);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
           <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
         </div>
       </div>
@@ -2549,9 +2551,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <li><span class="ico">📞</span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
         </ul>
         <div class="footer-social" style="display:flex;gap:10px;margin-top:18px">
-          <a href="https://www.facebook.com/canneschessclub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Facebook</a>
-          <a href="https://www.instagram.com/cannes_echecs" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Instagram</a>
-          <a href="https://x.com/CannesChessClub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">X / Twitter</a>
+          <a href="https://www.facebook.com/canneschessclub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='var(--gold-tint-border)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Facebook</a>
+          <a href="https://www.instagram.com/cannes_echecs" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='var(--gold-tint-border)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Instagram</a>
+          <a href="https://x.com/CannesChessClub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='var(--gold-tint-border)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">X / Twitter</a>
         </div>
       </div>
       <div class="footer-col">
@@ -3332,7 +3334,7 @@ const ARTICLES = {
 <strong>Jacqueline de Romilly</strong> (Cannes) — Qualifiée<br>
 Marie Joseph (Nice) — Qualifiée</p>
 <p>Un joli carton plein des écoles cannoises 🤩 qui récompense le talent de nos jeunes et l'excellent travail de nos formateurs. 🙏👏</p>
-<p style="margin-top:24px;padding:16px;background:#fdf5e8;border:1px solid rgba(201,168,76,.4);border-radius:8px;font-weight:600">📅 Rendez-vous le <strong>18 mars</strong> pour la finale académique — organisée à Cannes !</p>`
+<p style="margin-top:24px;padding:16px;background:#fdf5e8;border:1px solid var(--gold-tint-border);border-radius:8px;font-weight:600">📅 Rendez-vous le <strong>18 mars</strong> pour la finale académique — organisée à Cannes !</p>`
   },
   'stan-dept-colleges': {
     cat:'Compétition · Scolaire', badge:'Scolaire', emoji:'🥇',
@@ -3613,7 +3615,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
   },
   'pico-oct': {
     cat:'Tournoi · Jeunes', badge:'Tournois', emoji:'🏆',
-    bg:'linear-gradient(135deg,#1a3a5c,#0a1f38)',
+    bg:'linear-gradient(135deg,#1a3a5c,var(--bleu-deep))',
     title:"Pico d'octobre — Emre, Aurel et Julia grands vainqueurs",
     date:'4 octobre 2025',
     img:'photos/pico_octobre1.jpg',
@@ -3631,7 +3633,7 @@ Ian Lyubimov (U12) · Elie Abitbol (U12) · Adrien Péré (U12) · Rom'Anne Sayo
   },
   'chess-planet': {
     cat:'Compétition · International', badge:'Résultats', emoji:'🌍',
-    bg:'linear-gradient(135deg,#2d5a8e,#1a3a5c)',
+    bg:'linear-gradient(135deg,var(--bleu-mid),#1a3a5c)',
     title:'Les Cannois sur la Chess-Planet',
     date:'3 octobre 2025',
     img:'photos/chessplanet.jpg',

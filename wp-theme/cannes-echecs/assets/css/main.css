@@ -6,6 +6,7 @@
   --gold:#C9A84C;--gold-h:#B8963C;--gold-pale:#F5EDD4;--gold-text:#7E6420;
   --noir:#0F0E17;--noir2:#1A1925;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;
   --bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
+  --bleu-deep:#0A1F38;--bleu-mid:#2D5A8E;   /* navy de dégradé : profond (héros/cartes) + clair (tuiles avatar) */
   /* Teintes or récurrentes (chips, pastilles) + verre translucide */
   --gold-tint:rgba(201,168,76,.2);--gold-tint-border:rgba(201,168,76,.4);--card-glass:rgba(255,255,255,.07);
   /* ── Typographie : familles ── */
@@ -65,7 +66,7 @@ img{max-width:100%;display:block}
 /* BOUTONS */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:var(--r-md);cursor:pointer;border:none;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s,transform .2s,var(--press-tap);white-space:nowrap}
 .btn-gold{background:var(--gold);color:var(--noir);box-shadow:0 4px 16px rgba(201,168,76,.3)}
-.btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
+.btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 6px 20px var(--gold-tint-border)}
 .btn-outline-dark{background:transparent;color:var(--bleu);border:2px solid var(--bleu)}
 .btn-outline-dark:hover{background:var(--bleu);color:#fff;transform:translateY(-2px)}
 .btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.45)}
@@ -79,13 +80,13 @@ img{max-width:100%;display:block}
 /* BADGES */
 .badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
 .badge-gold{background:var(--gold);color:var(--noir)}
-.badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);color:var(--gold-text)}  /* Règle de l'Écrin : fond or-tinté clair → or encre (4.88:1) */
+.badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid var(--gold-tint-border);color:var(--gold-text)}  /* Règle de l'Écrin : fond or-tinté clair → or encre (4.88:1) */
 .badge-bleu{background:var(--bleu);color:#fff}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold-pale);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
 .badge-event::before{content:'★';font-size:9px}
 
 /* FOCUS — accessibilité clavier */
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px rgba(201,168,76,.2)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px var(--gold-tint)}
 /* Anneau de focus doré — même motif pour toutes les commandes interactives */
 .btn:focus-visible,.nav-link:focus-visible,.nav-cta:focus-visible,.nav-hamburger:focus-visible,.nav-mobile-link:focus-visible,.nav-mobile-cta:focus-visible,.filtre-btn:focus-visible,.pg-btn:focus-visible,.tab-btn:focus-visible,.share-btn:focus-visible,.lb-close:focus-visible,.footer-social a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
@@ -197,7 +198,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    PAGE ACCUEIL
    ===================================================== */
 /* Hero home */
-.home-hero{background:linear-gradient(135deg,var(--bleu) 0%,#0A1F38 60%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
+.home-hero{background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-deep) 60%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
 .home-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:56px 56px}
 .home-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .home-hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
@@ -247,7 +248,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-ms{background:rgba(255,255,255,.07);border-radius:8px;padding:14px 10px;text-align:center;border:1px solid rgba(255,255,255,.08)}
 .fij-ms .n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-pale);font-weight:700;line-height:1}
 .fij-ms .l{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px}
-.fij-cd-box{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:32px;text-align:center}
+.fij-cd-box{background:rgba(255,255,255,.05);border:1px solid var(--gold-tint);border-radius:16px;padding:32px;text-align:center}
 .fij-cd-row{display:flex;justify-content:center;align-items:flex-start;gap:8px;margin:16px 0}
 .fij-cd-item{text-align:center}
 .fij-cd-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:var(--gold);line-height:1;display:block;font-variant-numeric:tabular-nums}
@@ -307,12 +308,12 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire{padding:80px 0;background:#fff}
 .club-histoire-grid{display:grid;grid-template-columns:55% 45%;gap:60px;align-items:center}
 .club-histoire-text p{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px}
-.club-histoire-img{border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:linear-gradient(135deg,var(--bleu),#0A1F38);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:80px}
+.club-histoire-img{border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:80px}
 .club-equipe{padding:80px 0;background:#fff}
 .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:12px;border:1px solid var(--border);transition:border-color .2s,box-shadow .2s,transform .2s}
 .team-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-3px)}
-.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),#2d5a8e);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
+.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
 .team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 .team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
@@ -351,7 +352,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.5)}
 .article-content-wrap{padding:60px 0;background:#fff}
 .article-content-wrap .container{max-width:800px}
-.article-featured-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:40px;background:linear-gradient(135deg,var(--bleu),#0A1F38);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
+.article-featured-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
 .article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:720px;margin:0 auto}
 .article-body h2{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu);margin:40px 0 16px;line-height:1.2}
 .article-body p{margin-bottom:20px}

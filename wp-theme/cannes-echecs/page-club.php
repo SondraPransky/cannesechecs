@@ -8,7 +8,7 @@ get_header(); ?>
 
 <div id="page-club" class="page active">
 
-  <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,#0A1F38 100%);min-height:270px">
+  <section class="hero-shared" style="background:linear-gradient(160deg,var(--bleu) 0%,var(--bleu-deep) 100%);min-height:270px">
     <div class="container">
       <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Accueil</a><span>›</span><span>Le Club</span></div>
       <h1>Le <em>Club</em></h1>

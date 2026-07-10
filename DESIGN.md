@@ -149,7 +149,7 @@ Tailles nommées par rôle, définies dans `:root` de `index.html`. À réutilis
 | `--fs-hero-sub` | 54px | h1 des sous-pages |
 | `--fs-hero` | 66px | h1 accueil |
 
-Familles : `--font-serif` (Cormorant), `--font-sans` (Inter), `--font-label` (Montserrat). Rayons : `--r-sm/md/lg/xl/pill/circle`. Espacements : `--sp-1..8` (8→80px). Teintes : `--gold-tint`, `--gold-tint-border`, `--card-glass`.
+Familles : `--font-serif` (Cormorant), `--font-sans` (Inter), `--font-label` (Montserrat). Rayons : `--r-sm/md/lg/xl/pill/circle`. Espacements : `--sp-1..8` (8→80px). Teintes or : `--gold-tint` (`rgba(201,168,76,.2)`, fond de pastille), `--gold-tint-border` (`.4`, filet), `--card-glass` (verre translucide). Navy de dégradé : `--bleu-deep` (`#0A1F38`, fond profond des héros/cartes, partenaire de `--bleu`), `--bleu-mid` (`#2D5A8E`, tuiles avatar).
 
 ### Named Rules
 **La Règle de l'Italique Dorée.** L'emphase dans un titre se fait par `<em>` en italique Cormorant couleur or — jamais par du gras coloré ni du soulignement. C'est la signature typographique du club.
