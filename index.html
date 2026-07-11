@@ -210,7 +210,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
 /* HERO PARTAGÉ */
 .hero-shared{position:relative;overflow:hidden;display:flex;align-items:center;padding:80px 0 60px}
-.hero-shared::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:56px 56px;pointer-events:none}
+/* En-tête partagé rehaussé : échiquier-lumière STATIQUE (sans foil — réservé au home). Trame en ::before, halo doré en ::after, tous deux derrière .container (z-index:1). */
+.hero-shared::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%),linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%);background-size:84px 84px;background-position:0 0,42px 42px;-webkit-mask-image:radial-gradient(120% 130% at 88% 30%,#000,rgba(0,0,0,.35) 50%,transparent 84%);mask-image:radial-gradient(120% 130% at 88% 30%,#000,rgba(0,0,0,.35) 50%,transparent 84%)}
+.hero-shared::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(34% 60% at 84% 26%,rgba(201,168,76,.22),transparent 68%)}
 .hero-shared .container{position:relative;z-index:1}
 .hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
 .breadcrumb{display:none}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
@@ -275,22 +277,28 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    PAGE ACCUEIL
    ===================================================== */
 /* Hero home */
-.home-hero{background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-deep) 60%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
-.home-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:56px 56px}
+.home-hero{background:radial-gradient(130% 115% at 80% 26%,var(--bleu) 0%,var(--bleu-deep) 55%,var(--noir) 100%);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 0}
+/* Trame d'échiquier du hero portée par .hero-board (plus bas) — ancien ::before conic retiré pour éviter le moiré de deux motifs superposés */
 .home-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .home-hero-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
 .home-hero-badge .dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
 .home-hero h1{font-size:var(--fs-hero);color:#fff;line-height:1.0;margin-bottom:8px}
-.home-hero h1 em{color:var(--gold);font-style:italic}
+/* Titre héro : « Échecs » en or foil qui scintille lentement (direction Nuit douce) */
+.home-hero h1 em{font-style:italic;color:transparent;background:linear-gradient(100deg,var(--gold-h) 0%,var(--gold) 28%,var(--gold-pale) 50%,var(--gold) 72%,var(--gold-h) 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:heroSheen 7s linear infinite}
+@keyframes heroSheen{to{background-position:220% center}}
 .home-hero .sub{font-family:'Cormorant Garamond',serif;font-size:26px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:20px}
 .home-hero .desc{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:32px;max-width:460px}
 .home-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+/* Décor « Nuit douce » — trame d'échiquier + projecteur doré, couches derrière la grille (z-index:0) */
+.hero-board{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%),linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%);background-size:92px 92px;background-position:0 0,46px 46px;-webkit-mask-image:radial-gradient(120% 110% at 82% 42%,#000,rgba(0,0,0,.4) 48%,transparent 82%);mask-image:radial-gradient(120% 110% at 82% 42%,#000,rgba(0,0,0,.4) 48%,transparent 82%)}
+.hero-light{position:absolute;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(38% 46% at 78% 40%,rgba(201,168,76,.24),rgba(201,168,76,.06) 42%,transparent 70%);animation:heroDrift 22s ease-in-out infinite alternate}
+@keyframes heroDrift{from{transform:translate(-4%,-3%)}to{transform:translate(5%,4%)}}
 
 /* Carte FIJ dans le hero */
 /* Pas de backdrop-filter : le fond du hero est un degrade lisse (flouter n'a aucun
    effet visible), et ce filtre declenche un artefact Chromium — un rectangle gris
    qui clignote au survol des boutons voisins en tablette (carte juste en dessous). */
-.fij-hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:32px}
+.fij-hero-card{background:rgba(12,21,38,.6);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
 .fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
 .fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
 .cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
@@ -305,11 +313,12 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-hs .l{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
 
 /* Barre stats */
-.stats-band{background:var(--bleu);padding:22px 0}
-.stats-band-inner{display:flex;justify-content:space-around;align-items:center}
+.stats-band{position:relative;overflow:hidden;background:var(--bleu);padding:28px 0}
+.stats-band::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:52px 52px;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(90deg,transparent,#000 28%,#000 72%,transparent)}
+.stats-band-inner{position:relative;display:flex;justify-content:space-around;align-items:center}
 .sb-item{text-align:center;padding:0 20px}
-.sb-item+.sb-item{border-left:1px solid rgba(255,255,255,.1)}
-.sb-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1}
+.sb-item+.sb-item{border-left:1px solid rgba(201,168,76,.25)}
+.sb-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
 .sb-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
 
 /* Section FIJ home */
@@ -327,12 +336,12 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .fij-ms{background:rgba(255,255,255,.07);border-radius:8px;padding:14px 10px;text-align:center;border:1px solid rgba(255,255,255,.08)}
 .fij-ms .n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-pale);font-weight:700;line-height:1}
-.fij-ms .l{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px}
+.fij-ms .l{font-size:11px;color:rgba(255,255,255,.62);margin-top:3px}
 .fij-cd-box{background:rgba(255,255,255,.05);border:1px solid var(--gold-tint);border-radius:16px;padding:32px;text-align:center}
 .fij-cd-row{display:flex;justify-content:center;align-items:flex-start;gap:8px;margin:16px 0}
 .fij-cd-item{text-align:center}
 .fij-cd-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:var(--gold);line-height:1;display:block;font-variant-numeric:tabular-nums}
-.fij-cd-label{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.fij-cd-label{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 .fij-cd-sep{font-size:48px;color:rgba(201,168,76,.25);padding:0 4px}
 .fij-tarif-encart{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px;margin-top:16px;text-align:center}
 .fij-tarif-encart .tarif-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
@@ -340,24 +349,32 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-tarif-encart .tarif-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px}
 
 /* Section actualités home */
-.section-actus{padding:80px 0;background:var(--ivoire)}
+.section-actus{position:relative;overflow:hidden;padding:80px 0;background:var(--ivoire)}
+/* Trame d'échiquier claire, estompée vers le bas — écho discret du hero */
+.section-actus::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(30,58,95,.04) 0% 25%,transparent 0% 50%);background-size:46px 46px;pointer-events:none;-webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000,transparent 72%);mask-image:radial-gradient(120% 90% at 50% 0%,#000,transparent 72%)}
+.section-actus>.container{position:relative;z-index:1}
 .section-actus-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px}
 .link-all{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--bleu);border-bottom:2px solid var(--gold);padding-bottom:2px;transition:color .2s}
 .link-all:hover{color:var(--gold)}
 .actu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 #home-actus-grid{grid-template-columns:repeat(4,1fr)}
-.actu-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--sh-sm);border:1px solid var(--border);transition:transform .2s,box-shadow .2s;cursor:pointer}
-.actu-card:hover{transform:translateY(-5px);box-shadow:var(--sh-md)}
-.actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px}
-.actu-body{padding:20px 22px}
+/* Cartes « clair éditorial » : fine bordure au lieu d'ombre lourde, bordure or au survol, hauteurs égales */
+.actu-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(30,58,95,.05);border:1px solid var(--border);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;cursor:pointer;display:flex;flex-direction:column}
+.actu-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 18px 40px rgba(30,58,95,.15)}
+.actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px;border-bottom:1px solid rgba(15,14,23,.06)}
+.actu-body{padding:20px 22px;display:flex;flex-direction:column;flex:1}
 .actu-cat{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .actu-cat::before{content:'';width:3px;height:3px;background:var(--gold);border-radius:50%}
-.actu-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.3}
+.actu-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.28}
 .actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
-.actu-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
-.actu-date{font-size:11px;color:#9ca3af}
-.actu-lire{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--bleu);transition:color .2s}
+.actu-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:auto;border-top:1px solid var(--border)}
+.actu-date{font-size:11px;color:var(--muted)}
+.actu-lire{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);transition:color .2s}
 .actu-lire:hover{color:var(--gold)}
+/* Cartes tarifs Adhésion — clair éditorial (fine bordure, bordure or au survol) */
+.pcard{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(30,58,95,.05);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.pcard:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 18px 40px rgba(30,58,95,.15)}
+.pcard.feature{position:relative;border:2px solid var(--gold);background:linear-gradient(180deg,rgba(201,168,76,.07),#fff 60%);box-shadow:0 10px 30px rgba(201,168,76,.16)}
 
 /* Section forces */
 .section-forces{background:var(--bleu);padding:80px 0;position:relative}
@@ -369,8 +386,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .force-card:hover .force-link{color:#fff}
 .force-icon{font-size:30px;margin-bottom:12px;display:block}
 .force-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;display:block}
-.force-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:6px 0}
-.force-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6}
+.force-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);margin:6px 0}
+.force-desc{font-size:12px;color:rgba(255,255,255,.66);line-height:1.6}
 
 /* CTA finale partagée */
 .section-cta{background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);padding:80px 0;text-align:center;position:relative;overflow:hidden}
@@ -380,7 +397,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .cta-inner h2 em{color:var(--gold);font-style:italic}
 .cta-inner p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px;line-height:1.7}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
-.cta-note{font-size:12px;color:rgba(255,255,255,.3);font-style:italic}
+.cta-note{font-size:12px;color:rgba(255,255,255,.55);font-style:italic}
 
 /* =====================================================
    PAGE LE CLUB
@@ -388,7 +405,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire{padding:80px 0;background:#fff}
 .club-histoire-grid{display:grid;grid-template-columns:55% 45%;gap:60px;align-items:center}
 .club-histoire-text p{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px}
-.club-histoire-img{border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:80px}
+.club-histoire-img{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(201,168,76,.3);box-shadow:0 24px 60px rgba(30,58,95,.22);background:radial-gradient(120% 120% at 50% 30%,var(--bleu-mid),var(--bleu-deep) 60%,#070A12 100%);aspect-ratio:4/3;display:grid;place-items:center}
+.club-histoire-img::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.05) 25%,transparent 25% 75%,rgba(255,255,255,.05) 75%),linear-gradient(45deg,rgba(255,255,255,.05) 25%,transparent 25% 75%,rgba(255,255,255,.05) 75%);background-size:56px 56px;background-position:0 0,28px 28px;-webkit-mask-image:radial-gradient(90% 90% at 50% 45%,#000,transparent 78%);mask-image:radial-gradient(90% 90% at 50% 45%,#000,transparent 78%)}
+.chi-king{position:relative;font-size:120px;line-height:1;color:var(--gold-pale);text-shadow:0 0 44px rgba(201,168,76,.55),0 20px 40px rgba(0,0,0,.5)}
+.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
 .club-equipe{padding:80px 0;background:#fff}
 .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:12px;border:1px solid var(--border);transition:border-color .2s,box-shadow .2s,transform .2s}
@@ -398,12 +418,32 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 .team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
 /* Palmarès — grille des années de titre */
-.palmares-years{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:720px;margin:40px auto 0}
-.palmares-year{border:1.5px solid var(--gold);border-radius:12px;padding:16px 8px;text-align:center;background:rgba(201,168,76,.06)}
-.py-num{display:block;font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:700;color:var(--bleu);line-height:1}
-.py-lbl{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin-top:5px}
-@media(max-width:640px){.palmares-years{grid-template-columns:repeat(3,1fr);gap:10px}}
-@media(max-width:360px){.palmares-years{grid-template-columns:repeat(2,1fr)}}
+/* Palmarès — hall des champions (page Club) */
+.club-palmares{position:relative;overflow:hidden;color:#fff;padding:72px 0;background:radial-gradient(130% 120% at 78% 16%,var(--bleu-mid) 0%,var(--bleu-deep) 50%,#070A12 100%)}
+.club-palmares::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.04) 25%,transparent 25% 75%,rgba(255,255,255,.04) 75%),linear-gradient(45deg,rgba(255,255,255,.04) 25%,transparent 25% 75%,rgba(255,255,255,.04) 75%);background-size:80px 80px;background-position:0 0,40px 40px;-webkit-mask-image:radial-gradient(120% 120% at 50% 8%,#000,transparent 78%);mask-image:radial-gradient(120% 120% at 50% 8%,#000,transparent 78%)}
+.club-palmares .container{position:relative;z-index:1}
+.palm-in{max-width:940px;margin:0 auto;text-align:center}
+.palm-eyebrow{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:6px}
+.palm-lead{display:flex;align-items:center;justify-content:center;gap:clamp(16px,3vw,40px);flex-wrap:wrap;margin:14px 0 6px}
+.palm-x{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(84px,14vw,158px);color:var(--gold);line-height:.78;letter-spacing:-.02em;text-shadow:0 0 46px rgba(201,168,76,.35);font-variant-numeric:tabular-nums}
+.palm-lead-txt{text-align:left;max-width:340px}
+.palm-lead-txt h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(26px,3.4vw,36px);color:#fff;line-height:1.05;margin:0}
+.palm-lead-txt h2 em{font-style:italic;color:var(--gold-pale)}
+.palm-lead-txt p{font-size:13.5px;color:rgba(255,255,255,.62);margin-top:8px;line-height:1.6}
+.palm-groups{display:flex;justify-content:center;align-items:flex-start;gap:clamp(20px,4vw,48px);flex-wrap:wrap;margin-top:38px}
+.palm-group{display:flex;flex-direction:column;align-items:center;gap:14px}
+.palm-chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.palm-chip{width:76px;border:1.5px solid rgba(201,168,76,.55);border-radius:12px;padding:14px 6px;background:rgba(201,168,76,.08)}
+.palm-chip .y{display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;color:var(--gold-pale);line-height:1;font-variant-numeric:tabular-nums}
+.palm-chip .l{display:block;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(201,168,76,.9);margin-top:5px}
+.streak-tag{display:inline-flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:6px 14px;border-radius:20px;box-shadow:0 6px 18px rgba(201,168,76,.3)}
+.group-lbl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58)}
+.palm-second{margin:36px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:rgba(255,255,255,.75);line-height:1.9;max-width:640px}
+.palm-second strong{color:var(--gold-pale)}
+.palm-link{display:inline-block;margin-top:14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--gold-pale);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.4);padding-bottom:2px}
+.palm-link:hover{color:#fff}
+@media(max-width:720px){.palm-lead-txt{text-align:center;max-width:none}}
+@media(max-width:400px){.palm-chip{width:64px}}
 
 /* =====================================================
    PAGE ACTUALITÉS (ARCHIVE)
@@ -901,6 +941,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
   <!-- Hero -->
   <section class="home-hero">
+    <div class="hero-board" aria-hidden="true"></div>
+    <div class="hero-light" aria-hidden="true"></div>
     <div class="container">
       <div class="home-hero-grid">
         <div>
@@ -1062,40 +1104,50 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <p>Notre philosophie : rendre les échecs accessibles à tous, du débutant de 5 ans au joueur classé, en passant par les scolaires que nous accompagnons depuis plus de trois décennies.</p>
           <p>Aujourd'hui, avec plus de 200 membres actifs et un palmarès national exceptionnel, Cannes Échecs reste un club vivant, ambitieux et profondément ancré dans le tissu culturel cannois.</p>
         </div>
-        <div class="club-histoire-img" aria-hidden="true">♟</div>
+        <div class="club-histoire-img" aria-hidden="true"><span class="chi-king">♚</span><span class="chi-cap">Cannes · depuis 1985</span></div>
       </div>
     </div>
   </section>
 
   <!-- Palmarès -->
-  <section class="club-palmares" style="padding:80px 0;background:#fff">
+  <section class="club-palmares">
     <div class="container">
-      <div class="section-header center" style="margin-bottom:8px">
-        <span class="surtitre">Palmarès national</span>
-        <h2 style="font-size:40px;color:var(--bleu)">10× Champion de <em style="color:var(--gold-text);font-style:italic">France</em></h2>
-        <p style="font-size:15px;color:var(--text);line-height:1.7;margin-top:14px;max-width:660px;margin-left:auto;margin-right:auto">Au <strong>Championnat de France Interclubs Jeunes</strong> (Top Jeunes), Cannes Échecs détient le <strong>record national de titres</strong> — dont six remportés consécutivement de 2007 à 2012.</p>
+      <div class="palm-in">
+        <span class="palm-eyebrow">Palmarès national</span>
+        <div class="palm-lead">
+          <div class="palm-x">10×</div>
+          <div class="palm-lead-txt">
+            <h2>Champion de <em>France</em> Jeunes</h2>
+            <p>Interclubs Jeunes (Top Jeunes) — le <strong>record national de titres</strong>.</p>
+          </div>
+        </div>
+        <div class="palm-groups">
+          <div class="palm-group">
+            <div class="palm-chips">
+              <div class="palm-chip"><span class="y">2007</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2008</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2009</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2010</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2011</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2012</span><span class="l">Champion</span></div>
+            </div>
+            <span class="streak-tag">★ 6 titres consécutifs · record</span>
+          </div>
+          <div class="palm-group">
+            <div class="palm-chips">
+              <div class="palm-chip"><span class="y">2015</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2019</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2020</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2022</span><span class="l">Champion</span></div>
+            </div>
+            <span class="group-lbl">+ 4 autres titres</span>
+          </div>
+        </div>
+        <div class="palm-second">
+          Également <strong>4× vice-champion</strong> (1995, 1998, 2013, 2016) et <strong>5× médaille de bronze</strong> (1990, 2005, 2006, 2017, 2018).
+          <br><a href="https://www.echecs.asso.fr/Tournois/Palmares/TOPJeunes_Palmares.pdf" target="_blank" rel="noopener noreferrer" class="palm-link">Palmarès officiel — Fédération Française des Échecs ↗</a>
+        </div>
       </div>
-
-      <div class="palmares-years">
-        <div class="palmares-year"><span class="py-num">2007</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2008</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2009</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2010</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2011</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2012</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2015</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2019</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2020</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2022</span><span class="py-lbl">Champion</span></div>
-      </div>
-
-      <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:28px;line-height:1.8">
-        Également <strong style="color:var(--bleu)">4× vice-champion</strong> (1995, 1998, 2013, 2016)
-        et <strong style="color:var(--bleu)">5× médaille de bronze</strong> (1990, 2005, 2006, 2017, 2018).
-      </p>
-      <p style="text-align:center;font-size:12px;margin-top:14px">
-        <a href="https://www.echecs.asso.fr/Tournois/Palmares/TOPJeunes_Palmares.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.04em">Palmarès officiel — Fédération Française des Échecs ↗</a>
-      </p>
     </div>
   </section>
 
@@ -1569,10 +1621,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto">
 
         <!-- Pitchounets -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">200€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">200€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 1h atelier ludique / semaine</li>
@@ -1583,10 +1635,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
 
         <!-- Compétition -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">120€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">120€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Adhésion sans cours</li>
@@ -1597,10 +1649,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
 
         <!-- École Échecs Enfants -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 1h cours collectif / semaine</li>
@@ -1611,10 +1663,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
 
         <!-- Échecs Adultes -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Cours collectif du mercredi</li>
@@ -1625,11 +1677,11 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
 
         <!-- Famille -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--gold);box-shadow:var(--sh-gold),var(--sh-sm);position:relative">
+        <div class="pcard feature">
           <div style="position:absolute;top:-12px;left:24px"><div class="badge badge-gold">⭐ Famille</div></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Famille</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">2 membres</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">500€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">500€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 2 membres du même foyer</li>
@@ -1640,10 +1692,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
 
         <!-- Licence A -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">60€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">60€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Adhésion sans cours ni interclubs</li>
