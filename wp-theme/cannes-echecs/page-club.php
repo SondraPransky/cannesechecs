@@ -28,40 +28,50 @@ get_header(); ?>
           <p>Notre philosophie : rendre les échecs accessibles à tous, du débutant de 5 ans au joueur classé, en passant par les scolaires que nous accompagnons depuis plus de trois décennies.</p>
           <p>Aujourd'hui, avec plus de 200 membres actifs et un palmarès national exceptionnel, Cannes Échecs reste un club vivant, ambitieux et profondément ancré dans le tissu culturel cannois.</p>
         </div>
-        <div class="club-histoire-img" aria-hidden="true">♟</div>
+        <div class="club-histoire-img" aria-hidden="true"><span class="chi-king">♚</span><span class="chi-cap">Cannes · depuis 1985</span></div>
       </div>
     </div>
   </section>
 
   <!-- Palmarès -->
-  <section class="club-palmares" style="padding:80px 0;background:#fff">
+  <section class="club-palmares">
     <div class="container">
-      <div class="section-header center" style="margin-bottom:8px">
-        <span class="surtitre">Palmarès national</span>
-        <h2 style="font-size:40px;color:var(--bleu)">10× Champion de <em style="color:var(--gold-text);font-style:italic">France</em></h2>
-        <p style="font-size:15px;color:var(--text);line-height:1.7;margin-top:14px;max-width:660px;margin-left:auto;margin-right:auto">Au <strong>Championnat de France Interclubs Jeunes</strong> (Top Jeunes), Cannes Échecs détient le <strong>record national de titres</strong> — dont six remportés consécutivement de 2007 à 2012.</p>
+      <div class="palm-in">
+        <span class="palm-eyebrow">Palmarès national</span>
+        <div class="palm-lead">
+          <div class="palm-x">10×</div>
+          <div class="palm-lead-txt">
+            <h2>Champion de <em>France</em> Jeunes</h2>
+            <p>Interclubs Jeunes (Top Jeunes) — le <strong>record national de titres</strong>.</p>
+          </div>
+        </div>
+        <div class="palm-groups">
+          <div class="palm-group">
+            <div class="palm-chips">
+              <div class="palm-chip"><span class="y">2007</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2008</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2009</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2010</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2011</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2012</span><span class="l">Champion</span></div>
+            </div>
+            <span class="streak-tag">★ 6 titres consécutifs · record</span>
+          </div>
+          <div class="palm-group">
+            <div class="palm-chips">
+              <div class="palm-chip"><span class="y">2015</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2019</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2020</span><span class="l">Champion</span></div>
+              <div class="palm-chip"><span class="y">2022</span><span class="l">Champion</span></div>
+            </div>
+            <span class="group-lbl">+ 4 autres titres</span>
+          </div>
+        </div>
+        <div class="palm-second">
+          Également <strong>4× vice-champion</strong> (1995, 1998, 2013, 2016) et <strong>5× médaille de bronze</strong> (1990, 2005, 2006, 2017, 2018).
+          <br><a href="https://www.echecs.asso.fr/Tournois/Palmares/TOPJeunes_Palmares.pdf" target="_blank" rel="noopener noreferrer" class="palm-link">Palmarès officiel — Fédération Française des Échecs ↗</a>
+        </div>
       </div>
-
-      <div class="palmares-years">
-        <div class="palmares-year"><span class="py-num">2007</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2008</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2009</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2010</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2011</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2012</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2015</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2019</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2020</span><span class="py-lbl">Champion</span></div>
-        <div class="palmares-year"><span class="py-num">2022</span><span class="py-lbl">Champion</span></div>
-      </div>
-
-      <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:28px;line-height:1.8">
-        Également <strong style="color:var(--bleu)">4× vice-champion</strong> (1995, 1998, 2013, 2016)
-        et <strong style="color:var(--bleu)">5× médaille de bronze</strong> (1990, 2005, 2006, 2017, 2018).
-      </p>
-      <p style="text-align:center;font-size:12px;margin-top:14px">
-        <a href="https://www.echecs.asso.fr/Tournois/Palmares/TOPJeunes_Palmares.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.04em">Palmarès officiel — Fédération Française des Échecs ↗</a>
-      </p>
     </div>
   </section>
 

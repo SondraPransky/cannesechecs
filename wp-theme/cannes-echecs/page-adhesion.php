@@ -54,10 +54,10 @@ get_header(); ?>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto">
 
         <!-- Pitchounets -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">200€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">200€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 1h atelier ludique / semaine</li>
@@ -68,10 +68,10 @@ get_header(); ?>
         </div>
 
         <!-- Compétition -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">120€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">120€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Adhésion sans cours</li>
@@ -82,10 +82,10 @@ get_header(); ?>
         </div>
 
         <!-- École Échecs Enfants -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 1h cours collectif / semaine</li>
@@ -96,10 +96,10 @@ get_header(); ?>
         </div>
 
         <!-- Échecs Adultes -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">290€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Cours collectif du mercredi</li>
@@ -110,11 +110,11 @@ get_header(); ?>
         </div>
 
         <!-- Famille -->
-        <div style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--gold);box-shadow:var(--sh-gold),var(--sh-sm);position:relative">
+        <div class="pcard feature">
           <div style="position:absolute;top:-12px;left:24px"><div class="badge badge-gold">⭐ Famille</div></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Famille</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">2 membres</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">500€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">500€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ 2 membres du même foyer</li>
@@ -125,10 +125,10 @@ get_header(); ?>
         </div>
 
         <!-- Licence A -->
-        <div class="card-hover" style="background:#fff;border-radius:14px;padding:28px;border:2px solid var(--border);box-shadow:var(--sh-sm)">
+        <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
             <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
-            <div style="font-size:42px;font-weight:800;color:var(--bleu);line-height:1">60€</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">60€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Adhésion sans cours ni interclubs</li>

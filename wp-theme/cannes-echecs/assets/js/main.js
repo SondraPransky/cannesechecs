@@ -733,11 +733,44 @@ function renderSaison() {
   });
 }
 
+// ── TOURNOIS : surligne le prochain PICO selon la date du jour (aucune action manuelle) ──
+function initPicoNext() {
+  var rows = document.querySelectorAll('#tab-t-pico .pico-row[data-pico]');
+  if (!rows.length) return;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var next = null;
+  rows.forEach(function(r){
+    r.classList.remove('is-next');
+    var old = r.querySelector('.pico-tag'); if (old) old.remove();
+    var d = new Date(r.getAttribute('data-pico') + 'T00:00:00');
+    if (!next && d >= today) next = r;
+  });
+  if (!next) next = rows[rows.length - 1];   // saison terminée : dernier PICO
+  next.classList.add('is-next');
+  var tag = document.createElement('span');
+  tag.className = 'pico-tag';
+  tag.textContent = '★ Prochain';
+  var btn = next.querySelector('.pico-ins');
+  if (btn) next.insertBefore(tag, btn); else next.appendChild(tag);
+  var focal = document.getElementById('pico-focal');
+  if (focal) {
+    var d = new Date(next.getAttribute('data-pico') + 'T00:00:00');
+    var mo = next.querySelector('.pico-chip .mo');
+    var jours = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    var mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    var dEl = focal.querySelector('.pn-cal .d'); if (dEl) dEl.textContent = d.getDate();
+    var mEl = focal.querySelector('.pn-cal .m'); if (mEl && mo) mEl.textContent = mo.textContent;
+    var dateEl = focal.querySelector('.pn-date');
+    if (dateEl) { var j = jours[d.getDay()]; dateEl.textContent = j.charAt(0).toUpperCase() + j.slice(1) + ' ' + d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear() + ' · 13h30'; }
+  }
+}
+
 // ── INIT ────────────────────────────────────────────
 renderFijInscrits();
 renderHoraires();
 renderEquipe();
 renderSaison();
+initPicoNext();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
 

@@ -39,57 +39,69 @@ get_header(); ?>
             <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Accès</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Membres uniquement</div></div>
             <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Tarif</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Gratuit · HelloAsso</div></div>
           </div>
-          <div style="background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:14px 18px">
-            <div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">📅 Prochaine édition</div>
-            <div style="font-size:16px;font-weight:600;color:var(--bleu)">Samedi 19 septembre 2026 · 13h30</div>
-            <div style="font-size:13px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:10px"><span>Inscription en ligne</span><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 12px" onclick="haOpen(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button></div>
+          <div class="pico-next" id="pico-focal">
+            <div class="pn-cal"><span class="d">19</span><span class="m">Sep</span></div>
+            <div class="pn-body">
+              <div class="pn-lbl">📅 Prochaine édition</div>
+              <div class="pn-date">Samedi 19 septembre 2026 · 13h30</div>
+            </div>
+            <button class="btn btn-gold btn-sm" style="font-size:10px;padding:8px 14px" onclick="var b=document.querySelector('#tab-t-pico .pico-row.is-next .pico-ins'); if(b) b.click();">S'inscrire →</button>
           </div>
         </div>
-        <div style="background:var(--bleu);border-radius:14px;padding:24px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:16px">Calendrier PICO</div>
-          <div style="display:flex;flex-direction:column;gap:0">
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">19</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Septembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button>
+        <div class="pico-cal">
+          <div class="pico-cal-h"><span class="t">Calendrier PICO</span><span class="s">2026–2027</span></div>
+          <div class="pico-rows">
+            <div class="pico-row" data-pico="2026-09-19">
+              <div class="pico-chip"><span class="n">19</span><span class="mo">Sep</span></div>
+              <div class="pico-lbl">PICO Septembre · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.sep,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Octobre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.oct,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2026-10-10">
+              <div class="pico-chip"><span class="n">10</span><span class="mo">Oct</span></div>
+              <div class="pico-lbl">PICO Octobre · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.oct,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">14</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Novembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.nov,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2026-11-14">
+              <div class="pico-chip"><span class="n">14</span><span class="mo">Nov</span></div>
+              <div class="pico-lbl">PICO Novembre · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.nov,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Décembre · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.dec,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2026-12-12">
+              <div class="pico-chip"><span class="n">12</span><span class="mo">Déc</span></div>
+              <div class="pico-lbl">PICO Décembre · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.dec,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Janvier · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.jan,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2027-01-09">
+              <div class="pico-chip"><span class="n">09</span><span class="mo">Jan</span></div>
+              <div class="pico-lbl">PICO Janvier · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.jan,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1);opacity:.5;font-style:italic">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:10px;line-height:1.2">FÉV.</span><span style="font-size:10px;line-height:1.2">FIJ</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.7)">Pas de PICO · <span style="color:var(--gold)">FIJ 2027</span></div>
+            <div class="pico-row off">
+              <div class="pico-chip"><span class="mo">Fév</span><span class="mo">FIJ</span></div>
+              <div class="pico-lbl">Pas de PICO · <strong>FIJ 2027</strong></div>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mars · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.mar,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2027-03-13">
+              <div class="pico-chip"><span class="n">13</span><span class="mo">Mar</span></div>
+              <div class="pico-lbl">PICO Mars · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.mar,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">10</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Avril · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.avr,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2027-04-10">
+              <div class="pico-chip"><span class="n">10</span><span class="mo">Avr</span></div>
+              <div class="pico-lbl">PICO Avril · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.avr,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Mai · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.mai,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2027-05-08">
+              <div class="pico-chip"><span class="n">08</span><span class="mo">Mai</span></div>
+              <div class="pico-lbl">PICO Mai · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.mai,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
-              <div style="font-size:13px;color:rgba(255,255,255,.85);flex:1">PICO Juin · <strong style="color:var(--gold)">13h30</strong></div><button class="btn btn-gold btn-sm" style="font-size:10px;padding:5px 10px" onclick="haOpen(HELLOASSO.pico.jun,'_blank','noopener,noreferrer')">S'inscrire →</button>
+            <div class="pico-row" data-pico="2027-06-12">
+              <div class="pico-chip"><span class="n">12</span><span class="mo">Jun</span></div>
+              <div class="pico-lbl">PICO Juin · <strong>13h30</strong></div>
+              <button class="pico-ins" onclick="haOpen(HELLOASSO.pico.jun,'_blank','noopener,noreferrer')">S'inscrire →</button>
             </div>
           </div>
-          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.45);font-style:italic">Un samedi par mois · Inscription en ligne via HelloAsso</div>
+          <div class="pico-cal-foot">Un samedi par mois · Inscription en ligne via HelloAsso</div>
         </div>
       </div>
     </div>
