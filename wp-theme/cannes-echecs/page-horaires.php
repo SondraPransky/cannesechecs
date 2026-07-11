@@ -55,37 +55,23 @@ get_header(); ?>
   <!-- Tarifs -->
   <section style="padding:80px 0;background:var(--ivoire)">
     <div class="container">
-      <div class="section-header center" style="margin-bottom:48px">
+      <div class="section-header center" style="margin-bottom:36px">
         <span class="surtitre">Saison 2026–2027</span>
-        <h2 style="font-size:42px;color:var(--bleu)">Formules d'adhésion</h2>
-        <p style="font-size:15px;color:var(--muted);margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto">Tous les tarifs incluent la licence FFE et l'accès illimité au club pendant les heures d'ouverture.</p>
+        <h2 style="font-size:42px;color:var(--bleu)">Tarifs en un coup d'œil</h2>
+        <p style="font-size:15px;color:var(--muted);margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto">Licence FFE et accès illimité au club inclus dans chaque formule.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto">
-        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">École Échecs</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Enfants</div>
-          <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
-          <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
+      <!-- Aperçu tarifs — 3 prix repères, la page Adhésion reste la source unique -->
+      <div style="max-width:960px;margin:0 auto;background:var(--bleu);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px">
+        <div style="max-width:240px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:4px">6 formules d'adhésion</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">De l'accès libre à la formule Famille — un tarif pour chaque profil.</div>
         </div>
-        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">Cours adultes</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Échecs Adultes</div>
-          <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
-          <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
+        <div style="display:flex;gap:28px;flex-wrap:wrap">
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">60€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Accès libre</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">200€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Pitchounets</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">290€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">École Échecs</div></div>
         </div>
-        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">Licence A</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Accès libre</div>
-          <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">60<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
-          <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Sans cours</div>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:28px">
-        <p style="font-size:14px;color:var(--muted);margin-bottom:16px">6 formules disponibles · Pitchounets (200€), Compétition (120€), École Famille (500€) et plus</p>
-        <button class="btn btn-outline-dark" onclick="goTo('adhesion')">Voir toutes les formules →</button>
+        <button class="btn btn-gold" style="flex-shrink:0" onclick="goTo('adhesion')">Voir les 6 formules →</button>
       </div>
     </div>
   </section>

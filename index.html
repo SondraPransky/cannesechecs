@@ -200,6 +200,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .partner-card{transition:border-color .2s,transform .2s,box-shadow .2s}
 .partner-card:hover{border-color:var(--gold) !important;transform:translateY(-4px);box-shadow:var(--sh-md)}
 
+/* Monogramme partenaire (plaque + micro-échiquier or) — remplace les emoji en attendant les vrais logos */
+.p-crest{position:relative;width:88px;height:88px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);overflow:hidden}
+.p-crest.on-dark{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.35)}
+.p-crest::after{content:"";position:absolute;right:0;bottom:0;width:34px;height:34px;
+  background-image:linear-gradient(45deg,rgba(201,168,76,.16) 25%,transparent 0 50%,rgba(201,168,76,.16) 0 75%,transparent 0),
+  linear-gradient(45deg,transparent 25%,rgba(201,168,76,.16) 0 50%,transparent 0 75%,rgba(201,168,76,.16) 0);
+  background-size:17px 17px;background-position:0 0,8.5px 8.5px}
+.p-mono{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.02em;line-height:1;color:var(--bleu);position:relative;z-index:1}
+.p-crest.on-dark .p-mono{color:var(--gold)}
+.p-chip{width:34px;height:34px;border-radius:7px;background:var(--bleu);color:var(--gold);font-family:'Cormorant Garamond',serif;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+
 /* Carte sur fond sombre avec highlight gold au hover */
 .dark-card-hover{transition:background .2s}
 .dark-card-hover:hover{background:rgba(201,168,76,.15) !important}
@@ -1315,13 +1326,32 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <!-- Onglet Cours -->
   <div class="tab-panel tab-panel-active" id="tab-cours" style="padding:60px 0;background:var(--ivoire)">
     <div class="container">
-      <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Tous niveaux · Tous âges</span><h2 style="font-size:38px;color:var(--bleu)">Cours & Formation</h2></div>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Cannes Échecs propose des cours pour tous les niveaux et tous les âges : Pitchounets, jeunes débutants, jeunes confirmés, adultes débutants et adultes confirmés. Les cours ont lieu le mardi soir (17h–19h) et le mercredi après-midi.</p>
+      <div class="section-header" style="margin-bottom:32px"><span class="surtitre">Tous niveaux · Tous âges</span><h2 style="font-size:38px;color:var(--bleu)">Cours & Formation</h2></div>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:28px">Cannes Échecs propose des cours encadrés pour tous les âges, du tout-petit à l'adulte confirmé. Trouvez le créneau adapté à votre niveau.</p>
+
+      <!-- Grille des créneaux — Enfants & jeunes / Adultes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 26px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants &amp; jeunes</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px">De 4 à 18 ans</div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Pitchounets <span style="font-weight:400;color:var(--muted);font-size:12px">· 4–6 ans</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mer. 13h30</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Jeunes débutants <span style="font-weight:400;color:var(--muted);font-size:12px">· 6–12 ans</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mar. 17h–19h</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Jeunes confirmés <span style="font-weight:400;color:var(--muted);font-size:12px">· 8–18 ans</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mar. 17h–19h</span></div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 26px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Adultes</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px">Débutant à confirmé</div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Adultes débutants</span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mer. 17h30</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Adultes confirmés</span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mer. 18h30</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Cours particuliers <span style="font-weight:400;color:var(--muted);font-size:12px">· sur RDV</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">40€ / h</span></div>
+        </div>
+      </div>
+
       <div style="background:var(--bleu);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
         <div>
           <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">Saison 2026–2027 · Inscriptions ouvertes</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700">Rejoignez un cours adapté à votre niveau</div>
-          <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:6px">Contactez-nous pour connaître les horaires et les groupes disponibles</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700">Un doute sur le groupe adapté ?</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:6px">Contactez-nous pour un cours d'essai ou pour placer votre enfant au bon niveau.</div>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <button class="btn btn-gold btn-sm" onclick="goTo('adhesion')">S'inscrire →</button>
@@ -1551,37 +1581,23 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <!-- Tarifs -->
   <section style="padding:80px 0;background:var(--ivoire)">
     <div class="container">
-      <div class="section-header center" style="margin-bottom:48px">
+      <div class="section-header center" style="margin-bottom:36px">
         <span class="surtitre">Saison 2026–2027</span>
-        <h2 style="font-size:42px;color:var(--bleu)">Formules d'adhésion</h2>
-        <p style="font-size:15px;color:var(--muted);margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto">Tous les tarifs incluent la licence FFE et l'accès illimité au club pendant les heures d'ouverture.</p>
+        <h2 style="font-size:42px;color:var(--bleu)">Tarifs en un coup d'œil</h2>
+        <p style="font-size:15px;color:var(--muted);margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto">Licence FFE et accès illimité au club inclus dans chaque formule.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto">
-        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">École Échecs</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Enfants</div>
-          <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
-          <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
+      <!-- Aperçu tarifs — 3 prix repères, la page Adhésion reste la source unique -->
+      <div style="max-width:960px;margin:0 auto;background:var(--bleu);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px">
+        <div style="max-width:240px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:4px">6 formules d'adhésion</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">De l'accès libre à la formule Famille — un tarif pour chaque profil.</div>
         </div>
-        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">Cours adultes</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Échecs Adultes</div>
-          <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">290<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
-          <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Cours + Licence FFE</div>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
+        <div style="display:flex;gap:28px;flex-wrap:wrap">
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">60€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Accès libre</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">200€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Pitchounets</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">290€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">École Échecs</div></div>
         </div>
-        <div class="card-hover" style="background:#fff;border-radius:16px;padding:28px 20px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh-sm)">
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px">Licence A</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:16px">Accès libre</div>
-          <div style="font-size:44px;font-weight:800;color:var(--bleu);line-height:1">60<span style="font-size:18px;font-weight:400;color:var(--muted)">€</span></div>
-          <div style="font-size:12px;color:var(--muted);margin:8px 0 16px">Sans cours</div>
-          <button class="btn btn-gold btn-sm btn-full" onclick="goTo('adhesion')">Choisir</button>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:28px">
-        <p style="font-size:14px;color:var(--muted);margin-bottom:16px">6 formules disponibles · Pitchounets (200€), Compétition (120€), École Famille (500€) et plus</p>
-        <button class="btn btn-outline-dark" onclick="goTo('adhesion')">Voir toutes les formules →</button>
+        <button class="btn btn-gold" style="flex-shrink:0" onclick="goTo('adhesion')">Voir les 6 formules →</button>
       </div>
     </div>
   </section>
@@ -2332,20 +2348,23 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <h2 style="font-size:40px;color:var(--bleu)">Ils nous font confiance</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px">
-        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px">
-          <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏛</div>
+        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
+          <div class="p-crest"><span class="p-mono" style="font-size:34px">VC</span></div>
+          <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Ville de Cannes</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Mise à disposition des locaux et subvention annuelle</p>
         </div>
-        <div style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:var(--sh-gold)">
-          <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--gold),var(--gold-h));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">♟</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Fédération Française des Échecs</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Fédéral</div>
-          <p style="font-size:13px;color:var(--muted);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
+        <div style="background:var(--bleu);border-radius:12px;padding:34px 28px;text-align:center;border:1px solid var(--bleu);display:flex;flex-direction:column;align-items:center;gap:13px;box-shadow:var(--sh-gold)">
+          <div class="p-crest on-dark"><span class="p-mono" style="font-size:27px">FFE</span></div>
+          <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff">Fédération Française des Échecs</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)">Partenaire Fédéral</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.62);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
         </div>
-        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:36px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px">
-          <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--bleu-mid),#1a3a5c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px">🏔</div>
+        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
+          <div class="p-crest"><span class="p-mono" style="font-size:34px">RS</span></div>
+          <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Région Sud PACA</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs de haut niveau</p>
@@ -2359,11 +2378,11 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <h3 style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu)">Partenaires associés</h3>
         </div>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:28px">
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🏛️</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Mairie de Cannes</span></div>
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🏔️</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Département Alpes-Maritimes</span></div>
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🌊</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Région PACA</span></div>
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🎓</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Cannes Université</span></div>
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:16px 24px;border:1px solid var(--border);display:flex;align-items:center;gap:10px"><span style="font-size:20px">🎭</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">SEMEC</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">MC</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Mairie de Cannes</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">06</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Département Alpes-Maritimes</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">RS</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Région PACA</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">CU</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Cannes Université</span></div>
+          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">SM</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">SEMEC</span></div>
         </div>
       </div>
     </div>
@@ -2506,6 +2525,13 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
             </div>
 
+            <!-- FIJ 2027 — février, pas de PICO ce mois-ci -->
+            <div class="agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold)">
+              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">22</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Fév</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">♟ Tournois officiels · 22–28 fév.</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
+              <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
+            </div>
+
             <!-- Rapide mars -->
             <div class="card-hover agenda-event" data-cat="soirees" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mar</span></div>
@@ -2560,13 +2586,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
               <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Juin 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
               <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
-            </div>
-
-            <!-- FIJ 2027 -->
-            <div class="agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold)">
-              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px;line-height:1.1">FÉV.</span><span style="font-size:14px;line-height:1.1">2027</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">♟ Tournois officiels · 7 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
-              <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
             </div>
 
             <p id="agenda-empty" style="display:none;text-align:center;color:var(--muted);font-style:italic;padding:32px 0">Aucun événement dans cette catégorie.</p>
@@ -4230,12 +4249,64 @@ document.getElementById('lightbox').addEventListener('touchend', function(e) {
   lbTouchX = null;
 }, {passive: true});
 
+// ── AGENDA — regroupement automatique par mois ──
+// Insère un séparateur de mois avant chaque événement dont le mois change.
+// Rien à maintenir : l'ordre des cartes dans le HTML suffit.
+var MOIS_ABBR = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,jun:5,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
+var MOIS_FULL = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+function agendaEventMonth(ev) {
+  var spans = ev.querySelectorAll('span');
+  var key = (spans[1] ? spans[1].textContent : '').trim().toLowerCase().replace('.', '');
+  var mo = MOIS_ABBR[key] !== undefined ? MOIS_ABBR[key] : MOIS_ABBR[key.slice(0, 3)];
+  return mo;
+}
+function buildAgendaMonths() {
+  var cont = document.getElementById('agenda-events');
+  if (!cont || cont.dataset.grouped === '1') return;
+  var yrs = SAISON.match(/\d{4}/g) || [];
+  var y1 = parseInt(yrs[0], 10) || new Date().getFullYear();
+  var y2 = parseInt(yrs[1], 10) || y1 + 1;
+  var last = null, first = true;
+  Array.prototype.slice.call(cont.querySelectorAll('.agenda-event')).forEach(function(ev) {
+    var mo = agendaEventMonth(ev);
+    if (mo === undefined) return;
+    var year = mo >= 6 ? y1 : y2;
+    var id = year + '-' + mo;
+    if (id !== last) {
+      last = id;
+      var h = document.createElement('div');
+      h.className = 'agenda-month';
+      h.dataset.month = id;
+      h.style.cssText = 'display:flex;align-items:center;gap:14px;margin:' + (first ? '0' : '18px') + ' 0 2px';
+      h.innerHTML = '<span style="font-family:\'Cormorant Garamond\',serif;font-size:19px;font-weight:700;color:var(--bleu)">' + MOIS_FULL[mo] + '</span>'
+        + '<span style="font-family:\'Montserrat\',sans-serif;font-size:11px;font-weight:600;color:var(--muted)">' + year + '</span>'
+        + '<span style="flex:1;height:1px;background:var(--border)"></span>';
+      cont.insertBefore(h, ev);
+      first = false;
+    }
+  });
+  cont.dataset.grouped = '1';
+}
+// Masque un séparateur si aucun événement visible ne le suit
+function refreshAgendaMonths() {
+  var cont = document.getElementById('agenda-events');
+  if (!cont) return;
+  cont.querySelectorAll('.agenda-month').forEach(function(h) {
+    var vis = false, n = h.nextElementSibling;
+    while (n && !n.classList.contains('agenda-month')) {
+      if (n.classList.contains('agenda-event') && n.style.display !== 'none') { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    h.style.display = vis ? 'flex' : 'none';
+  });
+}
+
 // ── AGENDA — masquage automatique des événements passés ──
 // Lit le jour + le mois affichés dans la vignette date de chaque événement ;
 // l'année est déduite de la SAISON (juil–déc → 1re année, jan–juin → 2e année).
 function hideOldAgendaEvents(now) {
   now = now || new Date();
-  var MOIS = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
+  var MOIS = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,jun:5,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
   var yrs = SAISON.match(/\d{4}/g) || [];
   var y1 = parseInt(yrs[0], 10) || now.getFullYear();
   var y2 = parseInt(yrs[1], 10) || y1 + 1;
@@ -4255,7 +4326,9 @@ function hideOldAgendaEvents(now) {
   var empty = document.getElementById('agenda-empty');
   if (empty && visibles === 0) empty.style.display = 'block';
 }
+buildAgendaMonths();
 hideOldAgendaEvents();
+refreshAgendaMonths();
 
 // ── FILTRES (Agenda + Archive Actualités) ────────────
 document.querySelectorAll('.filtre-btn').forEach(btn => {
@@ -4275,6 +4348,7 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       });
       const empty = document.getElementById('agenda-empty');
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+      refreshAgendaMonths();
       return;
     }
     // Actualités : catégorie active → recalcul du filtre combiné (catégorie + recherche)

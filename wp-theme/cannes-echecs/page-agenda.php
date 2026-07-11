@@ -112,6 +112,13 @@ get_header(); ?>
               <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
             </div>
 
+            <!-- FIJ 2027 — février, pas de PICO ce mois-ci -->
+            <div class="agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold)">
+              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">22</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Fév</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">♟ Tournois officiels · 22–28 fév.</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
+              <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
+            </div>
+
             <!-- Rapide mars -->
             <div class="card-hover agenda-event" data-cat="soirees" style="background:#fff;border-radius:12px;padding:20px 24px;border:1px solid var(--border);display:flex;align-items:flex-start;gap:18px">
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mar</span></div>
@@ -166,13 +173,6 @@ get_header(); ?>
               <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
               <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Juin 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
               <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
-            </div>
-
-            <!-- FIJ 2027 -->
-            <div class="agenda-event" data-cat="tournois" style="background:#fff;border-radius:12px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold)">
-              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px;line-height:1.1">FÉV.</span><span style="font-size:14px;line-height:1.1">2027</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">♟ Tournois officiels · 7 jours</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
-              <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
             </div>
 
             <p id="agenda-empty" style="display:none;text-align:center;color:var(--muted);font-style:italic;padding:32px 0">Aucun événement dans cette catégorie.</p>

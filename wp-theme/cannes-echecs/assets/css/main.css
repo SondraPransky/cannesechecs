@@ -126,6 +126,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .partner-card{transition:border-color .2s,transform .2s,box-shadow .2s}
 .partner-card:hover{border-color:var(--gold) !important;transform:translateY(-4px);box-shadow:var(--sh-md)}
 
+/* Monogramme partenaire (plaque + micro-échiquier or) — remplace les emoji en attendant les vrais logos */
+.p-crest{position:relative;width:88px;height:88px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);overflow:hidden}
+.p-crest.on-dark{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.35)}
+.p-crest::after{content:"";position:absolute;right:0;bottom:0;width:34px;height:34px;
+  background-image:linear-gradient(45deg,rgba(201,168,76,.16) 25%,transparent 0 50%,rgba(201,168,76,.16) 0 75%,transparent 0),
+  linear-gradient(45deg,transparent 25%,rgba(201,168,76,.16) 0 50%,transparent 0 75%,rgba(201,168,76,.16) 0);
+  background-size:17px 17px;background-position:0 0,8.5px 8.5px}
+.p-mono{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.02em;line-height:1;color:var(--bleu);position:relative;z-index:1}
+.p-crest.on-dark .p-mono{color:var(--gold)}
+.p-chip{width:34px;height:34px;border-radius:7px;background:var(--bleu);color:var(--gold);font-family:'Cormorant Garamond',serif;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+
 /* Carte sur fond sombre avec highlight gold au hover */
 .dark-card-hover{transition:background .2s}
 .dark-card-hover:hover{background:rgba(201,168,76,.15) !important}

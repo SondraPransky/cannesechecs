@@ -444,12 +444,64 @@ document.getElementById('lightbox').addEventListener('touchend', function(e) {
   lbTouchX = null;
 }, {passive: true});
 
+// ── AGENDA — regroupement automatique par mois ──
+// Insère un séparateur de mois avant chaque événement dont le mois change.
+// Rien à maintenir : l'ordre des cartes dans le HTML suffit.
+var MOIS_ABBR = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,jun:5,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
+var MOIS_FULL = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+function agendaEventMonth(ev) {
+  var spans = ev.querySelectorAll('span');
+  var key = (spans[1] ? spans[1].textContent : '').trim().toLowerCase().replace('.', '');
+  var mo = MOIS_ABBR[key] !== undefined ? MOIS_ABBR[key] : MOIS_ABBR[key.slice(0, 3)];
+  return mo;
+}
+function buildAgendaMonths() {
+  var cont = document.getElementById('agenda-events');
+  if (!cont || cont.dataset.grouped === '1') return;
+  var yrs = SAISON.match(/\d{4}/g) || [];
+  var y1 = parseInt(yrs[0], 10) || new Date().getFullYear();
+  var y2 = parseInt(yrs[1], 10) || y1 + 1;
+  var last = null, first = true;
+  Array.prototype.slice.call(cont.querySelectorAll('.agenda-event')).forEach(function(ev) {
+    var mo = agendaEventMonth(ev);
+    if (mo === undefined) return;
+    var year = mo >= 6 ? y1 : y2;
+    var id = year + '-' + mo;
+    if (id !== last) {
+      last = id;
+      var h = document.createElement('div');
+      h.className = 'agenda-month';
+      h.dataset.month = id;
+      h.style.cssText = 'display:flex;align-items:center;gap:14px;margin:' + (first ? '0' : '18px') + ' 0 2px';
+      h.innerHTML = '<span style="font-family:\'Cormorant Garamond\',serif;font-size:19px;font-weight:700;color:var(--bleu)">' + MOIS_FULL[mo] + '</span>'
+        + '<span style="font-family:\'Montserrat\',sans-serif;font-size:11px;font-weight:600;color:var(--muted)">' + year + '</span>'
+        + '<span style="flex:1;height:1px;background:var(--border)"></span>';
+      cont.insertBefore(h, ev);
+      first = false;
+    }
+  });
+  cont.dataset.grouped = '1';
+}
+// Masque un séparateur si aucun événement visible ne le suit
+function refreshAgendaMonths() {
+  var cont = document.getElementById('agenda-events');
+  if (!cont) return;
+  cont.querySelectorAll('.agenda-month').forEach(function(h) {
+    var vis = false, n = h.nextElementSibling;
+    while (n && !n.classList.contains('agenda-month')) {
+      if (n.classList.contains('agenda-event') && n.style.display !== 'none') { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    h.style.display = vis ? 'flex' : 'none';
+  });
+}
+
 // ── AGENDA — masquage automatique des événements passés ──
 // Lit le jour + le mois affichés dans la vignette date de chaque événement ;
 // l'année est déduite de la SAISON (juil–déc → 1re année, jan–juin → 2e année).
 function hideOldAgendaEvents(now) {
   now = now || new Date();
-  var MOIS = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
+  var MOIS = {jan:0,fev:1,'fév':1,mar:2,avr:3,mai:4,jun:5,juin:5,juil:6,aou:7,'aoû':7,sep:8,oct:9,nov:10,dec:11,'déc':11};
   var yrs = SAISON.match(/\d{4}/g) || [];
   var y1 = parseInt(yrs[0], 10) || now.getFullYear();
   var y2 = parseInt(yrs[1], 10) || y1 + 1;
@@ -469,7 +521,9 @@ function hideOldAgendaEvents(now) {
   var empty = document.getElementById('agenda-empty');
   if (empty && visibles === 0) empty.style.display = 'block';
 }
+buildAgendaMonths();
 hideOldAgendaEvents();
+refreshAgendaMonths();
 
 // ── FILTRES (Agenda + Archive Actualités) ────────────
 document.querySelectorAll('.filtre-btn').forEach(btn => {
@@ -489,6 +543,7 @@ document.querySelectorAll('.filtre-btn').forEach(btn => {
       });
       const empty = document.getElementById('agenda-empty');
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+      refreshAgendaMonths();
       return;
     }
     // Actualités : catégorie active → recalcul du filtre combiné (catégorie + recherche)

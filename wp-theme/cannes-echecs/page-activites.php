@@ -29,13 +29,32 @@ get_header(); ?>
   <!-- Onglet Cours -->
   <div class="tab-panel tab-panel-active" id="tab-cours" style="padding:60px 0;background:var(--ivoire)">
     <div class="container">
-      <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Tous niveaux · Tous âges</span><h2 style="font-size:38px;color:var(--bleu)">Cours & Formation</h2></div>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Cannes Échecs propose des cours pour tous les niveaux et tous les âges : Pitchounets, jeunes débutants, jeunes confirmés, adultes débutants et adultes confirmés. Les cours ont lieu le mardi soir (17h–19h) et le mercredi après-midi.</p>
+      <div class="section-header" style="margin-bottom:32px"><span class="surtitre">Tous niveaux · Tous âges</span><h2 style="font-size:38px;color:var(--bleu)">Cours & Formation</h2></div>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:28px">Cannes Échecs propose des cours encadrés pour tous les âges, du tout-petit à l'adulte confirmé. Trouvez le créneau adapté à votre niveau.</p>
+
+      <!-- Grille des créneaux — Enfants & jeunes / Adultes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 26px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants &amp; jeunes</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px">De 4 à 18 ans</div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Pitchounets <span style="font-weight:400;color:var(--muted);font-size:12px">· 4–6 ans</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mer. 13h30</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Jeunes débutants <span style="font-weight:400;color:var(--muted);font-size:12px">· 6–12 ans</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mar. 17h–19h</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Jeunes confirmés <span style="font-weight:400;color:var(--muted);font-size:12px">· 8–18 ans</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mar. 17h–19h</span></div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 26px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Adultes</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px">Débutant à confirmé</div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Adultes débutants</span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mer. 17h30</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Adultes confirmés</span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">Mer. 18h30</span></div>
+          <div style="display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--border)"><span style="flex:1;font-weight:700;color:var(--bleu);font-size:14px">Cours particuliers <span style="font-weight:400;color:var(--muted);font-size:12px">· sur RDV</span></span><span style="font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--gold-text);white-space:nowrap">40€ / h</span></div>
+        </div>
+      </div>
+
       <div style="background:var(--bleu);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
         <div>
           <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">Saison 2026–2027 · Inscriptions ouvertes</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700">Rejoignez un cours adapté à votre niveau</div>
-          <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:6px">Contactez-nous pour connaître les horaires et les groupes disponibles</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:700">Un doute sur le groupe adapté ?</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:6px">Contactez-nous pour un cours d'essai ou pour placer votre enfant au bon niveau.</div>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <button class="btn btn-gold btn-sm" onclick="goTo('adhesion')">S'inscrire →</button>
