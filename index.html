@@ -287,7 +287,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .home-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 
 /* Carte FIJ dans le hero */
-.fij-hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:32px;backdrop-filter:blur(12px)}
+/* Pas de backdrop-filter : le fond du hero est un degrade lisse (flouter n'a aucun
+   effet visible), et ce filtre declenche un artefact Chromium — un rectangle gris
+   qui clignote au survol des boutons voisins en tablette (carte juste en dessous). */
+.fij-hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:32px}
 .fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
 .fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
 .cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
