@@ -1424,72 +1424,94 @@ function buildClassementHTML(forEmbed){
   const dateStr=last?last.date:new Date().toLocaleDateString('fr-FR');
   const nomTournoi=last?last.nom:'Pico Elo';
   const medals=['\uD83E\uDD47','\uD83E\uDD48','\uD83E\uDD49'];
+  const dNode=d=>d>0?'<span class="up">+'+d+'</span>':d<0?'<span class="down">'+d+'</span>':'<span class="eq">=</span>';
   let rows='';
   sorted.forEach(([nom,j],i)=>{
-    const rank=i+1,d=j.delta||0;
-    const dStr=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
-    const bg=rank===1?'rgba(212,168,67,.07)':rank===2?'rgba(155,176,201,.05)':rank===3?'rgba(192,128,80,.05)':'';
-    rows+='<tr style="border-top:1px solid #2a2d38;background:'+bg+'">'+
-      '<td style="text-align:center;font-family:monospace;color:#7a7f99;padding:.6rem .8rem">'+rank+'</td>'+
-      '<td style="text-align:center;font-size:1rem;padding:.6rem .5rem">'+(medals[i]||'')+'</td>'+
-      '<td style="font-weight:500;padding:.6rem .8rem">'+nom+(j.tournois===1?'<span style="font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(212,168,67,.15);color:#d4a843;margin-left:.4rem">nouveau</span>':'')+'</td>'+
-      '<td style="color:#7a7f99;font-size:.82rem;padding:.6rem .8rem">'+(j.ecole||'&mdash;')+'</td>'+
-      '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .5rem">'+(j.age||'&mdash;')+'</td>'+
-      '<td style="font-family:monospace;font-size:1rem;font-weight:600;text-align:right;padding:.6rem .8rem">'+j.elo+'</td>'+
-      '<td style="text-align:center;font-family:monospace;font-size:.8rem;padding:.6rem .5rem">'+dStr+'</td>'+
-      '<td style="font-family:monospace;font-size:.8rem;text-align:center;color:#4eca8b">'+(j.victoires||0)+'</td>'+
-      '<td style="font-family:monospace;font-size:.8rem;text-align:center;color:#e05c6e">'+(j.defaites||0)+'</td>'+
-      '<td style="font-family:monospace;font-size:.8rem;text-align:center;color:#7a7f99">'+(j.nulles||0)+'</td>'+
+    const rank=i+1,d=j.delta||0;const rc=rank<=3?' class="r'+rank+'"':'';
+    rows+='<tr'+rc+'>'+
+      '<td class="c num2">'+rank+'</td>'+
+      '<td class="c md">'+(medals[i]||'')+'</td>'+
+      '<td class="nm">'+nom+(j.tournois===1?'<span class="new">nouveau</span>':'')+'</td>'+
+      '<td class="sc">'+(j.ecole||'&mdash;')+'</td>'+
+      '<td class="c ag">'+(j.age||'&mdash;')+'</td>'+
+      '<td class="elo">'+j.elo+'</td>'+
+      '<td class="c dl">'+dNode(d)+'</td>'+
+      '<td class="c v">'+(j.victoires||0)+'</td>'+
+      '<td class="c l">'+(j.defaites||0)+'</td>'+
+      '<td class="c n">'+(j.nulles||0)+'</td>'+
       '</tr>';
   });
   let podHtml='';
   if(sorted.length>=3){
-    const podOrder=[1,0,2];const podColors=['#9bb0c9','#d4a843','#c08050'];
-    const borders=['rgba(155,176,201,.3)','rgba(212,168,67,.5)','rgba(192,128,80,.3)'];
-    const bgs=['rgba(155,176,201,.04)','rgba(212,168,67,.05)','rgba(192,128,80,.04)'];
-    podHtml='<div style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1rem;margin-bottom:2.5rem">';
+    const podOrder=[1,0,2];const cls=['p2','p1','p3'];
+    podHtml='<div class="podium">';
     podOrder.forEach((ri,col)=>{
       const[nom,j]=sorted[ri];const d=j.delta||0;
-      const dH=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
-      podHtml+='<div style="background:#16181f;border:1px solid '+borders[col]+';background:'+bgs[col]+';border-radius:14px;padding:1.5rem 1rem;text-align:center">'+
-        '<div style="font-size:2.2rem;margin-bottom:.5rem">'+medals[ri]+'</div>'+
-        '<div style="font-weight:600;font-size:1rem">'+nom+'</div>'+
-        '<div style="font-size:.78rem;color:#7a7f99;margin:.25rem 0 .75rem">'+(j.ecole||'&mdash;')+'</div>'+
-        '<div style="font-family:monospace;font-size:2rem;font-weight:700;color:'+podColors[col]+'">'+j.elo+'</div>'+
-        '<div style="font-family:monospace;font-size:.75rem;margin-top:.25rem">'+dH+'</div>'+
-        '</div>';
+      podHtml+='<div class="pod '+cls[col]+'">'+
+        '<div class="medal">'+medals[ri]+'</div>'+
+        '<div class="pn">'+nom+'</div>'+
+        '<div class="pe">'+(j.ecole||'&mdash;')+'</div>'+
+        '<div class="pv">'+j.elo+'</div>'+
+        '<div class="pd">'+dNode(d)+'</div></div>';
     });
     podHtml+='</div>';
   }
   const genfr=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-  const html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
-    '<title>Classement Pico Elo - Cannes Echecs</title>'+
-    '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">'+
-    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"DM Sans",sans-serif;background:#0e0f13;color:#e8eaf2;'+(forEmbed?'':'min-height:100vh')+'}</style></head><body>'+
-    '<div style="padding:3.5rem 2rem 2.5rem;text-align:center;background:linear-gradient(180deg,#1a1508,#0e0f13);border-bottom:1px solid #2a2d38">'+
-    '<h1 style="font-family:\'Playfair Display\',serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:900;color:#d4a843;letter-spacing:-.02em">Pico <span style="color:#e8eaf2">Elo</span></h1>'+
-    '<p style="margin-top:.6rem;font-size:.85rem;color:#7a7f99;letter-spacing:.15em;text-transform:uppercase">Cannes Echecs - Classement scolaire</p>'+
-    '<div style="display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap">'+
-    '<span style="font-family:monospace;font-size:.78rem;padding:.35rem 1rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f">Apres <strong style="color:#d4a843">'+nomTournoi+'</strong></span>'+
-    '<span style="font-family:monospace;font-size:.78rem;padding:.35rem 1rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f">Date : <strong style="color:#d4a843">'+dateStr+'</strong></span>'+
-    '<span style="font-family:monospace;font-size:.78rem;padding:.35rem 1rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f"><strong style="color:#d4a843">'+sorted.length+'</strong> joueurs</span>'+
-    '</div></div>'+
-    '<div style="max-width:960px;margin:0 auto;padding:2.5rem 1.5rem">'+podHtml+
-    '<div style="border-radius:12px;border:1px solid #2a2d38;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:.88rem">'+
-    '<thead><tr style="background:#1e2029">'+
-    '<th style="padding:.7rem .8rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">#</th>'+
-    '<th style="padding:.7rem .5rem;text-align:center"></th>'+
-    '<th style="padding:.7rem .8rem;text-align:left;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">Joueur</th>'+
-    '<th style="padding:.7rem .8rem;text-align:left;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">Ecole</th>'+
-    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">Age</th>'+
-    '<th style="padding:.7rem .8rem;text-align:right;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">Pico Elo</th>'+
-    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">Evol.</th>'+
-    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">V</th>'+
-    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">D</th>'+
-    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">N</th>'+
-    '</tr></thead><tbody>'+rows+'</tbody></table></div>'+
-    '<div style="text-align:center;padding:2rem;color:#3a3e52;font-size:.75rem;margin-top:2rem;border-top:1px solid #1e2029">Classement Pico Elo - Cannes Echecs - Genere le '+genfr+'</div>'+
-    '</div></body></html>';
+  const css="*{box-sizing:border-box;margin:0;padding:0}"
+    +"body{font-family:'Inter',system-ui,sans-serif;background:#FAF8F4;color:#374151;-webkit-font-smoothing:antialiased;"+(forEmbed?"":"min-height:100vh")+"}"
+    +".hero{padding:3rem 2rem 2.5rem;text-align:center;color:#fff;background:linear-gradient(155deg,#1E3A5F,#0A1F38)}"
+    +".hero .club{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#F5EDD4;background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.4);padding:.3rem 1rem;border-radius:999px;margin-bottom:1rem}"
+    +".hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:700;line-height:1;color:#fff}"
+    +".hero h1 span{font-style:italic;color:#C9A84C}"
+    +".hero .sub{margin-top:.4rem;font-family:'Montserrat',sans-serif;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6)}"
+    +".chips{display:flex;gap:.55rem;justify-content:center;margin-top:1.4rem;flex-wrap:wrap}"
+    +".chip{font-family:'Montserrat',sans-serif;font-size:.64rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.34rem .9rem;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);background:rgba(255,255,255,.05)}"
+    +".chip b{color:#F5EDD4}"
+    +".strip{text-align:center;font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#7E6420;padding:1.6rem 1rem .25rem}"
+    +".strip b{color:#1E3A5F}"
+    +"main{max-width:960px;margin:0 auto;padding:1.75rem 1.25rem 1rem}"
+    +".podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:1rem;margin-bottom:2.25rem;align-items:end}"
+    +".pod{background:#fff;border:1px solid #E5E0D8;border-radius:16px;padding:1.4rem 1rem;text-align:center;box-shadow:0 2px 8px rgba(15,14,23,.08)}"
+    +".pod.p1{padding:1.9rem 1rem;border-color:rgba(201,168,76,.5);box-shadow:0 6px 22px rgba(201,168,76,.2)}"
+    +".medal{font-size:2rem;margin-bottom:.35rem}.pod.p1 .medal{font-size:2.5rem}"
+    +".pn{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.25rem;color:#1E3A5F;line-height:1.1}"
+    +".pe{font-size:.75rem;color:#5B6270;margin:.15rem 0 .6rem}"
+    +".pv{font-variant-numeric:tabular-nums;font-size:1.8rem;font-weight:700;color:#7E6420}"
+    +".pod.p1 .pv{font-size:2.2rem;color:#C9A84C}.pod.p2 .pv{color:#6B7688}.pod.p3 .pv{color:#A87A48}"
+    +".pd{font-variant-numeric:tabular-nums;font-size:.78rem;margin-top:.2rem}"
+    +".tw{border-radius:14px;border:1px solid #E5E0D8;overflow:hidden;overflow-x:auto;box-shadow:0 2px 8px rgba(15,14,23,.08);background:#fff}"
+    +"table{width:100%;border-collapse:collapse;font-size:.88rem}"
+    +"thead tr{background:#1E3A5F}"
+    +"th{font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);padding:.7rem .8rem;text-align:left;white-space:nowrap}"
+    +"th.c,td.c{text-align:center}th.num,td.num{text-align:right}"
+    +"tbody tr{border-top:1px solid #EFEAE0}"
+    +"tbody tr.r1{background:rgba(201,168,76,.12)}tbody tr.r2{background:rgba(201,168,76,.06)}tbody tr.r3{background:rgba(201,168,76,.04)}"
+    +"td{padding:.6rem .8rem;vertical-align:middle}"
+    +".md{font-size:1rem}"
+    +"td.num2{font-variant-numeric:tabular-nums;color:#5B6270}"
+    +"td.nm{font-weight:600;color:#1E3A5F}"
+    +"td.sc{color:#5B6270;font-size:.82rem}"
+    +"td.ag{font-variant-numeric:tabular-nums;color:#5B6270}"
+    +"td.elo{font-variant-numeric:tabular-nums;font-size:1rem;font-weight:700;color:#1E3A5F;text-align:right}"
+    +"td.v{color:#2E7D57;font-variant-numeric:tabular-nums}td.l{color:#B0453A;font-variant-numeric:tabular-nums}td.n{color:#5B6270;font-variant-numeric:tabular-nums}"
+    +".new{font-family:'Montserrat',sans-serif;font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.1rem .4rem;border-radius:4px;background:#F5EDD4;color:#7E6420;margin-left:.45rem}"
+    +".up{color:#2E7D57;font-weight:600}.down{color:#B0453A;font-weight:600}.eq{color:#8A9099}"
+    +".foot{text-align:center;padding:1.5rem;color:rgba(91,98,112,.65);font-size:.72rem;margin-top:1.5rem;border-top:1px solid #E5E0D8}";
+  const header=forEmbed
+    ? '<div class="strip">Apr&egrave;s <b>'+nomTournoi+'</b> &middot; '+dateStr+' &middot; <b>'+sorted.length+'</b> joueurs</div>'
+    : '<header class="hero"><div class="club">Cannes &Eacute;checs</div><h1>Pico <span>Elo</span></h1><p class="sub">Classement scolaire interne</p>'
+      +'<div class="chips"><span class="chip">Apr&egrave;s <b>'+nomTournoi+'</b></span><span class="chip">'+dateStr+'</span><span class="chip"><b>'+sorted.length+'</b> joueurs</span></div></header>';
+  const html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    +'<title>Classement Pico Elo - Cannes Echecs</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">'
+    +'<style>'+css+'</style></head><body>'+header
+    +'<main>'+podHtml
+    +'<div class="tw"><table><thead><tr>'
+    +'<th class="c">#</th><th></th><th>Joueur</th><th>&Eacute;cole</th><th class="c">&Acirc;ge</th>'
+    +'<th class="num">Pico Elo</th><th class="c">&Eacute;vol.</th><th class="c">V</th><th class="c">D</th><th class="c">N</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table></div>'
+    +'<div class="foot">Classement Pico Elo &middot; Cannes &Eacute;checs &middot; G&eacute;n&eacute;r&eacute; le '+genfr+'</div>'
+    +'</main></body></html>';
   return html;
 }
 
@@ -1531,6 +1553,7 @@ function exportPageHistorique(){
   tousJoueurs.forEach(nom=>{for(let i=tournois.length-1;i>=0;i--){const P=partsOf(tournois[i]);if(P[nom]){eloFinal[nom]=P[nom];break;}}});
   const sortedJoueurs=[...tousJoueurs].sort((a,b)=>(eloFinal[b]?eloFinal[b].elo:0)-(eloFinal[a]?eloFinal[a].elo:0));
   const evolution={};tousJoueurs.forEach(nom=>{evolution[nom]=tournois.map(t=>partsOf(t)[nom]||null);});
+  const dN=d=>d>0?'<span class="up">+'+d+'</span>':d<0?'<span class="down">'+d+'</span>':'<span class="eq">=</span>';
   let tournoiSections='';
   const tRev=[...tournois].reverse();
   tRev.forEach(t=>{
@@ -1539,95 +1562,97 @@ function exportPageHistorique(){
     const allT=Object.entries(P).sort((a,b)=>b[1].elo-a[1].elo);
     let podHtml='';
     allT.slice(0,3).forEach(([nom,j],pi)=>{
-      const d=j.delta||0;const dS=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
-      const bc=pi===0?'rgba(212,168,67,.4)':pi===1?'rgba(155,176,201,.25)':'rgba(192,128,80,.25)';
-      const bg=pi===0?'rgba(212,168,67,.04)':'';
-      const ec=pi===0?'#d4a843':pi===1?'#9bb0c9':'#c08050';
-      podHtml+='<div style="background:#16181f;border:1px solid '+bc+';'+bg+';border-radius:10px;padding:1rem;text-align:center">'+
-        '<div style="font-size:1.5rem;margin-bottom:.25rem">'+medals[pi]+'</div>'+
-        '<div style="font-weight:600;font-size:.88rem">'+nom+'</div>'+
-        '<div style="font-size:.7rem;color:#7a7f99;margin:.15rem 0 .4rem">'+(j.ecole||'')+'</div>'+
-        '<div style="font-family:monospace;font-size:1.4rem;font-weight:700;color:'+ec+'">'+j.elo+'</div>'+
-        '<div style="font-family:monospace;font-size:.7rem;margin-top:.2rem">'+dS+'</div></div>';
+      const d=j.delta||0;const pc=['p1','p2','p3'][pi];
+      podHtml+='<div class="pod '+pc+'"><div class="pmed">'+medals[pi]+'</div><div class="pn">'+nom+'</div><div class="pe">'+(j.ecole||'&mdash;')+'</div><div class="pv">'+j.elo+'</div><div class="pd">'+dN(d)+'</div></div>';
     });
     let rowsT='';
     allT.forEach(([nom,j],ri2)=>{
-      const d=j.delta||0;const dS=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
-      const bg=ri2<3?'rgba(212,168,67,.04)':'';
-      rowsT+='<tr style="border-top:1px solid #2a2d38;background:'+bg+'">'+
-        '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .8rem">'+(ri2+1)+'</td>'+
-        '<td style="text-align:center;padding:.6rem .5rem">'+(medals[ri2]||'')+'</td>'+
-        '<td style="font-weight:500;padding:.6rem .8rem">'+nom+'</td>'+
-        '<td style="color:#7a7f99;font-size:.78rem;padding:.6rem .8rem">'+(j.ecole||'')+'</td>'+
-        '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .5rem">'+(j.age||'')+'</td>'+
-        '<td style="font-family:monospace;font-weight:600;text-align:right;padding:.6rem .8rem">'+j.elo+'</td>'+
-        '<td style="text-align:center;font-family:monospace;padding:.6rem .5rem">'+dS+'</td></tr>';
+      const d=j.delta||0;const rc=ri2<3?' class="r"':'';
+      rowsT+='<tr'+rc+'><td class="c num2">'+(ri2+1)+'</td><td class="c md">'+(medals[ri2]||'')+'</td><td class="nm">'+nom+'</td><td class="sc">'+(j.ecole||'&mdash;')+'</td><td class="c ag">'+(j.age||'&mdash;')+'</td><td class="elo">'+j.elo+'</td><td class="c">'+dN(d)+'</td></tr>';
     });
-    tournoiSections+='<div style="margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid #1e2029">'+
-      '<div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">'+
-      '<div style="font-family:\'Playfair Display\',serif;font-size:1.35rem;font-weight:700;color:#d4a843">'+t.nom+'</div>'+
-      '<div style="font-family:monospace;font-size:.75rem;color:#7a7f99">'+t.date+' | '+t.joueurs+' joueurs</div></div>'+
-      '<div style="display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:.75rem;margin-bottom:.75rem">'+podHtml+'</div>'+
-      '<details><summary style="font-size:.8rem;color:#7a7f99;cursor:pointer;padding:.5rem .25rem;list-style:none">&#x25B6; Classement complet ('+allT.length+' joueurs)</summary>'+
-      '<div style="border-radius:10px;border:1px solid #2a2d38;overflow:hidden;overflow-x:auto;margin-top:.75rem">'+
-      '<table style="width:100%;border-collapse:collapse;font-size:.85rem">'+
-      '<thead><tr style="background:#1e2029">'+
-      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:center">#</th>'+
-      '<th style="padding:.6rem .5rem;text-align:center"></th>'+
-      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:left">Joueur</th>'+
-      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:left">Ecole</th>'+
-      '<th style="padding:.6rem .5rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:center">Age</th>'+
-      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:right">Elo</th>'+
-      '<th style="padding:.6rem .5rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:center">Evol.</th>'+
-      '</tr></thead><tbody>'+rowsT+'</tbody></table></div></details></div>';
+    tournoiSections+='<section class="tsec"><div class="thd"><div class="tname">'+t.nom+'</div><div class="tmeta">'+t.date+' &middot; '+t.joueurs+' joueurs</div></div>'+
+      '<div class="pod3">'+podHtml+'</div>'+
+      '<details><summary>&#x25B6; Classement complet ('+allT.length+' joueurs)</summary>'+
+      '<div class="tw"><table><thead><tr><th class="c">#</th><th></th><th>Joueur</th><th>&Eacute;cole</th><th class="c">&Acirc;ge</th><th class="num">Elo</th><th class="c">&Eacute;vol.</th></tr></thead>'+
+      '<tbody>'+rowsT+'</tbody></table></div></details></section>';
   });
   let thCols='';
-  tournois.forEach(t=>{thCols+='<th style="min-width:68px;font-size:.6rem;text-align:center;padding:.6rem .4rem;font-weight:500;color:#7a7f99;background:#1e2029;white-space:nowrap">'+t.nom.replace(/Pico[\s\-]*/i,'')+'<br><span style="font-weight:400;opacity:.7">'+t.date+'</span></th>';});
+  tournois.forEach(t=>{thCols+='<th class="evh">'+t.nom.replace(/Pico[\s\-]*/i,'')+'<br><span>'+t.date+'</span></th>';});
   let evoRows='';
   sortedJoueurs.forEach((nom,i)=>{
     let cells='';
     evolution[nom].forEach(snap=>{
-      if(!snap){cells+='<td style="text-align:center;color:#2a2d38;padding:.6rem .4rem">-</td>';return;}
-      const d=snap.delta||0;const bg=d>0?'rgba(78,202,139,.1)':d<0?'rgba(224,92,110,.1)':'';const col=d>0?'#4eca8b':d<0?'#e05c6e':'#e8eaf2';
-      cells+='<td style="text-align:center;background:'+bg+';color:'+col+';font-family:monospace;font-size:.8rem;padding:.6rem .4rem">'+snap.elo+'</td>';
+      if(!snap){cells+='<td class="c ev-abs">-</td>';return;}
+      const d=snap.delta||0;const cl=d>0?'ev-up':d<0?'ev-down':'ev-eq';
+      cells+='<td class="c '+cl+'">'+snap.elo+'</td>';
     });
-    evoRows+='<tr style="border-top:1px solid #2a2d38">'+
-      '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .8rem">'+(i+1)+'</td>'+
-      '<td style="font-weight:500;white-space:nowrap;padding:.6rem .8rem">'+nom+'</td>'+cells+
-      '<td style="font-family:monospace;font-weight:700;text-align:right;color:#d4a843;padding:.6rem .8rem">'+(eloFinal[nom]?eloFinal[nom].elo:'')+'</td></tr>';
+    evoRows+='<tr><td class="c num2">'+(i+1)+'</td><td class="nm nowrap">'+nom+'</td>'+cells+
+      '<td class="elo">'+(eloFinal[nom]?eloFinal[nom].elo:'')+'</td></tr>';
   });
   const genfr=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
   const nb_t=tournois.length,nb_j=tousJoueurs.size;
   const d_from=tournois[0]?tournois[0].date:'?',d_to=tournois[tournois.length-1]?tournois[tournois.length-1].date:'?';
+  const css="*{box-sizing:border-box;margin:0;padding:0}"
+    +"body{font-family:'Inter',system-ui,sans-serif;background:#FAF8F4;color:#374151;min-height:100vh;-webkit-font-smoothing:antialiased}"
+    +".hero{padding:2.75rem 2rem 2.25rem;text-align:center;color:#fff;background:linear-gradient(155deg,#1E3A5F,#0A1F38)}"
+    +".hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1;color:#fff}"
+    +".hero h1 span{font-style:italic;color:#C9A84C}"
+    +".hero .sub{margin-top:.4rem;font-family:'Montserrat',sans-serif;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6)}"
+    +".chips{display:flex;gap:.55rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap}"
+    +".chip{font-family:'Montserrat',sans-serif;font-size:.64rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.32rem .9rem;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);background:rgba(255,255,255,.05)}"
+    +".chip b{color:#F5EDD4}"
+    +"main{max-width:1020px;margin:0 auto;padding:2.25rem 1.25rem}"
+    +".nav-tabs{display:flex;gap:6px;border-bottom:1px solid #E5E0D8;margin-bottom:2rem}"
+    +".nav-tab{font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.7rem 1.1rem;border:none;background:none;color:#5B6270;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}"
+    +".nav-tab.active{color:#7E6420;border-bottom-color:#C9A84C}.tab-panel{display:none}.tab-panel.active{display:block}"
+    +".tsec{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid #E5E0D8}"
+    +".thd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}"
+    +".tname{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#1E3A5F}"
+    +".tmeta{font-family:'Montserrat',sans-serif;font-size:.66rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#5B6270}"
+    +".pod3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:.75rem}"
+    +".pod{background:#fff;border:1px solid #E5E0D8;border-radius:12px;padding:1rem;text-align:center;box-shadow:0 2px 8px rgba(15,14,23,.06)}"
+    +".pod.p1{border-color:rgba(201,168,76,.5)}"
+    +".pmed{font-size:1.5rem;margin-bottom:.2rem}"
+    +".pn{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.05rem;color:#1E3A5F;line-height:1.1}"
+    +".pe{font-size:.68rem;color:#5B6270;margin:.1rem 0 .35rem}"
+    +".pv{font-variant-numeric:tabular-nums;font-size:1.4rem;font-weight:700;color:#7E6420}"
+    +".pod.p1 .pv{color:#C9A84C}.pod.p2 .pv{color:#6B7688}.pod.p3 .pv{color:#A87A48}"
+    +".pd{font-variant-numeric:tabular-nums;font-size:.7rem;margin-top:.15rem}"
+    +"summary{font-family:'Montserrat',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#5B6270;cursor:pointer;padding:.5rem .25rem;list-style:none}"
+    +".tw{border-radius:12px;border:1px solid #E5E0D8;overflow:hidden;overflow-x:auto;margin-top:.5rem;background:#fff}"
+    +"table{width:100%;border-collapse:collapse;font-size:.85rem}"
+    +"thead tr{background:#1E3A5F}"
+    +"th{font-family:'Montserrat',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72);padding:.6rem .8rem;text-align:left;white-space:nowrap}"
+    +"th.c,td.c{text-align:center}th.num,td.num{text-align:right}"
+    +"tbody tr{border-top:1px solid #EFEAE0}tbody tr.r{background:rgba(201,168,76,.05)}"
+    +"td{padding:.55rem .8rem;vertical-align:middle}.md{font-size:.95rem}"
+    +".num2{font-variant-numeric:tabular-nums;color:#5B6270}"
+    +".nm{font-weight:600;color:#1E3A5F}.nowrap{white-space:nowrap}"
+    +".sc{color:#5B6270;font-size:.78rem}.ag{font-variant-numeric:tabular-nums;color:#5B6270}"
+    +".elo{font-variant-numeric:tabular-nums;font-weight:700;color:#1E3A5F;text-align:right}"
+    +".up{color:#2E7D57;font-weight:600}.down{color:#B0453A;font-weight:600}.eq{color:#8A9099}"
+    +".evnote{font-size:.78rem;color:#5B6270;margin-bottom:.75rem;padding:.65rem .85rem;background:#fff;border-radius:8px;border:1px solid #E5E0D8}"
+    +".evh{min-width:66px;font-family:'Montserrat',sans-serif;font-size:.56rem;text-align:center;padding:.6rem .4rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.72);background:#1E3A5F;white-space:nowrap}"
+    +".evh span{font-weight:500;opacity:.75;text-transform:none;letter-spacing:0}"
+    +".ev-abs{color:#C9C3B5;padding:.55rem .4rem}"
+    +".ev-up{background:rgba(46,125,87,.1);color:#2E7D57;font-variant-numeric:tabular-nums}"
+    +".ev-down{background:rgba(176,69,58,.1);color:#B0453A;font-variant-numeric:tabular-nums}"
+    +".ev-eq{color:#374151;font-variant-numeric:tabular-nums}"
+    +".foot{text-align:center;padding:1.5rem;color:rgba(91,98,112,.65);font-size:.72rem;margin-top:2rem;border-top:1px solid #E5E0D8}";
   const html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
     '<title>Historique Pico Elo - Cannes Echecs</title>'+
-    '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">'+
-    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"DM Sans",sans-serif;background:#0e0f13;color:#e8eaf2;min-height:100vh}'+
-    '.nav-tabs{display:flex;gap:4px;border-bottom:1px solid #2a2d38;margin-bottom:2rem}.nav-tab{font-size:.82rem;padding:.6rem 1.2rem;border:none;background:none;color:#7a7f99;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}.nav-tab.active{color:#d4a843;border-bottom-color:#d4a843;font-weight:500}.tab-panel{display:none}.tab-panel.active{display:block}</style>'+
-    '</head><body>'+
-    '<div style="padding:3rem 2rem 2rem;text-align:center;background:linear-gradient(180deg,#1a1508,#0e0f13);border-bottom:1px solid #2a2d38">'+
-    '<h1 style="font-family:\'Playfair Display\',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#d4a843">Historique <span style="color:#e8eaf2">Pico Elo</span></h1>'+
-    '<p style="margin-top:.5rem;font-size:.82rem;color:#7a7f99;letter-spacing:.15em;text-transform:uppercase">Cannes Echecs</p>'+
-    '<div style="display:flex;gap:1rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap">'+
-    '<span style="font-family:monospace;font-size:.75rem;padding:.3rem .9rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f"><strong style="color:#d4a843">'+nb_t+'</strong> tournois</span>'+
-    '<span style="font-family:monospace;font-size:.75rem;padding:.3rem .9rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f"><strong style="color:#d4a843">'+nb_j+'</strong> joueurs</span>'+
-    '<span style="font-family:monospace;font-size:.75rem;padding:.3rem .9rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f">Du <strong style="color:#d4a843">'+d_from+'</strong> au <strong style="color:#d4a843">'+d_to+'</strong></span>'+
-    '</div></div>'+
-    '<div style="max-width:1020px;margin:0 auto;padding:2.5rem 1.5rem">'+
-    '<div class="nav-tabs"><button class="nav-tab active" onclick="showTab(\'tournois\',this)">Par tournoi</button>'+
-    '<button class="nav-tab" onclick="showTab(\'evolution\',this)">Evolution des Elo</button></div>'+
+    '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">'+
+    '<style>'+css+'</style></head><body>'+
+    '<header class="hero"><h1>Historique <span>Pico Elo</span></h1><p class="sub">Cannes &Eacute;checs</p>'+
+    '<div class="chips"><span class="chip"><b>'+nb_t+'</b> tournois</span><span class="chip"><b>'+nb_j+'</b> joueurs</span><span class="chip">Du <b>'+d_from+'</b> au <b>'+d_to+'</b></span></div></header>'+
+    '<main><div class="nav-tabs"><button class="nav-tab active" onclick="showTab(\'tournois\',this)">Par tournoi</button>'+
+    '<button class="nav-tab" onclick="showTab(\'evolution\',this)">&Eacute;volution des Elo</button></div>'+
     '<div id="tab-tournois" class="tab-panel active">'+tournoiSections+'</div>'+
     '<div id="tab-evolution" class="tab-panel">'+
-    '<p style="font-size:.75rem;color:#7a7f99;margin-bottom:.75rem;padding:.6rem .85rem;background:#16181f;border-radius:8px;border:1px solid #2a2d38">Elo apres chaque tournoi. Vert = progression, rouge = recul, tiret = absent.</p>'+
-    '<div style="border-radius:10px;border:1px solid #2a2d38;overflow:hidden;overflow-x:auto">'+
-    '<table style="width:100%;border-collapse:collapse;font-size:.85rem">'+
-    '<thead><tr>'+
-    '<th style="padding:.65rem .8rem;text-align:center;font-size:.65rem;font-weight:500;color:#7a7f99;background:#1e2029">#</th>'+
-    '<th style="padding:.65rem .8rem;text-align:left;font-size:.65rem;font-weight:500;color:#7a7f99;background:#1e2029;white-space:nowrap">Joueur</th>'+
-    thCols+
-    '<th style="padding:.65rem .8rem;text-align:right;font-size:.65rem;font-weight:500;color:#7a7f99;background:#1e2029;white-space:nowrap">Elo actuel</th>'+
-    '</tr></thead><tbody>'+evoRows+'</tbody></table></div></div></div>'+
-    '<div style="text-align:center;padding:2rem;color:#3a3e52;font-size:.75rem;margin-top:2rem;border-top:1px solid #1e2029">Historique Pico Elo - Cannes Echecs - Genere le '+genfr+'</div>'+
+    '<p class="evnote">Elo apr&egrave;s chaque tournoi. Vert = progression, rouge = recul, tiret = absent.</p>'+
+    '<div class="tw"><table><thead><tr><th class="c">#</th><th>Joueur</th>'+thCols+
+    '<th class="num">Elo actuel</th></tr></thead><tbody>'+evoRows+'</tbody></table></div></div></main>'+
+    '<div class="foot">Historique Pico Elo &middot; Cannes &Eacute;checs &middot; G&eacute;n&eacute;r&eacute; le '+genfr+'</div>'+
     '<script>function showTab(id,btn){document.querySelectorAll(\'.tab-panel\').forEach(p=>p.classList.remove(\'active\'));document.querySelectorAll(\'.nav-tab\').forEach(b=>b.classList.remove(\'active\'));document.getElementById(\'tab-\'+id).classList.add(\'active\');btn.classList.add(\'active\');}<\/script>'+
     '</body></html>';
   const d=new Date();const fname='historique_pico_'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'.html';
