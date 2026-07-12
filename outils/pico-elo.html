@@ -1023,9 +1023,10 @@ function parseGrille(txt){
     const nom=tokens.slice(1,nameEnd).join(' ');const results=[];
     for(let i=nameEnd;i<tokens.length;i++){
       const tk=tokens[i];let sym=null,oppTok=null;
-      if(tk==='+'||tk==='-'||tk==='='){sym=tk;oppTok=tokens[++i];}          // symbole separe : "+ 43N"
-      else{const m=tk.match(/^([+\-=])(\d+)[A-Za-z]?$/);if(m){sym=m[1];oppTok=m[2];}} // symbole colle : "+43N"
+      if(tk==='+'||tk==='-'||tk==='='){sym=tk;oppTok=tokens[++i];}                  // symbole separe : "+ 43N"
+      else{const m=tk.match(/^([+\-=])(\d+[A-Za-z]?)$/);if(m){sym=m[1];oppTok=m[2];}} // symbole colle : "+43N"
       if(sym&&oppTok!=null){
+        if(/[Ff]/.test(String(oppTok)))continue; // FORFAIT (suffixe F) : partie non jouee -> aucun point, pas comptee
         const oppRank=parseInt(String(oppTok).replace(/[^0-9]/g,''));
         if(!isNaN(oppRank)&&oppRank>0)results.push({opp:oppRank,score:sym==='+'?1:sym==='-'?0:0.5});
       }
