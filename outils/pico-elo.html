@@ -903,7 +903,7 @@ function archiverSaison(){
     let newElo=200;
     if(mode==='conserver')newElo=j.elo;
     else if(mode==='moitie')newElo=Math.round((j.elo+200)/2);
-    newDb[nom]={elo:newElo,victoires:0,defaites:0,nulles:0,tournois:0,delta:0,ecole:j.ecole||'',age:j.age||'',cat:j.cat||''};
+    newDb[nom]={elo:newElo,victoires:0,defaites:0,nulles:0,parties:0,tournois:0,delta:0,carriere:(j.carriere!=null?j.carriere:(j.tournois||0)),ecole:j.ecole||'',age:j.age||'',cat:j.cat||''};
   });
   saveJoueursDB(newDb);saveTournoisDB([]);
   updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
@@ -1037,6 +1037,8 @@ function parseGrille(txt){
 
 const K_GAIN=15,K_PERTE=10,ELO_DEPART=200;
 const expected=(a,b)=>1/(1+Math.pow(10,(b-a)/400));
+// "nouveau" = tout premier tournoi de la CARRIERE (pas de la saison). Repli sur tournois pour les vieilles donnees.
+const estNouveau=j=>(j.carriere!=null?j.carriere:(j.tournois||0))===1;
 
 function calculerElo(players,dbAvant){
   const eloAvant={};
@@ -1083,6 +1085,8 @@ function parseEtCalculer(){
     db[n].defaites=(db[n].defaites||0)+(s?.d||0);
     db[n].nulles=(db[n].nulles||0)+(s?.n||0);
     db[n].parties=(db[n].parties||0)+(s?.v||0)+(s?.d||0)+(s?.n||0);
+    // carriere = total de tournois joues depuis toujours (ne se remet PAS a zero a l'archivage saison)
+    db[n].carriere=(db[n].carriere!=null?db[n].carriere:(db[n].tournois||0))+1;
     db[n].tournois=(db[n].tournois||0)+1;
   }
   // Les joueurs ABSENTS de ce tournoi n'ont pas evolue : "Evolution" neutre (=), pas un vieux delta
@@ -1172,7 +1176,7 @@ function renderClassement(){
   filtered.forEach(([nom,j],i)=>{
     const rank=i+1,d=j.delta||0;
     const dHtml=d>0?'<span class="delta up">+'+d+'</span>':d<0?'<span class="delta down">'+d+'</span>':'<span class="delta eq">=</span>';
-    const newTag=j.tournois===1?'<span class="tag new">nouveau</span>':'';
+    const newTag=estNouveau(j)?'<span class="tag new">nouveau</span>':'';
     const catTag=j.cat?'<span class="tag" style="background:rgba(91,142,240,.1);color:var(--blue)">'+j.cat+'</span>':'';
     const nomEsc=nom.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     html+='<tr class="'+(rank<=3?'rank-'+rank:'')+'">'+
@@ -1296,6 +1300,7 @@ function annulerDernierTournoi(){
       db[nom].nulles=Math.max(0,(db[nom].nulles||0)-(c.n||0));
       db[nom].parties=Math.max(0,(db[nom].parties||0)-((c.v||0)+(c.d||0)+(c.n||0)));
       db[nom].tournois=Math.max(0,(db[nom].tournois||0)-1);
+      db[nom].carriere=Math.max(0,(db[nom].carriere||0)-1);
       // Restaurer l'Elo d'avant ce tournoi (exact si connu, sinon on retire le delta)
       if(typeof c.eloBefore==='number')db[nom].elo=c.eloBefore;
       else db[nom].elo=Math.max(100,(db[nom].elo||ELO_DEPART)-(c.delta||0));
@@ -1433,7 +1438,7 @@ function buildClassementHTML(forEmbed){
     rows+='<tr'+rc+'>'+
       '<td class="c num2">'+rank+'</td>'+
       '<td class="c md">'+(medals[i]||'')+'</td>'+
-      '<td class="nm">'+nom+(j.tournois===1?'<span class="new">nouveau</span>':'')+'</td>'+
+      '<td class="nm">'+nom+(estNouveau(j)?'<span class="new">nouveau</span>':'')+'</td>'+
       '<td class="sc">'+(j.ecole||'&mdash;')+'</td>'+
       '<td class="c ag">'+(j.age||'&mdash;')+'</td>'+
       '<td class="elo">'+j.elo+'</td>'+
