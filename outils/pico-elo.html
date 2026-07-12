@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pico Elo &mdash; Cannes Echecs</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{--bg:#0b0f1a;--surface:#121828;--surface2:#1a2235;--border:#1e2d45;--border2:#253550;--gold:#d4a843;--gold2:#f0c96a;--green:#4eca8b;--red:#e05c6e;--blue:#5b8ef0;--text:#e8eaf2;--muted:#6b7a99;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+header{padding:3.5rem 2rem 2.5rem;text-align:center;position:relative;border-bottom:1px solid var(--border);background:radial-gradient(ellipse 80% 60% at 50% 0%,#0f1e35 0%,var(--bg) 100%);}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 400px at 50% -40px,rgba(91,142,240,.07) 0%,transparent 70%);pointer-events:none;}
+.header-club{display:inline-block;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:rgba(91,142,240,.1);border:1px solid rgba(91,142,240,.2);padding:.3rem 1rem;border-radius:999px;margin-bottom:1.25rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,4rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;background:linear-gradient(135deg,#d4a843 0%,#f5d47a 45%,#d4a843 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+h1 span{background:linear-gradient(135deg,#e8eaf2,#a0aabf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.subtitle{margin-top:.6rem;font-size:.82rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:300;}
+.k-badges{display:flex;gap:.6rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;}
+.k-badge{font-family:'DM Mono',monospace;font-size:.72rem;padding:.3rem .9rem;border-radius:999px;border:1px solid;letter-spacing:.05em;backdrop-filter:blur(4px);}
+.k-badge.win{border-color:rgba(78,202,139,.35);color:var(--green);background:rgba(78,202,139,.06);}
+.k-badge.lose{border-color:rgba(224,92,110,.35);color:var(--red);background:rgba(224,92,110,.06);}
+.k-badge.start{border-color:rgba(212,168,67,.35);color:var(--gold);background:rgba(212,168,67,.06);}
+.header-btns{display:flex;gap:.5rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap;}
+main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem;}
+.section-title{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
+.chess-divider{text-align:center;color:var(--border2);font-size:1.2rem;letter-spacing:.5em;margin:2rem 0;user-select:none;}
+.save-card{background:var(--surface);border:1px solid rgba(212,168,67,.5);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;box-shadow:0 0 0 1px rgba(91,142,240,.06) inset;}
+.save-card-icon{font-size:2rem;line-height:1;flex-shrink:0;}
+.save-card-text{flex:1;min-width:180px;}
+.save-card-text strong{display:block;font-size:.95rem;color:var(--gold);margin-bottom:.2rem;}
+.save-card-text p{font-size:.8rem;color:var(--muted);line-height:1.5;}
+.save-info{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);margin-top:.4rem;}
+.save-card-btns{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:2rem;}
+.import-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:600px){.import-grid{grid-template-columns:1fr;}}
+.field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:.35rem;letter-spacing:.06em;text-transform:uppercase;}
+input[type=text]{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:.6rem .9rem;font-family:'DM Mono',monospace;font-size:.9rem;color:var(--text);outline:none;transition:border-color .2s;}
+input[type=text]:focus{border-color:var(--gold);}
+textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:.75rem 1rem;font-family:'DM Mono',monospace;font-size:.78rem;color:var(--text);outline:none;resize:vertical;min-height:180px;line-height:1.5;transition:border-color .2s;}
+textarea:focus{border-color:var(--gold);}
+textarea::placeholder{color:#3a3e52;}
+.btn-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;}
+button{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;padding:.6rem 1.4rem;border-radius:8px;border:none;cursor:pointer;transition:all .15s;letter-spacing:.02em;}
+.btn-primary{background:var(--gold);color:#0e0f13;}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border2);}
+.btn-secondary:hover{color:var(--text);background:var(--surface2);}
+.btn-export{background:transparent;color:var(--green);border:1px solid var(--green);}
+.btn-export:hover{background:rgba(78,202,139,.1);}
+.btn-save{background:var(--gold);color:#0e0f13;font-weight:600;}
+.btn-save:hover{background:var(--gold2);}
+.btn-load{background:transparent;color:var(--gold);border:1px solid rgba(212,168,67,.5);}
+.btn-load:hover{background:rgba(212,168,67,.08);}
+.btn-publish{background:linear-gradient(135deg,#c8981e,#e8c060);color:#0b0f1a;font-weight:700;box-shadow:0 2px 12px rgba(212,168,67,.2);}
+.btn-publish:hover{background:linear-gradient(135deg,#e8c060,#c8981e);transform:translateY(-1px);box-shadow:0 4px 18px rgba(212,168,67,.3);}
+.btn-help{background:transparent;border:1px solid rgba(212,168,67,.35);color:var(--gold);font-size:.82rem;}
+.btn-help:hover{background:rgba(212,168,67,.08);}
+.btn-danger{background:transparent;color:var(--red);border:1px solid rgba(224,92,110,.4);}
+.btn-danger:hover{background:rgba(224,92,110,.08);}
+.btn-print{background:transparent;color:#9bb0c9;border:1px solid rgba(155,176,201,.4);}
+.btn-print:hover{background:rgba(155,176,201,.08);}
+#file-import{display:none;}
+.msg{padding:.75rem 1rem;border-radius:8px;font-size:.85rem;margin-top:1rem;display:none;line-height:1.5;}
+.msg.ok{background:rgba(78,202,139,.1);border:1px solid rgba(78,202,139,.3);color:var(--green);display:block;}
+.msg.err{background:rgba(224,92,110,.1);border:1px solid rgba(224,92,110,.3);color:var(--red);display:block;}
+#classement-section{display:none;}
+.classement-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem;}
+.classement-meta{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:.88rem;}
+thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}
+thead tr th{letter-spacing:.08em;}
+th{padding:.7rem .9rem;text-align:left;font-size:.7rem;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+th.num,td.num{text-align:right;}
+th.ctr,td.ctr{text-align:center;}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--surface2);}
+tbody tr.rank-1{background:rgba(212,168,67,.08);}
+tbody tr.rank-2{background:rgba(91,142,240,.05);}
+tbody tr.rank-3{background:rgba(212,168,67,.04);}
+td{padding:.65rem .9rem;vertical-align:middle;}
+td.medal{font-size:1.1rem;width:2.5rem;text-align:center;}
+td.name{font-weight:500;cursor:pointer;}
+td.name:hover{color:var(--gold);}
+td.rank-num{font-family:'DM Mono',monospace;font-size:.85rem;color:var(--muted);width:2rem;text-align:center;}
+td.elo-val{font-family:'DM Mono',monospace;font-size:1rem;font-weight:500;text-align:right;}
+.delta{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:500;padding:.15rem .5rem;border-radius:999px;}
+.delta.up{color:var(--green);background:rgba(78,202,139,.12);}
+.delta.down{color:var(--red);background:rgba(224,92,110,.12);}
+.delta.eq{color:var(--muted);background:rgba(122,127,153,.1);}
+.tag{display:inline-block;font-size:.7rem;padding:.1rem .45rem;border-radius:4px;margin-left:.4rem;font-weight:400;}
+.tag.new{background:rgba(212,168,67,.12);color:var(--gold);}
+td.school{color:var(--muted);font-size:.82rem;}
+td.age{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--muted);text-align:center;}
+#parse-preview{display:none;margin-top:1rem;}
+.preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;max-height:200px;overflow-y:auto;margin-bottom:1rem;}
+.p-chip{background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:.4rem .7rem;font-size:.78rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;}
+.p-chip .pname{color:var(--text);}
+.p-chip .pscore{font-family:'DM Mono',monospace;color:var(--gold);font-size:.75rem;}
+#historique-section{margin-top:2.5rem;display:none;}
+.hist-list{display:flex;flex-direction:column;gap:.5rem;}
+.hist-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.hist-name{font-weight:500;flex:1;}
+.hist-meta{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);}
+.joueur-grid{display:grid;grid-template-columns:1.3fr 1.1fr 0.7fr 1.3fr 0.65fr auto;gap:.5rem;max-height:300px;overflow-y:auto;margin:1rem 0;}
+.jou-head{font-size:.68rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding-bottom:.35rem;border-bottom:1px solid var(--border);}
+.joueur-grid input{font-size:.82rem;padding:.45rem .7rem;}
+.add-row-btn{font-size:.8rem;color:var(--gold);background:transparent;border:1px dashed rgba(212,168,67,.3);border-radius:6px;width:100%;padding:.5rem;margin-top:.5rem;cursor:pointer;}
+.add-row-btn:hover{background:rgba(212,168,67,.05);}
+.del-btn{background:transparent;border:none;color:#3a3e52;font-size:1rem;cursor:pointer;padding:.2rem .4rem;border-radius:4px;}
+.del-btn:hover{color:var(--red);}
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;backdrop-filter:blur(4px);}
+.modal-overlay.hidden{display:none;}
+.modal{background:#16181f;border:1px solid #363a4a;border-radius:16px;max-width:700px;width:100%;padding:2.5rem;position:relative;margin:auto;}
+.modal.modal-sm{max-width:480px;}
+.modal.modal-lg{max-width:820px;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;line-height:1;padding:.25rem .5rem;border-radius:6px;}
+.modal-close:hover{color:var(--text);background:var(--surface2);}
+.modal h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:.2rem;}
+.modal-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.5rem;}
+.aide-block{margin-bottom:1.75rem;}
+.aide-block h3{font-size:.68rem;font-family:'DM Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);}
+.aide-step{display:flex;gap:.85rem;margin-bottom:.65rem;align-items:flex-start;}
+.aide-num{flex-shrink:0;width:1.5rem;height:1.5rem;border-radius:50%;background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:.72rem;display:flex;align-items:center;justify-content:center;}
+.aide-step p{font-size:.86rem;line-height:1.65;color:#c8cad8;padding-top:.1rem;}
+.aide-step p strong{color:var(--text);}
+.aide-step p code{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--gold);background:rgba(212,168,67,.08);padding:.1rem .35rem;border-radius:4px;}
+.formula-box{background:#1e2029;border:1px solid var(--border2);border-radius:10px;padding:1.25rem;font-family:'DM Mono',monospace;font-size:.78rem;line-height:2.1;}
+.formula-box .fl{color:var(--muted);font-size:.7rem;}
+.formula-box .fv{color:var(--gold);}
+.formula-box .fplus{color:var(--green);}
+.formula-box .fminus{color:var(--red);}
+.formula-box .fnull{color:#5b8ef0;}
+.aide-tip{background:rgba(91,142,240,.07);border:1px solid rgba(91,142,240,.2);border-radius:8px;padding:.75rem 1rem;font-size:.82rem;color:#9bb8e8;line-height:1.6;margin-top:.5rem;}
+.aide-tip strong{color:#5b8ef0;}
+select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:.6rem .9rem;font-family:'DM Mono',monospace;font-size:.85rem;color:var(--text);outline:none;cursor:pointer;}
+select:focus{border-color:var(--gold);}
+/* GRAPHIQUE */
+.graph-wrap{position:relative;height:260px;margin:1rem 0;}
+canvas{width:100%!important;}
+/* IMPRESSION */
+.print-header{display:none;}
+@media print{
+  header,#joueurs-section,.save-card,#historique-section,.chess-divider,
+  .btn-row,.classement-header .save-card-btns,#import-section,.card,#parse-preview,
+  .modal-overlay,footer{display:none!important;}
+  .classement-header>div:last-child{display:none!important;}
+  body{background:#fff;color:#000;}
+  #classement-section{display:block!important;}
+  .table-wrap{border:1px solid #ccc;}
+  tbody tr.rank-1{background:#fffbe6!important;}
+  tbody tr.rank-2{background:#f5f8ff!important;}
+  tbody tr.rank-3{background:#fff5ee!important;}
+  .print-header{display:block!important;text-align:center;padding:1rem 0 1.5rem;border-bottom:2px solid #333;margin-bottom:1rem;}
+  .print-header h2{font-size:1.4rem;font-weight:700;}
+  .print-header p{font-size:.85rem;color:#555;margin-top:.3rem;}
+  .delta.up{color:#2a7a2a!important;}
+  .delta.down{color:#8b0000!important;}
+  td.name{cursor:default;}
+}
+
+/* SAISON */
+.saison-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.72rem;padding:.25rem .7rem;border-radius:999px;border:1px solid rgba(212,168,67,.4);color:var(--gold);background:rgba(212,168,67,.06);margin-left:.75rem;}
+/* CATEGORIES */
+.cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.25rem;}
+.cat-tab{font-size:.78rem;padding:.4rem 1rem;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;}
+.cat-tab:hover{color:var(--text);background:var(--surface2);}
+.cat-tab.active{background:var(--gold);color:#0e0f13;border-color:var(--gold);font-weight:600;}
+/* DOUBLONS ALERTE */
+.doublon-list{display:flex;flex-direction:column;gap:.4rem;margin:.75rem 0;}
+.doublon-item{display:flex;align-items:center;justify-content:space-between;gap:.5rem;background:var(--surface2);border:1px solid rgba(224,92,110,.3);border-radius:8px;padding:.5rem .85rem;flex-wrap:wrap;}
+.doublon-nom{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--red);}
+.doublon-suggest{font-size:.75rem;color:var(--muted);}
+.doublon-suggest strong{color:var(--text);}
+/* REGISTRE 5 cols */
+.joueur-grid{display:grid;grid-template-columns:1.3fr 1.2fr 1fr 1.5fr 0.7fr auto;gap:.5rem;max-height:320px;overflow-y:auto;margin:1rem 0;}
+/* Mobile : on garde les colonnes lisibles et on laisse defiler horizontalement (en-tetes + champs alignes) */
+@media(max-width:640px){
+  .joueur-grid{grid-template-columns:minmax(110px,1.3fr) minmax(95px,1.2fr) minmax(64px,.9fr) minmax(120px,1.4fr) minmax(54px,.7fr) auto;overflow-x:auto;}
+  .joueur-grid input{font-size:.8rem;padding:.4rem .5rem;}
+}
+
+footer{text-align:center;padding:2rem;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border);margin-top:3rem;background:radial-gradient(ellipse 60% 100% at 50% 100%,rgba(91,142,240,.04) 0%,transparent 70%);}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-club">Cannes &Eacute;checs</div>
+  <h1>Pico <span>Elo</span></h1>
+  <p class="subtitle">Classement scolaire interne</p>
+  <div class="k-badges">
+    <span class="k-badge start">D&eacute;part 200</span>
+    <span class="k-badge win">K+ 15 victoire</span>
+    <span class="k-badge lose">K&minus; 10 d&eacute;faite</span>
+  </div>
+  <div class="header-btns">
+    <button class="btn-help" onclick="openModal('modal-aide')">&#x2753; Comment ca marche ?</button>
+    <button class="btn-secondary" onclick="openModal('modal-fusion')" style="font-size:.82rem;">&#x1F500; Fusionner deux noms</button>
+    <button class="btn-secondary" onclick="ouvrirAbsences()" style="font-size:.82rem;">&#x1F4CB; Signaler absences</button>
+    <button class="btn-secondary" onclick="openModal('modal-saison')" style="font-size:.82rem;">&#x1F4C5; Gestion des saisons</button>
+  </div>
+</header>
+
+<!-- MODAL AIDE -->
+<div id="modal-aide" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('modal-aide')">
+ <div class="modal">
+  <button class="modal-close" onclick="closeModal('modal-aide')">&#x2715;</button>
+  <h2>Comment ca marche ?</h2>
+  <p class="modal-sub">Pico Elo &mdash; Guide complet pour les animateurs</p>
+  <div class="aide-block">
+   <h3>Mise en place initiale</h3>
+   <div class="aide-step"><div class="aide-num">1</div><p><strong>Renseignez le registre</strong> avec le nom complet tel qu'il apparait dans Papi, l'ecole et l'age. Chaque nouveau joueur demarre a <strong>Elo 200</strong>. Un joueur absent du registre est ajoute automatiquement lors de l'import.</p></div>
+   <div class="aide-step"><div class="aide-num">2</div><p><strong>Exportez une premiere sauvegarde</strong> et rangez le fichier <code>.json</code> dans un dossier Google Drive partage. Ce fichier est la memoire du club d'un mois sur l'autre.</p></div>
+  </div>
+  <div class="aide-block">
+   <h3>Apres chaque tournoi Pico (5 minutes)</h3>
+   <div class="aide-step"><div class="aide-num">1</div><p>Sur la page FFE du tournoi, selectionnez tout le texte (<code>Ctrl+A</code> puis <code>Ctrl+C</code>).</p></div>
+   <div class="aide-step"><div class="aide-num">2</div><p><strong>Chargez votre sauvegarde</strong> du mois precedent pour retrouver tous les Elo accumules.</p></div>
+   <div class="aide-step"><div class="aide-num">3</div><p><strong>Collez la grille</strong>, renseignez le nom et la date du tournoi, puis cliquez <code>Analyser &amp; Calculer</code>.</p></div>
+   <div class="aide-step"><div class="aide-num">4</div><p><strong>Exportez la sauvegarde</strong> mise a jour pour le mois suivant.</p></div>
+   <div class="aide-step"><div class="aide-num">5</div><p><strong>Publiez le classement</strong> pour l'affichage au club ou sur le site. Imprimez-le directement via le bouton dedie.</p></div>
+  </div>
+  <div class="aide-block">
+   <h3>Outils de gestion</h3>
+   <div class="aide-step"><div class="aide-num" style="font-size:.9rem">&#x1F500;</div><p><strong>Fusionner deux noms</strong> &mdash; si un meme enfant apparait sous deux orthographes differentes (ex : "DE RYCKE Alexandre" et "De Rycke Alexandre"), fusionnez-les. Les statistiques sont additionnees, l'Elo du nom correct est conserve.</p></div>
+   <div class="aide-step"><div class="aide-num" style="font-size:.9rem">&#x1F4CB;</div><p><strong>Signaler les absences</strong> &mdash; marquez un joueur comme absent pour un tournoi. Cela ne modifie pas son Elo mais conserve la trace dans l'historique.</p></div>
+   <div class="aide-step"><div class="aide-num" style="font-size:.9rem">&#x1F4C8;</div><p><strong>Graphique d'evolution</strong> &mdash; cliquez sur le nom d'un joueur dans le classement pour voir sa courbe de progression Elo mois par mois.</p></div>
+   <div class="aide-step"><div class="aide-num" style="font-size:.9rem">&#x1F5A8;</div><p><strong>Impression directe</strong> &mdash; le bouton "Imprimer" formate le classement en A4 propre, sans passer par l'export HTML. Idéal pour le panneau du club.</p></div>
+  </div>
+  <div class="aide-block">
+   <h3>La formule Elo Pico</h3>
+   <div class="formula-box">
+    <div><span class="fl">Score attendu  = </span><span class="fv">1 / ( 1 + 10 ^ ( (Elo_adv - Elo_joueur) / 400 ) )</span></div>
+    <div><span class="fl">Si victoire    : </span><span class="fplus">Delta = 15 x (1 - Score_attendu)</span> <span class="fl">max +15 pts</span></div>
+    <div><span class="fl">Si defaite     : </span><span class="fminus">Delta = 10 x (0 - Score_attendu)</span> <span class="fl">max -10 pts</span></div>
+    <div><span class="fl">Si nulle       : </span><span class="fnull">Delta = 12.5 x (0.5 - Score_attendu)</span></div>
+    <div style="margin-top:.4rem"><span class="fl">Elo minimum garanti : </span><span class="fv">100 pts</span></div>
+   </div>
+   <div class="aide-tip" style="margin-top:.75rem"><strong>Exemple :</strong> Lea (250) bat Thomas (180). Score attendu &#x2248; 0.60. Lea : <strong>+6 pts</strong>. Thomas : <strong>-4 pts</strong>.</div>
+  </div>
+  <div style="text-align:center;margin-top:1.5rem"><button class="btn-primary" onclick="closeModal('modal-aide')">Fermer</button></div>
+ </div>
+</div>
+
+
+<!-- MODAL SAISON -->
+<div id="modal-saison" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('modal-saison')">
+ <div class="modal modal-sm">
+  <button class="modal-close" onclick="closeModal('modal-saison')">&#x2715;</button>
+  <h2>Gestion des saisons</h2>
+  <p class="modal-sub">Archivez la saison en cours et repartez pour une nouvelle, en choisissant le point de depart des Elo.</p>
+  <div id="saison-info" style="background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:.85rem 1rem;margin-bottom:1.25rem;font-size:.83rem;line-height:1.8;"></div>
+  <div class="field" style="margin-bottom:.75rem">
+   <label>Nom de la saison a archiver</label>
+   <input type="text" id="saison-nom" placeholder="Saison 2024-2025">
+  </div>
+  <div class="field" style="margin-bottom:1rem">
+   <label>Elo de depart pour la nouvelle saison</label>
+   <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.35rem">
+    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;cursor:pointer;text-transform:none;letter-spacing:0">
+     <input type="radio" name="saison-reset" value="conserver" checked style="accent-color:var(--gold)">
+     <span><strong style="color:var(--text)">Conserver les Elo</strong> &mdash; les enfants repartent avec leur Elo de fin de saison</span>
+    </label>
+    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;cursor:pointer;text-transform:none;letter-spacing:0">
+     <input type="radio" name="saison-reset" value="reset" style="accent-color:var(--gold)">
+     <span><strong style="color:var(--text)">Repartir a 200</strong> &mdash; tout le monde repart a zero</span>
+    </label>
+    <label style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;cursor:pointer;text-transform:none;letter-spacing:0">
+     <input type="radio" name="saison-reset" value="moitie" style="accent-color:var(--gold)">
+     <span><strong style="color:var(--text)">Elo reduit de moitie</strong> &mdash; (Elo + 200) / 2, pour lisser sans tout effacer</span>
+    </label>
+   </div>
+  </div>
+  <div id="saison-msg" class="msg"></div>
+  <div class="btn-row" style="margin-top:1.25rem;justify-content:flex-end">
+   <button class="btn-secondary" onclick="closeModal('modal-saison')">Annuler</button>
+   <button class="btn-danger" onclick="archiverSaison()">&#x1F4E6; Archiver &amp; Nouvelle saison</button>
+  </div>
+ </div>
+</div>
+
+<!-- MODAL FUSION -->
+<div id="modal-fusion" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('modal-fusion')">
+ <div class="modal modal-sm">
+  <button class="modal-close" onclick="closeModal('modal-fusion')">&#x2715;</button>
+  <h2>Fusionner deux noms</h2>
+  <p class="modal-sub">Un meme enfant sous deux orthographes ? Fusionnez-les. Les statistiques seront additionnees, l'Elo du nom correct sera conserve.</p>
+  <div class="field"><label>Nom a supprimer (le doublon)</label><select id="fusion-src"></select></div>
+  <div style="text-align:center;padding:.75rem 0;color:var(--muted);font-size:1.2rem;">&#x2193; sera fusionne dans &#x2193;</div>
+  <div class="field"><label>Nom a conserver (le nom correct)</label><select id="fusion-dst"></select></div>
+  <div id="fusion-msg" class="msg"></div>
+  <div class="btn-row" style="margin-top:1.25rem;justify-content:flex-end">
+   <button class="btn-secondary" onclick="closeModal('modal-fusion')">Annuler</button>
+   <button class="btn-danger" onclick="doFusion()">&#x1F500; Fusionner</button>
+  </div>
+ </div>
+</div>
+
+<!-- MODAL ABSENCES -->
+<div id="modal-absences" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('modal-absences')">
+ <div class="modal modal-sm">
+  <button class="modal-close" onclick="closeModal('modal-absences')">&#x2715;</button>
+  <h2>Signaler des absences</h2>
+  <p class="modal-sub">Notez qu'un joueur etait absent (non retire du club). Son Elo n'est pas modifie.</p>
+  <div class="import-grid">
+   <div class="field"><label>Tournoi concerne</label><input type="text" id="abs-tournoi" placeholder="Pico Juin 2025"></div>
+   <div class="field"><label>Date</label><input type="text" id="abs-date" placeholder="06/2025"></div>
+  </div>
+  <div class="field" style="margin-top:.5rem"><label>Joueurs absents (cochez)</label>
+   <div id="abs-liste" style="max-height:220px;overflow-y:auto;margin-top:.5rem;display:flex;flex-direction:column;gap:.35rem;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:.75rem"></div>
+  </div>
+  <div id="abs-msg" class="msg"></div>
+  <div class="btn-row" style="margin-top:1.25rem;justify-content:flex-end">
+   <button class="btn-secondary" onclick="closeModal('modal-absences')">Annuler</button>
+   <button class="btn-primary" onclick="saveAbsences()">&#x2713; Enregistrer</button>
+  </div>
+ </div>
+</div>
+
+<!-- MODAL GRAPHIQUE -->
+<div id="modal-graph" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('modal-graph')">
+ <div class="modal modal-lg">
+  <button class="modal-close" onclick="closeModal('modal-graph')">&#x2715;</button>
+  <h2 id="graph-title">Evolution Elo</h2>
+  <p class="modal-sub" id="graph-sub"></p>
+  <div class="graph-wrap"><canvas id="graph-canvas"></canvas></div>
+  <div id="graph-stats" style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;font-family:'DM Mono',monospace;font-size:.78rem;color:var(--muted)"></div>
+ </div>
+</div>
+
+<!-- MODAL PUBLIER SUR LE SITE -->
+<div id="modal-embed" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('modal-embed')">
+ <div class="modal">
+  <button class="modal-close" onclick="closeModal('modal-embed')">&#x2715;</button>
+  <h2>Publier sur le site du club</h2>
+  <p class="modal-sub">Le fichier <code style="color:var(--gold)">classement.html</code> vient d'etre telecharge. Le site <strong>cannes-echecs.fr</strong> est deja configure pour l'afficher : il ne reste qu'a le mettre en ligne.</p>
+
+  <div class="aide-block">
+   <h3>Chaque mois &mdash; 2 gestes</h3>
+   <div class="aide-step"><div class="aide-num">1</div><p><strong>Placez <code>classement.html</code> dans le dossier du site</strong> <code>Desktop\SiteACE</code>, en <strong>ecrasant</strong> l'ancien fichier du meme nom.</p></div>
+   <div class="aide-step"><div class="aide-num">2</div><p><strong>Publiez le site</strong> (commande habituelle <code>git push origin master:main</code>, ou le raccourci que vous utilisez deja). Le classement apparait sur <code>cannes-echecs.fr</code>, onglet <strong>Tournois &rarr; PICO</strong>, quelques minutes plus tard.</p></div>
+  </div>
+
+  <div class="aide-tip"><strong>C'est tout.</strong> La page du site s'adapte automatiquement a la taille du classement &mdash; rien d'autre a regler, aucun code a coller.</div>
+
+  <div class="aide-block" style="margin-top:1.25rem">
+   <h3>Cas particulier : hebergement separe</h3>
+   <p style="font-size:.82rem;color:#c8cad8;line-height:1.6;margin-bottom:.6rem">Si un jour le classement est heberge ailleurs que dans le site (Netlify, autre serveur), voici le code d'integration a coller dans une page &mdash; en remplacant l'adresse :</p>
+   <textarea id="embed-code" readonly style="min-height:70px;font-size:.78rem" onclick="this.select()"><iframe src="https://VOTRE-ADRESSE/classement.html" style="width:100%;height:1400px;border:0;border-radius:12px" title="Classement Pico Elo - Cannes Echecs" loading="lazy"></iframe></textarea>
+   <div class="btn-row" style="margin-top:.5rem">
+    <button class="btn-secondary" id="btn-copier-embed" onclick="copierEmbed()">&#x1F4CB; Copier le code d'integration</button>
+   </div>
+  </div>
+
+  <div style="text-align:center;margin-top:1.5rem"><button class="btn-primary" onclick="closeModal('modal-embed')">Compris</button></div>
+ </div>
+</div>
+
+<main>
+
+ <!-- BANDEAU CONFLIT -->
+ <div id="conflict-banner" style="display:none;background:rgba(224,92,110,.1);border:1px solid rgba(224,92,110,.45);border-radius:12px;padding:1rem 1.25rem;margin-top:2rem;margin-bottom:1rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+   <span style="font-size:1.1rem">&#x26A0;&#xFE0F;</span>
+   <strong style="color:var(--red);font-size:.9rem">Le fichier partage a ete modifie par un autre entraineur</strong>
+  </div>
+  <p style="font-size:.82rem;color:#d8b0b8;line-height:1.6;margin-bottom:.75rem">Pour ne rien ecraser, l'auto-sauvegarde est en pause. Rechargez la derniere version (recommande), ou forcez l'enregistrement de vos donnees si vous etes sur qu'elles sont les bonnes.</p>
+  <div class="btn-row" style="margin-top:0">
+   <button class="btn-primary" onclick="rechargerDepuisFichier()">&#x21BB; Recharger la derniere version</button>
+   <button class="btn-danger" onclick="forcerEcriture()">Forcer mes donnees</button>
+  </div>
+ </div>
+
+ <!-- FICHIER CONNECTE (coffre-fort) -->
+ <div style="margin-top:2rem">
+  <p class="section-title">Coffre-fort &mdash; Fichier partage du club</p>
+  <div class="save-card">
+   <div class="save-card-icon">&#x1F510;</div>
+   <div class="save-card-text">
+    <strong id="file-name">Aucun fichier connecte</strong>
+    <p>Connectez l'outil a un fichier <code style="color:var(--gold);font-size:.78rem">.json</code> range dans le <strong style="color:var(--text)">dossier Google Drive partage</strong> du club. L'outil <strong style="color:var(--text)">enregistre tout seul</strong> a chaque action et chaque entraineur retrouve les memes donnees. Fini les exports manuels.</p>
+    <div class="save-info" id="file-status" style="margin-top:.4rem"></div>
+    <div class="save-info" id="save-info">Aucune donnee chargee</div>
+    <div class="save-info" id="saison-courante" style="margin-top:.2rem"></div>
+   </div>
+   <div class="save-card-btns">
+    <div id="fs-connect-btns" style="display:flex;gap:.6rem;flex-wrap:wrap">
+     <button class="btn-save" onclick="connecterFichier(false)">&#x1F517; Ouvrir le fichier du club</button>
+     <button class="btn-load" onclick="connecterFichier(true)">&#x2795; Creer un nouveau fichier</button>
+    </div>
+    <div id="fs-manage-btns" style="display:none;gap:.6rem;flex-wrap:wrap;align-items:center">
+     <button class="btn-load" id="btn-reautoriser" style="display:none" onclick="reautoriserFichier()">Reautoriser l'acces</button>
+     <button class="btn-secondary" onclick="rechargerDepuisFichier()">&#x21BB; Recharger</button>
+     <button class="btn-secondary" onclick="deconnecterFichier()">Deconnecter</button>
+    </div>
+   </div>
+  </div>
+  <div id="fs-unsupported" style="display:none;font-size:.8rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:.6rem .9rem;margin-top:.5rem">
+   &#x2139;&#xFE0F; Ce navigateur ne gere pas le fichier connecte (auto-sauvegarde). Utilisez <strong style="color:var(--text)">Chrome</strong> ou <strong style="color:var(--text)">Edge</strong> pour en profiter. En attendant, servez-vous de l'export / import manuel ci-dessous.
+  </div>
+ </div>
+
+ <!-- SAUVEGARDE MANUELLE (secours) -->
+ <div style="margin-top:1.5rem">
+  <p class="section-title">Secours &mdash; Export / import manuel</p>
+  <div class="save-card" style="border-color:var(--border2)">
+   <div class="save-card-icon">&#x1F4BE;</div>
+   <div class="save-card-text">
+    <strong style="color:var(--muted)">Sauvegarde ponctuelle sur votre disque</strong>
+    <p>Pour une copie de secours, ou si vous n'utilisez pas le fichier connecte. Le fichier <code style="color:var(--gold);font-size:.78rem">pico_elo_AAAA-MM-JJ.json</code> conserve tout (Elo, historique, joueurs).</p>
+   </div>
+   <div class="save-card-btns">
+    <button class="btn-save" onclick="exportJSON()">&#x2193; Exporter une copie</button>
+    <button class="btn-load" onclick="document.getElementById('file-import').click()">&#x2191; Charger un fichier</button>
+    <input type="file" id="file-import" accept=".json" onchange="importJSON(event)">
+   </div>
+  </div>
+  <div id="save-msg" class="msg"></div>
+ </div>
+
+ <div class="chess-divider">&#x265F; &#x2659; &#x265F; &#x2659; &#x265F;</div>
+
+ <!-- REGISTRE -->
+ <div id="joueurs-section">
+  <p class="section-title">1 &mdash; Registre des joueurs</p>
+  <div class="card">
+   <p style="font-size:.85rem;color:var(--muted);margin-bottom:.25rem">Renseignez chaque enfant (nom identique a Papi, ecole, age). Les joueurs absents du registre sont ajoutes automatiquement a Elo 200 lors de l'import.</p>
+   <div class="joueur-grid" id="joueur-grid">
+    <div class="jou-head">NOM <span style="font-size:.6rem;color:var(--gold);font-weight:400">(comme Papi)</span></div>
+    <div class="jou-head">Prenom</div>
+    <div class="jou-head">Cat.</div>
+    <div class="jou-head">Ecole</div>
+    <div class="jou-head">Age</div>
+    <div class="jou-head"></div>
+   </div>
+   <button class="add-row-btn" onclick="addJoueurRow()">+ Ajouter un joueur</button>
+   <div class="btn-row">
+    <button class="btn-primary" onclick="saveJoueurs()">&#x1F4BE; Enregistrer</button>
+    <button class="btn-secondary" onclick="exportJoueursCSV()">&#x2193; CSV joueurs</button>
+   </div>
+   <div id="joueurs-msg" class="msg"></div>
+  </div>
+ </div>
+
+ <div class="chess-divider">&#x265F; &#x2659; &#x265F; &#x2659; &#x265F;</div>
+
+ <!-- IMPORT GRILLE -->
+ <div id="import-section">
+  <p class="section-title">2 &mdash; Importer la grille Papi</p>
+  <div class="card">
+   <div class="import-grid">
+    <div class="field"><label>Nom du tournoi</label><input type="text" id="tournoi-nom" placeholder="Pico Juin 2025"></div>
+    <div class="field"><label>Date</label><input type="text" id="tournoi-date" placeholder="06/2025"></div>
+   </div>
+   <div class="field">
+    <label>Grille de resultats &mdash; Copier-coller la page FFE entiere</label>
+    <textarea id="grille-input" placeholder="Collez ici le texte integral de la grille Papi :
+
+1 VISCONTI Ylan 1832 F BenM FRA PAC + 43N + 18B + 4N + 6B + 3B + 2N 6 24 26
+2 DE RYCKE Alexandre 1878 F BenM FRA PAC + 27B + 13N + 8B + 7N + 5B - 1B 5 23 26
+..."></textarea>
+   </div>
+   <div class="btn-row">
+    <button class="btn-primary" onclick="parseEtCalculer()">&#x26A1; Analyser &amp; Calculer les Elo</button>
+    <button class="btn-secondary" onclick="chargerDemo()">Exemple (tournoi 06)</button>
+   </div>
+   <div id="import-msg" class="msg"></div>
+   <div id="parse-preview"></div>
+  </div>
+ </div>
+
+ <!-- CLASSEMENT -->
+ <div id="classement-section">
+  <div class="print-header">
+   <h2 id="print-title">Classement Pico Elo &mdash; Cannes Echecs</h2>
+   <p id="print-meta"></p>
+  </div>
+  <div class="classement-header">
+   <div>
+    <p class="section-title">3 &mdash; Classement Pico Elo</p>
+    <p class="classement-meta" id="classement-meta"></p>
+   </div>
+   <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+    <button class="btn-publish" onclick="exportPourSite()">&#x1F310; Publier sur le site</button>
+    <button class="btn-print" onclick="exportPageClassement()" style="color:var(--gold);border-color:rgba(212,168,67,.4)">&#x1F4C4; Page datee</button>
+    <button class="btn-print" onclick="imprimerClassement()">&#x1F5A8; Imprimer</button>
+    <button class="btn-export" onclick="exportClassementCSV()">&#x2193; CSV</button>
+    <button class="btn-save" style="font-size:.82rem;padding:.5rem 1rem" onclick="exportJSON()">&#x1F4BE; Sauvegarder</button>
+   </div>
+  </div>
+  <div id="alerte-doublons" style="display:none;background:rgba(224,92,110,.07);border:1px solid rgba(224,92,110,.3);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;">
+   <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-size:1rem">&#x26A0;&#xFE0F;</span>
+    <strong style="font-size:.85rem;color:var(--red)">Joueurs non reconnus detectes a l'import</strong>
+    <span style="font-size:.75rem;color:var(--muted);margin-left:.25rem">Verifiez et fusionnez si besoin</span>
+   </div>
+   <div class="doublon-list" id="doublon-list"></div>
+   <button class="btn-secondary" style="font-size:.78rem;margin-top:.35rem" onclick="document.getElementById('alerte-doublons').style.display='none'">Ignorer</button>
+  </div>
+  <div class="cat-tabs" id="cat-tabs">
+   <button class="cat-tab active" onclick="filtrerCat('tous',this)">Tous</button>
+  </div>
+  <div class="table-wrap">
+   <table>
+    <thead><tr>
+     <th class="ctr">#</th><th class="ctr"></th>
+     <th>Joueur <span style="font-size:.62rem;font-weight:400;color:var(--muted)">(cliquer = courbe)</span></th>
+     <th>Ecole</th><th class="ctr">Cat.</th><th class="ctr">Age</th><th class="num">Pico Elo</th>
+     <th class="ctr">Evolution</th><th class="ctr">V</th><th class="ctr">D</th>
+     <th class="ctr">N</th><th class="ctr" title="Total parties">Parties</th><th class="ctr">Tournois</th>
+    </tr></thead>
+    <tbody id="classement-tbody"></tbody>
+   </table>
+  </div>
+ </div>
+
+ <!-- HISTORIQUE -->
+ <div id="historique-section">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-top:2.5rem;margin-bottom:.75rem">
+   <p class="section-title" style="margin:0">Historique des tournois</p>
+   <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+    <button class="btn-danger" style="font-size:.78rem;padding:.4rem .9rem" onclick="annulerDernierTournoi()">&#x21A9; Annuler dernier import</button>
+    <button class="btn-publish" style="font-size:.82rem;padding:.5rem 1.2rem" onclick="exportPageHistorique()">&#x1F5D3; Publier l'historique</button>
+   </div>
+  </div>
+  <div class="hist-list" id="hist-list"></div>
+ </div>
+</main>
+<footer>Pico Elo &middot; Cannes Echecs &middot; Pensez a exporter votre sauvegarde JSON apres chaque tournoi &#x1F4BE;</footer>
+
+<script>
+
+const KEY_J='pico_joueurs',KEY_T='pico_tournois',KEY_A='pico_absences',KEY_S='pico_saisons',KEY_V='pico_version';
+const loadSaisons=()=>{try{return JSON.parse(localStorage.getItem(KEY_S)||'[]')}catch{return[]}};
+const saveSaisonsDB=s=>{localStorage.setItem(KEY_S,JSON.stringify(s));afterMutation();};
+const loadJoueurs=()=>{try{return JSON.parse(localStorage.getItem(KEY_J)||'{}')}catch{return{}}};
+const loadTournois=()=>{try{return JSON.parse(localStorage.getItem(KEY_T)||'[]')}catch{return[]}};
+const loadAbsences=()=>{try{return JSON.parse(localStorage.getItem(KEY_A)||'[]')}catch{return[]}};
+const saveJoueursDB=db=>{localStorage.setItem(KEY_J,JSON.stringify(db));afterMutation();};
+const saveTournoisDB=t=>{localStorage.setItem(KEY_T,JSON.stringify(t));afterMutation();};
+const saveAbsencesDB=a=>{localStorage.setItem(KEY_A,JSON.stringify(a));afterMutation();};
+const closeModal=id=>document.getElementById(id).classList.add('hidden');
+
+/* ============================================================
+   COFFRE-FORT — Fichier connecte (File System Access API)
+   Ecrit directement dans un vrai fichier .json (Google Drive
+   synchronise). Auto-sauvegarde a chaque modification, avec
+   protection anti-ecrasement entre entraineurs.
+   ============================================================ */
+const FS_SUPPORTED = ('showOpenFilePicker' in window) && ('showSaveFilePicker' in window);
+let _fileHandle = null;          // FileSystemFileHandle du fichier connecte
+let _baselineModified = 0;       // lastModified du fichier au dernier chargement/ecriture
+let _autoSaveTimer = null;       // debounce
+let _conflictPaused = false;     // true si un conflit bloque l'auto-save
+let _applyingRemote = false;     // true pendant qu'on applique un chargement (evite auto-save en boucle)
+
+// -- Mini stockage IndexedDB pour memoriser la poignee de fichier --
+const IDB_NAME='pico_fs',IDB_STORE='handles';
+function idbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open(IDB_NAME,1);r.onupgradeneeded=()=>r.result.createObjectStore(IDB_STORE);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function idbSet(k,v){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put(v,k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}
+async function idbGet(k){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction(IDB_STORE,'readonly');const rq=tx.objectStore(IDB_STORE).get(k);rq.onsuccess=()=>res(rq.result);rq.onerror=()=>rej(rq.error);});}
+async function idbDel(k){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).delete(k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);});}
+
+const getVersion=()=>{const v=parseInt(localStorage.getItem(KEY_V));return isNaN(v)?0:v;};
+const setVersion=v=>localStorage.setItem(KEY_V,String(v));
+
+// Construit l'objet de donnees complet a ecrire dans le fichier
+function buildDataObject(){
+  return {version:3,schema:'pico-elo',dataVersion:getVersion(),
+    exportDate:new Date().toISOString(),club:'Cannes Echecs',
+    joueurs:loadJoueurs(),tournois:loadTournois(),
+    absences:loadAbsences(),saisons:loadSaisons()};
+}
+
+// Applique un objet de donnees charge (fichier ou import) dans localStorage
+function applyDataObject(data){
+  if(!data||!data.joueurs)throw new Error('invalide');
+  _applyingRemote=true;
+  localStorage.setItem(KEY_J,JSON.stringify(data.joueurs));
+  localStorage.setItem(KEY_T,JSON.stringify(data.tournois||[]));
+  localStorage.setItem(KEY_A,JSON.stringify(data.absences||[]));
+  localStorage.setItem(KEY_S,JSON.stringify(data.saisons||[]));
+  setVersion(typeof data.dataVersion==='number'?data.dataVersion:getVersion());
+  _applyingRemote=false;
+}
+
+// Appelee apres CHAQUE modification de donnees -> bump version + auto-save
+function afterMutation(){
+  if(_applyingRemote)return;
+  setVersion(getVersion()+1);
+  if(_fileHandle && !_conflictPaused)scheduleAutoSave();
+}
+
+function scheduleAutoSave(){
+  clearTimeout(_autoSaveTimer);
+  setFileStatus('saving');
+  _autoSaveTimer=setTimeout(()=>{writeToFile().catch(()=>{});},600);
+}
+
+// Verifie que le fichier sur disque n'a pas ete modifie par un autre entraineur
+async function fileChangedOnDisk(){
+  if(!_fileHandle)return false;
+  try{const f=await _fileHandle.getFile();return f.lastModified>_baselineModified+500;}
+  catch{return false;}
+}
+
+async function writeToFile(){
+  if(!_fileHandle)return;
+  // Protection anti-ecrasement : quelqu'un a-t-il ecrit depuis notre dernier chargement ?
+  if(await fileChangedOnDisk()){
+    _conflictPaused=true;showConflictBanner();setFileStatus('conflict');return;
+  }
+  try{
+    const w=await _fileHandle.createWritable();
+    await w.write(JSON.stringify(buildDataObject(),null,2));
+    await w.close();
+    const f=await _fileHandle.getFile();_baselineModified=f.lastModified;
+    setFileStatus('saved');
+  }catch(e){setFileStatus('error');}
+}
+
+// Ecrit la version LOCALE dans le fichier connecte en ecrasant sciemment (apres un import manuel).
+// On accepte l'etat actuel du fichier comme reference pour ne pas declencher de faux conflit.
+async function pousserVersFichier(){
+  if(!_fileHandle)return;
+  try{const f=await _fileHandle.getFile();_baselineModified=f.lastModified;}catch(e){}
+  _conflictPaused=false;
+  const b=document.getElementById('conflict-banner');if(b)b.style.display='none';
+  writeToFile();
+}
+
+async function readFromFile(){
+  if(!_fileHandle)return null;
+  const f=await _fileHandle.getFile();
+  _baselineModified=f.lastModified;
+  const txt=await f.text();
+  if(!txt.trim())return null; // fichier vide (nouvellement cree)
+  return JSON.parse(txt);
+}
+
+async function ensurePermission(handle,mode){
+  const opts={mode};
+  if((await handle.queryPermission(opts))==='granted')return true;
+  if((await handle.requestPermission(opts))==='granted')return true;
+  return false;
+}
+
+function refreshAllViews(){
+  updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+  if(Object.keys(loadJoueurs()).length)document.getElementById('classement-section').style.display='block';
+}
+
+// -- Connexion / creation du fichier partage --
+async function connecterFichier(creer){
+  if(!FS_SUPPORTED){showMsg('save-msg','err','Votre navigateur ne gere pas le fichier connecte. Utilisez Chrome ou Edge, ou l\'export/import manuel ci-dessous.');return;}
+  try{
+    let handle;
+    if(creer){
+      handle=await window.showSaveFilePicker({
+        suggestedName:'pico_elo_cannes.json',
+        types:[{description:'Sauvegarde Pico Elo',accept:{'application/json':['.json']}}]
+      });
+    }else{
+      const [h]=await window.showOpenFilePicker({
+        types:[{description:'Sauvegarde Pico Elo',accept:{'application/json':['.json']}}],
+        multiple:false
+      });
+      handle=h;
+    }
+    if(!await ensurePermission(handle,'readwrite')){showMsg('save-msg','err','Permission refusee sur le fichier.');return;}
+    _fileHandle=handle;_conflictPaused=false;
+    // Etablir la reference de temps avant toute ecriture (evite un faux conflit)
+    _baselineModified=(await handle.getFile()).lastModified;
+    await idbSet('current',handle);
+
+    if(creer){
+      // nouveau fichier : on y ecrit les donnees actuelles
+      await writeToFile();
+      showMsg('save-msg','ok','Fichier cree et connecte : '+handle.name+'. L\'outil enregistre desormais tout seul.');
+    }else{
+      // fichier existant : on charge son contenu
+      const data=await readFromFile();
+      if(data && data.joueurs){
+        applyDataObject(data);refreshAllViews();
+        const nb=Object.keys(data.joueurs).length,nbT=(data.tournois||[]).length;
+        showMsg('save-msg','ok','Connecte a '+handle.name+' — '+nb+' joueur(s), '+nbT+' tournoi(s) charges. Auto-sauvegarde active.');
+      }else{
+        // fichier vide/nouveau choisi via "ouvrir"
+        await writeToFile();
+        showMsg('save-msg','ok','Connecte a '+handle.name+'. Auto-sauvegarde active.');
+      }
+    }
+    updateFileUI();
+  }catch(e){
+    if(e && e.name==='AbortError')return; // l'utilisateur a annule
+    showMsg('save-msg','err','Impossible de connecter le fichier : '+(e.message||e.name||'erreur'));
+  }
+}
+
+async function deconnecterFichier(){
+  _fileHandle=null;_conflictPaused=false;await idbDel('current');
+  document.getElementById('conflict-banner').style.display='none';
+  updateFileUI();
+  showMsg('save-msg','ok','Fichier deconnecte. L\'auto-sauvegarde est desactivee (les donnees restent dans ce navigateur).');
+}
+
+// Reconnexion automatique au demarrage
+async function tentativeReconnexion(){
+  if(!FS_SUPPORTED)return;
+  try{
+    const handle=await idbGet('current');
+    if(!handle)return;
+    // On ne redemande la permission qu'au premier geste utilisateur si besoin
+    const perm=await handle.queryPermission({mode:'readwrite'});
+    _fileHandle=handle;
+    if(perm==='granted'){
+      const data=await readFromFile();
+      if(data && data.joueurs){applyDataObject(data);refreshAllViews();}
+      setFileStatus('saved');
+    }else{
+      setFileStatus('needperm');
+    }
+    updateFileUI();
+  }catch(e){/* poignee perdue */}
+}
+
+async function reautoriserFichier(){
+  if(!_fileHandle)return;
+  if(await ensurePermission(_fileHandle,'readwrite')){
+    const data=await readFromFile();
+    if(data && data.joueurs){applyDataObject(data);refreshAllViews();}
+    setFileStatus('saved');updateFileUI();
+    showMsg('save-msg','ok','Acces au fichier reautorise et donnees rechargees.');
+  }
+}
+
+// Recharge le fichier apres conflit (abandonne les changements locaux non enregistres)
+async function rechargerDepuisFichier(){
+  if(!_fileHandle)return;
+  try{
+    const data=await readFromFile();
+    if(data && data.joueurs){applyDataObject(data);refreshAllViews();}
+    _conflictPaused=false;
+    document.getElementById('conflict-banner').style.display='none';
+    setFileStatus('saved');
+    showMsg('save-msg','ok','Donnees rechargees depuis le fichier partage.');
+  }catch(e){showMsg('save-msg','err','Echec du rechargement : '+(e.message||e.name));}
+}
+
+// Force l'ecriture malgre le conflit (ecrase la version des autres)
+async function forcerEcriture(){
+  if(!_fileHandle)return;
+  if(!confirm('Ecraser la version du fichier partage avec VOS donnees ?\n\nLes modifications faites par un autre entraineur depuis votre dernier chargement seront perdues.'))return;
+  const f=await _fileHandle.getFile();_baselineModified=f.lastModified; // on accepte la base actuelle
+  _conflictPaused=false;
+  document.getElementById('conflict-banner').style.display='none';
+  await writeToFile();
+  showMsg('save-msg','ok','Fichier partage ecrase avec vos donnees.');
+}
+
+function showConflictBanner(){
+  const b=document.getElementById('conflict-banner');if(b)b.style.display='block';
+}
+
+// Mise a jour de l'affichage de l'etat du fichier
+function setFileStatus(state){
+  const el=document.getElementById('file-status');if(!el)return;
+  const now=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  const map={
+    saving:['#5b8ef0','Enregistrement...'],
+    saved:['#4eca8b','✓ Enregistre a '+now],
+    conflict:['#e05c6e','⚠ Conflit — voir le bandeau ci-dessus'],
+    needperm:['#d4a843','Cliquez « Reautoriser l\'acces » pour reconnecter'],
+    error:['#e05c6e','Erreur d\'enregistrement']
+  };
+  const[color,txt]=map[state]||['#6b7a99',''];
+  el.style.color=color;el.textContent=txt;
+}
+
+function updateFileUI(){
+  const connected=!!_fileHandle;
+  const nameEl=document.getElementById('file-name');
+  const btnConnect=document.getElementById('fs-connect-btns');
+  const btnManage=document.getElementById('fs-manage-btns');
+  const reauth=document.getElementById('btn-reautoriser');
+  if(nameEl)nameEl.textContent=connected?_fileHandle.name:'Aucun fichier connecte';
+  if(btnConnect)btnConnect.style.display=connected?'none':'flex';
+  if(btnManage)btnManage.style.display=connected?'flex':'none';
+  // bouton reautoriser visible seulement si besoin
+  (async()=>{
+    if(connected && reauth){
+      try{const p=await _fileHandle.queryPermission({mode:'readwrite'});reauth.style.display=(p==='granted')?'none':'inline-block';}
+      catch{reauth.style.display='none';}
+    }
+  })();
+}
+
+function openModal(id){
+  if(id==='modal-fusion'){
+    const db=loadJoueurs();const noms=Object.keys(db).sort();
+    ['fusion-src','fusion-dst'].forEach(sid=>{
+      const sel=document.getElementById(sid);sel.innerHTML='';
+      noms.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n+' (Elo '+db[n].elo+')';sel.append(o);});
+    });
+    if(noms.length>=2)document.getElementById('fusion-src').selectedIndex=1;
+  }
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function ouvrirAbsences(){
+  const db=loadJoueurs();
+  const liste=document.getElementById('abs-liste');liste.innerHTML='';
+  Object.keys(db).sort().forEach(nom=>{
+    const label=document.createElement('label');
+    label.style.cssText='display:flex;align-items:center;gap:.5rem;font-size:.85rem;cursor:pointer;padding:.2rem 0;';
+    const cb=document.createElement('input');cb.type='checkbox';cb.value=nom;
+    cb.style.cssText='accent-color:var(--gold);width:1rem;height:1rem;cursor:pointer;';
+    label.append(cb,document.createTextNode(nom));liste.append(label);
+  });
+  const t=loadTournois();const last=t.length?t[t.length-1]:null;
+  if(last){document.getElementById('abs-tournoi').value=last.nom;document.getElementById('abs-date').value=last.date;}
+  openModal('modal-absences');
+}
+
+function exportJSON(){
+  const joueurs=loadJoueurs(),tournois=loadTournois(),absences=loadAbsences();
+  if(!Object.keys(joueurs).length){alert('Aucune donnee a exporter.');return;}
+  const d=new Date();
+  const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const blob=new Blob([JSON.stringify(buildDataObject(),null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pico_elo_'+ds+'.json';a.click();
+  updateSaveInfo();
+}
+
+function importJSON(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data.joueurs)throw new Error();
+      applyDataObject(data);
+      // Un import manuel devient la nouvelle reference : on incremente pour ecraser le fichier connecte
+      setVersion(getVersion()+1);
+      const nb=Object.keys(data.joueurs).length,nbT=data.tournois?data.tournois.length:0;
+      const dateExp=data.exportDate?new Date(data.exportDate).toLocaleDateString('fr-FR'):'?';
+      updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+      document.getElementById('classement-section').style.display='block';
+      if(_fileHandle)pousserVersFichier(); // pousse la version importee vers le fichier connecte
+      showMsg('save-msg','ok',nb+' joueur(s), '+nbT+' tournoi(s) charges — exporte le '+dateExp+'.');
+    }catch{showMsg('save-msg','err','Fichier invalide.');}
+  };
+  reader.readAsText(file);event.target.value='';
+}
+
+function updateSaveInfo(){
+  const j=loadJoueurs(),t=loadTournois(),s=loadSaisons();
+  const nb=Object.keys(j).length,nbT=t.length;
+  const last=nbT>0?t[nbT-1]:null;
+  const el=document.getElementById('save-info');if(!el)return;
+  el.textContent=nb===0?'Aucune donnee chargee':nb+' joueur(s) | '+nbT+' tournoi(s)'+(last?' | Dernier : '+last.nom+' ('+last.date+')':'');
+  const sc=document.getElementById('saison-courante');
+  if(sc)sc.textContent=s.length?s.length+' saison(s) archivee(s)':'';
+  // update modal saison info
+  const si=document.getElementById('saison-info');
+  if(si){si.innerHTML='<strong style="color:var(--text)">Saison en cours</strong> : '+nb+' joueurs, '+nbT+' tournois'+(last?' (dernier : '+last.nom+')':'')+'<br><span style="color:var(--muted);font-size:.78rem">Archivees : '+s.length+'</span>';}
+}
+
+function archiverSaison(){
+  const nomS=document.getElementById('saison-nom').value.trim();
+  if(!nomS){showMsg('saison-msg','err','Donnez un nom a la saison.');return;}
+  const db=loadJoueurs(),tournois=loadTournois();
+  if(!Object.keys(db).length){showMsg('saison-msg','err','Aucun joueur a archiver.');return;}
+  const mode=document.querySelector('input[name="saison-reset"]:checked').value;
+  // archive
+  const saisons=loadSaisons();
+  saisons.push({nom:nomS,date:new Date().toLocaleDateString('fr-FR'),joueurs:JSON.parse(JSON.stringify(db)),tournois:JSON.parse(JSON.stringify(tournois))});
+  saveSaisonsDB(saisons);
+  // reset db
+  const newDb={};
+  Object.entries(db).forEach(([nom,j])=>{
+    let newElo=200;
+    if(mode==='conserver')newElo=j.elo;
+    else if(mode==='moitie')newElo=Math.round((j.elo+200)/2);
+    newDb[nom]={elo:newElo,victoires:0,defaites:0,nulles:0,tournois:0,delta:0,ecole:j.ecole||'',age:j.age||'',cat:j.cat||''};
+  });
+  saveJoueursDB(newDb);saveTournoisDB([]);
+  updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+  document.getElementById('historique-section').style.display='none';
+  document.getElementById('hist-list').innerHTML='';
+  showMsg('saison-msg','ok','Saison "'+nomS+'" archivee ! Nouvelle saison demarree avec '+Object.keys(newDb).length+' joueurs.');
+  setTimeout(()=>closeModal('modal-saison'),2000);
+}
+
+function preselectFusion(src,dst){
+  closeModal('');// ferme alerte
+  const selS=document.getElementById('fusion-src');
+  const selD=document.getElementById('fusion-dst');
+  openModal('modal-fusion');
+  setTimeout(()=>{
+    if(selS)[...selS.options].forEach((o,i)=>{if(o.value===src)selS.selectedIndex=i;});
+    if(selD)[...selD.options].forEach((o,i)=>{if(o.value===dst)selD.selectedIndex=i;});
+  },50);
+}
+
+function splitNomPrenom(full){
+  const tokens=full.trim().split(/\s+/);
+  let i=0;
+  while(i<tokens.length&&tokens[i]===tokens[i].toUpperCase()&&/[A-Z]/.test(tokens[i]))i++;
+  return{nom:tokens.slice(0,i).join(' ')||full,prenom:tokens.slice(i).join(' ')};
+}
+function addJoueurRow(full,cat,ecole,age){
+  full=full||'';cat=cat||'';ecole=ecole||'';age=age||'';
+  const sp=splitNomPrenom(full);
+  const g=document.getElementById('joueur-grid');
+  const nn=document.createElement('input');nn.type='text';nn.placeholder='DUPONT';nn.value=sp.nom;nn.className='joueur-nom';nn.style.textTransform='uppercase';nn.oninput=function(){nn.value=nn.value.toUpperCase();};
+  const np=document.createElement('input');np.type='text';np.placeholder='Marie';np.value=sp.prenom;np.className='joueur-prenom';
+  const nc=document.createElement('input');nc.type='text';nc.placeholder='Ben';nc.value=cat;nc.className='joueur-cat';nc.title='Pou Pup Ben Min Cad';
+  const e=document.createElement('input');e.type='text';e.placeholder='Ecole';e.value=ecole;e.className='joueur-ecole';
+  const a=document.createElement('input');a.type='text';a.placeholder='10';a.value=age;a.className='joueur-age';
+  const del=document.createElement('button');del.className='del-btn';del.textContent='\u2715';del.title='Supprimer';
+  del.onclick=function(){nn.remove();np.remove();nc.remove();e.remove();a.remove();del.remove();};
+  g.append(nn,np,nc,e,a,del);
+}
+
+function populateJoueurGrid(){
+  const db=loadJoueurs(),g=document.getElementById('joueur-grid');
+  while(g.children.length>4)g.removeChild(g.lastChild);
+  const sorted=Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo);
+  if(!sorted.length){addJoueurRow();return;}
+  sorted.forEach(([nom,j])=>addJoueurRow(nom,j.cat||'',j.ecole||'',j.age||''));
+}
+
+function saveJoueurs(){
+  const noms=[...document.querySelectorAll('.joueur-nom')].map(function(i){return i.value.trim().toUpperCase();});
+  const prenoms=[...document.querySelectorAll('.joueur-prenom')].map(function(i){return i.value.trim();});
+  const cats=[...document.querySelectorAll('.joueur-cat')].map(function(i){return i.value.trim();});
+  const ecoles=[...document.querySelectorAll('.joueur-ecole')].map(function(i){return i.value.trim();});
+  const ages=[...document.querySelectorAll('.joueur-age')].map(function(i){return i.value.trim();});
+  const db=loadJoueurs();let n=0;
+  noms.forEach(function(nom,i){
+    if(!nom)return;
+    const full=(nom+(prenoms[i]?' '+prenoms[i]:'')).trim();
+    if(!db[full])db[full]={elo:200,victoires:0,defaites:0,nulles:0,parties:0,tournois:0,delta:0};
+    db[full].cat=cats[i]||db[full].cat||'';
+    db[full].ecole=ecoles[i]||db[full].ecole||'';
+    db[full].age=ages[i]||db[full].age||'';
+    n++;
+  });
+  saveJoueursDB(db);updateSaveInfo();renderClassement();
+  showMsg('joueurs-msg','ok',n+' joueur(s) enregistre(s). Pensez a exporter !');
+}
+
+function exportJoueursCSV(){
+  const db=loadJoueurs();let csv='Nom,Ecole,Age,Pico Elo\n';
+  Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo).forEach(([nom,j])=>csv+='"'+nom+'","'+(j.ecole||'')+'","'+(j.age||'')+'",'+j.elo+'\n');
+  dlCSV(csv,'joueurs_pico.csv');
+}
+
+function doFusion(){
+  const src=document.getElementById('fusion-src').value;
+  const dst=document.getElementById('fusion-dst').value;
+  if(src===dst){showMsg('fusion-msg','err','Selectionnez deux noms differents.');return;}
+  if(!confirm('Fusionner "'+src+'" dans "'+dst+'" ?\nLes stats de "'+src+'" seront ajoutees et "'+src+'" sera supprime. Irreversible.'))return;
+  const db=loadJoueurs();const s=db[src],d=db[dst];
+  d.victoires=(d.victoires||0)+(s.victoires||0);
+  d.defaites=(d.defaites||0)+(s.defaites||0);
+  d.nulles=(d.nulles||0)+(s.nulles||0);
+  d.parties=(d.parties||0)+(s.parties||0);
+  d.tournois=(d.tournois||0)+(s.tournois||0);
+  // On complete les infos manquantes du nom conserve avec celles du doublon
+  d.ecole=d.ecole||s.ecole||'';d.age=d.age||s.age||'';d.cat=d.cat||s.cat||'';
+  delete db[src];saveJoueursDB(db);
+  const tournois=loadTournois();
+  tournois.forEach(t=>{['snapshot','participants'].forEach(k=>{
+    if(t[k]&&t[k][src]){if(!t[k][dst])t[k][dst]=t[k][src];delete t[k][src];}
+  });});
+  saveTournoisDB(tournois);
+  updateSaveInfo();populateJoueurGrid();renderClassement();
+  showMsg('fusion-msg','ok','"'+src+'" fusionne dans "'+dst+'".');
+  setTimeout(()=>closeModal('modal-fusion'),1500);
+}
+
+function saveAbsences(){
+  const tournoi=document.getElementById('abs-tournoi').value.trim();
+  const date=document.getElementById('abs-date').value.trim();
+  if(!tournoi){showMsg('abs-msg','err','Renseignez le nom du tournoi.');return;}
+  const coches=[...document.querySelectorAll('#abs-liste input:checked')].map(cb=>cb.value);
+  if(!coches.length){showMsg('abs-msg','err','Cochez au moins un joueur.');return;}
+  const abs=loadAbsences();abs.push({tournoi,date,joueurs:coches});saveAbsencesDB(abs);
+  showMsg('abs-msg','ok',coches.length+' absence(s) enregistree(s) pour "'+tournoi+'".');
+  setTimeout(()=>closeModal('modal-absences'),1500);
+}
+
+function parseGrille(txt){
+  const lines=txt.split('\n').map(l=>l.trim()).filter(Boolean);const players={};
+  for(const line of lines){
+    const tokens=line.split(/\s+/);const rank=parseInt(tokens[0]);
+    if(isNaN(rank)||rank<1)continue;
+    let nameEnd=1;while(nameEnd<tokens.length&&isNaN(parseFloat(tokens[nameEnd])))nameEnd++;
+    if(nameEnd<=1)continue;
+    const nom=tokens.slice(1,nameEnd).join(' ');const results=[];
+    for(let i=nameEnd;i<tokens.length-1;i++){
+      const sym=tokens[i];
+      if(sym==='+'||sym==='-'||sym==='='){
+        const oppRank=parseInt(tokens[i+1].replace(/[BNbn]/g,''));
+        if(!isNaN(oppRank)&&oppRank>0){results.push({opp:oppRank,score:sym==='+'?1:sym==='-'?0:0.5});i++;}
+      }
+    }
+    if(results.length>0)players[rank]={nom,results};
+  }
+  return players;
+}
+
+const K_GAIN=15,K_PERTE=10,ELO_DEPART=200;
+const expected=(a,b)=>1/(1+Math.pow(10,(b-a)/400));
+
+function calculerElo(players,dbAvant){
+  const eloAvant={};
+  for(const[rank,p]of Object.entries(players))eloAvant[rank]=dbAvant[p.nom]?.elo??ELO_DEPART;
+  const deltas={},stats={};
+  for(const[rank,p]of Object.entries(players)){
+    let delta=0,v=0,d=0,n=0;
+    for(const r of p.results){
+      const exp=expected(eloAvant[rank],eloAvant[r.opp]??ELO_DEPART);
+      const k=r.score>0.5?K_GAIN:r.score<0.5?K_PERTE:(K_GAIN+K_PERTE)/2;
+      delta+=k*(r.score-exp);
+      if(r.score===1)v++;else if(r.score===0)d++;else n++;
+    }
+    deltas[p.nom]=Math.round(delta);stats[p.nom]={v,d,n};
+  }
+  return{deltas,stats};
+}
+
+function parseEtCalculer(){
+  const txt=document.getElementById('grille-input').value.trim();
+  const nom=document.getElementById('tournoi-nom').value.trim()||'Tournoi';
+  const date=document.getElementById('tournoi-date').value.trim()||new Date().toLocaleDateString('fr-FR');
+  if(!txt){showMsg('import-msg','err','Collez la grille de resultats avant de continuer.');return;}
+  const players=parseGrille(txt);const nb=Object.keys(players).length;
+  if(!nb){showMsg('import-msg','err','Aucun resultat detecte. Verifiez le format (lignes avec + / - / =).');return;}
+  // Verifier doublon de nom de tournoi
+  const tournoiExistants=loadTournois();
+  const doublon=tournoiExistants.find(function(t){return t.nom.trim().toLowerCase()===nom.trim().toLowerCase();});
+  if(doublon){
+    if(!confirm('Un tournoi "'+doublon.nom+'" ('+doublon.date+') existe deja.\n\nVoulez-vous quand meme importer ce tournoi ?\n(Les Elo seront mis a jour une deuxieme fois)'))return;
+  }
+  let chips='';
+  for(const[,p]of Object.entries(players))
+    chips+='<div class="p-chip"><span class="pname">'+p.nom+'</span><span class="pscore">'+p.results.reduce((s,r)=>s+r.score,0)+'/'+p.results.length+'</span></div>';
+  const prev=document.getElementById('parse-preview');
+  prev.innerHTML='<p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">'+nb+' joueurs detectes</p><div class="preview-grid">'+chips+'</div>';
+  prev.style.display='block';
+  let db=loadJoueurs();const dbAvant=JSON.parse(JSON.stringify(db));const{deltas,stats}=calculerElo(players,db);
+  for(const[,p]of Object.entries(players)){
+    const n=p.nom,d=deltas[n]||0,s=stats[n];
+    if(!db[n])db[n]={elo:ELO_DEPART,victoires:0,defaites:0,nulles:0,tournois:0,delta:0,ecole:'',age:''};
+    db[n].elo=Math.max(100,db[n].elo+d);db[n].delta=d;
+    db[n].victoires=(db[n].victoires||0)+(s?.v||0);
+    db[n].defaites=(db[n].defaites||0)+(s?.d||0);
+    db[n].nulles=(db[n].nulles||0)+(s?.n||0);
+    db[n].parties=(db[n].parties||0)+(s?.v||0)+(s?.d||0)+(s?.n||0);
+    db[n].tournois=(db[n].tournois||0)+1;
+  }
+  // Les joueurs ABSENTS de ce tournoi n'ont pas evolue : "Evolution" neutre (=), pas un vieux delta
+  const participantNoms=new Set(Object.values(players).map(p=>p.nom));
+  for(const nom of Object.keys(db)){if(!participantNoms.has(nom))db[nom].delta=0;}
+  // detect unknowns (joueurs qui n'etaient pas dans le registre avant cet import)
+  const inconnus=Object.values(players).filter(p=>!dbAvant[p.nom]);
+  if(inconnus.length){
+    const dl=document.getElementById('doublon-list');dl.innerHTML='';
+    const dbNow=loadJoueurs();
+    const allNoms=Object.keys(dbNow);
+    inconnus.forEach(p=>{
+      // cherche nom proche dans le registre existant
+      const suggest=allNoms.filter(n=>n!==p.nom).find(n=>{
+        const a=n.toLowerCase(),b=p.nom.toLowerCase();
+        return a.includes(b.split(' ')[0].toLowerCase())||b.includes(a.split(' ')[0].toLowerCase());
+      });
+      const item=document.createElement('div');item.className='doublon-item';
+      const nomSpan=document.createElement('span');nomSpan.className='doublon-nom';nomSpan.textContent=p.nom;
+      const infoSpan=document.createElement('span');infoSpan.className='doublon-suggest';
+      if(suggest){
+        infoSpan.innerHTML='Proche de <strong>'+suggest+'</strong> ?';
+        const btn=document.createElement('button');btn.className='btn-secondary';
+        btn.style.cssText='font-size:.72rem;padding:.2rem .6rem;margin-left:.3rem';
+        btn.textContent='Fusionner';
+        btn.onclick=(function(s,d){return function(){preselectFusion(s,d);};})(p.nom,suggest);
+        infoSpan.append(' ',btn);
+      }else{
+        infoSpan.style.color='var(--muted)';infoSpan.textContent='Nouveau joueur (Elo 200)';
+      }
+      item.append(nomSpan,infoSpan);
+      dl.append(item);
+    });
+    document.getElementById('alerte-doublons').style.display='block';
+  } else {
+    document.getElementById('alerte-doublons').style.display='none';
+  }
+  saveJoueursDB(db);
+  const tournois=loadTournois();
+  const snapshot={};
+  for(const[n,j]of Object.entries(db))snapshot[n]={elo:j.elo,delta:j.delta||0,ecole:j.ecole||'',age:j.age||'',cat:j.cat||'',parties:j.parties||0};
+  // Contribution EXACTE de ce tournoi, par participant : sert a l'annulation fiable (undo)
+  // ET aux vues par tournoi (historique, graphique) — ne contient QUE les vrais participants.
+  const participants={};
+  for(const p of Object.values(players)){
+    const n=p.nom,s=stats[n]||{v:0,d:0,n:0},j=db[n]||{};
+    participants[n]={elo:j.elo,delta:deltas[n]||0,v:s.v||0,d:s.d||0,n:s.n||0,
+      ecole:j.ecole||'',age:j.age||'',cat:j.cat||'',wasNew:!dbAvant[n]};
+    if(dbAvant[n])participants[n].eloBefore=dbAvant[n].elo;
+  }
+  tournois.push({nom,date,joueurs:nb,snapshot,participants});saveTournoisDB(tournois);
+  updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+  document.getElementById('classement-section').style.display='block';
+  showMsg('import-msg','ok',nb+' joueurs traites pour "'+nom+'".'+(inconnus.length?' '+inconnus.length+' joueur(s) inconnu(s) detecte(s).':' Pensez a sauvegarder !'));
+  document.getElementById('classement-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+let _catActive='tous';
+function filtrerCat(cat,btn){
+  _catActive=cat;
+  document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  renderClassement();
+}
+function renderClassement(){
+  const db=loadJoueurs();let sorted=Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo);
+  if(!sorted.length)return;
+  // build category tabs
+  const cats=[...new Set(Object.values(db).map(j=>j.cat||'').filter(Boolean))].sort();
+  const tabsEl=document.getElementById('cat-tabs');
+  if(tabsEl){
+    tabsEl.innerHTML='<button class="cat-tab'+(_catActive==='tous'?' active':'')+'" onclick="filtrerCat(\'tous\',this)">Tous ('+sorted.length+')</button>';
+    cats.forEach(c=>{
+      const nb=sorted.filter(([,j])=>(j.cat||'')=== c).length;
+      tabsEl.innerHTML+='<button class="cat-tab'+(_catActive===c?' active':'')+'" onclick="filtrerCat(\''+c+'\',this)">'+c+' ('+nb+')</button>';
+    });
+  }
+  // filter
+  const filtered=_catActive==='tous'?sorted:sorted.filter(([,j])=>(j.cat||'')===_catActive);
+  const tournois=loadTournois();const last=tournois.length?tournois[tournois.length-1]:null;
+  const meta=sorted.length+' joueurs | '+tournois.length+' tournoi(s)'+(last?' | Dernier : '+last.nom+' ('+last.date+')':'');
+  document.getElementById('classement-meta').textContent=meta;
+  document.getElementById('print-title').textContent='Classement Pico Elo - Cannes Echecs'+(_catActive!=='tous'?' | '+_catActive:'');
+  document.getElementById('print-meta').textContent=meta+' | Imprime le '+new Date().toLocaleDateString('fr-FR');
+  const medals=['\uD83E\uDD47','\uD83E\uDD48','\uD83E\uDD49'];
+  let html='';
+  filtered.forEach(([nom,j],i)=>{
+    const rank=i+1,d=j.delta||0;
+    const dHtml=d>0?'<span class="delta up">+'+d+'</span>':d<0?'<span class="delta down">'+d+'</span>':'<span class="delta eq">=</span>';
+    const newTag=j.tournois===1?'<span class="tag new">nouveau</span>':'';
+    const catTag=j.cat?'<span class="tag" style="background:rgba(91,142,240,.1);color:var(--blue)">'+j.cat+'</span>':'';
+    const nomEsc=nom.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    html+='<tr class="'+(rank<=3?'rank-'+rank:'')+'">'+
+      '<td class="rank-num">'+rank+'</td>'+
+      '<td class="medal">'+(medals[i]||'')+'</td>'+
+      '<td class="name" onclick="ouvrirGraph(\''+nomEsc+'\')" title="Voir la courbe d\'evolution">'+nom+newTag+catTag+'</td>'+
+      '<td class="school">'+(j.ecole||'&mdash;')+'</td>'+
+      '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.78rem;color:var(--blue)">'+(j.cat||'&mdash;')+'</td>'+
+      '<td class="age">'+(j.age||'&mdash;')+'</td>'+
+      '<td class="elo-val">'+j.elo+'</td>'+
+      '<td class="ctr">'+dHtml+'</td>'+
+      '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.82rem;color:var(--green)">'+(j.victoires||0)+'</td>'+
+      '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.82rem;color:var(--red)">'+(j.defaites||0)+'</td>'+
+      '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.82rem;color:var(--muted)">'+(j.nulles||0)+'</td>'+
+      '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.82rem;color:var(--blue)">'+(j.parties||0)+'</td>'+
+      '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.82rem;color:var(--muted)">'+(j.tournois||0)+'</td>'+
+      '</tr>';
+  });
+  document.getElementById('classement-tbody').innerHTML=html;
+  document.getElementById('classement-section').style.display='block';
+}
+
+function imprimerClassement(){
+  document.getElementById('print-title').textContent='Classement Pico Elo'+(_catActive!=='tous'?' - '+_catActive:'')+' - Cannes Echecs';
+  window.print();
+}
+
+// Participants d'un tournoi : le champ moderne "participants" (uniquement ceux qui ont joue),
+// avec repli sur "snapshot" pour les tournois importes avant la mise a jour.
+function partsOf(t){return (t&&t.participants)||(t&&t.snapshot)||{};}
+
+function ouvrirGraph(nom){
+  const tournois=loadTournois();const db=loadJoueurs();
+  if(!tournois.length){alert('Importez au moins un tournoi pour voir la courbe.');return;}
+  const labels=[],data=[];
+  tournois.forEach(t=>{const P=partsOf(t);labels.push(t.date||(t.nom||''));data.push(P[nom]?P[nom].elo:null);});
+  const j=db[nom]||{};const v=j.victoires||0,def=j.defaites||0,n=j.nulles||0;
+  const eloActuel=j.elo||ELO_DEPART;
+  const valid=data.filter(x=>x!==null);
+  const eloMax=valid.length?Math.max.apply(null,valid):eloActuel;
+  const eloMin=valid.length?Math.min.apply(null,valid):eloActuel;
+  document.getElementById('graph-title').textContent=nom;
+  document.getElementById('graph-sub').textContent=(j.ecole||'')+(j.age?' | '+j.age+' ans':'')+' | Elo actuel : '+eloActuel;
+  document.getElementById('graph-stats').innerHTML=
+    '<span>Max : <strong style="color:var(--gold)">'+eloMax+'</strong></span>'+
+    '<span>Min : <strong style="color:var(--muted)">'+eloMin+'</strong></span>'+
+    '<span style="color:var(--green)">'+v+' victoire'+(v>1?'s':'')+'</span>'+
+    '<span style="color:var(--red)">'+def+' defaite'+(def>1?'s':'')+'</span>'+
+    '<span style="color:var(--muted)">'+n+' nulle'+(n>1?'s':'')+'</span>'+
+    '<span>'+( j.tournois||0)+' tournoi'+((j.tournois||0)>1?'s':'')+'</span>';
+  openModal('modal-graph');
+  setTimeout(()=>{
+    const canvas=document.getElementById('graph-canvas');
+    const ctx=canvas.getContext('2d');
+    const W=canvas.offsetWidth||700,H=250;
+    canvas.width=W;canvas.height=H;
+    const pts=[];data.forEach((v,i)=>{if(v!==null)pts.push({x:i,y:v,lbl:labels[i]});});
+    if(!pts.length){ctx.fillStyle='#7a7f99';ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText('Pas encore de donnees',W/2,H/2);return;}
+    const pad={t:24,r:24,b:44,l:54};
+    const xScale=pts.length>1?(W-pad.l-pad.r)/(pts.length-1):W-pad.l-pad.r;
+    const yMin=Math.max(0,eloMin-30),yMax=eloMax+30;
+    const yScale=(H-pad.t-pad.b)/(yMax-yMin||1);
+    const px=(_,i)=>pad.l+i*xScale;
+    const py=v=>H-pad.b-(v-yMin)*yScale;
+    ctx.clearRect(0,0,W,H);
+    // grille horizontale
+    [0,0.25,0.5,0.75,1].forEach(f=>{
+      const y=pad.t+(H-pad.t-pad.b)*(1-f);const val=Math.round(yMin+(yMax-yMin)*f);
+      ctx.strokeStyle='#2a2d38';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+      ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+      ctx.setLineDash([]);ctx.fillStyle='#7a7f99';ctx.font='10px monospace';ctx.textAlign='right';
+      ctx.fillText(val,pad.l-8,y+4);
+    });
+    // labels X
+    ctx.fillStyle='#7a7f99';ctx.font='10px sans-serif';ctx.textAlign='center';
+    pts.forEach((p,i)=>ctx.fillText(p.lbl,px(null,i),H-pad.b+16));
+    // zone coloree
+    const grad=ctx.createLinearGradient(0,pad.t,0,H-pad.b);
+    grad.addColorStop(0,'rgba(212,168,67,.18)');grad.addColorStop(1,'rgba(212,168,67,.01)');
+    ctx.beginPath();ctx.moveTo(px(null,0),py(pts[0].y));
+    pts.forEach((p,i)=>ctx.lineTo(px(null,i),py(p.y)));
+    ctx.lineTo(px(null,pts.length-1),H-pad.b);ctx.lineTo(px(null,0),H-pad.b);ctx.closePath();
+    ctx.fillStyle=grad;ctx.fill();
+    // ligne
+    ctx.beginPath();ctx.strokeStyle='#d4a843';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.setLineDash([]);
+    pts.forEach((p,i)=>{if(i===0)ctx.moveTo(px(null,i),py(p.y));else ctx.lineTo(px(null,i),py(p.y));});
+    ctx.stroke();
+    // points + valeurs
+    pts.forEach((p,i)=>{
+      ctx.beginPath();ctx.arc(px(null,i),py(p.y),5,0,Math.PI*2);
+      ctx.fillStyle='#d4a843';ctx.fill();ctx.strokeStyle='#0e0f13';ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle='#e8eaf2';ctx.font='bold 11px monospace';ctx.textAlign='center';
+      ctx.fillText(p.y,px(null,i),py(p.y)-12);
+    });
+  },80);
+}
+
+// Retrouve le delta le plus recent d'un joueur parmi les tournois restants (pour la colonne Evolution)
+function lastDeltaFromTournois(nom,tournois){
+  for(let i=tournois.length-1;i>=0;i--){
+    const p=tournois[i].participants;
+    if(p&&p[nom])return p[nom].delta||0;
+  }
+  return 0;
+}
+
+function annulerDernierTournoi(){
+  const tournois=loadTournois();
+  if(!tournois.length){alert('Aucun tournoi a annuler.');return;}
+  const last=tournois[tournois.length-1];
+  if(!confirm('Annuler l\'import "'+last.nom+'" ('+last.date+') ?\n\nLes Elo et les statistiques ajoutes par ce tournoi seront retires.\nCette action est irreversible.')){return;}
+  const db=loadJoueurs();
+  const reste=tournois.slice(0,-1);
+  if(last.participants){
+    // ANNULATION EXACTE : on retire la contribution de ce tournoi, participant par participant.
+    Object.entries(last.participants).forEach(function(entry){
+      const nom=entry[0],c=entry[1];
+      if(!db[nom])return;
+      db[nom].victoires=Math.max(0,(db[nom].victoires||0)-(c.v||0));
+      db[nom].defaites=Math.max(0,(db[nom].defaites||0)-(c.d||0));
+      db[nom].nulles=Math.max(0,(db[nom].nulles||0)-(c.n||0));
+      db[nom].parties=Math.max(0,(db[nom].parties||0)-((c.v||0)+(c.d||0)+(c.n||0)));
+      db[nom].tournois=Math.max(0,(db[nom].tournois||0)-1);
+      // Restaurer l'Elo d'avant ce tournoi (exact si connu, sinon on retire le delta)
+      if(typeof c.eloBefore==='number')db[nom].elo=c.eloBefore;
+      else db[nom].elo=Math.max(100,(db[nom].elo||ELO_DEPART)-(c.delta||0));
+      // Joueur cree par ce tournoi et sans autre participation : le retirer
+      if(c.wasNew&&db[nom].tournois<=0){delete db[nom];return;}
+      db[nom].delta=lastDeltaFromTournois(nom,reste);
+    });
+    tournois.splice(-1,1);
+    saveJoueursDB(db);saveTournoisDB(tournois);
+    updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+    if(!tournois.length)document.getElementById('historique-section').style.display='none';
+    showMsg('save-msg','ok','Import "'+last.nom+'" annule : Elo et statistiques restaures. Pensez a exporter la sauvegarde !');
+  }else{
+    // ANCIEN FORMAT (importe avant cette mise a jour) : pas de detail par participant.
+    // On restaure les Elo depuis le snapshot precedent SANS effacer les compteurs V/D/N.
+    const snapAvant=reste.length?reste[reste.length-1].snapshot:null;
+    Object.keys(last.snapshot||{}).forEach(function(nom){
+      if(!db[nom])return;
+      if(snapAvant){
+        if(snapAvant[nom]){db[nom].elo=snapAvant[nom].elo;db[nom].delta=snapAvant[nom].delta||0;}
+        else delete db[nom]; // joueur apparu lors de ce tournoi
+      }else{
+        // seul tournoi : retour a l'etat de depart (sans supprimer les joueurs du registre)
+        db[nom].elo=200;db[nom].delta=0;
+      }
+    });
+    tournois.splice(-1,1);
+    saveJoueursDB(db);saveTournoisDB(tournois);
+    updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+    if(!tournois.length)document.getElementById('historique-section').style.display='none';
+    showMsg('save-msg','ok','Import "'+last.nom+'" annule (ancien format : Elo restaures, compteurs V/D/N non ajustes pour ce tournoi).');
+  }
+}
+
+function renderHistorique(){
+  const tournois=loadTournois();if(!tournois.length)return;
+  document.getElementById('historique-section').style.display='block';
+  document.getElementById('hist-list').innerHTML=[...tournois].reverse().map(t=>
+    '<div class="hist-item"><span class="hist-name">'+t.nom+'</span><span class="hist-meta">'+t.date+'</span><span class="hist-meta">'+t.joueurs+' joueurs</span></div>'
+  ).join('');
+}
+
+function exportClassementCSV(){
+  const db=loadJoueurs();const sorted=Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo);
+  let csv='Rang,Nom,Ecole,Age,Pico Elo,Evolution,Victoires,Defaites,Nulles,Tournois\n';
+  sorted.forEach(([nom,j],i)=>{const d=j.delta||0;csv+=i+1+',"'+nom+'","'+(j.ecole||'')+'","'+(j.age||'')+'",'+j.elo+','+(d>0?'+'+d:d)+','+(j.victoires||0)+','+(j.defaites||0)+','+(j.nulles||0)+','+(j.tournois||0)+'\n';});
+  dlCSV(csv,'classement_pico_elo.csv');
+}
+
+function exportPDF(){
+  const db=loadJoueurs();const tournois=loadTournois();
+  const allSorted=Object.entries(db).sort(function(a,b){return b[1].elo-a[1].elo;});
+  const filtered=_catActive==='tous'?allSorted:allSorted.filter(function(e){return(e[1].cat||'')===_catActive;});
+  if(!filtered.length){alert('Aucun joueur a exporter.');return;}
+  const last=tournois.length?tournois[tournois.length-1]:null;
+  const dateStr=last?last.date:new Date().toLocaleDateString('fr-FR');
+  const nomT=last?last.nom:'Pico Elo';
+  const catLabel=_catActive==='tous'?'Classement general':'Categorie : '+_catActive;
+  let rows='';
+  filtered.forEach(function(entry,i){
+    const nom=entry[0],j=entry[1];
+    const d=j.delta||0;
+    const dStr=d>0?'+'+d:d===0?'=':String(d);
+    const dColor=d>0?'#2a7a2a':d<0?'#8b0000':'#888';
+    const bg=i===0?'#fffbe6':i===1?'#f5f8ff':i===2?'#fff5ee':i%2===0?'#fff':'#fafafa';
+    rows+='<tr style="background:'+bg+';border-bottom:1px solid #e8e8e8">'+
+      '<td style="text-align:center;color:#888;font-family:monospace;padding:4px 5px">'+(i+1)+'</td>'+
+      '<td style="padding:4px 3px;font-size:8pt;color:#888">'+(i===0?'1er':i===1?'2e':i===2?'3e':'')+'</td>'+
+      '<td style="padding:4px 5px;font-weight:600">'+(j.cat?'<span style="color:#5b8ef0;font-size:7pt;margin-right:3px">['+j.cat+']</span>':'')+nom+'</td>'+
+      '<td style="padding:4px 5px;color:#666;font-size:8.5pt">'+(j.ecole||'')+'</td>'+
+      '<td style="text-align:center;color:#888;font-family:monospace;padding:4px 4px">'+(j.age||'')+'</td>'+
+      '<td style="text-align:right;font-weight:700;font-family:monospace;font-size:11pt;padding:4px 6px">'+j.elo+'</td>'+
+      '<td style="text-align:center;font-family:monospace;color:'+dColor+';padding:4px 4px">'+dStr+'</td>'+
+      '<td style="text-align:center;font-family:monospace;color:#2a7a2a;padding:4px 4px">'+(j.victoires||0)+'</td>'+
+      '<td style="text-align:center;font-family:monospace;color:#8b0000;padding:4px 4px">'+(j.defaites||0)+'</td>'+
+      '<td style="text-align:center;font-family:monospace;color:#888;padding:4px 4px">'+(j.nulles||0)+'</td>'+
+      '<td style="text-align:center;font-family:monospace;color:#5b8ef0;padding:4px 4px">'+(j.parties||0)+'</td>'+
+      '<td style="text-align:center;font-family:monospace;color:#888;padding:4px 4px">'+(j.tournois||0)+'</td>'+
+      '</tr>';
+  });
+  const genfr=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  const html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Classement Pico Elo</title>'+
+    '<style>@page{size:A4 portrait;margin:1.4cm 1.2cm;}*{box-sizing:border-box;margin:0;padding:0;}'+
+    'body{font-family:Arial,sans-serif;font-size:10pt;color:#111;}'+
+    '.hdr{text-align:center;border-bottom:2px solid #c8a830;padding-bottom:8px;margin-bottom:10px;}'+
+    '.hdr h1{font-size:20pt;font-weight:900;color:#c8a830;}.hdr h1 span{color:#111;}'+
+    '.hdr p{font-size:9pt;color:#555;margin-top:2px;}'+
+    '.meta{display:flex;gap:14px;justify-content:center;margin:5px 0;font-size:8pt;color:#666;flex-wrap:wrap;}'+
+    'table{width:100%;border-collapse:collapse;}'+
+    'thead tr{background:#f5f0e0;border-bottom:2px solid #c8a830;}'+
+    'th{padding:4px 5px;text-align:left;font-size:7.5pt;font-weight:700;color:#555;text-transform:uppercase;white-space:nowrap;}'+
+    '.ftr{margin-top:12px;text-align:center;font-size:7.5pt;color:#aaa;border-top:1px solid #ddd;padding-top:6px;}'+
+    '</style></head><body>'+
+    '<div class="hdr"><h1>Pico <span>Elo</span></h1><p>Cannes Echecs &mdash; Classement scolaire interne</p>'+
+    '<div class="meta"><span><strong>'+catLabel+'</strong></span>'+
+    '<span>Apres <strong>'+nomT+'</strong></span>'+
+    '<span>Date : <strong>'+dateStr+'</strong></span>'+
+    '<span><strong>'+filtered.length+'</strong> joueur(s)</span></div></div>'+
+    '<table><thead><tr>'+
+    '<th style="text-align:center">#</th><th></th><th>Joueur</th><th>Ecole</th>'+
+    '<th style="text-align:center">Age</th><th style="text-align:right">Pico Elo</th>'+
+    '<th style="text-align:center">Evol.</th><th style="text-align:center">V</th>'+
+    '<th style="text-align:center">D</th><th style="text-align:center">N</th>'+
+    '<th style="text-align:center">Parties</th><th style="text-align:center">Tourn.</th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<div class="ftr">Pico Elo &bull; Cannes Echecs &bull; Genere le '+genfr+'</div>'+
+    '</body></html>';
+  const win=window.open('','_blank','width=850,height=650');
+  if(!win){alert('Autorisez les popups pour le PDF.');return;}
+  win.document.write(html);win.document.close();
+  win.onload=function(){win.focus();win.print();};
+}
+function dlCSV(content,filename){
+  const blob=new Blob(['\uFEFF'+content],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+}
+
+function showMsg(id,type,text){
+  const el=document.getElementById(id);el.className='msg '+type;el.textContent=text;el.style.display='block';
+}
+
+// Construit la page HTML autonome du classement. forEmbed=true -> optimise pour iframe.
+function buildClassementHTML(forEmbed){
+  const db=loadJoueurs(),tournois=loadTournois();
+  const sorted=Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo);
+  if(!sorted.length)return null;
+  const last=tournois.length?tournois[tournois.length-1]:null;
+  const dateStr=last?last.date:new Date().toLocaleDateString('fr-FR');
+  const nomTournoi=last?last.nom:'Pico Elo';
+  const medals=['\uD83E\uDD47','\uD83E\uDD48','\uD83E\uDD49'];
+  let rows='';
+  sorted.forEach(([nom,j],i)=>{
+    const rank=i+1,d=j.delta||0;
+    const dStr=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
+    const bg=rank===1?'rgba(212,168,67,.07)':rank===2?'rgba(155,176,201,.05)':rank===3?'rgba(192,128,80,.05)':'';
+    rows+='<tr style="border-top:1px solid #2a2d38;background:'+bg+'">'+
+      '<td style="text-align:center;font-family:monospace;color:#7a7f99;padding:.6rem .8rem">'+rank+'</td>'+
+      '<td style="text-align:center;font-size:1rem;padding:.6rem .5rem">'+(medals[i]||'')+'</td>'+
+      '<td style="font-weight:500;padding:.6rem .8rem">'+nom+(j.tournois===1?'<span style="font-size:.65rem;padding:.1rem .4rem;border-radius:3px;background:rgba(212,168,67,.15);color:#d4a843;margin-left:.4rem">nouveau</span>':'')+'</td>'+
+      '<td style="color:#7a7f99;font-size:.82rem;padding:.6rem .8rem">'+(j.ecole||'&mdash;')+'</td>'+
+      '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .5rem">'+(j.age||'&mdash;')+'</td>'+
+      '<td style="font-family:monospace;font-size:1rem;font-weight:600;text-align:right;padding:.6rem .8rem">'+j.elo+'</td>'+
+      '<td style="text-align:center;font-family:monospace;font-size:.8rem;padding:.6rem .5rem">'+dStr+'</td>'+
+      '<td style="font-family:monospace;font-size:.8rem;text-align:center;color:#4eca8b">'+(j.victoires||0)+'</td>'+
+      '<td style="font-family:monospace;font-size:.8rem;text-align:center;color:#e05c6e">'+(j.defaites||0)+'</td>'+
+      '<td style="font-family:monospace;font-size:.8rem;text-align:center;color:#7a7f99">'+(j.nulles||0)+'</td>'+
+      '</tr>';
+  });
+  let podHtml='';
+  if(sorted.length>=3){
+    const podOrder=[1,0,2];const podColors=['#9bb0c9','#d4a843','#c08050'];
+    const borders=['rgba(155,176,201,.3)','rgba(212,168,67,.5)','rgba(192,128,80,.3)'];
+    const bgs=['rgba(155,176,201,.04)','rgba(212,168,67,.05)','rgba(192,128,80,.04)'];
+    podHtml='<div style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1rem;margin-bottom:2.5rem">';
+    podOrder.forEach((ri,col)=>{
+      const[nom,j]=sorted[ri];const d=j.delta||0;
+      const dH=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
+      podHtml+='<div style="background:#16181f;border:1px solid '+borders[col]+';background:'+bgs[col]+';border-radius:14px;padding:1.5rem 1rem;text-align:center">'+
+        '<div style="font-size:2.2rem;margin-bottom:.5rem">'+medals[ri]+'</div>'+
+        '<div style="font-weight:600;font-size:1rem">'+nom+'</div>'+
+        '<div style="font-size:.78rem;color:#7a7f99;margin:.25rem 0 .75rem">'+(j.ecole||'&mdash;')+'</div>'+
+        '<div style="font-family:monospace;font-size:2rem;font-weight:700;color:'+podColors[col]+'">'+j.elo+'</div>'+
+        '<div style="font-family:monospace;font-size:.75rem;margin-top:.25rem">'+dH+'</div>'+
+        '</div>';
+    });
+    podHtml+='</div>';
+  }
+  const genfr=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  const html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<title>Classement Pico Elo - Cannes Echecs</title>'+
+    '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">'+
+    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"DM Sans",sans-serif;background:#0e0f13;color:#e8eaf2;'+(forEmbed?'':'min-height:100vh')+'}</style></head><body>'+
+    '<div style="padding:3.5rem 2rem 2.5rem;text-align:center;background:linear-gradient(180deg,#1a1508,#0e0f13);border-bottom:1px solid #2a2d38">'+
+    '<h1 style="font-family:\'Playfair Display\',serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:900;color:#d4a843;letter-spacing:-.02em">Pico <span style="color:#e8eaf2">Elo</span></h1>'+
+    '<p style="margin-top:.6rem;font-size:.85rem;color:#7a7f99;letter-spacing:.15em;text-transform:uppercase">Cannes Echecs - Classement scolaire</p>'+
+    '<div style="display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap">'+
+    '<span style="font-family:monospace;font-size:.78rem;padding:.35rem 1rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f">Apres <strong style="color:#d4a843">'+nomTournoi+'</strong></span>'+
+    '<span style="font-family:monospace;font-size:.78rem;padding:.35rem 1rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f">Date : <strong style="color:#d4a843">'+dateStr+'</strong></span>'+
+    '<span style="font-family:monospace;font-size:.78rem;padding:.35rem 1rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f"><strong style="color:#d4a843">'+sorted.length+'</strong> joueurs</span>'+
+    '</div></div>'+
+    '<div style="max-width:960px;margin:0 auto;padding:2.5rem 1.5rem">'+podHtml+
+    '<div style="border-radius:12px;border:1px solid #2a2d38;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:.88rem">'+
+    '<thead><tr style="background:#1e2029">'+
+    '<th style="padding:.7rem .8rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">#</th>'+
+    '<th style="padding:.7rem .5rem;text-align:center"></th>'+
+    '<th style="padding:.7rem .8rem;text-align:left;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">Joueur</th>'+
+    '<th style="padding:.7rem .8rem;text-align:left;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">Ecole</th>'+
+    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">Age</th>'+
+    '<th style="padding:.7rem .8rem;text-align:right;font-size:.7rem;font-weight:500;color:#7a7f99;letter-spacing:.1em;text-transform:uppercase">Pico Elo</th>'+
+    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">Evol.</th>'+
+    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">V</th>'+
+    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">D</th>'+
+    '<th style="padding:.7rem .5rem;text-align:center;font-size:.7rem;font-weight:500;color:#7a7f99">N</th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '<div style="text-align:center;padding:2rem;color:#3a3e52;font-size:.75rem;margin-top:2rem;border-top:1px solid #1e2029">Classement Pico Elo - Cannes Echecs - Genere le '+genfr+'</div>'+
+    '</div></body></html>';
+  return html;
+}
+
+// Publier : telecharge une page datee (pour archive / partage ponctuel)
+function exportPageClassement(){
+  const html=buildClassementHTML(false);
+  if(!html){alert('Aucun classement a publier.');return;}
+  const d=new Date();const fname='classement_pico_'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'.html';
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;a.click();
+}
+
+// Publier pour le site : nom de fichier FIXE (URL stable) + code iframe a coller
+function exportPourSite(){
+  const html=buildClassementHTML(true);
+  if(!html){alert('Aucun classement a publier.');return;}
+  // Nom de fichier fixe : re-uploader ecrase l'ancien -> l'URL ne change jamais
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='classement.html';a.click();
+  openModal('modal-embed');
+}
+
+function copierEmbed(){
+  const ta=document.getElementById('embed-code');
+  ta.select();ta.setSelectionRange(0,99999);
+  try{document.execCommand('copy');}catch(e){}
+  if(navigator.clipboard)navigator.clipboard.writeText(ta.value).catch(()=>{});
+  const btn=document.getElementById('btn-copier-embed');
+  const old=btn.textContent;btn.textContent='✓ Copie !';
+  setTimeout(()=>btn.textContent=old,1800);
+}
+
+function exportPageHistorique(){
+  const tournois=loadTournois();if(!tournois.length){alert('Aucun historique a publier.');return;}
+  const medals=['\uD83E\uDD47','\uD83E\uDD48','\uD83E\uDD49'];
+  const tousJoueurs=new Set();
+  tournois.forEach(t=>{Object.keys(partsOf(t)).forEach(n=>tousJoueurs.add(n));});
+  const eloFinal={};
+  tousJoueurs.forEach(nom=>{for(let i=tournois.length-1;i>=0;i--){const P=partsOf(tournois[i]);if(P[nom]){eloFinal[nom]=P[nom];break;}}});
+  const sortedJoueurs=[...tousJoueurs].sort((a,b)=>(eloFinal[b]?eloFinal[b].elo:0)-(eloFinal[a]?eloFinal[a].elo:0));
+  const evolution={};tousJoueurs.forEach(nom=>{evolution[nom]=tournois.map(t=>partsOf(t)[nom]||null);});
+  let tournoiSections='';
+  const tRev=[...tournois].reverse();
+  tRev.forEach(t=>{
+    const P=partsOf(t);
+    if(!Object.keys(P).length)return;
+    const allT=Object.entries(P).sort((a,b)=>b[1].elo-a[1].elo);
+    let podHtml='';
+    allT.slice(0,3).forEach(([nom,j],pi)=>{
+      const d=j.delta||0;const dS=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
+      const bc=pi===0?'rgba(212,168,67,.4)':pi===1?'rgba(155,176,201,.25)':'rgba(192,128,80,.25)';
+      const bg=pi===0?'rgba(212,168,67,.04)':'';
+      const ec=pi===0?'#d4a843':pi===1?'#9bb0c9':'#c08050';
+      podHtml+='<div style="background:#16181f;border:1px solid '+bc+';'+bg+';border-radius:10px;padding:1rem;text-align:center">'+
+        '<div style="font-size:1.5rem;margin-bottom:.25rem">'+medals[pi]+'</div>'+
+        '<div style="font-weight:600;font-size:.88rem">'+nom+'</div>'+
+        '<div style="font-size:.7rem;color:#7a7f99;margin:.15rem 0 .4rem">'+(j.ecole||'')+'</div>'+
+        '<div style="font-family:monospace;font-size:1.4rem;font-weight:700;color:'+ec+'">'+j.elo+'</div>'+
+        '<div style="font-family:monospace;font-size:.7rem;margin-top:.2rem">'+dS+'</div></div>';
+    });
+    let rowsT='';
+    allT.forEach(([nom,j],ri2)=>{
+      const d=j.delta||0;const dS=d>0?'<span style="color:#4eca8b">+'+d+'</span>':d<0?'<span style="color:#e05c6e">'+d+'</span>':'<span style="color:#7a7f99">=</span>';
+      const bg=ri2<3?'rgba(212,168,67,.04)':'';
+      rowsT+='<tr style="border-top:1px solid #2a2d38;background:'+bg+'">'+
+        '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .8rem">'+(ri2+1)+'</td>'+
+        '<td style="text-align:center;padding:.6rem .5rem">'+(medals[ri2]||'')+'</td>'+
+        '<td style="font-weight:500;padding:.6rem .8rem">'+nom+'</td>'+
+        '<td style="color:#7a7f99;font-size:.78rem;padding:.6rem .8rem">'+(j.ecole||'')+'</td>'+
+        '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .5rem">'+(j.age||'')+'</td>'+
+        '<td style="font-family:monospace;font-weight:600;text-align:right;padding:.6rem .8rem">'+j.elo+'</td>'+
+        '<td style="text-align:center;font-family:monospace;padding:.6rem .5rem">'+dS+'</td></tr>';
+    });
+    tournoiSections+='<div style="margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid #1e2029">'+
+      '<div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">'+
+      '<div style="font-family:\'Playfair Display\',serif;font-size:1.35rem;font-weight:700;color:#d4a843">'+t.nom+'</div>'+
+      '<div style="font-family:monospace;font-size:.75rem;color:#7a7f99">'+t.date+' | '+t.joueurs+' joueurs</div></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:.75rem;margin-bottom:.75rem">'+podHtml+'</div>'+
+      '<details><summary style="font-size:.8rem;color:#7a7f99;cursor:pointer;padding:.5rem .25rem;list-style:none">&#x25B6; Classement complet ('+allT.length+' joueurs)</summary>'+
+      '<div style="border-radius:10px;border:1px solid #2a2d38;overflow:hidden;overflow-x:auto;margin-top:.75rem">'+
+      '<table style="width:100%;border-collapse:collapse;font-size:.85rem">'+
+      '<thead><tr style="background:#1e2029">'+
+      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:center">#</th>'+
+      '<th style="padding:.6rem .5rem;text-align:center"></th>'+
+      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:left">Joueur</th>'+
+      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:left">Ecole</th>'+
+      '<th style="padding:.6rem .5rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:center">Age</th>'+
+      '<th style="padding:.6rem .8rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:right">Elo</th>'+
+      '<th style="padding:.6rem .5rem;font-size:.65rem;font-weight:500;color:#7a7f99;text-align:center">Evol.</th>'+
+      '</tr></thead><tbody>'+rowsT+'</tbody></table></div></details></div>';
+  });
+  let thCols='';
+  tournois.forEach(t=>{thCols+='<th style="min-width:68px;font-size:.6rem;text-align:center;padding:.6rem .4rem;font-weight:500;color:#7a7f99;background:#1e2029;white-space:nowrap">'+t.nom.replace(/Pico[\s\-]*/i,'')+'<br><span style="font-weight:400;opacity:.7">'+t.date+'</span></th>';});
+  let evoRows='';
+  sortedJoueurs.forEach((nom,i)=>{
+    let cells='';
+    evolution[nom].forEach(snap=>{
+      if(!snap){cells+='<td style="text-align:center;color:#2a2d38;padding:.6rem .4rem">-</td>';return;}
+      const d=snap.delta||0;const bg=d>0?'rgba(78,202,139,.1)':d<0?'rgba(224,92,110,.1)':'';const col=d>0?'#4eca8b':d<0?'#e05c6e':'#e8eaf2';
+      cells+='<td style="text-align:center;background:'+bg+';color:'+col+';font-family:monospace;font-size:.8rem;padding:.6rem .4rem">'+snap.elo+'</td>';
+    });
+    evoRows+='<tr style="border-top:1px solid #2a2d38">'+
+      '<td style="font-family:monospace;color:#7a7f99;text-align:center;padding:.6rem .8rem">'+(i+1)+'</td>'+
+      '<td style="font-weight:500;white-space:nowrap;padding:.6rem .8rem">'+nom+'</td>'+cells+
+      '<td style="font-family:monospace;font-weight:700;text-align:right;color:#d4a843;padding:.6rem .8rem">'+(eloFinal[nom]?eloFinal[nom].elo:'')+'</td></tr>';
+  });
+  const genfr=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  const nb_t=tournois.length,nb_j=tousJoueurs.size;
+  const d_from=tournois[0]?tournois[0].date:'?',d_to=tournois[tournois.length-1]?tournois[tournois.length-1].date:'?';
+  const html='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<title>Historique Pico Elo - Cannes Echecs</title>'+
+    '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">'+
+    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"DM Sans",sans-serif;background:#0e0f13;color:#e8eaf2;min-height:100vh}'+
+    '.nav-tabs{display:flex;gap:4px;border-bottom:1px solid #2a2d38;margin-bottom:2rem}.nav-tab{font-size:.82rem;padding:.6rem 1.2rem;border:none;background:none;color:#7a7f99;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}.nav-tab.active{color:#d4a843;border-bottom-color:#d4a843;font-weight:500}.tab-panel{display:none}.tab-panel.active{display:block}</style>'+
+    '</head><body>'+
+    '<div style="padding:3rem 2rem 2rem;text-align:center;background:linear-gradient(180deg,#1a1508,#0e0f13);border-bottom:1px solid #2a2d38">'+
+    '<h1 style="font-family:\'Playfair Display\',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#d4a843">Historique <span style="color:#e8eaf2">Pico Elo</span></h1>'+
+    '<p style="margin-top:.5rem;font-size:.82rem;color:#7a7f99;letter-spacing:.15em;text-transform:uppercase">Cannes Echecs</p>'+
+    '<div style="display:flex;gap:1rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap">'+
+    '<span style="font-family:monospace;font-size:.75rem;padding:.3rem .9rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f"><strong style="color:#d4a843">'+nb_t+'</strong> tournois</span>'+
+    '<span style="font-family:monospace;font-size:.75rem;padding:.3rem .9rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f"><strong style="color:#d4a843">'+nb_j+'</strong> joueurs</span>'+
+    '<span style="font-family:monospace;font-size:.75rem;padding:.3rem .9rem;border-radius:999px;border:1px solid #2a2d38;color:#7a7f99;background:#16181f">Du <strong style="color:#d4a843">'+d_from+'</strong> au <strong style="color:#d4a843">'+d_to+'</strong></span>'+
+    '</div></div>'+
+    '<div style="max-width:1020px;margin:0 auto;padding:2.5rem 1.5rem">'+
+    '<div class="nav-tabs"><button class="nav-tab active" onclick="showTab(\'tournois\',this)">Par tournoi</button>'+
+    '<button class="nav-tab" onclick="showTab(\'evolution\',this)">Evolution des Elo</button></div>'+
+    '<div id="tab-tournois" class="tab-panel active">'+tournoiSections+'</div>'+
+    '<div id="tab-evolution" class="tab-panel">'+
+    '<p style="font-size:.75rem;color:#7a7f99;margin-bottom:.75rem;padding:.6rem .85rem;background:#16181f;border-radius:8px;border:1px solid #2a2d38">Elo apres chaque tournoi. Vert = progression, rouge = recul, tiret = absent.</p>'+
+    '<div style="border-radius:10px;border:1px solid #2a2d38;overflow:hidden;overflow-x:auto">'+
+    '<table style="width:100%;border-collapse:collapse;font-size:.85rem">'+
+    '<thead><tr>'+
+    '<th style="padding:.65rem .8rem;text-align:center;font-size:.65rem;font-weight:500;color:#7a7f99;background:#1e2029">#</th>'+
+    '<th style="padding:.65rem .8rem;text-align:left;font-size:.65rem;font-weight:500;color:#7a7f99;background:#1e2029;white-space:nowrap">Joueur</th>'+
+    thCols+
+    '<th style="padding:.65rem .8rem;text-align:right;font-size:.65rem;font-weight:500;color:#7a7f99;background:#1e2029;white-space:nowrap">Elo actuel</th>'+
+    '</tr></thead><tbody>'+evoRows+'</tbody></table></div></div></div>'+
+    '<div style="text-align:center;padding:2rem;color:#3a3e52;font-size:.75rem;margin-top:2rem;border-top:1px solid #1e2029">Historique Pico Elo - Cannes Echecs - Genere le '+genfr+'</div>'+
+    '<script>function showTab(id,btn){document.querySelectorAll(\'.tab-panel\').forEach(p=>p.classList.remove(\'active\'));document.querySelectorAll(\'.nav-tab\').forEach(b=>b.classList.remove(\'active\'));document.getElementById(\'tab-\'+id).classList.add(\'active\');btn.classList.add(\'active\');}<\/script>'+
+    '</body></html>';
+  const d=new Date();const fname='historique_pico_'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'.html';
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;a.click();
+}
+
+function chargerDemo(){
+  document.getElementById('grille-input').value='1 VISCONTI Ylan 1832 F BenM FRA PAC + 43N + 18B + 4N + 6B + 3B + 2N 6 24 26\n2 DE RYCKE Alexandre 1878 F BenM FRA PAC + 27B + 13N + 8B + 7N + 5B - 1B 5 23 26\n3 TRAN AMAR Andy 2109 F BenM FRA PAC + 21N + 52B + 23N + 9B - 1N + 17B 5 21 23\n4 ABITBOL Elie 1552 F PupM FRA PAC + 40B + 11N - 1B + 29N + 22N + 7B 5 20 23\n5 LAPREVOTTE Valentin 1684 F MinM FRA PAC + 16N + 25B + 19N + 26B - 2N + 14B 5 20 23\n6 DE LABACA Julia 1799 F PupF FRA PAC + 53B + 39N + 30B - 1N + 11B + 10N 5 19 21\n7 TRAN AMAR Charlie 1667 F PupM FRA PAC + 59N + 12B + 15N - 2B + 25N - 4N 4 21 22\n8 GIANNETTO Riccardo 1643 F PupM FRA PAC + 58N + 20B - 2N = 12B + 28N = 9B 4 20 21\n9 AUDA Sasha 1676 F PupM FRA PAC + 63B + 31N + 14B - 3N = 19B = 8N 4 20 21\n10 MORLET Gabin 999 E BenM FRA PAC - 12N + 59B + 20N + 18B + 26N - 6B 4 20 21\n11 CAMOUS Theo 1200 N BenM FRA PAC + 36N - 4B + 46N + 23B - 6N + 26B 4 19 22\n12 VIAL LEPRETTRE Matteo 1400 F MinM FRA PAC + 10B - 7N + 35B = 8N = 13B + 27N 4 19 22\n13 JOGJOG Nahim 1452 F PupM FRA PAC + 48N - 2B + 16N = 28B = 12N + 33B 4 19 21\n14 TAKI Mehdi 1554 F BenM FRA PAC + 33N + 50B - 9N + 39B + 15N - 5N 4 18 20\n15 PANFIR Alexandru 999 E BenM FRA PAC + 34B + 41N - 7B + 24N - 14B + 29N 4 17 20';
+  document.getElementById('tournoi-nom').value='Pico Mai 2025';
+  document.getElementById('tournoi-date').value='05/2025';
+}
+
+updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
+if(Object.keys(loadJoueurs()).length)document.getElementById('classement-section').style.display='block';
+// init saison modal info
+updateSaveInfo();
+
+// ---- Init du coffre-fort (fichier connecte) ----
+if(!FS_SUPPORTED){
+  const u=document.getElementById('fs-unsupported');if(u)u.style.display='block';
+  const c=document.getElementById('fs-connect-btns');if(c)c.style.display='none';
+}else{
+  updateFileUI();
+  tentativeReconnexion();
+}
+
+// Quand l'onglet change d'etat
+document.addEventListener('visibilitychange',async()=>{
+  if(!_fileHandle)return;
+  if(document.visibilityState==='hidden'){
+    // On quitte l'onglet : si une sauvegarde etait planifiee, on l'ecrit tout de suite
+    if(_autoSaveTimer && !_conflictPaused){clearTimeout(_autoSaveTimer);_autoSaveTimer=null;try{await writeToFile();}catch{}}
+    return;
+  }
+  // On revient sur l'onglet : verifier si un autre entraineur a modifie le fichier
+  if(_conflictPaused)return;
+  try{
+    const perm=await _fileHandle.queryPermission({mode:'readwrite'});
+    if(perm!=='granted'){setFileStatus('needperm');updateFileUI();return;}
+    if(await fileChangedOnDisk()){
+      _conflictPaused=true;showConflictBanner();setFileStatus('conflict');
+    }
+  }catch{}
+});
+
+</script>
+</body>
+</html>

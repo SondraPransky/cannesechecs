@@ -1950,6 +1950,54 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div class="pico-cal-foot">Un samedi par mois · Inscription en ligne via HelloAsso</div>
         </div>
       </div>
+
+      <!-- Classement Pico Elo — alimenté par le fichier classement.html à la racine du site.
+           Pour mettre à jour : depuis l'outil PicoElo, « Publier sur le site » → remplacer
+           classement.html dans ce dossier → git push. L'iframe s'auto-dimensionne (même origine). -->
+      <div class="pico-classement" style="margin-top:56px;padding-top:48px;border-top:1px solid var(--border)">
+        <div style="text-align:center;max-width:640px;margin:0 auto 28px">
+          <div class="badge badge-gold" style="margin-bottom:14px">Mis à jour chaque mois</div>
+          <h2 style="font-size:34px;color:var(--bleu);margin-bottom:10px">Classement Pico Elo</h2>
+          <p style="font-size:15px;color:var(--text);line-height:1.8">Le classement interne des jeunes du club, recalculé après chaque tournoi PICO. Chaque victoire fait progresser, chaque partie compte.</p>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--sh-sm);background:var(--noir)">
+          <iframe id="pico-classement-frame" src="classement.html" title="Classement Pico Elo — Cannes Échecs" loading="lazy" scrolling="no" onload="fitPicoFrame(this)" style="display:block;width:100%;height:900px;border:0"></iframe>
+        </div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px;font-style:italic">Classement à titre indicatif · Système Pico Elo interne au club</p>
+      </div>
+      <script>
+        // Ajuste la hauteur de l'iframe au contenu (possible car classement.html est même origine).
+        // Le classement est dans un onglet masqué au chargement : tant que la section n'est pas
+        // affichée, l'iframe mesure 0. On (re)mesure donc à chaque fois qu'elle devient visible
+        // (IntersectionObserver) et au chargement de l'iframe, avec quelques essais le temps que
+        // les polices web se stabilisent. Cross-origin -> la hauteur par défaut est conservée.
+        function fitPicoFrame(f){
+          if(!f)return;
+          var tries=0;
+          (function apply(){
+            var h=0;
+            try{
+              var d=f.contentDocument||f.contentWindow.document;
+              // On mesure la hauteur du CONTENU (body). Pas documentElement : <html> remplit
+              // le cadre et renverrait la hauteur actuelle de l'iframe, pas celle du contenu.
+              h=d.body?d.body.scrollHeight:0;
+            }catch(e){return;/* cross-origin : on garde la hauteur fixe */}
+            if(h>200){f.style.height=h+'px';return;}
+            if(tries++<25)setTimeout(apply,150);
+          })();
+        }
+        (function(){
+          var f=document.getElementById('pico-classement-frame');
+          if(!f)return;
+          if('IntersectionObserver' in window){
+            var io=new IntersectionObserver(function(entries){
+              entries.forEach(function(en){ if(en.isIntersecting) fitPicoFrame(f); });
+            },{threshold:0.01});
+            io.observe(f);
+          }
+          window.addEventListener('resize',function(){fitPicoFrame(f);});
+        })();
+      </script>
     </div>
   </div>
 

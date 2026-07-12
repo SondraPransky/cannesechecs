@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test — Fichier connecté (Pico Elo)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,'Segoe UI',sans-serif;background:#0e1320;color:#e8eaf2;line-height:1.6;padding:2rem 1.25rem;max-width:720px;margin:0 auto}
+  h1{font-size:1.5rem;margin-bottom:.25rem;color:#f0c96a}
+  .sub{color:#8a94a8;font-size:.9rem;margin-bottom:1.5rem}
+  .verdict{border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;font-size:1.05rem;font-weight:600;border:2px solid}
+  .verdict.ok{background:rgba(78,202,139,.12);border-color:#4eca8b;color:#7ee6ad}
+  .verdict.ko{background:rgba(224,92,110,.12);border-color:#e05c6e;color:#f0929e}
+  .verdict.wait{background:rgba(91,142,240,.12);border-color:#5b8ef0;color:#9dbcf5}
+  .verdict small{display:block;font-weight:400;font-size:.85rem;margin-top:.5rem;opacity:.9}
+  table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.9rem}
+  td{padding:.55rem .5rem;border-bottom:1px solid #24304a}
+  td:first-child{color:#8a94a8}
+  td:last-child{text-align:right;font-family:'Consolas',monospace;font-weight:600}
+  .y{color:#4eca8b}.n{color:#e05c6e}
+  button{font-size:1rem;font-weight:600;padding:.9rem 1.6rem;border:none;border-radius:10px;background:#f0c96a;color:#1a1200;cursor:pointer}
+  button:hover{background:#f5d788}
+  button:disabled{opacity:.5;cursor:default}
+  #log{margin-top:1.25rem;font-family:'Consolas',monospace;font-size:.82rem;white-space:pre-wrap;background:#131a29;border:1px solid #24304a;border-radius:10px;padding:1rem;color:#aab6cc;min-height:2rem}
+  .step{color:#8a94a8;font-size:.85rem;margin:1.5rem 0 .5rem}
+</style>
+</head>
+<body>
+<h1>🔐 Test du fichier connecté</h1>
+<p class="sub">Vérifie si l'auto-sauvegarde de Pico Elo fonctionne sur CET ordinateur, ouvert comme vous l'ouvrez d'habitude.</p>
+
+<div class="verdict wait" id="verdict">Analyse en cours…</div>
+
+<table>
+  <tr><td>Ouvert via</td><td id="proto">—</td></tr>
+  <tr><td>Contexte sécurisé (isSecureContext)</td><td id="secure">—</td></tr>
+  <tr><td>showSaveFilePicker disponible</td><td id="save">—</td></tr>
+  <tr><td>showOpenFilePicker disponible</td><td id="open">—</td></tr>
+  <tr><td>IndexedDB (mémoire du fichier)</td><td id="idb">—</td></tr>
+</table>
+
+<p class="step">Étape finale — le vrai test (crée un petit fichier puis vérifie qu'il se reconnecte) :</p>
+<button id="btn" onclick="testReel()">▶ Lancer le test réel</button>
+<div id="log"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function yn(v){return v?'<span class="y">✓ OUI</span>':'<span class="n">✗ NON</span>';}
+function log(m){$('log').textContent+=m+'\n';}
+
+const proto=location.protocol;
+const sec=window.isSecureContext;
+const hasSave=('showSaveFilePicker' in window);
+const hasOpen=('showOpenFilePicker' in window);
+const hasIDB=('indexedDB' in window);
+
+$('proto').innerHTML='<b>'+proto+'</b>'+(proto==='file:'?' (double-clic)':'');
+$('secure').innerHTML=yn(sec);
+$('save').innerHTML=yn(hasSave);
+$('open').innerHTML=yn(hasOpen);
+$('idb').innerHTML=yn(hasIDB);
+
+if(hasSave&&hasOpen&&hasIDB){
+  $('verdict').className='verdict ok';
+  $('verdict').innerHTML='✅ L\'API est disponible ici.<small>Les fonctions existent. Cliquez « Lancer le test réel » ci-dessous pour confirmer que ça écrit ET se reconnecte vraiment.</small>';
+}else{
+  $('verdict').className='verdict ko';
+  $('verdict').innerHTML='❌ L\'auto-sauvegarde (fichier connecté) NE fonctionnera PAS ici.<small>'+
+    (proto==='file:'?'Ouvert en double-clic (file://), le navigateur bloque cette fonction. ':'')+
+    'Il faudra ouvrir Pico Elo autrement (voir le message ci-dessous), ou utiliser l\'export/import manuel.</small>';
+  $('btn').disabled=true;
+  log('Diagnostic : au moins une brique manque.');
+  log('proto='+proto+'  secure='+sec+'  save='+hasSave+'  open='+hasOpen+'  idb='+hasIDB);
+}
+
+// --- Vrai test : create -> write -> stocke la poignée -> relit la poignée -> re-lecture ---
+const DBN='pico_fs_test';
+function idb(cb){const r=indexedDB.open(DBN,1);r.onupgradeneeded=()=>r.result.createObjectStore('h');r.onsuccess=()=>cb(r.result);r.onerror=()=>log('IDB open erreur: '+r.error);}
+function idbPut(h){return new Promise(res=>idb(db=>{const t=db.transaction('h','readwrite');t.objectStore('h').put(h,'k');t.oncomplete=()=>res();}));}
+function idbGet(){return new Promise(res=>idb(db=>{const t=db.transaction('h','readonly');const q=t.objectStore('h').get('k');q.onsuccess=()=>res(q.result);}));}
+
+async function testReel(){
+  $('btn').disabled=true;$('log').textContent='';
+  try{
+    log('1) Ouverture du sélecteur de fichier…');
+    const handle=await window.showSaveFilePicker({suggestedName:'pico_test.txt',types:[{description:'Test',accept:{'text/plain':['.txt']}}]});
+    log('   ✓ Sélecteur OK, fichier choisi : '+handle.name);
+
+    log('2) Écriture dans le fichier…');
+    const w=await handle.createWritable();await w.write('Pico Elo test '+new Date().toISOString());await w.close();
+    log('   ✓ Écriture réussie.');
+
+    log('3) Mémorisation de la poignée (IndexedDB)…');
+    await idbPut(handle);
+    log('   ✓ Poignée mémorisée.');
+
+    log('4) Relecture de la poignée mémorisée…');
+    const h2=await idbGet();
+    if(!h2){throw new Error('poignée non retrouvée en IndexedDB');}
+    const perm=await h2.queryPermission({mode:'readwrite'});
+    log('   ✓ Poignée retrouvée. Permission actuelle : '+perm);
+
+    log('5) Re-lecture du contenu…');
+    const f=await h2.getFile();const txt=await f.text();
+    log('   ✓ Contenu relu : "'+txt.slice(0,40)+'…"');
+
+    $('verdict').className='verdict ok';
+    $('verdict').innerHTML='✅ TOUT FONCTIONNE sur cet ordinateur.<small>Écriture directe + reconnexion au même fichier confirmées. L\'auto-sauvegarde de Pico Elo marchera ainsi. (Au prochain démarrage, le navigateur pourra redemander l\'autorisation d\'accès — c\'est normal.)</small>';
+    log('\n=> RÉSULTAT : OK ✅  Vous pouvez utiliser le fichier connecté.');
+  }catch(e){
+    $('verdict').className='verdict ko';
+    $('verdict').innerHTML='❌ Le test réel a échoué.<small>'+(e.name||'')+' : '+(e.message||e)+'</small>';
+    log('\n=> ERREUR : '+(e.name||'')+' — '+(e.message||e));
+    log('Si vous avez juste annulé le sélecteur, relancez le test et choisissez un emplacement.');
+  }
+  $('btn').disabled=false;
+}
+</script>
+</body>
+</html>
