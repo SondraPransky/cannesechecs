@@ -103,7 +103,6 @@ td.elo-val{font-family:var(--font-sans);font-variant-numeric:tabular-nums;font-s
 .tag{display:inline-block;font-family:var(--font-label);font-size:.58rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.12rem .45rem;border-radius:4px;margin-left:.45rem;}
 .tag.new{background:var(--gold-pale);color:var(--gold-ink);}
 td.school{color:var(--muted);font-size:.82rem;}
-td.age{font-family:var(--font-mono);font-size:.82rem;color:var(--muted);text-align:center;}
 #parse-preview{display:none;margin-top:1rem;}
 .preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem;max-height:200px;overflow-y:auto;margin-bottom:1rem;}
 .p-chip{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.4rem .7rem;font-size:.78rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;}
@@ -114,7 +113,7 @@ td.age{font-family:var(--font-mono);font-size:.82rem;color:var(--muted);text-ali
 .hist-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem 1.1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;box-shadow:var(--sh-sm);}
 .hist-name{font-weight:600;color:var(--bleu);flex:1;}
 .hist-meta{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);}
-.joueur-grid{display:grid;grid-template-columns:1.3fr 1.1fr 0.7fr 1.3fr 0.65fr auto;gap:.5rem;max-height:300px;overflow-y:auto;margin:1rem 0;}
+.joueur-grid{display:grid;grid-template-columns:1.3fr 1.1fr 0.9fr 1.5fr auto;gap:.5rem;max-height:300px;overflow-y:auto;margin:1rem 0;}
 .jou-head{font-family:var(--font-label);font-size:.6rem;font-weight:700;color:var(--gold-ink);letter-spacing:.1em;text-transform:uppercase;padding-bottom:.4rem;border-bottom:1px solid var(--border);}
 .joueur-grid input{font-size:.85rem;padding:.45rem .7rem;}
 .add-row-btn{font-family:var(--font-label);font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-ink);background:transparent;border:1px dashed rgba(201,168,76,.5);border-radius:8px;width:100%;padding:.6rem;margin-top:.5rem;cursor:pointer;}
@@ -191,11 +190,11 @@ canvas{width:100%!important;}
 .doublon-nom{font-family:var(--font-mono);font-size:.82rem;font-weight:600;color:var(--red);}
 .doublon-suggest{font-size:.75rem;color:var(--muted);}
 .doublon-suggest strong{color:var(--bleu);}
-/* REGISTRE 5 cols */
-.joueur-grid{display:grid;grid-template-columns:1.3fr 1.2fr 1fr 1.5fr 0.7fr auto;gap:.5rem;max-height:320px;overflow-y:auto;margin:1rem 0;}
+/* REGISTRE : Nom, Prenom, Cat, Ecole, (supprimer) */
+.joueur-grid{display:grid;grid-template-columns:1.3fr 1.2fr 1fr 1.6fr auto;gap:.5rem;max-height:320px;overflow-y:auto;margin:1rem 0;}
 /* Mobile : on garde les colonnes lisibles et on laisse defiler horizontalement (en-tetes + champs alignes) */
 @media(max-width:640px){
-  .joueur-grid{grid-template-columns:minmax(110px,1.3fr) minmax(95px,1.2fr) minmax(64px,.9fr) minmax(120px,1.4fr) minmax(54px,.7fr) auto;overflow-x:auto;}
+  .joueur-grid{grid-template-columns:minmax(110px,1.3fr) minmax(95px,1.2fr) minmax(64px,.9fr) minmax(130px,1.6fr) auto;overflow-x:auto;}
   .joueur-grid input{font-size:.8rem;padding:.4rem .5rem;}
 }
 
@@ -230,7 +229,7 @@ footer{text-align:center;padding:2.5rem 2rem;color:var(--muted);font-size:.78rem
   <p class="modal-sub">Pico Elo &mdash; Guide complet pour les animateurs</p>
   <div class="aide-block">
    <h3>Mise en place initiale</h3>
-   <div class="aide-step"><div class="aide-num">1</div><p><strong>Renseignez le registre</strong> avec le nom complet tel qu'il apparait dans Papi, l'ecole et l'age. Chaque nouveau joueur demarre a <strong>Elo 200</strong>. Un joueur absent du registre est ajoute automatiquement lors de l'import.</p></div>
+   <div class="aide-step"><div class="aide-num">1</div><p><strong>Renseignez le registre</strong> avec le nom complet tel qu'il apparait dans Papi, la categorie et l'ecole. Chaque nouveau joueur demarre a <strong>Elo 200</strong>. Un joueur absent du registre est ajoute automatiquement lors de l'import.</p></div>
    <div class="aide-step"><div class="aide-num">2</div><p><strong>Exportez une premiere sauvegarde</strong> et rangez le fichier <code>.json</code> dans un dossier Google Drive partage. Ce fichier est la memoire du club d'un mois sur l'autre.</p></div>
   </div>
   <div class="aide-block">
@@ -445,13 +444,12 @@ footer{text-align:center;padding:2.5rem 2rem;color:var(--muted);font-size:.78rem
  <div id="joueurs-section">
   <p class="section-title">1 &mdash; Registre des joueurs</p>
   <div class="card">
-   <p style="font-size:.85rem;color:var(--muted);margin-bottom:.25rem">Renseignez chaque enfant (nom identique a Papi, ecole, age). Les joueurs absents du registre sont ajoutes automatiquement a Elo 200 lors de l'import.</p>
+   <p style="font-size:.85rem;color:var(--muted);margin-bottom:.25rem">Renseignez chaque enfant (nom identique a Papi, categorie, ecole). Les joueurs absents du registre sont ajoutes automatiquement a Elo 200 lors de l'import.</p>
    <div class="joueur-grid" id="joueur-grid">
     <div class="jou-head">NOM <span style="font-size:.6rem;color:var(--gold-ink);font-weight:700">(comme Papi)</span></div>
     <div class="jou-head">Prenom</div>
     <div class="jou-head">Cat.</div>
     <div class="jou-head">Ecole</div>
-    <div class="jou-head">Age</div>
     <div class="jou-head"></div>
    </div>
    <button class="add-row-btn" onclick="addJoueurRow()">+ Ajouter un joueur</button>
@@ -526,7 +524,7 @@ footer{text-align:center;padding:2.5rem 2rem;color:var(--muted);font-size:.78rem
     <thead><tr>
      <th class="ctr">#</th><th class="ctr"></th>
      <th>Joueur <span style="font-size:.62rem;font-weight:400;color:var(--muted)">(cliquer = courbe)</span></th>
-     <th>Ecole</th><th class="ctr">Cat.</th><th class="ctr">Age</th><th class="num">Pico Elo</th>
+     <th>Ecole</th><th class="ctr">Cat.</th><th class="num">Pico Elo</th>
      <th class="ctr">Evolution</th><th class="ctr">V</th><th class="ctr">D</th>
      <th class="ctr">N</th><th class="ctr" title="Total parties">Parties</th><th class="ctr">Tournois</th>
     </tr></thead>
@@ -903,7 +901,7 @@ function archiverSaison(){
     let newElo=200;
     if(mode==='conserver')newElo=j.elo;
     else if(mode==='moitie')newElo=Math.round((j.elo+200)/2);
-    newDb[nom]={elo:newElo,victoires:0,defaites:0,nulles:0,parties:0,tournois:0,delta:0,carriere:(j.carriere!=null?j.carriere:(j.tournois||0)),ecole:j.ecole||'',age:j.age||'',cat:j.cat||''};
+    newDb[nom]={elo:newElo,victoires:0,defaites:0,nulles:0,parties:0,tournois:0,delta:0,carriere:(j.carriere!=null?j.carriere:(j.tournois||0)),ecole:j.ecole||'',cat:j.cat||''};
   });
   saveJoueursDB(newDb);saveTournoisDB([]);
   updateSaveInfo();populateJoueurGrid();renderClassement();renderHistorique();
@@ -930,26 +928,25 @@ function splitNomPrenom(full){
   while(i<tokens.length&&tokens[i]===tokens[i].toUpperCase()&&/[A-Z]/.test(tokens[i]))i++;
   return{nom:tokens.slice(0,i).join(' ')||full,prenom:tokens.slice(i).join(' ')};
 }
-function addJoueurRow(full,cat,ecole,age){
-  full=full||'';cat=cat||'';ecole=ecole||'';age=age||'';
+function addJoueurRow(full,cat,ecole){
+  full=full||'';cat=cat||'';ecole=ecole||'';
   const sp=splitNomPrenom(full);
   const g=document.getElementById('joueur-grid');
   const nn=document.createElement('input');nn.type='text';nn.placeholder='DUPONT';nn.value=sp.nom;nn.className='joueur-nom';nn.style.textTransform='uppercase';nn.oninput=function(){nn.value=nn.value.toUpperCase();};
   const np=document.createElement('input');np.type='text';np.placeholder='Marie';np.value=sp.prenom;np.className='joueur-prenom';
   const nc=document.createElement('input');nc.type='text';nc.placeholder='Ben';nc.value=cat;nc.className='joueur-cat';nc.title='Pou Pup Ben Min Cad';
   const e=document.createElement('input');e.type='text';e.placeholder='Ecole';e.value=ecole;e.className='joueur-ecole';
-  const a=document.createElement('input');a.type='text';a.placeholder='10';a.value=age;a.className='joueur-age';
   const del=document.createElement('button');del.className='del-btn';del.textContent='\u2715';del.title='Supprimer';
-  del.onclick=function(){nn.remove();np.remove();nc.remove();e.remove();a.remove();del.remove();};
-  g.append(nn,np,nc,e,a,del);
+  del.onclick=function(){nn.remove();np.remove();nc.remove();e.remove();del.remove();};
+  g.append(nn,np,nc,e,del);
 }
 
 function populateJoueurGrid(){
   const db=loadJoueurs(),g=document.getElementById('joueur-grid');
-  while(g.children.length>4)g.removeChild(g.lastChild);
+  while(g.children.length>5)g.removeChild(g.lastChild);
   const sorted=Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo);
   if(!sorted.length){addJoueurRow();return;}
-  sorted.forEach(([nom,j])=>addJoueurRow(nom,j.cat||'',j.ecole||'',j.age||''));
+  sorted.forEach(([nom,j])=>addJoueurRow(nom,j.cat||'',j.ecole||''));
 }
 
 function saveJoueurs(){
@@ -957,7 +954,6 @@ function saveJoueurs(){
   const prenoms=[...document.querySelectorAll('.joueur-prenom')].map(function(i){return i.value.trim();});
   const cats=[...document.querySelectorAll('.joueur-cat')].map(function(i){return i.value.trim();});
   const ecoles=[...document.querySelectorAll('.joueur-ecole')].map(function(i){return i.value.trim();});
-  const ages=[...document.querySelectorAll('.joueur-age')].map(function(i){return i.value.trim();});
   const db=loadJoueurs();let n=0;
   noms.forEach(function(nom,i){
     if(!nom)return;
@@ -965,7 +961,6 @@ function saveJoueurs(){
     if(!db[full])db[full]={elo:200,victoires:0,defaites:0,nulles:0,parties:0,tournois:0,delta:0};
     db[full].cat=cats[i]||db[full].cat||'';
     db[full].ecole=ecoles[i]||db[full].ecole||'';
-    db[full].age=ages[i]||db[full].age||'';
     n++;
   });
   saveJoueursDB(db);updateSaveInfo();renderClassement();
@@ -973,8 +968,8 @@ function saveJoueurs(){
 }
 
 function exportJoueursCSV(){
-  const db=loadJoueurs();let csv='Nom,Ecole,Age,Pico Elo\n';
-  Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo).forEach(([nom,j])=>csv+='"'+nom+'","'+(j.ecole||'')+'","'+(j.age||'')+'",'+j.elo+'\n');
+  const db=loadJoueurs();let csv='Nom,Categorie,Ecole,Pico Elo\n';
+  Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo).forEach(([nom,j])=>csv+='"'+nom+'","'+(j.cat||'')+'","'+(j.ecole||'')+'",'+j.elo+'\n');
   dlCSV(csv,'joueurs_pico.csv');
 }
 
@@ -990,7 +985,7 @@ function doFusion(){
   d.parties=(d.parties||0)+(s.parties||0);
   d.tournois=(d.tournois||0)+(s.tournois||0);
   // On complete les infos manquantes du nom conserve avec celles du doublon
-  d.ecole=d.ecole||s.ecole||'';d.age=d.age||s.age||'';d.cat=d.cat||s.cat||'';
+  d.ecole=d.ecole||s.ecole||'';d.cat=d.cat||s.cat||'';
   delete db[src];saveJoueursDB(db);
   const tournois=loadTournois();
   tournois.forEach(t=>{['snapshot','participants'].forEach(k=>{
@@ -1080,7 +1075,7 @@ function parseEtCalculer(){
   let db=loadJoueurs();const dbAvant=JSON.parse(JSON.stringify(db));const{deltas,stats}=calculerElo(players,db);
   for(const[,p]of Object.entries(players)){
     const n=p.nom,d=deltas[n]||0,s=stats[n];
-    if(!db[n])db[n]={elo:ELO_DEPART,victoires:0,defaites:0,nulles:0,tournois:0,delta:0,ecole:'',age:''};
+    if(!db[n])db[n]={elo:ELO_DEPART,victoires:0,defaites:0,nulles:0,tournois:0,delta:0,ecole:''};
     db[n].elo=Math.max(100,db[n].elo+d);db[n].delta=d;
     db[n].victoires=(db[n].victoires||0)+(s?.v||0);
     db[n].defaites=(db[n].defaites||0)+(s?.d||0);
@@ -1128,14 +1123,14 @@ function parseEtCalculer(){
   saveJoueursDB(db);
   const tournois=loadTournois();
   const snapshot={};
-  for(const[n,j]of Object.entries(db))snapshot[n]={elo:j.elo,delta:j.delta||0,ecole:j.ecole||'',age:j.age||'',cat:j.cat||'',parties:j.parties||0};
+  for(const[n,j]of Object.entries(db))snapshot[n]={elo:j.elo,delta:j.delta||0,ecole:j.ecole||'',cat:j.cat||'',parties:j.parties||0};
   // Contribution EXACTE de ce tournoi, par participant : sert a l'annulation fiable (undo)
   // ET aux vues par tournoi (historique, graphique) — ne contient QUE les vrais participants.
   const participants={};
   for(const p of Object.values(players)){
     const n=p.nom,s=stats[n]||{v:0,d:0,n:0},j=db[n]||{};
     participants[n]={elo:j.elo,delta:deltas[n]||0,v:s.v||0,d:s.d||0,n:s.n||0,
-      ecole:j.ecole||'',age:j.age||'',cat:j.cat||'',wasNew:!dbAvant[n]};
+      ecole:j.ecole||'',cat:j.cat||'',wasNew:!dbAvant[n]};
     if(dbAvant[n])participants[n].eloBefore=dbAvant[n].elo;
   }
   tournois.push({nom,date,joueurs:nb,snapshot,participants});saveTournoisDB(tournois);
@@ -1186,7 +1181,6 @@ function renderClassement(){
       '<td class="name" onclick="ouvrirGraph(\''+nomEsc+'\')" title="Voir la courbe d\'evolution">'+nom+newTag+catTag+'</td>'+
       '<td class="school">'+(j.ecole||'&mdash;')+'</td>'+
       '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.78rem;color:var(--blue)">'+(j.cat||'&mdash;')+'</td>'+
-      '<td class="age">'+(j.age||'&mdash;')+'</td>'+
       '<td class="elo-val">'+j.elo+'</td>'+
       '<td class="ctr">'+dHtml+'</td>'+
       '<td class="ctr" style="font-family:\'DM Mono\',monospace;font-size:.82rem;color:var(--green)">'+(j.victoires||0)+'</td>'+
@@ -1220,7 +1214,7 @@ function ouvrirGraph(nom){
   const eloMax=valid.length?Math.max.apply(null,valid):eloActuel;
   const eloMin=valid.length?Math.min.apply(null,valid):eloActuel;
   document.getElementById('graph-title').textContent=nom;
-  document.getElementById('graph-sub').textContent=(j.ecole||'')+(j.age?' | '+j.age+' ans':'')+' | Elo actuel : '+eloActuel;
+  document.getElementById('graph-sub').textContent=(j.ecole?j.ecole+' | ':'')+'Elo actuel : '+eloActuel;
   document.getElementById('graph-stats').innerHTML=
     '<span>Max : <strong style="color:var(--gold-ink)">'+eloMax+'</strong></span>'+
     '<span>Min : <strong style="color:var(--muted)">'+eloMin+'</strong></span>'+
@@ -1346,8 +1340,8 @@ function renderHistorique(){
 
 function exportClassementCSV(){
   const db=loadJoueurs();const sorted=Object.entries(db).sort((a,b)=>b[1].elo-a[1].elo);
-  let csv='Rang,Nom,Ecole,Age,Pico Elo,Evolution,Victoires,Defaites,Nulles,Tournois\n';
-  sorted.forEach(([nom,j],i)=>{const d=j.delta||0;csv+=i+1+',"'+nom+'","'+(j.ecole||'')+'","'+(j.age||'')+'",'+j.elo+','+(d>0?'+'+d:d)+','+(j.victoires||0)+','+(j.defaites||0)+','+(j.nulles||0)+','+(j.tournois||0)+'\n';});
+  let csv='Rang,Nom,Categorie,Ecole,Pico Elo,Evolution,Victoires,Defaites,Nulles,Tournois\n';
+  sorted.forEach(([nom,j],i)=>{const d=j.delta||0;csv+=i+1+',"'+nom+'","'+(j.cat||'')+'","'+(j.ecole||'')+'",'+j.elo+','+(d>0?'+'+d:d)+','+(j.victoires||0)+','+(j.defaites||0)+','+(j.nulles||0)+','+(j.tournois||0)+'\n';});
   dlCSV(csv,'classement_pico_elo.csv');
 }
 
@@ -1372,7 +1366,6 @@ function exportPDF(){
       '<td style="padding:4px 3px;font-size:8pt;color:#888">'+(i===0?'1er':i===1?'2e':i===2?'3e':'')+'</td>'+
       '<td style="padding:4px 5px;font-weight:600">'+(j.cat?'<span style="color:#5b8ef0;font-size:7pt;margin-right:3px">['+j.cat+']</span>':'')+nom+'</td>'+
       '<td style="padding:4px 5px;color:#666;font-size:8.5pt">'+(j.ecole||'')+'</td>'+
-      '<td style="text-align:center;color:#888;font-family:monospace;padding:4px 4px">'+(j.age||'')+'</td>'+
       '<td style="text-align:right;font-weight:700;font-family:monospace;font-size:11pt;padding:4px 6px">'+j.elo+'</td>'+
       '<td style="text-align:center;font-family:monospace;color:'+dColor+';padding:4px 4px">'+dStr+'</td>'+
       '<td style="text-align:center;font-family:monospace;color:#2a7a2a;padding:4px 4px">'+(j.victoires||0)+'</td>'+
@@ -1402,7 +1395,7 @@ function exportPDF(){
     '<span><strong>'+filtered.length+'</strong> joueur(s)</span></div></div>'+
     '<table><thead><tr>'+
     '<th style="text-align:center">#</th><th></th><th>Joueur</th><th>Ecole</th>'+
-    '<th style="text-align:center">Age</th><th style="text-align:right">Pico Elo</th>'+
+    '<th style="text-align:right">Pico Elo</th>'+
     '<th style="text-align:center">Evol.</th><th style="text-align:center">V</th>'+
     '<th style="text-align:center">D</th><th style="text-align:center">N</th>'+
     '<th style="text-align:center">Parties</th><th style="text-align:center">Tourn.</th>'+
@@ -1441,7 +1434,6 @@ function buildClassementHTML(forEmbed){
       '<td class="c md">'+(medals[i]||'')+'</td>'+
       '<td class="nm">'+nom+(estNouveau(j)?'<span class="new">nouveau</span>':'')+'</td>'+
       '<td class="sc">'+(j.ecole||'&mdash;')+'</td>'+
-      '<td class="c ag">'+(j.age||'&mdash;')+'</td>'+
       '<td class="elo">'+j.elo+'</td>'+
       '<td class="c dl">'+dNode(d)+'</td>'+
       '<td class="c v">'+(j.victoires||0)+'</td>'+
@@ -1499,7 +1491,6 @@ function buildClassementHTML(forEmbed){
     +"td.num2{font-variant-numeric:tabular-nums;color:#5B6270}"
     +"td.nm{font-weight:600;color:#1E3A5F}"
     +"td.sc{color:#5B6270;font-size:.82rem}"
-    +"td.ag{font-variant-numeric:tabular-nums;color:#5B6270}"
     +"td.elo{font-variant-numeric:tabular-nums;font-size:1rem;font-weight:700;color:#1E3A5F;text-align:right}"
     +"td.v{color:#2E7D57;font-variant-numeric:tabular-nums}td.l{color:#B0453A;font-variant-numeric:tabular-nums}td.n{color:#5B6270;font-variant-numeric:tabular-nums}"
     +".new{font-family:'Montserrat',sans-serif;font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.1rem .4rem;border-radius:4px;background:#F5EDD4;color:#7E6420;margin-left:.45rem}"
@@ -1515,7 +1506,7 @@ function buildClassementHTML(forEmbed){
     +'<style>'+css+'</style></head><body>'+header
     +'<main>'+podHtml
     +'<div class="tw"><table><thead><tr>'
-    +'<th class="c">#</th><th></th><th>Joueur</th><th>&Eacute;cole</th><th class="c">&Acirc;ge</th>'
+    +'<th class="c">#</th><th></th><th>Joueur</th><th>&Eacute;cole</th>'
     +'<th class="num">Pico Elo</th><th class="c">&Eacute;vol.</th><th class="c">V</th><th class="c">D</th><th class="c">N</th>'
     +'</tr></thead><tbody>'+rows+'</tbody></table></div>'
     +'<div class="foot">Classement Pico Elo &middot; Cannes &Eacute;checs &middot; G&eacute;n&eacute;r&eacute; le '+genfr+'</div>'
@@ -1576,12 +1567,12 @@ function exportPageHistorique(){
     let rowsT='';
     allT.forEach(([nom,j],ri2)=>{
       const d=j.delta||0;const rc=ri2<3?' class="r"':'';
-      rowsT+='<tr'+rc+'><td class="c num2">'+(ri2+1)+'</td><td class="c md">'+(medals[ri2]||'')+'</td><td class="nm">'+nom+'</td><td class="sc">'+(j.ecole||'&mdash;')+'</td><td class="c ag">'+(j.age||'&mdash;')+'</td><td class="elo">'+j.elo+'</td><td class="c">'+dN(d)+'</td></tr>';
+      rowsT+='<tr'+rc+'><td class="c num2">'+(ri2+1)+'</td><td class="c md">'+(medals[ri2]||'')+'</td><td class="nm">'+nom+'</td><td class="sc">'+(j.ecole||'&mdash;')+'</td><td class="elo">'+j.elo+'</td><td class="c">'+dN(d)+'</td></tr>';
     });
     tournoiSections+='<section class="tsec"><div class="thd"><div class="tname">'+t.nom+'</div><div class="tmeta">'+t.date+' &middot; '+t.joueurs+' joueurs</div></div>'+
       '<div class="pod3">'+podHtml+'</div>'+
       '<details><summary>&#x25B6; Classement complet ('+allT.length+' joueurs)</summary>'+
-      '<div class="tw"><table><thead><tr><th class="c">#</th><th></th><th>Joueur</th><th>&Eacute;cole</th><th class="c">&Acirc;ge</th><th class="num">Elo</th><th class="c">&Eacute;vol.</th></tr></thead>'+
+      '<div class="tw"><table><thead><tr><th class="c">#</th><th></th><th>Joueur</th><th>&Eacute;cole</th><th class="num">Elo</th><th class="c">&Eacute;vol.</th></tr></thead>'+
       '<tbody>'+rowsT+'</tbody></table></div></details></section>';
   });
   let thCols='';
@@ -1636,7 +1627,7 @@ function exportPageHistorique(){
     +"td{padding:.55rem .8rem;vertical-align:middle}.md{font-size:.95rem}"
     +".num2{font-variant-numeric:tabular-nums;color:#5B6270}"
     +".nm{font-weight:600;color:#1E3A5F}.nowrap{white-space:nowrap}"
-    +".sc{color:#5B6270;font-size:.78rem}.ag{font-variant-numeric:tabular-nums;color:#5B6270}"
+    +".sc{color:#5B6270;font-size:.78rem}"
     +".elo{font-variant-numeric:tabular-nums;font-weight:700;color:#1E3A5F;text-align:right}"
     +".up{color:#2E7D57;font-weight:600}.down{color:#B0453A;font-weight:600}.eq{color:#8A9099}"
     +".evnote{font-size:.78rem;color:#5B6270;margin-bottom:.75rem;padding:.65rem .85rem;background:#fff;border-radius:8px;border:1px solid #E5E0D8}"
