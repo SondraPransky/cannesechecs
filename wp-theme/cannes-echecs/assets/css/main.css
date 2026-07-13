@@ -165,9 +165,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    Taille pilotée par le contexte (1em) ; modificateurs pour les usages fixes.
    ===================================================== */
 .ic{width:1.1em;height:1.1em;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:-.18em;flex-shrink:0}
-.ic-force{width:30px;height:30px;stroke-width:1.5;color:var(--gold);display:block;margin:0 auto 12px}
-.ic-lg{width:24px;height:24px}
-.ic-xl{width:52px;height:52px;stroke-width:1.25}
+.ic-force{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--gold);display:block;margin:0 auto 12px}
+.ic-lg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ic-xl{width:52px;height:52px;stroke:currentColor;fill:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}
 
 /* Compte à rebours unifié (.cd) — un seul balisage, 3 tailles (Lot B). IDs conservés pour le JS. */
 .cd{display:flex;align-items:flex-start;justify-content:center;gap:6px}
