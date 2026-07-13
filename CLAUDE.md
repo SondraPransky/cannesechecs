@@ -12,7 +12,11 @@ Pas de build step. On édite directement ce fichier.
 ```
 git push origin master:main
 ```
-→ GitHub Pages (`SondraPransky/cannesechecs`) → `cannes-echecs.fr`
+→ GitHub Pages (`SondraPransky/cannesechecs`).
+
+⚠️ **Le domaine `cannes-echecs.fr` n'est PAS (encore) branché sur ce dépôt.** `cannes-echecs.fr`/`www` sert encore l'ANCIEN site (serveur nginx, sans rapport). Le nouveau site (ce dépôt) est en ligne à :
+**`https://sondrapransky.github.io/cannesechecs/`**
+C'est cette URL qui reflète les `git push`. Le jour où le club a un domaine, il faudra le pointer sur ce GitHub Pages (ajouter un `CNAME`).
 
 ## Prévisualisation locale
 ```
@@ -21,8 +25,13 @@ npx serve .
 → port 5173 → `http://localhost:5173`
 
 ## Panneau admin (widget héro)
-URL : `cannes-echecs.fr/?admin`  
+Ajouter `?admin` à l'URL (ex. `https://sondrapransky.github.io/cannesechecs/?admin`).
 Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
+
+## Outils — Pico Elo (classement des jeunes)
+- **Outil** (calcul du classement Pico Elo à partir des grilles FFE) : `outils/pico-elo.html`, en ligne à `https://sondrapransky.github.io/cannesechecs/outils/pico-elo.html`. Source dev : dépôt séparé `C:\Users\mathi\Desktop\PicoElo` (re-copier `PicoElo_Cannes.html` → `outils/pico-elo.html` à chaque MAJ). Diagnostic : `outils/test-fichier.html`.
+- **Classement affiché** : bloc dans `index.html` onglet Tournois → PICO, `<iframe src="classement.html">` (auto-hauteur). `classement.html` (racine du dépôt) = page du classement, remplacée à chaque tournoi via le bouton « Publier sur le site » de l'outil (placeholder clair en attendant la 1re vraie publication).
+- **Publication mensuelle** = Romuald/Marlies (non-tech). Guide : `PicoElo\Guide_Publier_Classement.html`. Cible WordPress = plugin *Enable Media Replace*.
 
 ## Mainteneurs non-techniques
 Romuald de Labaca et Marlies Bensdorp De Labaca mettront à jour le site.
