@@ -18,20 +18,20 @@ get_header(); ?>
   <!-- Onglets tournois -->
   <div class="tab-bar">
     <div class="tab-bar-inner">
-      <button class="tab-btn tab-active" data-tab="t-pico">🎯 PICO</button>
-      <button class="tab-btn" data-tab="t-rapide">⚡ Rapide</button>
-      <button class="tab-btn" data-tab="t-scolaire">🏫 Scolaires</button>
-      <button class="tab-btn" data-tab="t-paques">🐣 Open Pâques</button>
+      <button class="tab-btn tab-active" data-tab="t-pico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-target"/></svg> PICO</button>
+      <button class="tab-btn" data-tab="t-rapide"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-bolt"/></svg> Rapide</button>
+      <button class="tab-btn" data-tab="t-scolaire"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaires</button>
+      <button class="tab-btn" data-tab="t-paques"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Open Pâques</button>
     </div>
   </div>
 
   <!-- Tab PICO -->
-  <div class="tab-panel tab-panel-active" id="tab-t-pico" style="padding:60px 0;background:var(--ivoire)">
+  <div class="tab-panel tab-panel-active" id="tab-t-pico" style="padding:var(--sp-8) 0;background:var(--ivoire)">
     <div class="container">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
         <div>
           <div class="badge badge-gold" style="margin-bottom:14px">Mensuel · Membres</div>
-          <h2 style="font-size:34px;color:var(--bleu);margin-bottom:12px">Tournois PICO</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Tournois PICO</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Le rendez-vous compétitif mensuel du club. 5 rondes rapides dans une ambiance conviviale, ouvert à tous les membres, toutes catégories.</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
             <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Format</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Parties rapides 15+10</div></div>
@@ -42,7 +42,7 @@ get_header(); ?>
           <div class="pico-next" id="pico-focal">
             <div class="pn-cal"><span class="d">19</span><span class="m">Sep</span></div>
             <div class="pn-body">
-              <div class="pn-lbl">📅 Prochaine édition</div>
+              <div class="pn-lbl"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg> Prochaine édition</div>
               <div class="pn-date">Samedi 19 septembre 2026 · 13h30</div>
             </div>
             <button class="btn btn-gold btn-sm" style="font-size:10px;padding:8px 14px" onclick="var b=document.querySelector('#tab-t-pico .pico-row.is-next .pico-ins'); if(b) b.click();">S'inscrire →</button>
@@ -104,16 +104,64 @@ get_header(); ?>
           <div class="pico-cal-foot">Un samedi par mois · Inscription en ligne via HelloAsso</div>
         </div>
       </div>
+
+      <!-- Classement Pico Elo — alimenté par le fichier classement.html à la racine du site.
+           Pour mettre à jour : depuis l'outil PicoElo, « Publier sur le site » → remplacer
+           classement.html dans ce dossier → git push. L'iframe s'auto-dimensionne (même origine). -->
+      <div class="pico-classement" style="margin-top:56px;padding-top:48px;border-top:1px solid var(--border)">
+        <div style="text-align:center;max-width:640px;margin:0 auto 28px">
+          <div class="badge badge-gold" style="margin-bottom:14px">Mis à jour chaque mois</div>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:10px">Classement Pico Elo</h2>
+          <p style="font-size:15px;color:var(--text);line-height:1.8">Le classement interne des jeunes du club, recalculé après chaque tournoi PICO. Chaque victoire fait progresser, chaque partie compte.</p>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--sh-sm);background:var(--ivoire)">
+          <iframe id="pico-classement-frame" src="classement.html" title="Classement Pico Elo — Cannes Échecs" loading="lazy" scrolling="no" onload="fitPicoFrame(this)" style="display:block;width:100%;height:900px;border:0"></iframe>
+        </div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px;font-style:italic">Classement à titre indicatif · Système Pico Elo interne au club</p>
+      </div>
+      <script>
+        // Ajuste la hauteur de l'iframe au contenu (possible car classement.html est même origine).
+        // Le classement est dans un onglet masqué au chargement : tant que la section n'est pas
+        // affichée, l'iframe mesure 0. On (re)mesure donc à chaque fois qu'elle devient visible
+        // (IntersectionObserver) et au chargement de l'iframe, avec quelques essais le temps que
+        // les polices web se stabilisent. Cross-origin -> la hauteur par défaut est conservée.
+        function fitPicoFrame(f){
+          if(!f)return;
+          var tries=0;
+          (function apply(){
+            var h=0;
+            try{
+              var d=f.contentDocument||f.contentWindow.document;
+              // On mesure la hauteur du CONTENU (body). Pas documentElement : <html> remplit
+              // le cadre et renverrait la hauteur actuelle de l'iframe, pas celle du contenu.
+              h=d.body?d.body.scrollHeight:0;
+            }catch(e){return;/* cross-origin : on garde la hauteur fixe */}
+            if(h>200){f.style.height=h+'px';return;}
+            if(tries++<25)setTimeout(apply,150);
+          })();
+        }
+        (function(){
+          var f=document.getElementById('pico-classement-frame');
+          if(!f)return;
+          if('IntersectionObserver' in window){
+            var io=new IntersectionObserver(function(entries){
+              entries.forEach(function(en){ if(en.isIntersecting) fitPicoFrame(f); });
+            },{threshold:0.01});
+            io.observe(f);
+          }
+          window.addEventListener('resize',function(){fitPicoFrame(f);});
+        })();
+      </script>
     </div>
   </div>
 
   <!-- Tab Open de Pâques -->
-  <div class="tab-panel" id="tab-t-paques" style="padding:60px 0;background:var(--ivoire);display:none">
+  <div class="tab-panel" id="tab-t-paques" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
     <div class="container">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
         <div>
           <div class="badge badge-gold" style="margin-bottom:14px">Annuel · Ouvert à tous</div>
-          <h2 style="font-size:34px;color:var(--bleu);margin-bottom:12px">Open de Pâques</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Open de Pâques</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Tournoi ouvert à tous les joueurs licenciés FFE. Cadence classique, homologation Elo FIDE. Idéal pour accumuler des parties homologuées pendant les vacances.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
             <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Format</div><div style="font-size:13px;color:var(--bleu);font-weight:600">45 min + 15 sec/coup</div></div>
@@ -121,18 +169,18 @@ get_header(); ?>
             <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Homologation</div><div style="font-size:13px;color:var(--bleu);font-weight:600">Elo FIDE</div></div>
           </div>
           <div style="background:var(--gold-pale);border:1px solid rgba(201,168,76,.35);border-radius:8px;padding:14px 18px;margin-bottom:20px">
-            <div style="font-size:14px;font-weight:600;color:var(--bleu)">📅 Samedi 27 au lundi 29 mars 2027</div>
+            <div style="font-size:14px;font-weight:600;color:var(--bleu)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg> Samedi 27 au lundi 29 mars 2027</div>
             <div style="font-size:13px;color:var(--muted);margin-top:2px">Au club · 3 Av. du Petit Juas, Cannes</div>
           </div>
           <button class="btn btn-gold" onclick="haOpen(HELLOASSO.paques,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>
         </div>
-        <div style="background:#fff;border-radius:14px;padding:28px;border:1px solid var(--border)">
+        <div class="card card-lg">
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--bleu);margin-bottom:20px">Infos pratiques</div>
           <div style="display:flex;flex-direction:column;gap:14px">
-            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0">🏆</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Prix</div><div style="font-size:13px;color:var(--muted)">Dotations par catégories d'âge et de classement</div></div></div>
-            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0">👤</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Public</div><div style="font-size:13px;color:var(--muted)">Tous joueurs licenciés FFE · Toutes catégories</div></div></div>
-            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0">💳</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Inscription</div><div style="font-size:13px;color:var(--muted)">En ligne via HelloAsso · Confirmation immédiate</div></div></div>
-            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0">📍</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Lieu</div><div style="font-size:13px;color:var(--muted)">3 Av. du Petit Juas · 06400 Cannes</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Prix</div><div style="font-size:13px;color:var(--muted)">Dotations par catégories d'âge et de classement</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-user"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Public</div><div style="font-size:13px;color:var(--muted)">Tous joueurs licenciés FFE · Toutes catégories</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-card"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Inscription</div><div style="font-size:13px;color:var(--muted)">En ligne via HelloAsso · Confirmation immédiate</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:20px;flex-shrink:0;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Lieu</div><div style="font-size:13px;color:var(--muted)">3 Av. du Petit Juas · 06400 Cannes</div></div></div>
           </div>
         </div>
       </div>
@@ -140,12 +188,12 @@ get_header(); ?>
   </div>
 
   <!-- Tab Rapide du vendredi -->
-  <div class="tab-panel" id="tab-t-rapide" style="padding:60px 0;background:var(--ivoire);display:none">
+  <div class="tab-panel" id="tab-t-rapide" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
     <div class="container">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
         <div>
           <div class="badge badge-gold" style="margin-bottom:14px">Mensuel · Sans inscription</div>
-          <h2 style="font-size:34px;color:var(--bleu);margin-bottom:12px">Rapide du vendredi</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Rapide du vendredi</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Un vendredi par mois, la veille du PICO, soirée parties rapides ouverte à tous les membres. Présentez-vous directement au club à 20h — aucune inscription nécessaire.</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
             <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Format</div><div style="font-size:14px;color:var(--bleu);font-weight:600">10 min + 5 sec/coup</div></div>
@@ -205,17 +253,17 @@ get_header(); ?>
   </div>
 
   <!-- Tab Scolaires -->
-  <div class="tab-panel" id="tab-t-scolaire" style="padding:60px 0;background:var(--ivoire);display:none">
+  <div class="tab-panel" id="tab-t-scolaire" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
     <div class="container">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
         <div>
           <div class="badge badge-gold" style="margin-bottom:14px">Partenariat Éducation Nationale</div>
-          <h2 style="font-size:34px;color:var(--bleu);margin-bottom:12px">Tournois scolaires</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Tournois scolaires</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Cannes Échecs organise les tournois inter-établissements pour les élèves du primaire et du secondaire du bassin cannois, du département au niveau national.</p>
           <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px">🏫</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-écoles</div><div style="font-size:12px;color:var(--muted)">Printemps · Primaires du bassin cannois</div></div></div>
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px">🎓</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-collèges</div><div style="font-size:12px;color:var(--muted)">Décembre · Championnats départementaux</div></div></div>
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px">🏆</span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Sélection régionale & nationale</div><div style="font-size:12px;color:var(--muted)">Février–avril · Championnats académiques et France</div></div></div>
+            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-écoles</div><div style="font-size:12px;color:var(--muted)">Printemps · Primaires du bassin cannois</div></div></div>
+            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-cap"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-collèges</div><div style="font-size:12px;color:var(--muted)">Décembre · Championnats départementaux</div></div></div>
+            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Sélection régionale & nationale</div><div style="font-size:12px;color:var(--muted)">Février–avril · Championnats académiques et France</div></div></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px">
             <button class="btn btn-gold" onclick="goToTab('activites','scolaire')">Nos interventions scolaires →</button>
@@ -226,10 +274,10 @@ get_header(); ?>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:4px">Bilan 2025–2026</div>
           <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px;letter-spacing:.04em">Saison terminée · 4 titres majeurs</div>
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="background:rgba(201,168,76,.18);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)">🏆 Ville de Cannes — 130 enfants · 5 catégories</div></div>
-            <div style="background:rgba(201,168,76,.12);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)">🥇 Sainte-Marie — Championne d'Académie · qualifiée nationale</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff">🥇 Stanislas — Champion Académique collèges</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff">🥇 Stanislas — Champion Départ. écoles & collèges</div></div>
+            <div style="background:rgba(201,168,76,.18);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Ville de Cannes — 130 enfants · 5 catégories</div></div>
+            <div style="background:rgba(201,168,76,.12);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Sainte-Marie — Championne d'Académie · qualifiée nationale</div></div>
+            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Académique collèges</div></div>
+            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Départ. écoles & collèges</div></div>
           </div>
           <button class="btn btn-outline-white btn-sm btn-full" style="margin-top:20px" onclick="goTo('actualites')">Voir tous les résultats →</button>
         </div>

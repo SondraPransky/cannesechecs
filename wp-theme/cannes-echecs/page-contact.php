@@ -19,15 +19,15 @@ get_header(); ?>
   <div style="background:var(--gold);padding:22px 0">
     <div class="container" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
-        <div style="font-size:24px">📞</div>
+        <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-phone"/></svg></div>
         <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Téléphone</div><a href="tel:+33493394139" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">04 93 39 41 39</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
-        <div style="font-size:24px">✉</div>
+        <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-mail"/></svg></div>
         <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><a href="mailto:info@cannes-echecs.fr" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">info@cannes-echecs.fr</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
-        <div style="font-size:24px">📍</div>
+        <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></div>
         <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">En personne</div><div style="font-size:15px;font-weight:600;color:var(--noir)">3 Av. du Petit Juas</div></div>
       </div>
     </div>
@@ -39,7 +39,7 @@ get_header(); ?>
       <div style="display:grid;grid-template-columns:60% 40%;gap:48px;align-items:start">
         <div>
           <span class="surtitre">Formulaire de contact</span>
-          <h2 style="font-size:36px;color:var(--bleu);margin-bottom:28px">Envoyez-nous<br>un message</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:28px">Envoyez-nous<br>un message</h2>
           <form id="contact-form" onsubmit="sendContact(event)" novalidate>
           <input type="text" id="cf-honey" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
@@ -64,20 +64,20 @@ get_header(); ?>
           </form>
         </div>
         <div>
-          <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
+          <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Nous trouver</h4>
             <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px">3 Av. du Petit Juas<br>06400 Cannes</div>
             <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold-text);cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Itinéraire Google Maps →</a>
           </div>
-          <div style="background:var(--ivoire);border-radius:12px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
+          <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h4>
             <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : 13h30–20h · cours dès 13h30</div>
           </div>
-          <div style="background:var(--bleu);border-radius:12px;padding:24px;color:#fff">
+          <div style="background:var(--bleu);border-radius:14px;padding:24px;color:#fff">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h4>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px">📚 Formation : <a style="color:var(--gold)">formation@cannes-echecs.fr</a></div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px">🏆 Compétitions : <a style="color:var(--gold)">competition@cannes-echecs.fr</a></div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7)">🏫 Scolaire : <a style="color:var(--gold)">scolaire@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-cap"/></svg> Formation : <a style="color:var(--gold)">formation@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Compétitions : <a style="color:var(--gold)">competition@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaire : <a style="color:var(--gold)">scolaire@cannes-echecs.fr</a></div>
           </div>
         </div>
       </div>

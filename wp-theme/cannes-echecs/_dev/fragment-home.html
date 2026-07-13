@@ -21,12 +21,12 @@
             <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
             <h3>Festival International <br>des Jeux — Cannes</h3>
             <div class="cd-title">Ouverture des inscriptions dans</div>
-            <div class="cd-row">
-              <div class="cd-item"><span class="cd-num" id="h-cd-j">--</span><span class="cd-label">Jours</span></div>
-              <div class="cd-sep">:</div>
-              <div class="cd-item"><span class="cd-num" id="h-cd-h">--</span><span class="cd-label">Heures</span></div>
-              <div class="cd-sep">:</div>
-              <div class="cd-item"><span class="cd-num" id="h-cd-m">--</span><span class="cd-label">Min</span></div>
+            <div class="cd cd-sm" style="margin-bottom:20px">
+              <div class="u"><span class="n" id="h-cd-j">--</span><span class="l">Jours</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="h-cd-h">--</span><span class="l">Heures</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="h-cd-m">--</span><span class="l">Min</span></div>
             </div>
             <button class="btn btn-gold btn-full btn-sm" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
             <div class="fij-hero-stats">
@@ -55,7 +55,7 @@
       <div class="section-actus-header">
         <div>
           <span class="surtitre">Vie du club</span>
-          <h2 style="font-size:42px;color:var(--bleu)">Dernières actualités</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Dernières actualités</h2>
         </div>
         <a class="link-all" href="<?php echo esc_url(home_url('/actualites/')); ?>">Toutes les actualités →</a>
       </div>
@@ -91,14 +91,14 @@
         <div>
           <div class="fij-cd-box">
             <div class="cd-title">FIJ 2027 — Coup d'envoi dans</div>
-            <div class="fij-cd-row">
-              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-j">--</span><span class="fij-cd-label">Jours</span></div>
-              <div class="fij-cd-sep">:</div>
-              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-h">--</span><span class="fij-cd-label">Heures</span></div>
-              <div class="fij-cd-sep">:</div>
-              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-m">--</span><span class="fij-cd-label">Min</span></div>
-              <div class="fij-cd-sep">:</div>
-              <div class="fij-cd-item"><span class="fij-cd-num" id="f-cd-s">--</span><span class="fij-cd-label">Sec</span></div>
+            <div class="cd cd-lg" style="margin:16px 0">
+              <div class="u"><span class="n" id="f-cd-j">--</span><span class="l">Jours</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="f-cd-h">--</span><span class="l">Heures</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="f-cd-m">--</span><span class="l">Min</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="f-cd-s">--</span><span class="l">Sec</span></div>
             </div>
             <button class="btn btn-gold btn-full" style="margin-bottom:12px" onclick="goTo('fij')">Voir les tarifs & s'inscrire →</button>
             <p style="font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin-top:12px;font-style:italic">Inscription via HelloAsso · MI / GMI : participation gratuite</p>
@@ -113,13 +113,13 @@
     <div class="container" style="position:relative;z-index:1">
       <div class="section-header center light">
         <span class="surtitre">Pourquoi nous rejoindre</span>
-        <h2 style="font-size:42px;color:#fff">Un club d'exception</h2>
+        <h2 style="font-size:var(--fs-h2);color:#fff">Un club d'exception</h2>
       </div>
       <div class="forces-grid">
-        <div class="force-card"><span class="force-icon">🏆</span><span class="force-num">10×</span><div class="force-label">Champion de France Jeunes</div><p class="force-desc">Un palmarès qui témoigne de l'excellence de notre formation</p><a class="force-link" onclick="goToPalmares()">Voir le palmarès →</a></div>
-        <div class="force-card"><span class="force-icon">📚</span><span class="force-num">30+</span><div class="force-label">Ans scolaire</div><p class="force-desc">Partenaire de l'Éducation Nationale depuis plus de trois décennies</p></div>
-        <div class="force-card"><span class="force-icon">👥</span><span class="force-num">200+</span><div class="force-label">Membres actifs</div><p class="force-desc">Une communauté soudée du débutant de 5 ans au joueur classé</p></div>
-        <div class="force-card"><span class="force-icon">🎖</span><span class="force-num">FFE</span><div class="force-label">Label Club Formateur</div><p class="force-desc">Reconnu par la Fédération Française des Échecs</p></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg><span class="force-num">10×</span><div class="force-label">Champion de France Jeunes</div><p class="force-desc">Un palmarès qui témoigne de l'excellence de notre formation</p><a class="force-link" onclick="goToPalmares()">Voir le palmarès →</a></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-cap"/></svg><span class="force-num">30+</span><div class="force-label">Ans scolaire</div><p class="force-desc">Partenaire de l'Éducation Nationale depuis plus de trois décennies</p></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-users"/></svg><span class="force-num">200+</span><div class="force-label">Membres actifs</div><p class="force-desc">Une communauté soudée du débutant de 5 ans au joueur classé</p></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-medal"/></svg><span class="force-num">FFE</span><div class="force-label">Label Club Formateur</div><p class="force-desc">Reconnu par la Fédération Française des Échecs</p></div>
       </div>
     </div>
   </section>

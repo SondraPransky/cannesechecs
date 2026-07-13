@@ -660,12 +660,12 @@ const HERO_WIDGETS = {
     <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
     <h3>Festival International <br>des Jeux — Cannes</h3>
     <div class="cd-title">Ouverture des inscriptions dans</div>
-    <div class="cd-row">
-      <div class="cd-item"><span class="cd-num" id="h-cd-j">--</span><span class="cd-label">Jours</span></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-item"><span class="cd-num" id="h-cd-h">--</span><span class="cd-label">Heures</span></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-item"><span class="cd-num" id="h-cd-m">--</span><span class="cd-label">Min</span></div>
+    <div class="cd cd-sm" style="margin-bottom:20px">
+      <div class="u"><span class="n" id="h-cd-j">--</span><span class="l">Jours</span></div>
+      <span class="sep">:</span>
+      <div class="u"><span class="n" id="h-cd-h">--</span><span class="l">Heures</span></div>
+      <span class="sep">:</span>
+      <div class="u"><span class="n" id="h-cd-m">--</span><span class="l">Min</span></div>
     </div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
     <div class="fij-hero-stats">
@@ -673,7 +673,7 @@ const HERO_WIDGETS = {
       <div class="fij-hs"><div class="n">A · B · C</div><div class="l">tournois par Elo</div></div>
     </div>`,
   rentree: () => `
-    <div class="fij-hero-card-label">🍂 Saison ${SAISON} · Inscriptions ouvertes</div>
+    <div class="fij-hero-card-label"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-leaf"/></svg> Saison ${SAISON} · Inscriptions ouvertes</div>
     <h3 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h3>
     <div class="cd-title" style="margin-bottom:10px">Reprise des cours</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px">Mercredi 9 septembre 2026</div>
@@ -695,7 +695,7 @@ const HERO_WIDGETS = {
       <div class="fij-hs"><div class="n">13h30</div><div class="l">début</div></div>
     </div>`,
   paques: () => `
-    <div class="fij-hero-card-label">🐣 Tournoi Open · Pâques 2027</div>
+    <div class="fij-hero-card-label"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Tournoi Open · Pâques 2027</div>
     <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
     <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>

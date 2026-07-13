@@ -149,12 +149,16 @@ Tailles nommées par rôle, définies dans `:root` de `index.html`. À réutilis
 | `--fs-hero-sub` | 54px | h1 des sous-pages |
 | `--fs-hero` | 66px | h1 accueil |
 
-Familles : `--font-serif` (Cormorant), `--font-sans` (Inter), `--font-label` (Montserrat). Rayons : `--r-sm/md/lg/xl/pill/circle`. Espacements : `--sp-1..8` (8→80px). Teintes or : `--gold-tint` (`rgba(201,168,76,.2)`, fond de pastille), `--gold-tint-border` (`.4`, filet), `--card-glass` (verre translucide). Navy de dégradé : `--bleu-deep` (`#0A1F38`, fond profond des héros/cartes, partenaire de `--bleu`), `--bleu-mid` (`#2D5A8E`, tuiles avatar).
+Familles : `--font-serif` (Cormorant), `--font-sans` (Inter), `--font-label` (Montserrat). Rayons : `--r-sm/md/lg/`**`card`**`/xl/pill/circle` — **`--r-card` (14px) est le rayon unique des cartes de contenu** ; `--r-xl` (16px) reste réservé aux grands panneaux « écrin » (héros, encarts sombres pleine largeur). Espacements : `--sp-1..8` (8→80px). Teintes or : `--gold-tint` (`rgba(201,168,76,.2)`, fond de pastille), `--gold-tint-border` (`.4`, filet), `--card-glass` (verre translucide). Navy de dégradé : `--bleu-deep` (`#0A1F38`, fond profond des héros/cartes, partenaire de `--bleu`), `--bleu-mid` (`#2D5A8E`, tuiles avatar).
 
 ### Named Rules
 **La Règle de l'Italique Dorée.** L'emphase dans un titre se fait par `<em>` en italique Cormorant couleur or — jamais par du gras coloré ni du soulignement. C'est la signature typographique du club.
 
-**La Règle du Token.** Tout nouvel élément réutilise les tokens `:root` (taille, rayon, espacement, couleur) plutôt qu'une valeur `px`/hex en dur. Le futur thème WordPress/ACF s'appuie sur cette échelle.
+**La Règle du Token.** Tout nouvel élément réutilise les tokens `:root` (taille, rayon, espacement, couleur) plutôt qu'une valeur `px`/hex en dur. Le futur thème WordPress/ACF s'appuie sur cette échelle. Les titres de section utilisent `--fs-h2` (jamais une taille en dur).
+
+**Composants partagés (Lot B).** Onglets = `.tab-bar` / `.tab-bar-inner` (composant unique, pages Activités **et** Tournois). Compte à rebours = `.cd` décliné en `.cd-sm` / `.cd-md` / `.cd-lg` (un seul balisage, IDs `*-cd-*` conservés pour le JS du décompte). Cartes de contenu = `.card` (+ `.card.card-lg`), panneau marine = `.panel`, événements agenda = `.agenda-event`. Le hero de la page FIJ utilise `.hero-shared` comme les 11 autres sous-pages (pas de hero « maison »).
+
+**La Règle des Icônes.** L'iconographie d'**interface** (mobilier de page : cartes forces, blocs contact, onglets, méta, footer, dotations) utilise le jeu SVG au trait — sprite `<symbol id="ic-…">` en tête de `<body>`, appelé via `<svg class="ic"><use href="#ic-…"/></svg>`, hérite de `currentColor`. **Jamais d'emoji dans l'interface.** Les emoji restent réservés au **contenu éditorial** (corps des articles `ARTICLES[]`, champ `emoji:` des vignettes) que Romuald/Marlies rédigent. Podiums/dotations : icône `#ic-medal` colorée (or / `#9AA0AE` / `#C08457`).
 
 ## 4. Elevation
 

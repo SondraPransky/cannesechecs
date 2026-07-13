@@ -7,14 +7,12 @@
 get_header(); ?>
 
 <div id="page-fij" class="page active">
-  <section style="background:linear-gradient(160deg,var(--noir) 0%,var(--bleu-deep) 50%,var(--bleu) 100%);min-height:500px;display:flex;align-items:center;padding:80px 0;position:relative;overflow:hidden">
-    <div style="position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:56px 56px"></div>
-    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
-    <div class="container" style="position:relative;z-index:1">
-      <div class="breadcrumb" style="color:rgba(255,255,255,.35);display:flex;gap:8px;font-size:12px;margin-bottom:20px"><a href="<?php echo esc_url(home_url('/')); ?>" style="color:rgba(255,255,255,.35)">Accueil</a><span>›</span><span>FIJ 2027</span></div>
-      <h1 style="font-family:'Cormorant Garamond',serif;line-height:1"><span style="font-size:68px;color:#fff;display:block;margin-bottom:4px">Festival International </span><span style="font-size:68px;color:var(--gold);font-style:italic;display:block;margin-bottom:20px">des Jeux</span></h1>
-      <p style="font-family:'Montserrat',sans-serif;font-size:15px;color:rgba(255,255,255,.55);letter-spacing:.06em">Palais des Festivals — Salon des Ambassadeurs · Du 22 au 28 février 2027</p>
-      <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+  <section class="hero-shared" style="background:linear-gradient(160deg,var(--noir) 0%,var(--bleu-deep) 55%,var(--bleu) 100%);min-height:300px">
+    <div class="container">
+      <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Accueil</a><span>›</span><span>FIJ 2027</span></div>
+      <h1>Festival International <em>des Jeux</em></h1>
+      <p class="hero-desc">Palais des Festivals — Salon des Ambassadeurs · Du 22 au 28 février 2027</p>
+      <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
         <button class="btn btn-gold btn-lg" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
         <button class="btn btn-outline-white btn-lg" onclick="document.getElementById('fij-details').scrollIntoView({behavior:'smooth'})">Programme complet ↓</button>
       </div>
@@ -37,7 +35,7 @@ get_header(); ?>
       <div style="display:grid;grid-template-columns:55% 45%;gap:48px;align-items:start">
         <div>
           <span class="surtitre">À propos du FIJ</span>
-          <h2 style="font-size:38px;color:var(--bleu);margin-bottom:16px">Le plus grand festival de jeux du monde — avec les échecs en vedette</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:16px">Le plus grand festival de jeux du monde — avec les échecs en vedette</h2>
           <div class="gold-bar"></div>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px">Le <strong>Festival International des Jeux</strong> se tient chaque année en février au Palais des Festivals de Cannes. Avec plus de 100 000 visiteurs et 60 000 m² d'exposition, c'est l'un des plus grands rendez-vous de jeux au monde. Cannes Échecs y organise les tournois d'échecs officiels depuis de nombreuses années.</p>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:28px">Les tournois sont homologués <strong>FIDE</strong>, avec des normes de Maître International (MI) et de Grand-Maître International (GMI) possibles dans le tournoi A. La cadence est de 1h30 pour 40 coups, puis 30 minutes avec 30 secondes par coup dès le 1er coup.</p>
@@ -60,9 +58,9 @@ get_header(); ?>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 6 000 €</div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥇 1er</span><span style="font-weight:600;color:var(--bleu)">1 800 €</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">1 200 €</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">700 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">1 800 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">1 200 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">700 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:12px 0 10px"></div>
                 <div style="font-size:11px;color:#8B6914;font-weight:600">✦ Normes MI / GMI possibles</div>
               </div>
@@ -82,9 +80,9 @@ get_header(); ?>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 3 000 €</div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥇 1er</span><span style="font-weight:600;color:var(--bleu)">600 €</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">500 €</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">400 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">600 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">500 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">400 €</span></div>
               </div>
             </div>
 
@@ -102,9 +100,9 @@ get_header(); ?>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
                 <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 1 000 €</div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥇 1er</span><span style="font-weight:600;color:var(--bleu)">300 €</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)">🥈 2ème</span><span style="font-weight:600;color:var(--bleu)">200 €</span></div>
-                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)">🥉 3ème</span><span style="font-weight:600;color:var(--bleu)">100 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">300 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">200 €</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">100 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:12px 0 10px"></div>
                 <div style="font-size:11px;color:var(--muted)">Idéal pour progresser en compétition</div>
               </div>
@@ -120,14 +118,14 @@ get_header(); ?>
           <!-- ÉTAT 1 : avant le FIJ -->
           <div id="fij-sidebar-avant">
             <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
-            <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px">
-              <div style="text-align:center"><span id="fij-cd-j" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Jours</span></div>
-              <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
-              <div style="text-align:center"><span id="fij-cd-h" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Heures</span></div>
-              <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
-              <div style="text-align:center"><span id="fij-cd-m" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Min</span></div>
-              <div style="font-size:44px;color:rgba(201,168,76,.3);padding:0 4px">:</div>
-              <div style="text-align:center"><span id="fij-cd-s" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Sec</span></div>
+            <div class="cd cd-md" style="margin-bottom:20px">
+              <div class="u"><span class="n" id="fij-cd-j">--</span><span class="l">Jours</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="fij-cd-h">--</span><span class="l">Heures</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="fij-cd-m">--</span><span class="l">Min</span></div>
+              <span class="sep">:</span>
+              <div class="u"><span class="n" id="fij-cd-s">--</span><span class="l">Sec</span></div>
             </div>
             <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
@@ -152,12 +150,12 @@ get_header(); ?>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px 18px">
               <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Prochaine ronde</div>
               <div id="fij-sb-ronde-label" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:12px;line-height:1.3"></div>
-              <div id="fij-sb-countdown" style="display:flex;justify-content:center;align-items:flex-start;gap:6px">
-                <div style="text-align:center"><span id="fij-sb-h" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">H</span></div>
-                <div style="font-size:32px;color:rgba(201,168,76,.3);padding:4px 3px 0">:</div>
-                <div style="text-align:center"><span id="fij-sb-m" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Min</span></div>
-                <div style="font-size:32px;color:rgba(201,168,76,.3);padding:4px 3px 0">:</div>
-                <div style="text-align:center"><span id="fij-sb-s" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold);line-height:1;display:block">--</span><span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">Sec</span></div>
+              <div id="fij-sb-countdown" class="cd cd-sm">
+                <div class="u"><span class="n" id="fij-sb-h">--</span><span class="l">H</span></div>
+                <span class="sep">:</span>
+                <div class="u"><span class="n" id="fij-sb-m">--</span><span class="l">Min</span></div>
+                <span class="sep">:</span>
+                <div class="u"><span class="n" id="fij-sb-s">--</span><span class="l">Sec</span></div>
               </div>
             </div>
           </div>
@@ -165,7 +163,7 @@ get_header(); ?>
           <!-- ÉTAT 3 : FIJ terminé -->
           <div id="fij-sidebar-fini" style="display:none">
             <div style="text-align:center;padding:28px 0 20px">
-              <div style="font-size:52px;margin-bottom:14px">🏆</div>
+              <div style="font-size:52px;margin-bottom:14px;color:var(--gold)"><svg class="ic-xl" style="stroke:currentColor;fill:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></div>
               <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:10px">FIJ 2027 terminé !</div>
               <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">Merci à tous les participants.<br>Rendez-vous pour le FIJ 2028 !</div>
             </div>
@@ -181,7 +179,7 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:40px">
         <span class="surtitre">Calendrier</span>
-        <h2 style="font-size:38px;color:var(--bleu)">Programme</h2>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Programme</h2>
       </div>
       <div style="max-width:640px;margin:0 auto;position:relative;padding-left:40px">
         <div style="position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.1))"></div>

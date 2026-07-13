@@ -22,7 +22,7 @@ get_header(); ?>
       <div class="club-histoire-grid">
         <div class="club-histoire-text">
           <span class="surtitre">Notre histoire</span>
-          <h2 style="font-size:40px;color:var(--bleu);margin-bottom:20px">Un club fondé<br>sur la passion</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:20px">Un club fondé<br>sur la passion</h2>
           <div class="gold-bar"></div>
           <p>Fondé en 1985, Cannes Échecs s'est imposé comme l'un des clubs de référence du sud de la France. Installé en plein cœur de Cannes depuis 2006 dans des locaux entièrement rénovés, le club conjugue tradition et modernité.</p>
           <p>Notre philosophie : rendre les échecs accessibles à tous, du débutant de 5 ans au joueur classé, en passant par les scolaires que nous accompagnons depuis plus de trois décennies.</p>
@@ -80,7 +80,7 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:40px">
         <span class="surtitre">L'équipe</span>
-        <h2 style="font-size:40px;color:var(--bleu)">Ceux qui font vivre le club</h2>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Ceux qui font vivre le club</h2>
       </div>
       <div class="equipe-grid" id="equipe-grid"></div>
     </div>

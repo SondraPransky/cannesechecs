@@ -21,7 +21,7 @@ get_header(); ?>
       <div style="display:grid;grid-template-columns:60% 40%;gap:48px;align-items:start">
         <div>
           <span class="surtitre">Planning hebdomadaire</span>
-          <h2 style="font-size:36px;color:var(--bleu);margin-bottom:24px">Horaires d'ouverture</h2>
+          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:24px">Horaires d'ouverture</h2>
           <table style="width:100%;border-collapse:collapse;font-size:14px;font-family:'Inter',sans-serif">
             <thead><tr style="background:var(--bleu);color:#fff"><th scope="col" style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Jour</th><th scope="col" style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Horaires</th><th scope="col" style="padding:12px 16px;text-align:left;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Activité</th></tr></thead>
             <tbody id="horaires-tbody"></tbody>
@@ -29,17 +29,17 @@ get_header(); ?>
         </div>
         <div style="background:var(--bleu);border-radius:16px;padding:32px;color:rgba(255,255,255,.85)">
           <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">📍 Adresse</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg> Adresse</div>
             <div style="font-size:15px;font-weight:500">3 Av. du Petit Juas<br>06400 Cannes</div>
             <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);cursor:pointer;display:block;margin-top:6px">Voir sur Google Maps →</a>
           </div>
 
           <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">📞 Téléphone</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg> Téléphone</div>
             <a href="tel:+33493394139" style="font-size:15px;font-weight:500;color:inherit;text-decoration:none">04 93 39 41 39</a>
           </div>
           <div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">✉ Email</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg> Email</div>
             <a href="mailto:info@cannes-echecs.fr" style="font-size:14px;color:inherit;text-decoration:none">info@cannes-echecs.fr</a>
           </div>
         </div>
@@ -57,7 +57,7 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:36px">
         <span class="surtitre">Saison 2026–2027</span>
-        <h2 style="font-size:42px;color:var(--bleu)">Tarifs en un coup d'œil</h2>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Tarifs en un coup d'œil</h2>
         <p style="font-size:15px;color:var(--muted);margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto">Licence FFE et accès illimité au club inclus dans chaque formule.</p>
       </div>
       <!-- Aperçu tarifs — 3 prix repères, la page Adhésion reste la source unique -->

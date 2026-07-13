@@ -16,10 +16,10 @@
           <div id="footer-logo-fallback" style="display:none;width:88px;height:88px;background:var(--gold);border-radius:12px;align-items:center;justify-content:center;font-size:40px;color:var(--noir)">♟</div>
         </div>
         <ul class="footer-brand-info">
-          <li><span class="ico">📍</span> 3 Av. du Petit Juas, 06400 Cannes</li>
-          <li><span class="ico">🕐</span> Lun/Jeu/Ven 13h30–18h30 · Mar 17h–19h · Mer 13h30–20h</li>
-          <li><span class="ico">✉</span> <a href="mailto:info@cannes-echecs.fr" style="color:inherit;text-decoration:none">info@cannes-echecs.fr</a></li>
-          <li><span class="ico">📞</span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
+          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></span> 3 Av. du Petit Juas, 06400 Cannes</li>
+          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-clock"/></svg></span> Lun/Jeu/Ven 13h30–18h30 · Mar 17h–19h · Mer 13h30–20h</li>
+          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg></span> <a href="mailto:info@cannes-echecs.fr" style="color:inherit;text-decoration:none">info@cannes-echecs.fr</a></li>
+          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg></span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
         </ul>
         <div class="footer-social" style="display:flex;gap:10px;margin-top:18px">
           <a href="https://www.facebook.com/canneschessclub" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.5);text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:6px;transition:color .2s,border-color .2s" onmouseover="this.style.color='#C9A84C';this.style.borderColor='var(--gold-tint-border)'" onmouseout="this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.12)'">Facebook</a>

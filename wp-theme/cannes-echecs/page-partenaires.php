@@ -20,24 +20,24 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:48px">
         <span class="surtitre">Partenaires officiels</span>
-        <h2 style="font-size:40px;color:var(--bleu)">Ils nous font confiance</h2>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Ils nous font confiance</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px">
-        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
+        <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:34px">VC</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Ville de Cannes</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Mise à disposition des locaux et subvention annuelle</p>
         </div>
-        <div style="background:var(--bleu);border-radius:12px;padding:34px 28px;text-align:center;border:1px solid var(--bleu);display:flex;flex-direction:column;align-items:center;gap:13px;box-shadow:var(--sh-gold)">
+        <div style="background:var(--bleu);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--bleu);display:flex;flex-direction:column;align-items:center;gap:13px;box-shadow:var(--sh-gold)">
           <div class="p-crest on-dark"><span class="p-mono" style="font-size:27px">FFE</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff">Fédération Française des Échecs</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)">Partenaire Fédéral</div>
           <p style="font-size:13px;color:rgba(255,255,255,.62);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
         </div>
-        <div class="partner-card" style="background:var(--ivoire);border-radius:12px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
+        <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:34px">RS</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Région Sud PACA</div>
@@ -69,7 +69,7 @@ get_header(); ?>
       <div style="display:grid;grid-template-columns:55% 45%;gap:48px;align-items:center">
         <div>
           <span class="surtitre" style="color:var(--gold)">Rejoignez-nous</span>
-          <h2 style="font-size:38px;color:#fff;margin-bottom:12px">Devenez partenaire<br>de Cannes Échecs</h2>
+          <h2 style="font-size:var(--fs-h2);color:#fff;margin-bottom:12px">Devenez partenaire<br>de Cannes Échecs</h2>
           <div class="gold-bar"></div>
           <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:20px">Associer votre image à Cannes Échecs, c'est soutenir un club formateur reconnu, présent dans les médias locaux et organisateur d'événements à rayonnement national.</p>
           <ul style="list-style:none;margin-bottom:28px">

@@ -21,7 +21,7 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:48px">
         <span class="surtitre">Simple & rapide</span>
-        <h2 style="font-size:38px;color:var(--bleu)">S'inscrire en 3 étapes</h2>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">S'inscrire en 3 étapes</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative">
         <div style="position:absolute;top:32px;left:calc(16.66% + 16px);right:calc(16.66% + 16px);height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-h));z-index:0"></div>
@@ -49,7 +49,7 @@ get_header(); ?>
     <div class="container">
       <div class="section-header center" style="margin-bottom:40px">
         <span class="surtitre">Saison 2026–2027</span>
-        <h2 style="font-size:38px;color:var(--bleu)">Choisissez votre formule</h2>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Choisissez votre formule</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto">
 
@@ -140,7 +140,7 @@ get_header(); ?>
 
       </div>
       <!-- Cours particuliers -->
-      <div style="max-width:1100px;margin:24px auto 0;background:var(--ivoire);border-radius:12px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border)">
+      <div style="max-width:1100px;margin:24px auto 0;background:var(--ivoire);border-radius:14px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border)">
         <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours particuliers</div><div style="font-size:14px;color:var(--muted)">Sur rendez-vous avec l'un de nos entraîneurs</div></div>
         <div style="display:flex;gap:32px;text-align:center">
           <div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--bleu)">40€</div><div style="font-size:11px;color:var(--muted)">/ heure · adhérents</div></div>
