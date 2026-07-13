@@ -28,7 +28,15 @@ h1 span{font-style:italic;color:var(--gold);}
 .k-badges{position:relative;display:flex;gap:.55rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;}
 .k-badge{font-family:var(--font-label);font-weight:600;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:.34rem .9rem;border-radius:999px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.82);background:rgba(255,255,255,.05);}
 .k-badge.start{border-color:rgba(201,168,76,.5);color:var(--gold-pale);background:rgba(201,168,76,.14);}
-.header-btns{position:relative;display:flex;gap:.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;}
+.header-btns{position:relative;display:flex;gap:.55rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;}
+/* --- Boutons du hero : pastilles "verre" lisibles sur le bandeau marine (prolongent les k-badges) --- */
+.header-btns button{font-family:var(--font-label);font-weight:700;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;line-height:1;padding:.62rem 1.15rem;border-radius:999px;cursor:pointer;color:var(--gold-pale);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.32);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(3px);transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;}
+.header-btns button:hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.75);color:#fff;transform:translateY(-1px);box-shadow:0 5px 16px rgba(0,0,0,.28);}
+.header-btns button:focus-visible{outline:2px solid var(--gold-pale);outline-offset:2px;}
+/* L'aide reçoit un léger voile doré — "commence ici" */
+.header-btns .btn-help{background:rgba(201,168,76,.18);border-color:rgba(201,168,76,.6);color:var(--gold-pale);}
+.header-btns .btn-help:hover{background:rgba(201,168,76,.32);border-color:var(--gold);color:#fff;}
+@media(prefers-reduced-motion:reduce){.header-btns button:hover{transform:none;}}
 main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem;}
 .section-title{font-family:var(--font-label);font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:.75rem;}
 .section-title::before{content:'';display:inline-block;width:26px;height:2px;background:var(--gold);border-radius:2px;vertical-align:middle;margin-right:.55rem;margin-bottom:.18rem;}
@@ -215,9 +223,9 @@ footer{text-align:center;padding:2.5rem 2rem;color:var(--muted);font-size:.78rem
   </div>
   <div class="header-btns">
     <button class="btn-help" onclick="openModal('modal-aide')">&#x2753; Comment ça marche ?</button>
-    <button class="btn-secondary" onclick="openModal('modal-fusion')" style="font-size:.82rem;">&#x1F500; Fusionner deux noms</button>
-    <button class="btn-secondary" onclick="ouvrirAbsences()" style="font-size:.82rem;">&#x1F4CB; Signaler absences</button>
-    <button class="btn-secondary" onclick="openModal('modal-saison')" style="font-size:.82rem;">&#x1F4C5; Gestion des saisons</button>
+    <button class="btn-secondary" onclick="openModal('modal-fusion')">&#x1F500; Fusionner deux noms</button>
+    <button class="btn-secondary" onclick="ouvrirAbsences()">&#x1F4CB; Signaler absences</button>
+    <button class="btn-secondary" onclick="openModal('modal-saison')">&#x1F4C5; Gestion des saisons</button>
   </div>
 </header>
 
