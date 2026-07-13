@@ -5,7 +5,7 @@ Ne JAMAIS modifier `C:\Users\mathi\Desktop\Site ACE\cannes-echecs\` (avec espace
 C'est un projet React séparé — hors périmètre de ce répertoire.
 
 ## Fichier unique
-Tout le site est dans un seul fichier : `index.html` (~3800 lignes).
+Tout le site est dans un seul fichier : `index.html` (~4800 lignes).
 Pas de build step. On édite directement ce fichier.
 
 ## Déploiement
