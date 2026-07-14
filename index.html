@@ -733,8 +733,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-tournois [style*="padding:80px"],
   #page-fij      [style*="padding:80px"],
   #page-partenaires [style*="padding:80px"],
-  #page-agenda   [style*="padding:80px"],
-  #page-organigramme [style*="padding:80px"] {
+  #page-agenda   [style*="padding:80px"] {
     padding-top: 28px !important;
     padding-bottom: 28px !important;
   }
@@ -752,8 +751,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-tournois [style*="grid-template-columns"],
   #page-fij      [style*="grid-template-columns"],
   #page-partenaires [style*="grid-template-columns"],
-  #page-agenda   [style*="grid-template-columns"],
-  #page-organigramme [style*="grid-template-columns"] {
+  #page-agenda   [style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
   }
@@ -795,7 +793,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-fij      h2[style*="font-size"],
   #page-partenaires h2[style*="font-size"],
   #page-agenda   h2[style*="font-size"],
-  #page-organigramme h2[style*="font-size"],
   #page-article  h2[style*="font-size"] { font-size: 26px !important; }
 
   /* h1 inline trop grands */
@@ -808,7 +805,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-fij      h1[style*="font-size"],
   #page-partenaires h1[style*="font-size"],
   #page-agenda   h1[style*="font-size"],
-  #page-organigramme h1[style*="font-size"],
   #page-actualites h1[style*="font-size"],
   #page-activites h1[style*="font-size"] { font-size: 34px !important; }
 
@@ -960,7 +956,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div class="dropdown">
           <a onclick="goTo('actualites')">Actualités</a>
           <a onclick="goTo('club')">Présentation</a>
-          <a onclick="goTo('organigramme')">Organigramme</a>
           <a onclick="goTo('horaires')">Horaires & Tarifs</a>
           <a onclick="goTo('adhesion')">Formules d'adhésion</a>
           <a onclick="goTo('agenda')">Agenda</a>
@@ -998,7 +993,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <div class="nav-mobile" id="nav-mobile">
     <button class="nav-mobile-link" onclick="mobileGoTo('actualites')">Actualités</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('club')">Le Club</button>
-    <button class="nav-mobile-link" onclick="mobileGoTo('organigramme')">Organigramme</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('horaires')">Horaires & Tarifs</button>
     <button class="nav-mobile-link" onclick="mobileGoTo('adhesion')">Adhésion</button>
     <div class="nav-mobile-sep"></div>
@@ -2443,7 +2437,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <span class="surtitre">Partenaires officiels</span>
         <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Ils nous font confiance</h2>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:40px">
         <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:34px">VC</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
@@ -2465,6 +2459,13 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs de haut niveau</p>
         </div>
+        <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
+          <div class="p-crest"><span class="p-mono" style="font-size:30px">06</span></div>
+          <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Département Alpes-Maritimes</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Départemental</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs et aux actions jeunesse</p>
+        </div>
       </div>
 
       <!-- Bandeau logos associés -->
@@ -2474,9 +2475,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <h3 style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu)">Partenaires associés</h3>
         </div>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:28px">
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">MC</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Mairie de Cannes</span></div>
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">06</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Département Alpes-Maritimes</span></div>
-          <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">RS</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Région PACA</span></div>
           <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">CU</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">Cannes Université</span></div>
           <div class="item-hover" style="background:var(--ivoire2);border-radius:8px;padding:11px 20px 11px 12px;border:1px solid var(--border);display:flex;align-items:center;gap:12px"><span class="p-chip">SM</span><span style="font-size:13px;font-weight:600;color:var(--bleu)">SEMEC</span></div>
         </div>
@@ -2716,31 +2714,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 </div><!-- fin page-agenda -->
 
 
-<!-- PAGE ORGANIGRAMME (simple) -->
-<div id="page-organigramme" class="page">
-  <section class="hero-shared" style="background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);min-height:270px">
-    <div class="container">
-      <div class="breadcrumb"><a onclick="goTo('club')">Le Club</a><span>›</span><span>Organigramme</span></div>
-      <h1>Organi<em>gramme</em></h1>
-      <p class="hero-desc">La structure associative de Cannes Échecs.</p>
-    </div>
-  </section>
-  <section style="padding:80px 0;background:#fff">
-    <div class="container" style="max-width:800px">
-      <div style="text-align:center;margin-bottom:40px"><div style="display:inline-block;background:var(--gold);color:var(--noir);padding:16px 32px;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700">Comité Directeur</div></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin:0 auto">
-        <div style="background:var(--bleu);color:#fff;padding:16px 20px;border-radius:10px;text-align:center"><div style="font-size:14px;font-weight:600">Présidente</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">Mathilde C.</div></div>
-        <div style="background:var(--bleu);color:#fff;padding:16px 20px;border-radius:10px;text-align:center"><div style="font-size:14px;font-weight:600">Secrétaire général</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">Jonathan C.</div></div>
-        <div style="background:var(--bleu);color:#fff;padding:16px 20px;border-radius:10px;text-align:center"><div style="font-size:14px;font-weight:600">Trésorier</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">Fabien S.</div></div>
-        <div style="background:var(--bleu);color:#fff;padding:16px 20px;border-radius:10px;text-align:center"><div style="font-size:14px;font-weight:600">Membre du comité</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">Tatiana M.</div></div>
-        <div style="background:var(--bleu);color:#fff;padding:16px 20px;border-radius:10px;text-align:center"><div style="font-size:14px;font-weight:600">Membre du comité</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">Davide B.</div></div>
-        <div style="background:var(--bleu);color:#fff;padding:16px 20px;border-radius:10px;text-align:center"><div style="font-size:14px;font-weight:600">Membre du comité</div><div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">Roger J.</div></div>
-      </div>
-    </div>
-  </section>
-</div><!-- fin page-organigramme -->
-
-
 </main><!-- fin #app -->
 
 
@@ -2938,7 +2911,7 @@ function goToPalmares() {
 }
 
 // ── ROUTER ──────────────────────────────────────────
-const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
+const pages = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda'];
 const PAGE_TITLES = {
   home:'Cannes Échecs — Club d\'échecs · Côte d\'Azur',
   club:'Le Club — Cannes Échecs',
@@ -2951,8 +2924,7 @@ const PAGE_TITLES = {
   tournois:'Tournois — Cannes Échecs',
   fij:'FIJ 2027 — Cannes Échecs',
   partenaires:'Partenaires — Cannes Échecs',
-  agenda:'Agenda — Cannes Échecs',
-  organigramme:'Organigramme — Cannes Échecs'
+  agenda:'Agenda — Cannes Échecs'
 };
 
 function goTo(id, opts) {
@@ -2986,7 +2958,7 @@ function goTo(id, opts) {
 
 function updateNavActive(id) {
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const map = {club:'nav-club',actualites:'nav-club',article:'nav-club',organigramme:'nav-club',horaires:'nav-club',adhesion:'nav-club',contact:'nav-club',activites:'nav-activites',tournois:'nav-tournois',fij:'nav-fij',partenaires:'nav-partenaires',agenda:'nav-agenda'};
+  const map = {club:'nav-club',actualites:'nav-club',article:'nav-club',horaires:'nav-club',adhesion:'nav-club',contact:'nav-club',activites:'nav-activites',tournois:'nav-tournois',fij:'nav-fij',partenaires:'nav-partenaires',agenda:'nav-agenda'};
   if (map[id]) {
     const el = document.getElementById(map[id]);
     if (el) el.classList.add('active');
