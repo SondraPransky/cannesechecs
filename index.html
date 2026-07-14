@@ -1360,10 +1360,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <div class="tab-bar">
     <div class="tab-bar-inner">
       <button class="tab-btn tab-active" data-tab="cours">Cours & Formation</button>
-      <button class="tab-btn" data-tab="competitions">Compétitions</button>
       <button class="tab-btn" data-tab="stages">Stages</button>
       <button class="tab-btn" data-tab="scolaire">Scolaire</button>
-      <button class="tab-btn" data-tab="loisir">Loisir</button>
     </div>
   </div>
 
@@ -1400,38 +1398,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <button class="btn btn-gold btn-sm" onclick="goTo('adhesion')">S'inscrire →</button>
           <button class="btn btn-outline-white btn-sm" onclick="goTo('contact')">Nous contacter →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Onglet Compétitions -->
-  <div class="tab-panel" id="tab-competitions" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
-    <div class="container">
-      <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:8px">Compétitions</h2>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:640px;margin-bottom:32px">Cannes Échecs engage ses membres dans les compétitions officielles FFE (Championnat de France par équipes, championnats jeunes) et organise ses propres tournois internes tout au long de l'année.</p>
-
-      <div class="act-cards-2" style="gap:16px;margin-bottom:32px">
-        <div class="card">
-          <div style="font-size:28px;margin-bottom:10px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:6px">Compétitions officielles</div>
-          <div style="font-size:13px;color:var(--muted);line-height:1.7">Championnat de France par équipes · Championnats jeunes FFE (U8→U18) · Interclubs régionaux</div>
-        </div>
-        <div class="card">
-          <div style="font-size:28px;margin-bottom:10px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-target"/></svg></div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:6px">Tournois du club</div>
-          <div style="font-size:13px;color:var(--muted);line-height:1.7">PICO mensuel · Open de Pâques · Rapide du vendredi · Tournois scolaires · FIJ Cannes</div>
-        </div>
-      </div>
-
-      <div style="background:var(--bleu);border-radius:14px;padding:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px">
-        <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:8px">Dates, formats et inscriptions</div>
-          <p style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;max-width:480px">Consultez la page Tournois pour les calendriers détaillés, les formats de jeu et les modalités d'inscription à chaque compétition.</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0">
-          <button class="btn btn-gold" onclick="goTo('tournois')">Voir les tournois →</button>
-          <button class="btn btn-outline-white btn-sm" onclick="goTo('adhesion')">Prendre une licence FFE</button>
         </div>
       </div>
     </div>
@@ -1560,19 +1526,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="background:#fff;border-radius:10px;padding:16px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Sélection régionale &amp; nationale</div><div style="font-size:12px;color:var(--muted)">Février–avril · Championnats académiques et France</div></div></div>
         </div>
         <button class="btn btn-gold" onclick="goTo('contact')">Inscrire votre école →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Onglet Loisir -->
-  <div class="tab-panel" id="tab-loisir" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
-    <div class="container">
-      <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Détente & plaisir</span><h2 style="font-size:var(--fs-h2);color:var(--bleu)">Jouer sans compétition</h2></div>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Pas de compétition ? Aucun problème. Le club accueille les amateurs de tous âges qui souhaitent simplement jouer, progresser à leur rythme et partager un moment convivial autour d'un échiquier.</p>
-      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:32px">Le club est ouvert lundi, jeudi et vendredi de 13h30 à 18h30, et le mercredi de 13h30 à 20h. Venez jouer librement, sans inscription préalable.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <button class="btn btn-gold" onclick="goTo('horaires')">Voir les horaires →</button>
-        <button class="btn btn-outline-dark" onclick="goTo('adhesion')">Prendre une licence →</button>
       </div>
     </div>
   </div>
@@ -2157,6 +2110,24 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   </div>
 
   <!-- Tab Scolaires -->
+  <!-- Compétitions officielles FFE (déplacé depuis l'ancien onglet Activités › Compétitions) -->
+  <section style="padding:var(--sp-8) 0;background:#fff">
+    <div class="container">
+      <div class="section-header center" style="margin-bottom:24px">
+        <span class="surtitre">Compétitions fédérales</span>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Compétitions officielles FFE</h2>
+      </div>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:640px;margin:0 auto 28px;text-align:center">Au-delà de ses tournois maison, Cannes Échecs engage ses membres dans les compétitions officielles de la Fédération Française des Échecs tout au long de la saison.</p>
+      <div style="max-width:720px;margin:0 auto;background:var(--ivoire);border:1px solid var(--border);border-radius:14px;padding:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:16px;min-width:0">
+          <span style="font-size:30px;color:var(--gold);flex-shrink:0"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span>
+          <div style="font-size:14px;color:var(--text);line-height:1.7">Championnat de France par équipes · Championnats jeunes FFE (U8→U18) · Interclubs régionaux</div>
+        </div>
+        <button class="btn btn-outline-dark btn-sm" style="flex-shrink:0" onclick="goTo('adhesion')">Prendre une licence FFE →</button>
+      </div>
+    </div>
+  </section>
+
   <!-- Renvoi scolaire — regroupé dans Activités › Les échecs à l'école -->
   <div class="container" style="padding:8px 0 44px;text-align:center">
     <p style="font-size:13px;color:var(--muted)">Tournois et interventions scolaires sont désormais réunis dans <a onclick="goToTab('activites','scolaire')" style="color:var(--gold-text);font-weight:600;cursor:pointer">Activités › Les échecs à l'école →</a></p>
