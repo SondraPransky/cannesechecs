@@ -547,6 +547,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .share-fb,.share-tw{background:transparent;color:var(--bleu);border-color:var(--bleu)}
 .share-btn:hover{background:var(--bleu);color:#fff;border-color:var(--bleu);transform:translateY(-1px)}
 .article-related{padding:var(--sp-8) 0;background:var(--ivoire)}
+/* Grille creneaux Cours & Formation — 1 colonne sous 560px (les horaires en white-space:nowrap debordaient des cartes a 2 colonnes en mobile) */
+.cours-creneaux{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.cours-creneaux{grid-template-columns:1fr}}
 
 /* =====================================================
    TABS — PAGE ACTIVITÉS
@@ -1375,7 +1378,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:28px">Cannes Échecs propose des cours encadrés pour tous les âges, du tout-petit à l'adulte confirmé. Trouvez le créneau adapté à votre niveau.</p>
 
       <!-- Grille des créneaux — Enfants & jeunes / Adultes -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px">
+      <div class="cours-creneaux" style="margin-bottom:24px">
         <div class="card" style="padding:24px 26px">
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants &amp; jeunes</div>
           <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);margin-bottom:14px">De 4 à 18 ans</div>
