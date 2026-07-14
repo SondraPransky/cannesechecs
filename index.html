@@ -132,7 +132,7 @@ img{max-width:100%;display:block}
 .surtitre{font-family:var(--font-label);font-size:var(--fs-label);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
 .gold-bar{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0}
 .section-header{margin-bottom:48px}
-.section-header h2{font-size:var(--fs-h2);color:var(--bleu)}
+.section-header h2{font-size:var(--fs-h2);color:var(--bleu);text-wrap:balance}
 .section-header.center{text-align:center}
 .section-header.light h2{color:#fff}
 .section-header.light .surtitre{color:var(--gold)}
@@ -170,7 +170,7 @@ h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 
 /* INTERACTIONS GLOBALES */
 /* Retour tactile au clic — boutons interactifs (valeur : --press-scale) */
-.btn:active,.nav-cta:active,.filtre-btn:active,.pg-btn:active{scale:var(--press-scale)}
+.btn:active,.nav-cta:active,.filtre-btn:active,.pg-btn:active,.share-btn:active,.footer-social a:active{scale:var(--press-scale)}
 /* Cible >= 44px sans grossir le visuel — reserve aux puces volontairement
    compactes ou l'agrandissement nuirait a la mise en page : chips filtre qui
    s'enroulent sur plusieurs rangees, liens sociaux du footer. Pseudo hors flux,
@@ -180,7 +180,7 @@ h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 .filtre-btn,.footer-social a{position:relative}
 .filtre-btn::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:var(--hit-min)}
 .footer-social{display:flex;gap:10px;margin-top:18px}
-.footer-social a{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:var(--r-md);color:rgba(255,255,255,.62);transition:color .2s,border-color .2s,background .2s}
+.footer-social a{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:var(--r-md);color:rgba(255,255,255,.62);transition:color .2s,border-color .2s,background .2s,var(--press-tap)}
 .footer-social a:hover{color:var(--gold);border-color:var(--gold-tint-border);background:rgba(201,168,76,.08)}
 .footer-social .ic-social{width:19px;height:19px;display:block}
 /* Bouton de fermeture du bandeau HelloAsso — cible 40x40 */
@@ -529,13 +529,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .article-hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);padding:70px 0 64px}
 .article-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(255,255,255,.05) 0deg 90deg,transparent 90deg 180deg);background-size:44px 44px;opacity:.5;pointer-events:none}
 .article-hero .container{position:relative;max-width:800px}
+.article-hero h1{text-wrap:balance}
 .article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0}
 .article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.82)}
 .article-meta .meta-item .ic{color:var(--gold)}
 .article-meta .cat-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold)}
 .article-content-wrap{padding:0 0 60px;background:#fff}
 .article-content-wrap .container{max-width:800px}
-.article-featured-img{position:relative;z-index:2;width:100%;border-radius:12px;overflow:hidden;margin:-48px 0 40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
+.article-featured-img{position:relative;z-index:2;width:100%;border-radius:12px;overflow:hidden;margin:-48px 0 40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md),inset 0 0 0 1px rgba(0,0,0,.06)}
 .article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:680px;margin:0 auto;text-wrap:pretty}
 .article-body>p:first-of-type{font-size:20px;line-height:1.6;color:var(--bleu);margin-bottom:24px}
 .article-body h2{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu);margin:40px 0 16px;line-height:1.2}
@@ -543,7 +544,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .article-body blockquote{padding:20px 28px;background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;margin:32px 0;font-style:italic;color:var(--bleu);font-size:18px;line-height:1.6}
 .article-share{display:flex;align-items:center;gap:12px;padding:24px 0;border-top:1px solid var(--border);margin-top:40px}
 .share-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;min-height:var(--hit-min);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s;border:1.5px solid var(--bleu);color:var(--bleu);background:transparent;cursor:pointer}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;min-height:var(--hit-min);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .2s,color .2s,border-color .2s,transform .2s,var(--press-tap);border:1.5px solid var(--bleu);color:var(--bleu);background:transparent;cursor:pointer}
 .share-fb,.share-tw{background:transparent;color:var(--bleu);border-color:var(--bleu)}
 .share-btn:hover{background:var(--bleu);color:#fff;border-color:var(--bleu);transform:translateY(-1px)}
 .article-related{padding:var(--sp-8) 0;background:var(--ivoire)}
