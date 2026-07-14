@@ -1519,7 +1519,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <!-- Onglet Scolaire -->
   <div class="tab-panel" id="tab-scolaire" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
     <div class="container">
-      <div style="display:grid;grid-template-columns:55% 45%;gap:60px;align-items:center">
+      <div style="display:grid;grid-template-columns:55% 45%;gap:60px;align-items:start">
         <div>
           <span class="surtitre">Depuis 1994 · Saison 2026–2027</span>
           <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:16px">Les échecs<br>à l'école</h2>
@@ -1532,19 +1532,34 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
             <button class="btn btn-outline-dark" onclick="goTo('contact')">Faire venir les échecs dans votre école →</button>
-            <button class="btn btn-outline-dark" onclick="goToTab('tournois','t-scolaire')">Bilan 2025–2026 →</button>
           </div>
         </div>
-        <div style="background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff;display:flex;flex-direction:column;gap:16px;justify-content:center">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-pale);margin-bottom:4px">Bilan 2025–2026</div>
+        <div style="background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));border-radius:16px;padding:32px;box-shadow:var(--sh-lg);color:#fff">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-pale);margin-bottom:2px">Bilan 2025–2026</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;letter-spacing:.04em">Saison terminée · 4 titres majeurs</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="background:rgba(201,168,76,.15);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Championnat Ville de Cannes — 130 enfants</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Sainte-Marie — Championne d'Académie</div></div>
+            <div style="background:rgba(201,168,76,.18);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Ville de Cannes — 130 enfants · 5 catégories</div></div>
+            <div style="background:rgba(201,168,76,.12);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Sainte-Marie — Championne d'Académie · qualifiée nationale</div></div>
             <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Académique collèges</div></div>
             <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Départ. écoles & collèges</div></div>
           </div>
-          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">Inscriptions 2026–2027 ouvertes en septembre</div>
+          <button class="btn btn-outline-white btn-sm btn-full" style="margin-top:18px" onclick="goTo('actualites')">Voir tous les résultats →</button>
         </div>
+      </div>
+
+      <!-- Les tournois scolaires (fusionné depuis l'ancien onglet Tournois › Scolaires) -->
+      <div style="border-top:1px solid var(--border);margin-top:48px;padding-top:40px">
+        <div class="section-header" style="margin-bottom:20px">
+          <span class="surtitre">Compétitions</span>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu)">Les tournois scolaires</h3>
+        </div>
+        <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:24px">Cannes Échecs organise les tournois inter-établissements pour les élèves du primaire et du secondaire, du niveau départemental au niveau national.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+          <div style="background:#fff;border-radius:10px;padding:16px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-écoles</div><div style="font-size:12px;color:var(--muted)">Printemps · Primaires du bassin cannois</div></div></div>
+          <div style="background:#fff;border-radius:10px;padding:16px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-cap"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-collèges</div><div style="font-size:12px;color:var(--muted)">Décembre · Championnats départementaux</div></div></div>
+          <div style="background:#fff;border-radius:10px;padding:16px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Sélection régionale &amp; nationale</div><div style="font-size:12px;color:var(--muted)">Février–avril · Championnats académiques et France</div></div></div>
+        </div>
+        <button class="btn btn-gold" onclick="goTo('contact')">Inscrire votre école →</button>
       </div>
     </div>
   </div>
@@ -1910,7 +1925,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="tab-bar-inner">
       <button class="tab-btn tab-active" data-tab="t-pico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-target"/></svg> PICO</button>
       <button class="tab-btn" data-tab="t-rapide"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-bolt"/></svg> Rapide</button>
-      <button class="tab-btn" data-tab="t-scolaire"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaires</button>
       <button class="tab-btn" data-tab="t-paques"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Open Pâques</button>
     </div>
   </div>
@@ -2143,36 +2157,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   </div>
 
   <!-- Tab Scolaires -->
-  <div class="tab-panel" id="tab-t-scolaire" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
-    <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
-        <div>
-          <div class="badge badge-gold" style="margin-bottom:14px">Partenariat Éducation Nationale</div>
-          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Tournois scolaires</h2>
-          <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Cannes Échecs organise les tournois inter-établissements pour les élèves du primaire et du secondaire du bassin cannois, du département au niveau national.</p>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-écoles</div><div style="font-size:12px;color:var(--muted)">Printemps · Primaires du bassin cannois</div></div></div>
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-cap"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-collèges</div><div style="font-size:12px;color:var(--muted)">Décembre · Championnats départementaux</div></div></div>
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Sélection régionale & nationale</div><div style="font-size:12px;color:var(--muted)">Février–avril · Championnats académiques et France</div></div></div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-gold" onclick="goToTab('activites','scolaire')">Nos interventions scolaires →</button>
-            <button class="btn btn-outline-dark" onclick="goTo('contact')">Inscrire votre école →</button>
-          </div>
-        </div>
-        <div style="background:var(--bleu);border-radius:14px;padding:28px;color:#fff">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:4px">Bilan 2025–2026</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px;letter-spacing:.04em">Saison terminée · 4 titres majeurs</div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="background:rgba(201,168,76,.18);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Ville de Cannes — 130 enfants · 5 catégories</div></div>
-            <div style="background:rgba(201,168,76,.12);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Sainte-Marie — Championne d'Académie · qualifiée nationale</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Académique collèges</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Départ. écoles & collèges</div></div>
-          </div>
-          <button class="btn btn-outline-white btn-sm btn-full" style="margin-top:20px" onclick="goTo('actualites')">Voir tous les résultats →</button>
-        </div>
-      </div>
-    </div>
+  <!-- Renvoi scolaire — regroupé dans Activités › Les échecs à l'école -->
+  <div class="container" style="padding:8px 0 44px;text-align:center">
+    <p style="font-size:13px;color:var(--muted)">Tournois et interventions scolaires sont désormais réunis dans <a onclick="goToTab('activites','scolaire')" style="color:var(--gold-text);font-weight:600;cursor:pointer">Activités › Les échecs à l'école →</a></p>
   </div>
 
 </div><!-- fin page-tournois -->
