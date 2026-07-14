@@ -522,23 +522,26 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* =====================================================
    PAGE ARTICLE SINGLE
    ===================================================== */
-.article-hero{background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);padding:70px 0 50px}
-.article-hero .container{max-width:800px}
+.article-hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);padding:70px 0 64px}
+.article-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(255,255,255,.05) 0deg 90deg,transparent 90deg 180deg);background-size:44px 44px;opacity:.5;pointer-events:none}
+.article-hero .container{position:relative;max-width:800px}
 .article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0}
-.article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.5)}
-.article-content-wrap{padding:60px 0;background:#fff}
+.article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.82)}
+.article-meta .meta-item .ic{color:var(--gold)}
+.article-meta .cat-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.article-content-wrap{padding:0 0 60px;background:#fff}
 .article-content-wrap .container{max-width:800px}
-.article-featured-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
-.article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:720px;margin:0 auto}
+.article-featured-img{position:relative;z-index:2;width:100%;border-radius:12px;overflow:hidden;margin:-48px 0 40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
+.article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:680px;margin:0 auto;text-wrap:pretty}
+.article-body>p:first-of-type{font-size:20px;line-height:1.6;color:var(--bleu);margin-bottom:24px}
 .article-body h2{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu);margin:40px 0 16px;line-height:1.2}
 .article-body p{margin-bottom:20px}
 .article-body blockquote{padding:20px 28px;background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;margin:32px 0;font-style:italic;color:var(--bleu);font-size:18px;line-height:1.6}
 .article-share{display:flex;align-items:center;gap:12px;padding:24px 0;border-top:1px solid var(--border);margin-top:40px}
 .share-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;min-height:var(--hit-min);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:opacity .2s,transform .2s}
-.share-fb{background:#1877F2;color:#fff}
-.share-tw{background:#000;color:#fff}
-.share-btn:hover{opacity:.85;transform:translateY(-1px)}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;min-height:var(--hit-min);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s;border:1.5px solid var(--bleu);color:var(--bleu);background:transparent;cursor:pointer}
+.share-fb,.share-tw{background:transparent;color:var(--bleu);border-color:var(--bleu)}
+.share-btn:hover{background:var(--bleu);color:#fff;border-color:var(--bleu);transform:translateY(-1px)}
 .article-related{padding:var(--sp-8) 0;background:var(--ivoire)}
 
 /* =====================================================
@@ -707,7 +710,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .article-hero{padding:24px 0 18px}
   .article-content-wrap{padding:24px 0 !important}
   .article-content-wrap .container{padding:0 16px}
-  .article-featured-img{margin-bottom:24px}
+  .article-featured-img{margin:-24px 0 24px}
   .article-meta{margin:10px 0}
   .article-related{padding:24px 0 !important}
 
@@ -1293,16 +1296,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
   <section class="article-hero">
     <div class="container" style="max-width:800px">
-      <div class="breadcrumb" style="color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:20px">
-        <a onclick="goTo('home')" style="color:rgba(255,255,255,.4)">Accueil</a><span>›</span>
-        <a onclick="goTo('actualites')" style="color:rgba(255,255,255,.4)">Actualités</a><span>›</span>
-        <span style="color:rgba(255,255,255,.6)">Article</span>
+      <div class="breadcrumb" style="color:rgba(255,255,255,.62);display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:20px">
+        <a onclick="goTo('home')" style="color:rgba(255,255,255,.62)">Accueil</a><span>›</span>
+        <a onclick="goTo('actualites')" style="color:rgba(255,255,255,.62)">Actualités</a><span>›</span>
+        <span style="color:var(--gold)">Article</span>
       </div>
       <div id="art-badge" class="badge badge-gold" style="margin-bottom:16px">Actualité</div>
       <h1 id="art-title" style="font-size:46px;color:#fff;line-height:1.1;margin-bottom:16px">Titre de l'article</h1>
+      <div class="gold-bar" style="margin:0 0 18px"></div>
       <div class="article-meta">
         <div id="art-date" class="meta-item"><span><svg class="ic" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg></span> Date</div>
-        <div id="art-cat" class="meta-item"><span>🏷</span> Catégorie</div>
+        <div id="art-cat" class="meta-item"><span class="cat-dot"></span> Catégorie</div>
       </div>
     </div>
   </section>
@@ -4037,7 +4041,7 @@ function goToArticle(id) {
   if (badge) badge.textContent = a.badge;
   if (title) title.textContent = a.title;
   if (date)  date.innerHTML = '<span><svg class="ic" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg></span> ' + a.date;
-  if (cat)   cat.innerHTML  = '<span>🏷</span> ' + a.cat;
+  if (cat)   cat.innerHTML  = '<span class="cat-dot"></span> ' + a.cat;
   // Image : photo réelle si disponible (avec override localStorage), sinon gradient + emoji
   const img = document.getElementById('art-img');
   const coverSrc = getCover(id, a);
