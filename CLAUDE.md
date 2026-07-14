@@ -4,6 +4,11 @@
 Ne JAMAIS modifier `C:\Users\mathi\Desktop\Site ACE\cannes-echecs\` (avec espace dans "Site ACE").
 C'est un projet React séparé — hors périmètre de ce répertoire.
 
+## Règle A — Valider avant de pousser (posée le 2026-07-14)
+1. **Ne JAMAIS `git push` tant que Mathilde n'a pas validé le rendu.** Commit local OK ; le push attend son feu vert explicite après qu'elle a vu le résultat (localhost ou capture).
+2. **Tout arbitrage de mise en page** (onglet vs section, 1 vs 2 colonnes, emplacement d'un bloc…) → la faire choisir **avant** de coder, ne pas trancher seul.
+3. Si le screenshot de l'aperçu est en panne, le **dire** au lieu d'annoncer « vérifié » sur la seule base des mesures (une mesure ne voit pas une erreur de disposition).
+
 ## Fichier unique
 Tout le site est dans un seul fichier : `index.html` (~4800 lignes).
 Pas de build step. On édite directement ce fichier.
