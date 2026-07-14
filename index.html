@@ -1880,6 +1880,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <button class="tab-btn tab-active" data-tab="t-pico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-target"/></svg> PICO</button>
       <button class="tab-btn" data-tab="t-rapide"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-bolt"/></svg> Rapide</button>
       <button class="tab-btn" data-tab="t-paques"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Open Pâques</button>
+      <button class="tab-btn" data-tab="t-ffe"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-users"/></svg> Compét. FFE</button>
     </div>
   </div>
 
@@ -2111,15 +2112,15 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   </div>
 
   <!-- Tab Scolaires -->
-  <!-- Compétitions officielles FFE (déplacé depuis l'ancien onglet Activités › Compétitions) -->
-  <section style="padding:var(--sp-8) 0;background:#fff">
+  <!-- Onglet Compétitions officielles FFE (déplacé depuis l'ancien onglet Activités › Compétitions) -->
+  <div class="tab-panel" id="tab-t-ffe" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
     <div class="container">
       <div class="section-header center" style="margin-bottom:24px">
         <span class="surtitre">Compétitions fédérales</span>
         <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Compétitions officielles FFE</h2>
       </div>
       <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:640px;margin:0 auto 28px;text-align:center">Au-delà de ses tournois maison, Cannes Échecs engage ses membres dans les compétitions officielles de la Fédération Française des Échecs tout au long de la saison.</p>
-      <div style="max-width:720px;margin:0 auto;background:var(--ivoire);border:1px solid var(--border);border-radius:14px;padding:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between">
+      <div style="max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:14px;padding:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between">
         <div style="display:flex;align-items:center;gap:16px;min-width:0">
           <span style="font-size:30px;color:var(--gold);flex-shrink:0"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span>
           <div style="font-size:14px;color:var(--text);line-height:1.7">Championnat de France par équipes · Championnats jeunes FFE (U8→U18) · Interclubs régionaux</div>
@@ -2127,7 +2128,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <button class="btn btn-outline-dark btn-sm" style="flex-shrink:0" onclick="goTo('adhesion')">Prendre une licence FFE →</button>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Renvoi scolaire — regroupé dans Activités › Les échecs à l'école -->
   <div class="container" style="padding:8px 0 44px;text-align:center">
