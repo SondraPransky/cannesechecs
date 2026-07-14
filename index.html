@@ -549,7 +549,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .article-related{padding:var(--sp-8) 0;background:var(--ivoire)}
 /* Grille creneaux Cours & Formation — 1 colonne sous 560px (les horaires en white-space:nowrap debordaient des cartes a 2 colonnes en mobile) */
 .cours-creneaux{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:560px){.cours-creneaux{grid-template-columns:1fr}}
+/* Cartes 2 colonnes des onglets Competitions & Stages — repli 1 colonne sur mobile (le selecteur global #page-activites[...] est ecrit sans espace, donc inoperant sur les descendants) */
+.act-cards-2{display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:560px){.cours-creneaux,.act-cards-2{grid-template-columns:1fr}}
 
 /* =====================================================
    TABS — PAGE ACTIVITÉS
@@ -1415,7 +1417,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:8px">Compétitions</h2>
       <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:640px;margin-bottom:32px">Cannes Échecs engage ses membres dans les compétitions officielles FFE (Championnat de France par équipes, championnats jeunes) et organise ses propres tournois internes tout au long de l'année.</p>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+      <div class="act-cards-2" style="gap:16px;margin-bottom:32px">
         <div class="card">
           <div style="font-size:28px;margin-bottom:10px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:6px">Compétitions officielles</div>
@@ -1447,7 +1449,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="section-header" style="margin-bottom:36px"><span class="surtitre">Vacances scolaires</span><h2 style="font-size:var(--fs-h2);color:var(--bleu)">Stages</h2></div>
       <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:680px;margin-bottom:20px">Cannes Échecs organise des stages intensifs pendant les vacances scolaires. Tous niveaux, encadrés par nos formateurs agréés. Inscriptions en ligne via HelloAsso à l'ouverture de chaque stage.</p>
       <button class="btn btn-gold" style="margin-bottom:36px" onclick="goToContactSujet('stage')">Être prévenu du prochain stage →</button>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+      <div class="act-cards-2" style="gap:20px">
 
         <!-- Stage Toussaint -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
