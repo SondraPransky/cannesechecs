@@ -152,7 +152,7 @@ Tailles nommées par rôle, définies dans `:root` de `index.html`. À réutilis
 Familles : `--font-serif` (Cormorant), `--font-sans` (Inter), `--font-label` (Montserrat). Rayons : `--r-sm/md/lg/`**`card`**`/xl/pill/circle` — **`--r-card` (14px) est le rayon unique des cartes de contenu** ; `--r-xl` (16px) reste réservé aux grands panneaux « écrin » (héros, encarts sombres pleine largeur). Espacements : `--sp-1..8` (8→80px). Teintes or : `--gold-tint` (`rgba(201,168,76,.2)`, fond de pastille), `--gold-tint-border` (`.4`, filet), `--card-glass` (verre translucide). Navy de dégradé : `--bleu-deep` (`#0A1F38`, fond profond des héros/cartes, partenaire de `--bleu`), `--bleu-mid` (`#2D5A8E`, tuiles avatar).
 
 ### Named Rules
-**La Règle de l'Italique Dorée.** L'emphase dans un titre se fait par `<em>` en italique Cormorant couleur or — jamais par du gras coloré ni du soulignement. C'est la signature typographique du club.
+**La Règle de l'Italique Dorée.** L'emphase dans un titre se fait par `<em>` en italique Cormorant couleur or — jamais par du gras coloré ni du soulignement. C'est la signature typographique du club. **Exception unique — le « foil or » du héros d'accueil** : le `<em>` du titre d'accueil (`.home-hero h1 em`) utilise un dégradé or animé (`background-clip:text`) comme signature de marque. C'est le **seul** texte en dégradé toléré du site ; partout ailleurs l'emphase reste en or plein.
 
 **La Règle du Token.** Tout nouvel élément réutilise les tokens `:root` (taille, rayon, espacement, couleur) plutôt qu'une valeur `px`/hex en dur. Le futur thème WordPress/ACF s'appuie sur cette échelle. Les titres de section utilisent `--fs-h2` (jamais une taille en dur).
 
@@ -213,7 +213,7 @@ Système **majoritairement plat avec relief discret par ombres douces**. Les sur
 - **Don't** faire un **site associatif daté** : pas de template années 2000, pas de tableaux de mise en page, pas de couleurs criardes, pas de Comic Sans, aucun rendu amateur. (Anti-référence n°1 du PRODUCT.md.)
 - **Don't** introduire un second accent saturé (vert, rouge, violet) à côté de l'or.
 - **Don't** utiliser du gris clair « pour faire chic » sur du texte — c'est illisible pour le lectorat.
-- **Don't** poser du texte de couleur en dégradé (`background-clip: text`) — l'emphase se fait par l'italique dorée, le poids ou la taille.
+- **Don't** poser du texte de couleur en dégradé (`background-clip: text`) — l'emphase se fait par l'italique dorée, le poids ou la taille. **Seule exception documentée** : le « foil or » du `<em>` du titre d'accueil (`.home-hero h1 em`), signature de marque assumée.
 - **Don't** utiliser des bordures latérales colorées (`border-left` > 1px) comme accent sur les cartes ou encadrés.
 - **Don't** empiler des cartes identiques à l'infini (icône + titre + texte) ni imbriquer des cartes.
 - **Don't** monter un titre display au-dessus de 66px ni utiliser une ombre `rgba(0,0,0,…)` grise.
