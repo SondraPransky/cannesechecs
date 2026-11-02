@@ -1,0 +1,668 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="ctl00_MasterHeader"><meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" /><meta name="keywords" /><meta name="description" /><title>
+	F&eacute;d&eacute;ration Fran&ccedil;aise des &Eacute;checs
+</title><link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" /><link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700" rel="stylesheet" type="text/css" /><link type="text/css" rel="stylesheet" href="ffe.css?version=6" /><link type="text/css" rel="stylesheet" href="old.css?version=1" /><link rel="shortcut icon" type="image/x-icon" href="images/FFE-favicon.png" />
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-71022811-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <script defer src="https://analytics.ffechecs.cloud/script.js" data-website-id="1f57de5d-0056-40f7-b8e4-feb76fa821db"></script>
+
+  <script type="text/javascript">
+    window.$crisp=[];window.CRISP_WEBSITE_ID="47d40bfc-b081-40e5-87cd-d652c585f3c8";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+  </script>
+
+</head>
+<body>
+<div id="menu-haut">
+  <a href="Plan.aspx">Plan du site</a> &nbsp;|&nbsp;
+  <a href="Default.aspx?Cat=50">Contact</a> &nbsp;|&nbsp;
+  <a href="Revues.aspx">Publications</a> &nbsp;|&nbsp;
+  <a href="Connect.aspx">Mon Compte</a> &nbsp;|&nbsp;
+  <a href="http://clubs.echecs.asso.fr">Gérer son Club</a> &nbsp;|&nbsp;
+  <a href="http://admin.echecs.asso.fr">Directeurs de Groupes</a> &nbsp;|&nbsp;
+  <a href="Print.aspx" id="ctl00_LinkPrint">Imprimer</a>
+</div>  
+<div id="ctl00_divheader">
+  <div id="header-search">
+    <form class="form-search" method=post name=FormJoueur action="ListeJoueurs.aspx?Action=FFE">
+      <label class="label-search">Rechercher un joueur</label>
+      <input class=input-search type="text" size="12" name="JoueurNom" value="" />
+      <input class=input-search type="submit" value="OK" />
+    </form>
+    <form class="form-search" method=post name=FormClub action="ListeClubs.aspx?Action=CLUB">
+      <label class=label-search>Rechercher un club</label>
+      <input class=input-search type="text" name="ClubNom" size="12" value="" />
+      <input class=input-search type="submit" value="OK" />&nbsp;&nbsp;
+    </form>
+    <form class="form-search" method=post name=FormActu action="Default.aspx">
+      <label class=label-search>Rechercher dans le site</label>
+      <input class=input-search type="text" name="ActuFiltre" size="12" value="" />
+      <input class=input-search type="submit" value="OK" />&nbsp;&nbsp;
+    </form>
+      <a href="https://www.facebook.com/ffechecs?fref=ts" target=_blank><img src=images/facebook.png /></a>&nbsp;&nbsp;
+      <a href="https://twitter.com/ffechecs" target=_blank><img src=images/twitter.png /></a>
+  </div>
+  <div id="bandeau">
+    <img src="images/bandeau-ffe.png" alt="ffe" title="ffe" />
+  </div>
+<!-- end #bandeau -->
+  <ul id="nav"><li class="current"><a href="Default.aspx">Accueil</a></li><li><a href="#">Découvrir</a><ul><li><a target=_blank href="https://eef.ffechecs.fr/niveaux/cavalier">Règles du Jeu</a></li><li><a target=_blank href="https://eef.ffechecs.fr/">Progresser aux échecs</a></li><li><a href="Revues.aspx">Publications</a></li><li><a href="Default.aspx?Cat=41">Art, Culture et Histoire</a></li><li><a target=_blank href="https://www.flickr.com/photos/196251999@N08/albums/with/72177720301409158">Albums photos</a></li><li><a target=_blank href="https://www.youtube.com/channel/UCn6wdVs-gSmZBJXSAWPzf7Q/videos">Vidéos</a></li></ul></li><li><a href="#">FFE</a><ul><li><a href="Default.aspx?Cat=12">FFE - Présentation</a></li><li><a href="Ligues.aspx">Ligues</a></li><li><a href="Comites.aspx">Comités</a></li><li><a href="Clubs.aspx">Clubs</a></li><li><a href="Default.aspx?Cat=14">Licences</a></li><li><a href="Joueurs.aspx">Membres</a></li><li><a href="Default.aspx?Cat=55">Les effectifs de la F.F.E.</a></li><li><a href="Default.aspx?Cat=13">Siège fédéral</a></li><li><a href="Default.aspx?Cat=35">Commissions-Directions</a></li><li><a href="Default.aspx?Cat=42">Infos fédérales</a></li><li><a href="Default.aspx?Cat=50">Contacts</a></li><li><a target=_blank href="https://www.echecs.asso.fr/Default.aspx?Cat=76">Direction Technique Nationale</a></li></ul></li><li><a href="#">Compétitions</a><ul><li><a href="Calendrier.aspx">Calendrier</a></li><li><a href="Equipes.aspx">Par équipes</a></li><li><a href="Tournois.aspx">Tournois homologués</a></li><li><a href="Default.aspx?Cat=21">Vos opens</a></li><li><a href="Default.aspx?Cat=16">Ch. France Jeunes</a></li><li><a href="Default.aspx?Cat=15">Ch. France</a></li><li><a href="Default.aspx?Cat=75">Ch France Rapide des Clubs</a></li><li><a href="Default.aspx?Cat=58">Elo Rapide FFE </a></li><li><a target=_blank href="https://echecs.asso.fr/Default.aspx?Cat=77">Internationaux de France Rapide & Blitz</a></li></ul></li><li><a href="#">Secteurs</a><ul><li><a href="Default.aspx?Cat=8">Haut niveau et titrés</a></li><li><a href="Default.aspx?Cat=7">Mixité</a></li><li><a href="Default.aspx?Cat=66">Scolaires</a></li><li><a target=_blank href="https://ssh.ffechecs.fr/">Santé Social Handicap</a></li><li><a href=" Default.aspx?Cat=68">International</a></li><li><a target=_blank href="https://dna.ffechecs.fr/">Arbitrage</a></li><li><a href="Default.aspx?Cat=9">Discipline</a></li><li><a target=_blank href="http://echecs.asso.fr/Default.aspx?Cat=72">Prévention des violences</a></li><li><a href="Default.aspx?Cat=23">Vos Stages</a></li><li><a target=_blank href="https://classechecs.ffechecs.fr/">Class’Échecs</a></li><li><a href="Default.aspx?Cat=74">Fair-Play</a></li></ul></li><li><a href="#">Documents</a><ul><li><a href="Default.aspx?Cat=17">Règlements</a></li><li><a href="Default.aspx?Cat=20">Comptes rendus</a></li><li><a href="Default.aspx?Cat=26">Documents Clubs</a></li><li><a href="Default.aspx?Cat=46">Ressources pédagogiques</a></li><li><a target=_blank href="http://echecs.asso.fr/Actu.aspx?Ref=12999">Abonnement Echec & Mat Junior</a></li><li><a target=_blank href="http://www.echecs.asso.fr/Default.aspx?Cat=61">Masterclasses en replay</a></li></ul></li><li><a href="#">Développement</a><ul><li><a href="Default.aspx?Cat=6">Formation</a></li><li><a href="Default.aspx?Cat=39">Nouveaux Publics</a></li><li><a href="Default.aspx?Cat=2">Annonces Emploi</a></li><li><a href="Default.aspx?Cat=24">Annonces Clubs</a></li><li><a target=_blank href="http://www.echecs.asso.fr/Default.aspx?Cat=57">Protection judiciaire de la Jeunesse</a></li></ul></li><li><a href="Default.aspx?Cat=36">Partenaires</a><ul><li><a target=_blank href="https://www.creditmutuel.fr/home/index.html">Crédit Mutuel</a></li><li><a target=_blank href="https://www.echecs.asso.fr/Actu.aspx?Ref=15429">Crédit Mutuel Enseignant</a></li><li><a target=_blank href="http://www.profession-sport-loisirs.fr">Profession Sports & Loisirs</a></li><li><a target=_blank href="http://www.echiquierdelareussite.org">L'échiquier de la réussite</a></li><li><a target=_blank href="http://www.olibris.fr">Olibris</a></li><li><a target=_blank href="http://www.ucpa-vacances.com">U.C.P.A.</a></li><li><a target=_blank href="http://www.chateauvillandry.fr">Le Château de Villandry</a></li><li><a target=_blank href="https://www.apf-francehandicap.org/">A.P.F.</a></li><li><a target=_blank href="http://www.echecs.asso.fr/Default.aspx?Cat=57">D.P.J.J.</a></li><li><a target=_blank href="https://unss.org/">U.N.S.S.</a></li><li><a target=_blank href="https://usep.org/">U.S.E.P.</a></li><li><a target=_blank href="http://www.aefe.fr/">A.E.F.E.</a></li><li><a target=_blank href="http://www.ffse.fr/">F.F.S.E.</a></li><li><a target=_blank href="http://www.femixsports.fr/">Femix'Sports</a></li><li><a target=_blank href="http://www.echecs.asso.fr/Actu.aspx?Ref=13000">VARIANTES</a></li><li><a target=_blank href="https://www.amf.asso.fr/">A.M.F.</a></li><li><a target=_blank href="https://www.pro-evolution-echecs.com/">Pro Evolution Échecs</a></li><li><a target=_blank href="https://www.robindubien.org/">Robin du Bien</a></li></ul></li><li><a href="http://echecs.asso.fr/Actu.aspx?Ref=10771">Boutique</a></li></ul>
+<!-- end #menu -->
+  
+<!-- end #pub -->
+</div>
+<!-- end #header -->
+<div id="page">
+  <div id="page-bgtop">
+    <div id="page-bgbtm">
+      
+<form name="aspnetForm" method="post" action="ListeTournois.aspx?Action=RES&amp;Mois=10&amp;Annee=2026" id="aspnetForm">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEzNDExOTczOTIPZBYCZg9kFggCAw8WAh4JaW5uZXJodG1sBQhJbXByaW1lcmQCBQ9kFgQCAQ8WAh4EVGV4dAWEKTx1bCBpZD0ibmF2Ij48bGkgY2xhc3M9ImN1cnJlbnQiPjxhIGhyZWY9IkRlZmF1bHQuYXNweCI+QWNjdWVpbDwvYT48L2xpPjxsaT48YSBocmVmPSIjIj5Ew6ljb3V2cmlyPC9hPjx1bD48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL2VlZi5mZmVjaGVjcy5mci9uaXZlYXV4L2NhdmFsaWVyIj5Sw6hnbGVzIGR1IEpldTwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vZWVmLmZmZWNoZWNzLmZyLyI+UHJvZ3Jlc3NlciBhdXggw6ljaGVjczwvYT48L2xpPjxsaT48YSBocmVmPSJSZXZ1ZXMuYXNweCI+UHVibGljYXRpb25zPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9NDEiPkFydCwgQ3VsdHVyZSBldCBIaXN0b2lyZTwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vd3d3LmZsaWNrci5jb20vcGhvdG9zLzE5NjI1MTk5OUBOMDgvYWxidW1zL3dpdGgvNzIxNzc3MjAzMDE0MDkxNTgiPkFsYnVtcyBwaG90b3M8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9jaGFubmVsL1VDbjZ3ZFZzLWdTbVpCSlhTQVdQemY3US92aWRlb3MiPlZpZMOpb3M8L2E+PC9saT48L3VsPjwvbGk+PGxpPjxhIGhyZWY9IiMiPkZGRTwvYT48dWw+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9MTIiPkZGRSAtIFByw6lzZW50YXRpb248L2E+PC9saT48bGk+PGEgaHJlZj0iTGlndWVzLmFzcHgiPkxpZ3VlczwvYT48L2xpPjxsaT48YSBocmVmPSJDb21pdGVzLmFzcHgiPkNvbWl0w6lzPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkNsdWJzLmFzcHgiPkNsdWJzPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9MTQiPkxpY2VuY2VzPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkpvdWV1cnMuYXNweCI+TWVtYnJlczwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTU1Ij5MZXMgZWZmZWN0aWZzIGRlIGxhIEYuRi5FLjwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTEzIj5TacOoZ2UgZsOpZMOpcmFsPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9MzUiPkNvbW1pc3Npb25zLURpcmVjdGlvbnM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD00MiI+SW5mb3MgZsOpZMOpcmFsZXM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD01MCI+Q29udGFjdHM8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL3d3dy5lY2hlY3MuYXNzby5mci9EZWZhdWx0LmFzcHg/Q2F0PTc2Ij5EaXJlY3Rpb24gVGVjaG5pcXVlIE5hdGlvbmFsZTwvYT48L2xpPjwvdWw+PC9saT48bGk+PGEgaHJlZj0iIyI+Q29tcMOpdGl0aW9uczwvYT48dWw+PGxpPjxhIGhyZWY9IkNhbGVuZHJpZXIuYXNweCI+Q2FsZW5kcmllcjwvYT48L2xpPjxsaT48YSBocmVmPSJFcXVpcGVzLmFzcHgiPlBhciDDqXF1aXBlczwvYT48L2xpPjxsaT48YSBocmVmPSJUb3Vybm9pcy5hc3B4Ij5Ub3Vybm9pcyBob21vbG9ndcOpczwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTIxIj5Wb3Mgb3BlbnM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD0xNiI+Q2guIEZyYW5jZSBKZXVuZXM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD0xNSI+Q2guIEZyYW5jZTwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTc1Ij5DaCBGcmFuY2UgUmFwaWRlIGRlcyBDbHViczwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTU4Ij5FbG8gUmFwaWRlIEZGRSA8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL2VjaGVjcy5hc3NvLmZyL0RlZmF1bHQuYXNweD9DYXQ9NzciPkludGVybmF0aW9uYXV4IGRlIEZyYW5jZSBSYXBpZGUgJiBCbGl0ejwvYT48L2xpPjwvdWw+PC9saT48bGk+PGEgaHJlZj0iIyI+U2VjdGV1cnM8L2E+PHVsPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTgiPkhhdXQgbml2ZWF1IGV0IHRpdHLDqXM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD03Ij5NaXhpdMOpPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9NjYiPlNjb2xhaXJlczwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vc3NoLmZmZWNoZWNzLmZyLyI+U2FudMOpIFNvY2lhbCBIYW5kaWNhcDwvYT48L2xpPjxsaT48YSBocmVmPSIgRGVmYXVsdC5hc3B4P0NhdD02OCI+SW50ZXJuYXRpb25hbDwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vZG5hLmZmZWNoZWNzLmZyLyI+QXJiaXRyYWdlPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9OSI+RGlzY2lwbGluZTwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly9lY2hlY3MuYXNzby5mci9EZWZhdWx0LmFzcHg/Q2F0PTcyIj5QcsOpdmVudGlvbiBkZXMgdmlvbGVuY2VzPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9MjMiPlZvcyBTdGFnZXM8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL2NsYXNzZWNoZWNzLmZmZWNoZWNzLmZyLyI+Q2xhc3PigJnDiWNoZWNzPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9NzQiPkZhaXItUGxheTwvYT48L2xpPjwvdWw+PC9saT48bGk+PGEgaHJlZj0iIyI+RG9jdW1lbnRzPC9hPjx1bD48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD0xNyI+UsOoZ2xlbWVudHM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD0yMCI+Q29tcHRlcyByZW5kdXM8L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD0yNiI+RG9jdW1lbnRzIENsdWJzPC9hPjwvbGk+PGxpPjxhIGhyZWY9IkRlZmF1bHQuYXNweD9DYXQ9NDYiPlJlc3NvdXJjZXMgcMOpZGFnb2dpcXVlczwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly9lY2hlY3MuYXNzby5mci9BY3R1LmFzcHg/UmVmPTEyOTk5Ij5BYm9ubmVtZW50IEVjaGVjICYgTWF0IEp1bmlvcjwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly93d3cuZWNoZWNzLmFzc28uZnIvRGVmYXVsdC5hc3B4P0NhdD02MSI+TWFzdGVyY2xhc3NlcyBlbiByZXBsYXk8L2E+PC9saT48L3VsPjwvbGk+PGxpPjxhIGhyZWY9IiMiPkTDqXZlbG9wcGVtZW50PC9hPjx1bD48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD02Ij5Gb3JtYXRpb248L2E+PC9saT48bGk+PGEgaHJlZj0iRGVmYXVsdC5hc3B4P0NhdD0zOSI+Tm91dmVhdXggUHVibGljczwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTIiPkFubm9uY2VzIEVtcGxvaTwvYT48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTI0Ij5Bbm5vbmNlcyBDbHViczwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly93d3cuZWNoZWNzLmFzc28uZnIvRGVmYXVsdC5hc3B4P0NhdD01NyI+UHJvdGVjdGlvbiBqdWRpY2lhaXJlIGRlIGxhIEpldW5lc3NlPC9hPjwvbGk+PC91bD48L2xpPjxsaT48YSBocmVmPSJEZWZhdWx0LmFzcHg/Q2F0PTM2Ij5QYXJ0ZW5haXJlczwvYT48dWw+PGxpPjxhIHRhcmdldD1fYmxhbmsgaHJlZj0iaHR0cHM6Ly93d3cuY3JlZGl0bXV0dWVsLmZyL2hvbWUvaW5kZXguaHRtbCI+Q3LDqWRpdCBNdXR1ZWw8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL3d3dy5lY2hlY3MuYXNzby5mci9BY3R1LmFzcHg/UmVmPTE1NDI5Ij5DcsOpZGl0IE11dHVlbCBFbnNlaWduYW50PC9hPjwvbGk+PGxpPjxhIHRhcmdldD1fYmxhbmsgaHJlZj0iaHR0cDovL3d3dy5wcm9mZXNzaW9uLXNwb3J0LWxvaXNpcnMuZnIiPlByb2Zlc3Npb24gU3BvcnRzICYgTG9pc2lyczwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly93d3cuZWNoaXF1aWVyZGVsYXJldXNzaXRlLm9yZyI+TCfDqWNoaXF1aWVyIGRlIGxhIHLDqXVzc2l0ZTwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly93d3cub2xpYnJpcy5mciI+T2xpYnJpczwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly93d3cudWNwYS12YWNhbmNlcy5jb20iPlUuQy5QLkEuPC9hPjwvbGk+PGxpPjxhIHRhcmdldD1fYmxhbmsgaHJlZj0iaHR0cDovL3d3dy5jaGF0ZWF1dmlsbGFuZHJ5LmZyIj5MZSBDaMOidGVhdSBkZSBWaWxsYW5kcnk8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL3d3dy5hcGYtZnJhbmNlaGFuZGljYXAub3JnLyI+QS5QLkYuPC9hPjwvbGk+PGxpPjxhIHRhcmdldD1fYmxhbmsgaHJlZj0iaHR0cDovL3d3dy5lY2hlY3MuYXNzby5mci9EZWZhdWx0LmFzcHg/Q2F0PTU3Ij5ELlAuSi5KLjwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vdW5zcy5vcmcvIj5VLk4uUy5TLjwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vdXNlcC5vcmcvIj5VLlMuRS5QLjwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHA6Ly93d3cuYWVmZS5mci8iPkEuRS5GLkUuPC9hPjwvbGk+PGxpPjxhIHRhcmdldD1fYmxhbmsgaHJlZj0iaHR0cDovL3d3dy5mZnNlLmZyLyI+Ri5GLlMuRS48L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwOi8vd3d3LmZlbWl4c3BvcnRzLmZyLyI+RmVtaXgnU3BvcnRzPC9hPjwvbGk+PGxpPjxhIHRhcmdldD1fYmxhbmsgaHJlZj0iaHR0cDovL3d3dy5lY2hlY3MuYXNzby5mci9BY3R1LmFzcHg/UmVmPTEzMDAwIj5WQVJJQU5URVM8L2E+PC9saT48bGk+PGEgdGFyZ2V0PV9ibGFuayBocmVmPSJodHRwczovL3d3dy5hbWYuYXNzby5mci8iPkEuTS5GLjwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vd3d3LnByby1ldm9sdXRpb24tZWNoZWNzLmNvbS8iPlBybyBFdm9sdXRpb24gw4ljaGVjczwvYT48L2xpPjxsaT48YSB0YXJnZXQ9X2JsYW5rIGhyZWY9Imh0dHBzOi8vd3d3LnJvYmluZHViaWVuLm9yZy8iPlJvYmluIGR1IEJpZW48L2E+PC9saT48L3VsPjwvbGk+PGxpPjxhIGhyZWY9Imh0dHA6Ly9lY2hlY3MuYXNzby5mci9BY3R1LmFzcHg/UmVmPTEwNzcxIj5Cb3V0aXF1ZTwvYT48L2xpPjwvdWw+ZAIDDxYCHgdWaXNpYmxlaBYCAgEPDxYEHghJbWFnZVVybAUWaW1hZ2VzL0JhbmRlYXUvcHNmLmpwZx4LTmF2aWdhdGVVcmwFKWh0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" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="63E067FC" />
+<div id="page-titre" class="pager">
+<table width=100%>
+  <tr>
+    <td align=left width=75%><span id="ctl00_ContentPlaceHolderMain_LabelTitre" class="actu-titre">Résultats des Tournois</span><hr class="rubrique" /></td>
+    <td align=center width=25%><table class="Pager">
+<tr>
+<td align=center><img src="Images/t_fleche_no.gif" border="0" /></td>
+<td bgcolor=#F3E8FF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','1')"> 1 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','2')"> 2 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','3')"> 3 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','4')"> 4 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','5')"> 5 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','6')"> 6 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','7')"> 7 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','8')"> 8 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','9')"> 9 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','10')"> 10 </a>
+</td>
+<td align=center><a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerHeader','d')"><img src=Images/t_fleche_d.gif border=0/></a></td>
+</tr>
+</table>
+</td>
+  </tr>
+</table>
+</div>
+<div class="page-mid">
+
+<table border=0 cellspacing=0 cellpadding=4 width=100%>
+  
+    <tr id="ctl00_ContentPlaceHolderMain_RepeaterTournoi_ctl00_RowRupture">
+	<td class="liste_titre" colspan="8" align="center" width="100%">octobre 2026</td>
+</tr>
+
+	<tr class=liste_fonce>
+	  <td align=right width=30>72680</td>
+      <td align=left width=200>SAINT BRISSON</td>
+      <td align=center width=30>58</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=72680 class=lien_texte>1er Open international d'Echecs du Morvan - Trophée du Parc</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73275</td>
+      <td align=left width=200>BORDEAUX</td>
+      <td align=center width=30>33</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73275 class=lien_texte>RAPIDASPOM 2026 10-31</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73296</td>
+      <td align=left width=200>ALBERTVILLE</td>
+      <td align=center width=30>73</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73296 class=lien_texte>1er tournoi d'Halloween d'Albertville</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73361</td>
+      <td align=left width=200>BERRE L'ETANG</td>
+      <td align=center width=30>13</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73361 class=lien_texte>Championnat départemental 13 2026 - U8</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73470</td>
+      <td align=left width=200>CHAUNY</td>
+      <td align=center width=30>02</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73470 class=lien_texte>Open Rabelais 2026 (-2400)</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73485</td>
+      <td align=left width=200>COLOMIERS</td>
+      <td align=center width=30>31</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73485 class=lien_texte>Les samedis de Colomiers - Open Octobre 2026</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73501</td>
+      <td align=left width=200>DOMLOUP</td>
+      <td align=center width=30>35</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73501 class=lien_texte>44e open Fide de Domloup - Tournoi A</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73502</td>
+      <td align=left width=200>DOMLOUP</td>
+      <td align=center width=30>35</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73502 class=lien_texte>44e open Fide de Domloup - Tournoi B</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73503</td>
+      <td align=left width=200>DOMLOUP</td>
+      <td align=center width=30>35</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73503 class=lien_texte>44e open Fide de Domloup - Tournoi C</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73504</td>
+      <td align=left width=200>DOMLOUP</td>
+      <td align=center width=30>35</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73504 class=lien_texte>44e open Fide de Domloup - Tournoi D</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73505</td>
+      <td align=left width=200>DOMLOUP</td>
+      <td align=center width=30>35</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73505 class=lien_texte>44e open Fide de Domloup - Tournoi E</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73506</td>
+      <td align=left width=200>DOMLOUP</td>
+      <td align=center width=30>35</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73506 class=lien_texte>44e open Fide de Domloup - Tournoi F</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73559</td>
+      <td align=left width=200>LILLE</td>
+      <td align=center width=30>59</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73559 class=lien_texte>Rapide d'Halloween 2026 du LMC</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73570</td>
+      <td align=left width=200>LYON</td>
+      <td align=center width=30>69</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73570 class=lien_texte>Tournoi des Aventuriers Courtois du samedi 31 octobre 2026</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73632</td>
+      <td align=left width=200>SAINT QUENTIN</td>
+      <td align=center width=30>02</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73632 class=lien_texte>Le Rapide d'Halloween des THF 2026</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73683</td>
+      <td align=left width=200>NOISIEL</td>
+      <td align=center width=30>77</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73683 class=lien_texte>2éme Tournoi rapide d'automne de Noisiel -10 ans</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73684</td>
+      <td align=left width=200>NOISIEL</td>
+      <td align=center width=30>77</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73684 class=lien_texte>2éme Tournoi rapide d'automne de Noisiel -16 ans</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73901</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73901 class=lien_texte>294è Open FIDE Interchess de 3 Rondes (réservé élo de 1800 à 2300)</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73902</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73902 class=lien_texte>295è Open FIDE Interchess de 3 Rondes -1800</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73903</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73903 class=lien_texte>491è Rapide FIDE Interchess -2000 (conseillé aux debutants adultes jeunes et enfants)</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73990</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73990 class=lien_texte>Rapide Blitz Society du 31-10-2026 -1700</a></td>
+      <td align=right width=60>31 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73635</td>
+      <td align=left width=200>STRASBOURG</td>
+      <td align=center width=30>67</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73635 class=lien_texte>Tournoi d'Entraînement du CE-Strasbourg Toussaint 2026</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73663</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73663 class=lien_texte>342e Blitz Fide du Canal (9e Grand Malabar)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73362</td>
+      <td align=left width=200>BERRE L'ETANG</td>
+      <td align=center width=30>13</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73362 class=lien_texte>Championnat départemental 13 2026 - U10</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>72783</td>
+      <td align=left width=200>OLIVET</td>
+      <td align=center width=30>45</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=72783 class=lien_texte>11ème Open International Serge Dimier - Open A 45 - Olivet</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>72785</td>
+      <td align=left width=200>OLIVET</td>
+      <td align=center width=30>45</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=72785 class=lien_texte>11ème Open International Serge Dimier - Open B -1700</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73000</td>
+      <td align=left width=200>REIMS</td>
+      <td align=center width=30>51</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73000 class=lien_texte>Tournoi de fin de stage 2026 Reims</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>EST</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>71425</td>
+      <td align=left width=200>PANAZOL</td>
+      <td align=center width=30>87</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=71425 class=lien_texte>2ème Festival d'Echecs Roque n'Panazol - Tournoi Kortchnoï (-2400)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>71426</td>
+      <td align=left width=200>PANAZOL</td>
+      <td align=center width=30>87</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=71426 class=lien_texte>2ème Festival d'Echecs Roque n'Panazol - Open Fischer (-2400)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>71427</td>
+      <td align=left width=200>PANAZOL</td>
+      <td align=center width=30>87</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=71427 class=lien_texte>2ème Festival d'Echecs Roque n'Panazol - Tournoi Ding (-2400)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>71428</td>
+      <td align=left width=200>PANAZOL</td>
+      <td align=center width=30>87</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=71428 class=lien_texte>2ème Festival d'Echecs Roque n'Panazol - Tournoi Botvinnik (-2400)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>71429</td>
+      <td align=left width=200>PANAZOL</td>
+      <td align=center width=30>87</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=71429 class=lien_texte>2ème Festival d'Echecs Roque n'Panazol - Tournoi Capablanca (-2400)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>71430</td>
+      <td align=left width=200>PANAZOL</td>
+      <td align=center width=30>87</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=71430 class=lien_texte>2ème Festival d'Echecs Roque n'Panazol - Tournoi Alekhine (-2400)</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>74093</td>
+      <td align=left width=200>GERARDMER</td>
+      <td align=center width=30>88</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=74093 class=lien_texte>EG Intra club - octobre 2026</a></td>
+      <td align=right width=60>30 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>72420</td>
+      <td align=left width=200>NIORT</td>
+      <td align=center width=30>79</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=72420 class=lien_texte>Open de Niort 2026 Acession (-1900)</a></td>
+      <td align=right width=60>29 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>72424</td>
+      <td align=left width=200>NIORT</td>
+      <td align=center width=30>79</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=72424 class=lien_texte>Open International de Niort Master 2026 (+1850 elo)</a></td>
+      <td align=right width=60>29 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False></td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73367</td>
+      <td align=left width=200>BERRE L'ETANG</td>
+      <td align=center width=30>13</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73367 class=lien_texte>Championnat départemental 13 2026 - U20</a></td>
+      <td align=right width=60>29 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>74050</td>
+      <td align=left width=200>NEUWILLER LES SAVERNE</td>
+      <td align=center width=30>67</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=74050 class=lien_texte>Tournoi 3e Colo Echecs de Mundolsheim</a></td>
+      <td align=right width=60>29 oct.</td>
+      <td align=center width=30>EST</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_fonce>
+	  <td align=right width=30>73870</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73870 class=lien_texte>124è Rapide d'entrainement FFE Interchess -2200 </a></td>
+      <td align=right width=60>29 oct.</td>
+      <td align=center width=30>IDF</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+    
+	<tr class=liste_clair>
+	  <td align=right width=30>73871</td>
+      <td align=left width=200>PARIS</td>
+      <td align=center width=30>75</td>
+      <td align=left><a href=FicheTournoi.aspx?Ref=73871 class=lien_texte>490è Rapide FIDE Interchess</a></td>
+      <td align=right width=60>29 oct.</td>
+      <td align=center width=30>FFE</td>
+      <td align=center width=20 visible=False>X</td>
+      <td align=center width=20 visible=False>X</td>
+	</tr>	
+  
+</table>
+</div>
+<div align=center class="pager">
+  <table class="Pager">
+<tr>
+<td align=center><img src="Images/t_fleche_no.gif" border="0" /></td>
+<td bgcolor=#F3E8FF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','1')"> 1 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','2')"> 2 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','3')"> 3 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','4')"> 4 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','5')"> 5 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','6')"> 6 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','7')"> 7 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','8')"> 8 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','9')"> 9 </a>
+</td>
+<td bgcolor=#FFFFFF>
+<a class="lien_texte" href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','10')"> 10 </a>
+</td>
+<td align=center><a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$PagerFooter','d')"><img src=Images/t_fleche_d.gif border=0/></a></td>
+</tr>
+</table>
+
+</div>
+</form>
+
+    </div>
+  </div>
+</div>
+<!-- end #page -->
+<div id="ctl00_divfooter">
+<div id="footer">
+  <p>
+    <strong>Copyright  © 2015 FFE | 
+    <a href="http://www.echecs.asso.fr/Ag/Mentions_legales_FFE.pdf">Mentions légales</a> |
+    <a href="http://www.echecs.asso.fr/Ag/RGPD.pdf">Protection des données</a></strong><br>
+    Fédération Française des Echecs | <span id="ctl00_LabelAdresse">6 rue de l'Eglise | 92600 ASNIERES SUR SEINE</span> <br>
+    tél : <span id="ctl00_LabelTel">01 39 44 65 80</span> | contact : 
+    <a href="mailto:contact@ffechecs.fr">contact@ffechecs.fr</a> | webmestre : 
+    <a href="mailto:erick.mouret@echecs.asso.fr">erick.mouret@echecs.asso.fr</a>
+  </p><br>
+  <p id="logo-ffe"><img src="images/logo-ffe.png" /></p>
+</div>
+</div>
+</body>
+</html>
+
