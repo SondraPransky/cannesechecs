@@ -26,7 +26,7 @@ class Suivi_Elo {
 	private static $titres_2400 = array( 'GM', 'IM', 'GMI', 'MI' );
 
 	/** Math.round de JavaScript (arrondi au demi supérieur), pour des résultats identiques. */
-	private static function js_round( $x ) {
+	public static function js_round( $x ) {
 		return floor( $x + 0.5 );
 	}
 

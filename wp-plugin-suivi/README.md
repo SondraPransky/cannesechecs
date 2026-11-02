@@ -19,14 +19,44 @@ bord sur la page Tournois.
 | Participants, classement, grille américaine, grille Berger, ronde | `ffe.js` | ✅ |
 | Pagination ASP.NET (`__doPostBack`) | `ffe.js` | ✅ **validée en direct** (193 licenciés de Cannes, 362 tournois en octobre 2026) |
 | Estimation Elo en direct (K FIDE, nature du tournoi) | `elo.js` | ✅ `includes/class-suivi-elo.php` |
-| Orchestration du suivi (fenêtre de dates, engagements, appariements, archive) | `tracker.js`, `engagement.js`, `appariement.js`, `joueurs.js`, `archive.js` | ⏳ prochaine étape |
+| Moteur de suivi (fenêtre, croisement, détail, parcours, partie du moment) | `tracker.js` | ✅ `includes/class-suivi-tracker.php` |
+| Modèle d'engagement (statut, performance), rapprochement des noms | `engagement.js`, `appariement.js` | ✅ |
+| Joueurs suivis (ajout, ajout d'un club, retrait, Elo quotidien) | `joueurs.js` | ✅ `includes/class-suivi-joueurs.php` |
+| Fil des nouveaux résultats, archive, bilan de saison | `journal.js`, `archive.js` | ✅ `includes/class-suivi-journal.php` |
+| Persistance | `store.js` | ✅ interface `includes/class-suivi-store.php` (mémoire, fichiers JSON ; WordPress en Phase 2) |
 | Tournois internationaux (chess-results) | `chessresults.js` | ⏳ |
-| **Plugin WP** : admin, WP-cron, stockage, bloc d'affichage | `server.js` + `public/` | ⏳ Phase 2-3 (nécessite un WordPress local) |
+| **Plugin WP** : admin, WP-cron, stockage en base, bloc d'affichage | `server.js` + `public/` | ⏳ Phase 2-3 (nécessite un WordPress local) |
 
 **Validation par parité** : le code JS d'origine et le portage PHP ont été exécutés
 sur les mêmes pages ; sorties identiques champ par champ (club, liste, fiches,
 participants, classement, grille, ronde, Berger, toute la batterie Elo), et
-mêmes 193 licenciés en direct.
+mêmes 193 licenciés en direct. Le **moteur complet** aussi : même scénario (4
+joueurs suivis, horloge figée, réseau simulé) → même état (engagements, parcours,
+partie du moment, classement en direct, mémoire du fil).
+
+### Moteur reprenable (différence de structure avec l'original)
+
+L'app Node fait tout en un passage (~1 000 requêtes au premier scan, en
+parallèle). Un cron WordPress mutualisé est souvent coupé au bout de 30-60 s :
+le moteur PHP est donc **reprenable** —
+
+- budget de temps par passage (`budgetSecondes`, 25 s par défaut) ; au-delà,
+  plus de requête, le passage finit proprement et l'état est reconstruit avec le cache ;
+- tout ce qui est lu est mis en cache (listes des mois 1 h, fiches 6 h,
+  participants 12 h, détails à chaque passage tant que le tournoi n'est pas fini) ;
+- **le direct d'abord** : les tournois en cours des joueurs suivis sont relus en
+  premier, plafonnés à 60 % du budget pour que la découverte avance toujours ;
+- **cache négatif** : une page en échec n'est retentée qu'au bout d'une heure
+  (sinon une page cassée retentée à chaque passage peut consommer tout le budget
+  et le scan ne finit jamais — bug trouvé par les tests).
+
+Contrainte : le budget doit couvrir le plus gros détail d'un tournoi (~3 + nombre
+de rondes requêtes) ; 25 s est très large.
+
+**Écarts volontaires avec l'original** (hors grille Berger, ci-dessous) : la fiche
+d'un tournoi fait toujours foi sur la liste du mois (l'original rebasculait sur le
+nom de la liste une fois le tournoi fini) ; un joueur sans code fédéral n'est pas
+recherché par nom pour son Elo (l'original cherchait le nom littéral `undefined`).
 
 **Seul écart volontaire avec l'original** — noms des titrés en grille Berger :
 Papi préfixe le titre (`g Eric PRIE`), et `ffe.js` produisait `Eric PRIE g`, nom
@@ -45,8 +75,10 @@ l'HTTP passe par `wp_remote_get` (natif WP) ; le décodage utilise `iconv`
 ## Tester (sans WordPress)
 
 ```bash
-php bin/test-ffe.php    # 45 assertions sur fixtures — rapide, sans réseau
-php bin/live-ffe.php    # en direct contre la FFE (pagination réelle) — ponctuel
+php bin/test-ffe.php      # couche FFE + Elo : 45 assertions sur fixtures, sans réseau
+php bin/test-tracker.php  # moteur : 37 assertions (passage complet, fil, archivage,
+                          # budget/reprise, gestion des joueurs), horloge figée
+php bin/live-ffe.php      # en direct contre la FFE (pagination réelle) — ponctuel
 ```
 
 `test-ffe.php` charge les pages réelles sauvegardées dans `tests/fixtures/`.

@@ -1,0 +1,151 @@
+<?php
+/**
+ * Les joueurs suivis : création, mise à jour des Elo, projection publique —
+ * portage de src/joueurs.js. Rien ici ne touche aux tournois.
+ *
+ * Les fonctions travaillent sur le tableau des joueurs passé par référence ;
+ * c'est le moteur (Suivi_Tracker) qui charge et enregistre le document.
+ *
+ * @package Suivi_Tournoi
+ */
+
+if ( ! defined( 'ABSPATH' ) && ! defined( 'SUIVI_CLI' ) ) {
+	exit;
+}
+
+class Suivi_Joueurs {
+
+	/** Fiche interne d'un joueur à partir d'une ligne d'annuaire FFE. */
+	public static function creer( $fiche, $secours = array() ) {
+		$nom_complet = ! empty( $fiche['nomComplet'] )
+			? $fiche['nomComplet']
+			: trim( ( isset( $secours['nom'] ) ? $secours['nom'] : '' ) . ' ' . ( isset( $secours['prenom'] ) ? $secours['prenom'] : '' ) );
+		$elo = isset( $fiche['elo'] ) ? $fiche['elo'] : null;
+		return array(
+			'id'            => ! empty( $fiche['codeFFE'] ) ? $fiche['codeFFE'] : str_replace( ' ', '_', Suivi_FFE::norm_name( $nom_complet ) ),
+			'codeFFE'       => ! empty( $fiche['codeFFE'] ) ? $fiche['codeFFE'] : null,
+			'ffeId'         => ! empty( $fiche['id'] ) ? $fiche['id'] : null,
+			'clubRef'       => ! empty( $fiche['clubRef'] ) ? $fiche['clubRef'] : null,
+			'nomComplet'    => $nom_complet,
+			'club'          => ! empty( $fiche['club'] ) ? $fiche['club'] : ( ! empty( $secours['club'] ) ? $secours['club'] : null ),
+			'elo'           => $elo,
+			'rapide'        => isset( $fiche['rapide'] ) ? $fiche['rapide'] : null,
+			'blitz'         => isset( $fiche['blitz'] ) ? $fiche['blitz'] : null,
+			'cat'           => ! empty( $fiche['cat'] ) ? $fiche['cat'] : null,
+			'eloEstime'     => isset( $fiche['eloEstime'] ) ? $fiche['eloEstime'] : null,
+			'urlFiche'      => ! empty( $fiche['urlFiche'] ) ? $fiche['urlFiche'] : null,
+			'historiqueElo' => null !== $elo
+				? array( array( 'date' => Suivi_Horloge::today(), 'elo' => $elo, 'rapide' => $fiche['rapide'], 'blitz' => $fiche['blitz'] ) )
+				: array(),
+			'eloMajLe'      => $fiche ? Suivi_Horloge::iso() : null,
+			'ajouteLe'      => Suivi_Horloge::iso(),
+		);
+	}
+
+	/** Égalité numérique tolérante (un 2763 relu du JSON peut revenir en entier). */
+	private static function egal( $a, $b ) {
+		if ( null === $a || null === $b ) {
+			return $a === $b;
+		}
+		return (float) $a === (float) $b;
+	}
+
+	/** Applique une fiche d'annuaire fraîche sur un joueur suivi. */
+	public static function appliquer_elo( &$j, $r ) {
+		$avant = isset( $j['elo'] ) ? $j['elo'] : null;
+		foreach ( array( 'elo', 'rapide', 'blitz', 'cat', 'club', 'eloEstime', 'urlFiche' ) as $k ) {
+			$j[ $k ] = isset( $r[ $k ] ) ? $r[ $k ] : null;
+		}
+		$j['eloMajLe'] = Suivi_Horloge::iso();
+		if ( empty( $j['historiqueElo'] ) ) {
+			$j['historiqueElo'] = array();
+		}
+		$dernier = end( $j['historiqueElo'] );
+		if ( ! $dernier || ! self::egal( $dernier['elo'], $r['elo'] ) || ! self::egal( $dernier['rapide'], $r['rapide'] ) || ! self::egal( $dernier['blitz'], $r['blitz'] ) ) {
+			$j['historiqueElo'][] = array( 'date' => Suivi_Horloge::today(), 'elo' => $r['elo'], 'rapide' => $r['rapide'], 'blitz' => $r['blitz'] );
+			if ( count( $j['historiqueElo'] ) > 60 ) {
+				array_shift( $j['historiqueElo'] );
+			}
+		}
+		$j['variationElo'] = ( null !== $avant && null !== $r['elo'] ) ? $r['elo'] - $avant : 0;
+	}
+
+	/**
+	 * Met à jour les Elo (une fois par jour suffit : la FFE publie mensuellement).
+	 * Les joueurs venus d'un club se relisent en bloc, quelques pages d'annuaire
+	 * au lieu d'une recherche par joueur.
+	 *
+	 * @param array     $joueurs Liste des joueurs, modifiée sur place.
+	 * @param Suivi_FFE $ffe
+	 */
+	public static function maj_elo( &$joueurs, $ffe, $force, &$erreurs ) {
+		$limite  = Suivi_Horloge::ts() - 20 * 3600;
+		$a_faire = array();
+		foreach ( $joueurs as $i => $j ) {
+			if ( $force || empty( $j['eloMajLe'] ) || Suivi_Horloge::parse( $j['eloMajLe'] ) <= $limite ) {
+				$a_faire[ $i ] = true;
+			}
+		}
+		if ( ! $a_faire ) {
+			return;
+		}
+
+		$clubs = array();
+		foreach ( array_keys( $a_faire ) as $i ) {
+			if ( ! empty( $joueurs[ $i ]['clubRef'] ) ) {
+				$clubs[ $joueurs[ $i ]['clubRef'] ] = true;
+			}
+		}
+		foreach ( array_keys( $clubs ) as $club_ref ) {
+			try {
+				$par_code = array();
+				foreach ( $ffe->joueurs_du_club( $club_ref ) as $r ) {
+					$par_code[ $r['codeFFE'] ] = $r;
+				}
+				foreach ( array_keys( $a_faire ) as $i ) {
+					$j = $joueurs[ $i ];
+					if ( ( isset( $j['clubRef'] ) ? $j['clubRef'] : null ) == $club_ref && ! empty( $j['codeFFE'] ) && isset( $par_code[ $j['codeFFE'] ] ) ) {
+						self::appliquer_elo( $joueurs[ $i ], $par_code[ $j['codeFFE'] ] );
+						unset( $a_faire[ $i ] );
+					}
+				}
+			} catch ( Suivi_Budget_Epuise $e ) {
+				throw $e;
+			} catch ( Exception $e ) {
+				$erreurs[] = "Elo club $club_ref : " . $e->getMessage();
+			}
+		}
+
+		foreach ( array_keys( $a_faire ) as $i ) {
+			$j = $joueurs[ $i ];
+			// Sans code fédéral, pas de recherche fiable : l'original cherchait alors
+			// le nom littéral "undefined". On s'abstient plutôt que de risquer d'appliquer
+			// l'Elo d'un autre joueur.
+			if ( empty( $j['codeFFE'] ) ) {
+				continue;
+			}
+			try {
+				$r = $ffe->elo_joueur( $j['codeFFE'] );
+				if ( $r ) {
+					self::appliquer_elo( $joueurs[ $i ], $r );
+				}
+			} catch ( Suivi_Budget_Epuise $e ) {
+				throw $e;
+			} catch ( Exception $e ) {
+				$erreurs[] = 'Elo ' . $j['nomComplet'] . ' : ' . $e->getMessage();
+			}
+		}
+	}
+
+	/**
+	 * Ce que l'affichage reçoit d'un joueur : les clés de jointure interne
+	 * (ID FIDE, ID technique FFE, ClubRef, historique) restent dans le moteur.
+	 */
+	public static function joueur_public( $j ) {
+		$out = array();
+		foreach ( array( 'id', 'codeFFE', 'nomComplet', 'club', 'cat', 'elo', 'rapide', 'blitz', 'eloEstime', 'variationElo', 'urlFiche' ) as $k ) {
+			$out[ $k ] = isset( $j[ $k ] ) ? $j[ $k ] : null;
+		}
+		return $out;
+	}
+}
