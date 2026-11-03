@@ -8,7 +8,7 @@ But final : la liste des joueurs / le club suivi se règlent dans l'admin WP, le
 rafraîchissement tourne en WP-cron, et un bloc/shortcode affiche le tableau de
 bord sur la page Tournois.
 
-## État — Phase 1 : couche FFE + Elo portées et validées
+## État — Phase 1 terminée : FFE, Elo, moteur et chess-results portés et validés
 
 | Brique | Source JS | Statut |
 |--------|-----------|--------|
@@ -24,7 +24,8 @@ bord sur la page Tournois.
 | Joueurs suivis (ajout, ajout d'un club, retrait, Elo quotidien) | `joueurs.js` | ✅ `includes/class-suivi-joueurs.php` |
 | Fil des nouveaux résultats, archive, bilan de saison | `journal.js`, `archive.js` | ✅ `includes/class-suivi-journal.php` |
 | Persistance | `store.js` | ✅ interface `includes/class-suivi-store.php` (mémoire, fichiers JSON ; WordPress en Phase 2) |
-| Tournois internationaux (chess-results) | `chessresults.js` | ⏳ |
+| Tournois internationaux (chess-results) : recherche par FIDE-ID, fiche joueur/tournoi | `chessresults.js` | ✅ `includes/class-suivi-chessresults.php` |
+| Complément chess-results du moteur, ID FIDE lus sur les fiches FFE | `tracker.js`, `joueurs.js` | ✅ |
 | **Plugin WP** : admin, WP-cron, stockage en base, bloc d'affichage | `server.js` + `public/` | ⏳ Phase 2-3 (nécessite un WordPress local) |
 
 **Validation par parité** : le code JS d'origine et le portage PHP ont été exécutés
@@ -50,6 +51,13 @@ le moteur PHP est donc **reprenable** —
   (sinon une page cassée retentée à chaque passage peut consommer tout le budget
   et le scan ne finit jamais — bug trouvé par les tests).
 
+**Part réservée à chess-results** : quand il est actif, la FFE s'arrête à 75 %
+du budget et chess-results reprend le reste. Sans cette réserve la FFE prenait
+tout et la recherche chess-results (3 requêtes indivisibles) n'aboutissait
+jamais. Côté chess-results aussi, le direct d'abord (fiches des tournois non
+finis, plafonnées à 60 % de sa part), puis les recherches (cache 6 h), puis les
+autres fiches (cache 24 h une fois le tournoi fini).
+
 Contrainte : le budget doit couvrir le plus gros détail d'un tournoi (~3 + nombre
 de rondes requêtes) ; 25 s est très large.
 
@@ -72,13 +80,38 @@ fixtures** (pages FFE réelles sauvegardées via `curl`). En production WordPres
 l'HTTP passe par `wp_remote_get` (natif WP) ; le décodage utilise `iconv`
 (présent). Le transport HTTP est **injecté** dans `Suivi_FFE` (découplé du parsing).
 
+### chess-results
+
+Le site répartit les visiteurs sur des nœuds (`S1`, `S2`, `S3`…) par
+redirection : `Suivi_ChessResults` suit les redirections **à la main** et garde
+les cookies, sinon le `__VIEWSTATE` de la recherche est rejeté (erreur 500).
+Il demande donc au transport de ne pas suivre (`redirection => 0`) et attend
+`status` + `headers` (`location`, `set-cookie`). Politesse : 350 ms entre deux
+requêtes (le site est tenu par une seule personne). Coût : ~3 requêtes par
+recherche, 2 par fiche.
+
+Validé par parité avec l'app Node : les 6 dispositions de fiches + la recherche
+(champ par champ), et le moteur complet sur un scénario FFE + chess-results
+(mêmes 8 engagements, mêmes 23 requêtes chess-results, mêmes ID FIDE).
+
+Écarts volontaires : une réponse HTTP ≥ 400 lève une erreur (l'original lisait la
+page d'erreur comme « aucun tournoi » et le gardait 6 h) ; une fiche en panne
+garde sa dernière version lue (l'original retirait le tournoi pour ce passage).
+
+Limite connue : un événement multi-groupes **en cours** dont le nom n'a pas deux
+mots communs entre chapeau et groupe (ex. noms grecs) laisse passer la page-chapeau
+(« à venir », zéro ronde) — comme l'original.
+
 ## Tester (sans WordPress)
 
 ```bash
 php bin/test-ffe.php      # couche FFE + Elo : 45 assertions sur fixtures, sans réseau
 php bin/test-tracker.php  # moteur : 37 assertions (passage complet, fil, archivage,
                           # budget/reprise, gestion des joueurs), horloge figée
+php bin/test-chessresults.php  # chess-results : 33 assertions (pages, moteur, cache,
+                               # panne, budget, retrait), faux réseau avec redirections
 php bin/live-ffe.php      # en direct contre la FFE (pagination réelle) — ponctuel
+php bin/live-chessresults.php [FIDE-ID]  # en direct contre chess-results — ponctuel
 ```
 
 `test-ffe.php` charge les pages réelles sauvegardées dans `tests/fixtures/`.

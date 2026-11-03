@@ -40,8 +40,8 @@ Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
 
 ## Plugin WordPress « Suivi tournoi » (`wp-plugin-suivi/`)
 - **But** : suivre en direct les joueurs de Cannes Échecs sur les tournois FFE, géré depuis l'admin WordPress (zéro terminal pour les bénévoles). Portage PHP de l'app Node `C:\Users\mathi\Desktop\suivi tournoi` (ne pas la modifier sans demande).
-- **État** : cœur data + moteur de suivi portés et validés par parité avec l'app Node. Reste : chess-results, puis la couche WordPress (nécessite un WordPress local). Détail et feuille de route : `wp-plugin-suivi/README.md`.
-- **Tests** (PHP CLI : `C:\Users\mathi\AppData\Local\Programs\php84\php.exe`, sans curl/openssl/mbstring) : `php bin/test-ffe.php`, `php bin/test-tracker.php` (fixtures, sans réseau) ; `php bin/live-ffe.php` (FFE en direct via curl système, ponctuel).
+- **État** : cœur data + moteur de suivi portés et validés par parité avec l'app Node. chess-results porté aussi. Reste : la couche WordPress (nécessite un WordPress local). Détail et feuille de route : `wp-plugin-suivi/README.md`.
+- **Tests** (PHP CLI : `C:\Users\mathi\AppData\Local\Programs\php84\php.exe`, sans curl/openssl/mbstring) : `php bin/test-ffe.php`, `php bin/test-tracker.php`, `php bin/test-chessresults.php` (fixtures, sans réseau) ; `php bin/live-ffe.php`, `php bin/live-chessresults.php` (en direct via curl système, ponctuel).
 - Le dossier est servi en clair par GitHub Pages : **ne jamais y mettre de secret**.
 
 ## Mainteneurs non-techniques

@@ -20,8 +20,10 @@
  * Sans limite de budget, le résultat est celui de l'original (vérifié par
  * parité sur fixtures).
  *
- * Non porté à ce stade : le complément chess-results (tournois hors
- * homologation française) — voir src/chessresults.js.
+ * Complément chess-results (tournois hors homologation française) : après la
+ * FFE, sur le même budget. La recherche par joueur est en cache (6 h par
+ * défaut), les fiches sont relues à chaque passage tant que le tournoi n'est
+ * pas fini, au plus une fois par jour ensuite.
  *
  * @package Suivi_Tournoi
  */
@@ -47,11 +49,20 @@ class Suivi_Tracker {
 	 * pourrait consommer tout le budget à chaque fois : le scan ne finirait jamais.
 	 */
 	const TTL_ECHEC = 3600;
+	/**
+	 * Part du budget d'un passage laissée à la FFE quand chess-results est
+	 * actif. Sans cette réserve, la FFE (relecture du direct, découverte)
+	 * consommait tout le budget et la recherche chess-results — trois requêtes
+	 * indivisibles — n'aboutissait jamais (trouvé par les tests).
+	 */
+	const PART_FFE = 0.75;
 
 	/** @var Suivi_Store_Interface */
 	private $store;
 	/** @var Suivi_FFE */
 	private $ffe;
+	/** @var Suivi_ChessResults */
+	private $cr;
 	/** @var float|null Échéance du passage en cours (microtime), null = sans limite. */
 	private $echeance = null;
 	/** @var bool Le budget a-t-il été atteint pendant ce passage ? */
@@ -61,19 +72,24 @@ class Suivi_Tracker {
 
 	/**
 	 * @param Suivi_Store_Interface $store
-	 * @param callable              $transport fn(string $url, array $opts): ['body', 'content_type'] ;
+	 * @param callable              $transport fn(string $url, array $opts): ['body', 'content_type'
+	 *                                         (+ 'status', 'headers' si $opts['redirection'] === 0)] ;
 	 *                                         lève une exception sur erreur HTTP.
+	 * @param array                 $options   delaiChessResultsMs (politesse, 350 par défaut).
 	 */
-	public function __construct( Suivi_Store_Interface $store, $transport ) {
+	public function __construct( Suivi_Store_Interface $store, $transport, $options = array() ) {
 		$this->store = $store;
-		$this->ffe   = new Suivi_FFE(
-			function ( $url, $opts ) use ( $transport ) {
-				if ( null !== $this->echeance && microtime( true ) >= $this->echeance ) {
-					$this->budget_atteint = true;
-					throw new Suivi_Budget_Epuise( 'Budget de temps du passage atteint' );
-				}
-				return call_user_func( $transport, $url, $opts );
+		$budgete     = function ( $url, $opts ) use ( $transport ) {
+			if ( null !== $this->echeance && microtime( true ) >= $this->echeance ) {
+				$this->budget_atteint = true;
+				throw new Suivi_Budget_Epuise( 'Budget de temps du passage atteint' );
 			}
+			return call_user_func( $transport, $url, $opts );
+		};
+		$this->ffe   = new Suivi_FFE( $budgete );
+		$this->cr    = new Suivi_ChessResults(
+			$budgete,
+			isset( $options['delaiChessResultsMs'] ) ? $options['delaiChessResultsMs'] : 350
 		);
 	}
 
@@ -540,6 +556,11 @@ class Suivi_Tracker {
 		$budget               = isset( $options['budget_s'] ) ? $options['budget_s'] : $cfg['budgetSecondes'];
 		$this->echeance       = $budget ? $debut_passage + $budget : null;
 		$this->budget_atteint = false;
+		$cr_actif             = false !== self::v( $cfg, 'chessResultsActif', true );
+		$echeance_passage     = $this->echeance;
+		if ( $cr_actif && $this->echeance ) {
+			$this->echeance = $debut_passage + self::PART_FFE * $budget;
+		}
 		$this->lus            = array();
 
 		$db      = $this->store->get( 'joueurs' );
@@ -613,6 +634,22 @@ class Suivi_Tracker {
 			}
 		}
 
+		// 5. chess-results couvre les tournois hors homologation française.
+		// Il reprend le reste du budget (au moins 1 - PART_FFE).
+		$ffe_incomplet        = $this->budget_atteint;
+		$this->echeance       = $echeance_passage;
+		$this->budget_atteint = false;
+		$memoire_cr           = null;
+		if ( $cr_actif ) {
+			try {
+				Suivi_Joueurs::maj_fide_ids( $db['joueurs'], $this->ffe, $erreurs );
+			} catch ( Suivi_Budget_Epuise $e ) {
+				unset( $e );
+			}
+			$memoire_cr = $this->store->get( 'chessresults' );
+			$suivi      = array_merge( $suivi, $this->completer_par_chess_results( $db['joueurs'], $suivi, $cfg, $memoire_cr, $erreurs ) );
+		}
+
 		// Le plus chaud d'abord : parties en cours, puis tournois récents.
 		$rang = array( 'en_cours' => 0, 'a_venir' => 1, 'termine' => 2 );
 		usort(
@@ -641,15 +678,247 @@ class Suivi_Tracker {
 			'nouveauxResultats' => $nouveaux,
 		);
 		$st['erreurs']     = array_slice( $erreurs, 0, 20 );
-		$st['scanComplet'] = ! $this->budget_atteint;
+		$st['scanComplet'] = ! $ffe_incomplet && ! $this->budget_atteint;
 
 		$this->store->set( 'joueurs', $db );
 		$this->store->set( 'cache', $cache );
 		$this->store->set( 'etat', $st );
 		$this->store->set( 'journal', $jl );
 		$this->store->set( 'archive', $archive );
+		if ( null !== $memoire_cr ) {
+			$this->store->set( 'chessresults', $memoire_cr );
+		}
 		$this->echeance = null;
 		return $st;
+	}
+
+	// ---------------------------------------------------------------------
+	// chess-results : les tournois hors homologation française
+	// ---------------------------------------------------------------------
+
+	/** Vues d'agrégation du site, qui ne sont pas des épreuves. */
+	const VUE_AGREGEE = '/\b(full list|all participants|all groups)\b/i';
+
+	/** Le site héberge des tournois de test et des vues d'agrégation. */
+	private static function entree_ignoree( $entree ) {
+		return preg_match( '/^TEST\b/i', $entree['nom'] ) || preg_match( self::VUE_AGREGEE, $entree['nom'] );
+	}
+
+	private static function engagement_chess_results( $joueur, $entree, $fiche ) {
+		// La dernière ronde listée sans résultat est la partie du moment ; la
+		// laisser aussi dans le parcours l'afficherait deux fois.
+		$toutes   = $fiche['rondes'];
+		$derniere = $toutes ? $toutes[ count( $toutes ) - 1 ] : null;
+		$attente  = ( $derniere && ! $derniere['resultat'] ) ? $derniere : null;
+		$passees  = $attente ? array_slice( $toutes, 0, -1 ) : $toutes;
+
+		$rondes = array();
+		foreach ( $passees as $r ) {
+			$rondes[] = array(
+				'numero'     => $r['numero'],
+				'resultat'   => $r['resultat'],
+				'couleur'    => $r['couleur'],
+				'adversaire' => ! empty( $r['adversaire']['nom'] ) ? array( 'nom' => $r['adversaire']['nom'], 'elo' => $r['adversaire']['elo'] ) : null,
+			);
+		}
+		$liens = array(
+			array( 'cle' => 'joueur', 'href' => $fiche['url'] ),
+			array( 'cle' => 'fiche', 'href' => $fiche['urlTournoi'] ),
+		);
+		if ( $attente ) {
+			$liens[] = array( 'cle' => 'ronde', 'href' => $fiche['url'], 'ronde' => $attente['numero'] );
+		}
+		$jouees = 0;
+		foreach ( $rondes as $r ) {
+			if ( $r['resultat'] ) {
+				$jouees++;
+			}
+		}
+
+		return Suivi_Engagement::construire(
+			array(
+				'source'     => 'chess-results',
+				'joueurId'   => $joueur['id'],
+				'nomPapi'    => '' !== $fiche['nom'] ? $fiche['nom'] : $joueur['nomComplet'],
+				'tournoi'    => array(
+					'ref'      => 'cr' . $entree['tnr'],
+					'nom'      => '' !== $fiche['tournoi'] ? $fiche['tournoi'] : $entree['nom'],
+					'dateFin'  => $entree['dateFin'],
+					'nbRondes' => self::v( $entree, 'nbRondes' ),
+					'misAJour' => $fiche['misAJour'],
+				),
+				'liens'      => $liens,
+				'rondes'     => $rondes,
+				'enAttente'  => $attente
+					? array(
+						'ronde'      => $attente['numero'],
+						'echiquier'  => $attente['echiquier'],
+						'couleur'    => $attente['couleur'],
+						'adversaire' => array( 'nom' => $attente['adversaire']['nom'], 'elo' => $attente['adversaire']['elo'] ),
+					)
+					: null,
+				'rondeJouee' => $jouees,
+				'place'      => self::premier( $fiche['place'], self::v( $entree, 'rang' ) ),
+				'points'     => $fiche['points'],
+				'nbJoueurs'  => self::v( $entree, 'nbJoueurs' ),
+				'eloTournoi' => $fiche['elo'],
+				'club'       => $fiche['club'],
+				'perfSource' => $fiche['performance'] ? $fiche['performance'] : null,
+				// Le titre FIDE sert au coefficient K de l'écran Elo : un maître
+				// garde K=10 même sous 2400. La FFE ne le publie pas, chess-results si.
+				'extra'      => array( 'variationFide' => $fiche['variationFide'], 'titre' => $fiche['titre'] ),
+			)
+		);
+	}
+
+	/**
+	 * Fiche chess-results d'un joueur dans un tournoi, depuis le cache si elle
+	 * est assez fraîche : relue à chaque passage tant que le tournoi n'est pas
+	 * fini, une fois par jour ensuite. Rend null si rien n'est lisible.
+	 */
+	private function fiche_cr( $entree, &$memoire, &$erreurs ) {
+		$cle     = $entree['tnr'] . '|' . $entree['snr'];
+		$cached  = self::v( $memoire['fiches'], $cle );
+		$fini    = ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], Suivi_Horloge::today() ) < 0;
+		$fraiche = isset( $cached['luA'] ) && $fini && Suivi_Horloge::ts() - $cached['luA'] < self::TTL_DETAIL_FINI;
+		if ( $fraiche || isset( $this->lus[ "cr$cle" ] ) || $this->budget_atteint || self::echec_recent( $cached ) ) {
+			return self::v( $cached, 'fiche' );
+		}
+		try {
+			$fiche                     = $this->cr->fiche_par_tournoi( $entree['tnr'], $entree['snr'] );
+			$memoire['fiches'][ $cle ] = array( 'fiche' => $fiche, 'luA' => Suivi_Horloge::ts() );
+			$this->lus[ "cr$cle" ]     = true;
+			return $fiche;
+		} catch ( Suivi_Budget_Epuise $e ) {
+			return self::v( $cached, 'fiche' );
+		} catch ( Exception $e ) {
+			// L'original écartait le tournoi pour ce passage ; on garde la dernière fiche lue.
+			$erreurs[]                           = "chess-results tnr{$entree['tnr']} : " . $e->getMessage();
+			$memoire['fiches'][ $cle ]           = is_array( $cached ) ? $cached : array( 'fiche' => null );
+			$memoire['fiches'][ $cle ]['echecA'] = Suivi_Horloge::ts();
+			return self::v( $cached, 'fiche' );
+		}
+	}
+
+	/**
+	 * Engagements vus par chess-results et absents du côté FFE. La découverte
+	 * (une recherche par joueur) est mise en cache, elle bouge peu.
+	 *
+	 * @param array $memoire Document 'chessresults' (parJoueur, fiches), modifié sur place.
+	 */
+	private function completer_par_chess_results( $joueurs, $suivi_ffe, $cfg, &$memoire, &$erreurs ) {
+		$today   = Suivi_Horloge::today();
+		$du      = Suivi_Horloge::shift( $today, -$cfg['joursAvant'] );
+		$au      = Suivi_Horloge::shift( $today, $cfg['joursApres'] );
+		$ttl     = ( null !== self::v( $cfg, 'chessResultsTtlHeures' ) ? $cfg['chessResultsTtlHeures'] : 6 ) * 3600;
+		$fenetre = "$du|$au";
+		$now     = Suivi_Horloge::ts();
+		if ( ! isset( $memoire['fiches'] ) ) {
+			$memoire['fiches'] = array();
+		}
+		$ajouts    = array();
+		$utilisees = array();
+
+		// Le direct d'abord : les fiches des tournois non finis déjà connus sont
+		// relues avant les recherches, plafonnées à 60 % du temps restant pour
+		// que la découverte avance aussi à chaque passage.
+		$t0         = microtime( true );
+		$fin_direct = $this->echeance ? $t0 + 0.6 * max( 0, $this->echeance - $t0 ) : null;
+		foreach ( $joueurs as $joueur ) {
+			$memo = empty( $joueur['fideId'] ) ? null : self::v( $memoire['parJoueur'], $joueur['id'] );
+			foreach ( $memo ? $memo['tournois'] : array() as $entree ) {
+				if ( null !== $fin_direct && microtime( true ) >= $fin_direct ) {
+					break 2;
+				}
+				if ( ! self::entree_ignoree( $entree ) && ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], $today ) >= 0 ) {
+					$this->fiche_cr( $entree, $memoire, $erreurs );
+				}
+			}
+		}
+
+		foreach ( $joueurs as $joueur ) {
+			if ( empty( $joueur['fideId'] ) ) {
+				continue;
+			}
+			$id       = $joueur['id'];
+			$memo     = self::v( $memoire['parJoueur'], $id );
+			$tournois = $memo ? $memo['tournois'] : array();
+			$perime   = ! $memo || $memo['fenetre'] !== $fenetre || $now - $memo['a'] > $ttl;
+
+			if ( $perime && ! $this->budget_atteint && ! self::echec_recent( $memo ) ) {
+				try {
+					$tournois                    = $this->cr->tournois_du_joueur( $joueur['fideId'], $du, $au );
+					$memoire['parJoueur'][ $id ] = array( 'tournois' => $tournois, 'a' => $now, 'fenetre' => $fenetre );
+				} catch ( Suivi_Budget_Epuise $e ) {
+					unset( $e ); // recherche faite à un prochain passage
+				} catch ( Exception $e ) {
+					$erreurs[]                             = "chess-results {$joueur['nomComplet']} : " . $e->getMessage();
+					$memoire['parJoueur'][ $id ]           = $memo ? $memo : array( 'tournois' => array(), 'a' => 0, 'fenetre' => '' );
+					$memoire['parJoueur'][ $id ]['echecA'] = $now;
+				}
+			}
+
+			$siens = array();
+			foreach ( $suivi_ffe as $s ) {
+				if ( $s['joueurId'] === $id ) {
+					$siens[] = $s;
+				}
+			}
+			$du_joueur = array();
+			foreach ( $tournois as $entree ) {
+				if ( self::entree_ignoree( $entree ) ) {
+					continue;
+				}
+				$utilisees[ $entree['tnr'] . '|' . $entree['snr'] ] = true;
+				$fiche = $this->fiche_cr( $entree, $memoire, $erreurs );
+				if ( ! $fiche ) {
+					continue;
+				}
+				// La recherche tronque les noms à trente caractères : on ne compare
+				// avec la FFE qu'une fois le nom complet connu.
+				$complet        = $entree;
+				$complet['nom'] = '' !== $fiche['tournoi'] ? $fiche['tournoi'] : $entree['nom'];
+				if ( preg_match( self::VUE_AGREGEE, $complet['nom'] ) || Suivi_Appariement::est_doublon( $complet, $siens ) ) {
+					continue;
+				}
+				$e = self::engagement_chess_results( $joueur, $complet, $fiche );
+				/* Les grands événements ont un tournoi-chapeau et des groupes ; la
+				   fiche du chapeau n'a ni rondes ni points. Un engagement fini sans
+				   aucune partie lisible est cette coquille : on l'écarte. */
+				if ( 'a_venir' !== $e['statut'] && ! $e['rondes'] && empty( $e['points'] ) ) {
+					continue;
+				}
+				$du_joueur[] = $e;
+			}
+
+			/* Pendant qu'un événement multi-groupes se joue, la page-chapeau passe
+			   le filtre précédent (« à venir », zéro ronde). On la démasque : elle
+			   finit le même jour que le groupe qui porte le parcours et réunit PLUS
+			   de participants que lui. */
+			foreach ( $du_joueur as $k => $e ) {
+				if ( $e['rondes'] || ! empty( $e['points'] ) ) {
+					$ajouts[] = $e;
+					continue;
+				}
+				$chapeau = false;
+				foreach ( $du_joueur as $g => $groupe ) {
+					if ( $g !== $k && $groupe['rondes']
+						&& ! empty( $groupe['tournoi']['dateFin'] ) && $groupe['tournoi']['dateFin'] === self::v( $e['tournoi'], 'dateFin' )
+						&& $e['nbJoueurs'] && $groupe['nbJoueurs'] && $e['nbJoueurs'] > $groupe['nbJoueurs']
+						&& Suivi_Appariement::est_doublon( $e['tournoi'], array( $groupe ) ) ) {
+						$chapeau = true;
+						break;
+					}
+				}
+				if ( ! $chapeau ) {
+					$ajouts[] = $e;
+				}
+			}
+		}
+
+		// Les fiches qui ne servent plus (tournoi sorti de la fenêtre, joueur retiré) sont oubliées.
+		$memoire['fiches'] = array_intersect_key( $memoire['fiches'], $utilisees );
+		return $ajouts;
 	}
 
 	/** Ce que l'affichage reçoit : joueurs (avec leur Elo en direct), suivi, fil. */

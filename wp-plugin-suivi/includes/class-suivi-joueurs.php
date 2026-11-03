@@ -137,6 +137,23 @@ class Suivi_Joueurs {
 		}
 	}
 
+	/** Complète les ID FIDE manquants depuis les fiches FFE (clé de chess-results). */
+	public static function maj_fide_ids( &$joueurs, $ffe, &$erreurs ) {
+		foreach ( $joueurs as $i => $j ) {
+			// null = « vérifié, pas d'ID FIDE » : on ne redemande pas.
+			if ( array_key_exists( 'fideId', $j ) || empty( $j['ffeId'] ) ) {
+				continue;
+			}
+			try {
+				$joueurs[ $i ]['fideId'] = $ffe->fide_id_du_joueur( $j['ffeId'] );
+			} catch ( Suivi_Budget_Epuise $e ) {
+				throw $e;
+			} catch ( Exception $e ) {
+				$erreurs[] = 'FIDE-ID ' . $j['nomComplet'] . ' : ' . $e->getMessage();
+			}
+		}
+	}
+
 	/**
 	 * Ce que l'affichage reçoit d'un joueur : les clés de jointure interne
 	 * (ID FIDE, ID technique FFE, ClubRef, historique) restent dans le moteur.
