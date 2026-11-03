@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'SUIVI_TOURNOI_DIR', __DIR__ );
 
-foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'chessresults', 'tracker', 'wp' ) as $suivi_c ) {
+foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'chessresults', 'tracker', 'wp', 'admin' ) as $suivi_c ) {
 	require_once SUIVI_TOURNOI_DIR . "/includes/class-suivi-$suivi_c.php";
 }
 unset( $suivi_c );
@@ -25,6 +25,9 @@ unset( $suivi_c );
 add_filter( 'cron_schedules', array( 'Suivi_WP', 'plannings' ) );
 add_action( Suivi_WP::HOOK_CRON, array( 'Suivi_WP', 'passage' ) );
 add_action( 'wp_ajax_' . Suivi_WP::AJAX_SCAN, array( 'Suivi_WP', 'ajax_scan' ) );
+if ( is_admin() ) {
+	Suivi_Admin::init();
+}
 
 register_activation_hook( __FILE__, array( 'Suivi_WP', 'planifier' ) );
 register_deactivation_hook( __FILE__, array( 'Suivi_WP', 'deplanifier' ) );

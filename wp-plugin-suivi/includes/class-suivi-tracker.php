@@ -681,6 +681,19 @@ class Suivi_Tracker {
 			$suivi      = array_merge( $suivi, $this->completer_par_chess_results( $db['joueurs'], $suivi, $cfg, $memoire_cr, $erreurs ) );
 		}
 
+		// Engagements masqués à la main depuis l'admin : ni affichés, ni annoncés, ni archivés.
+		$masques = $this->store->get( 'masques' );
+		if ( $masques['liste'] ) {
+			$suivi = array_values(
+				array_filter(
+					$suivi,
+					function ( $s ) use ( $masques ) {
+						return ! isset( $masques['liste'][ $s['tournoi']['ref'] . '|' . $s['joueurId'] ] );
+					}
+				)
+			);
+		}
+
 		// Le plus chaud d'abord : parties en cours, puis tournois récents.
 		$rang = array( 'en_cours' => 0, 'a_venir' => 1, 'termine' => 2 );
 		usort(
@@ -1182,6 +1195,52 @@ class Suivi_Tracker {
 		);
 	}
 
+	/**
+	 * Masque l'engagement d'un joueur dans un tournoi (fiche de test d'un
+	 * organisateur, homonyme…) : retiré tout de suite de l'état, du fil et de
+	 * l'archive, et écarté des passages suivants.
+	 */
+	public function masquer( $ref, $joueur_id ) {
+		$cle   = $ref . '|' . $joueur_id;
+		$st    = $this->store->get( 'etat' );
+		$infos = array( 'tournoi' => (string) $ref, 'joueur' => (string) $joueur_id );
+		foreach ( $st['suivi'] as $s ) {
+			if ( $s['tournoi']['ref'] . '|' . $s['joueurId'] === $cle ) {
+				$infos = array( 'tournoi' => $s['tournoi']['nom'], 'joueur' => $s['nomPapi'], 'source' => $s['source'] );
+			}
+		}
+		$m                  = $this->store->get( 'masques' );
+		$m['liste'][ $cle ] = $infos + array( 'le' => Suivi_Horloge::iso() );
+		$this->store->set( 'masques', $m );
+
+		$garder      = function ( $x ) use ( $ref, $joueur_id ) {
+			return ! ( (string) $x['tournoiRef'] === (string) $ref && $x['joueurId'] === $joueur_id );
+		};
+		$st['suivi'] = array_values(
+			array_filter(
+				$st['suivi'],
+				function ( $s ) use ( $cle ) {
+					return $s['tournoi']['ref'] . '|' . $s['joueurId'] !== $cle;
+				}
+			)
+		);
+		$this->store->set( 'etat', $st );
+		$jl               = $this->store->get( 'journal' );
+		$jl['evenements'] = array_values( array_filter( $jl['evenements'], $garder ) );
+		$this->store->set( 'journal', $jl );
+		$a            = $this->store->get( 'archive' );
+		$a['parties'] = array_values( array_filter( $a['parties'], $garder ) );
+		unset( $a['cles'][ $cle ] );
+		$this->store->set( 'archive', $a );
+	}
+
+	/** Réaffiche un engagement masqué (il revient au passage suivant). */
+	public function demasquer( $cle ) {
+		$m = $this->store->get( 'masques' );
+		unset( $m['liste'][ $cle ] );
+		$this->store->set( 'masques', $m );
+	}
+
 	/** Retire un joueur et lui fait oublier fil, archive et caches. */
 	public function retirer_joueur( $id ) {
 		$db    = $this->store->get( 'joueurs' );
@@ -1212,6 +1271,13 @@ class Suivi_Tracker {
 		Suivi_Archive::oublier( $a, $id );
 		$cr = $this->store->get( 'chessresults' );
 		unset( $cr['parJoueur'][ $id ] );
+		$m = $this->store->get( 'masques' );
+		foreach ( array_keys( $m['liste'] ) as $cle ) {
+			if ( substr( $cle, -strlen( "|$id" ) ) === "|$id" ) {
+				unset( $m['liste'][ $cle ] );
+			}
+		}
+		$this->store->set( 'masques', $m );
 
 		$this->store->set( 'joueurs', $db );
 		$this->store->set( 'etat', $st );

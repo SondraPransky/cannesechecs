@@ -39,6 +39,7 @@ class Suivi_Store_Defauts {
 					'cacheParticipantsHeures' => 12,
 					// Complément chess-results (tournois hors homologation FFE).
 					'chessResultsActif'       => true,
+					'clubRef'                 => 311, // proposé par « ajouter un club » (311 = Cannes Échecs)
 					'chessResultsTtlHeures'   => 6,
 					// Durée max d'un passage, en secondes (contrainte des crons WordPress).
 					'budgetSecondes'          => 25,
@@ -69,6 +70,10 @@ class Suivi_Store_Defauts {
 				return array( 'parties' => array(), 'cles' => array() );
 			case 'chessresults':
 				return array( 'parJoueur' => array() );
+			case 'masques':
+				// "ref|joueurId" -> tournoi, joueur, le : engagements masqués à la main
+				// (fiche fausse, tournoi sans intérêt) depuis l'admin.
+				return array( 'liste' => array() );
 		}
 		return array();
 	}

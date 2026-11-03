@@ -22,7 +22,7 @@ class Suivi_Store_WP implements Suivi_Store_Interface {
 	const PREFIXE = 'suivi_tournoi_';
 
 	/** Toutes les clés que le moteur utilise (pour la désinstallation). */
-	const CLES = array( 'config', 'joueurs', 'cache', 'etat', 'journal', 'archive', 'chessresults' );
+	const CLES = array( 'config', 'joueurs', 'cache', 'etat', 'journal', 'archive', 'chessresults', 'masques' );
 
 	public function get( $cle ) {
 		return Suivi_Store_Defauts::completer( $cle, get_option( self::PREFIXE . $cle, null ) );
@@ -127,6 +127,27 @@ class Suivi_WP {
 
 	public static function deverrouiller() {
 		delete_option( self::VERROU );
+	}
+
+	/**
+	 * Exécute $f sous le verrou des passages. Une modification depuis l'admin
+	 * (ajout de joueur…) ne doit pas croiser un passage : celui-ci a chargé les
+	 * documents au début et les réécrirait à la fin, effaçant la modification.
+	 * Attend jusqu'à $attente_s qu'un passage en cours se termine.
+	 */
+	public static function sous_verrou( $f, $attente_s = 45 ) {
+		$fin = time() + $attente_s;
+		while ( ! self::verrouiller() ) {
+			if ( time() >= $fin ) {
+				throw new RuntimeException( 'Une mise à jour du suivi est en cours. Réessayez dans une minute.' );
+			}
+			sleep( 2 );
+		}
+		try {
+			return $f();
+		} finally {
+			self::deverrouiller();
+		}
 	}
 
 	/**

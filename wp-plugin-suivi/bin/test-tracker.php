@@ -210,6 +210,21 @@ try {
 }
 ok( false !== strpos( $err, 'déjà suivi' ), 'doublon refusé' );
 
+section( 'Masquer un tournoi pour un joueur (depuis l\'admin)' );
+Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
+$store = magasin();
+$trk   = new Suivi_Tracker( $store, transport() );
+$trk->rafraichir();
+$trk->masquer( '72680', 'NICOT_ANNA' );
+$m = $store->get( 'masques' );
+ok( null === engagement( $store->get( 'etat' ), 'NICOT_ANNA' ) && 'NICOT Anna' === $m['liste']['72680|NICOT_ANNA']['joueur'], 'masqué : retiré tout de suite, nom gardé pour l\'admin' );
+ok( null === engagement( $trk->rafraichir(), 'NICOT_ANNA' ) && null !== engagement( $store->get( 'etat' ), 'NICOT_VALENTIN' ), 'passage suivant : reste masqué, les autres joueurs du tournoi non' );
+$trk->demasquer( '72680|NICOT_ANNA' );
+ok( null !== engagement( $trk->rafraichir(), 'NICOT_ANNA' ), 'réaffiché : revient au passage suivant' );
+$trk->masquer( '72680', 'NICOT_ANNA' );
+$trk->retirer_joueur( 'NICOT_ANNA' );
+ok( ! $store->get( 'masques' )['liste'], 'retrait du joueur : ses masques sont oubliés' );
+
 section( 'Listes de mois : relecture selon le mois, progression du premier scan' );
 Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
 $urls  = array();
