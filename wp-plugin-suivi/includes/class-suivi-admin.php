@@ -217,7 +217,7 @@ class Suivi_Admin {
 		echo '<p>Au premier lancement, le suivi doit lire environ un millier de pages de la FFE. Au rythme normal, cela prend une journée. '
 			. 'Ce bouton enchaîne les mises à jour sans attendre : <strong>laissez cette page ouverte</strong> jusqu\'à la fin (environ une heure, selon la vitesse du site de la FFE).</p>';
 		echo '<p><button type="button" class="button button-primary" id="suivi-scan">Lancer le scan complet</button> '
-			. '<button type="button" class="button" id="suivi-stop" hidden>Arrêter</button></p>';
+			. '<button type="button" class="button" id="suivi-stop" style="display:none">Arrêter</button></p>';
 		echo '<div style="max-width:600px;background:#dcdcde;border-radius:3px;height:12px;overflow:hidden"><div id="suivi-barre" style="height:12px;width:' . (int) $pct . '%;background:#2271b1"></div></div>';
 		echo '<p class="description" id="suivi-etat" aria-live="polite"></p>';
 		self::script_scan();
@@ -264,7 +264,7 @@ class Suivi_Admin {
 	var barre = document.getElementById('suivi-barre'), etat = document.getElementById('suivi-etat');
 	var pct = document.getElementById('suivi-pct'), detail = document.getElementById('suivi-detail');
 	var actif = false, passages = 0;
-	function fin(msg) { actif = false; go.disabled = false; stop.hidden = true; etat.textContent = msg; window.onbeforeunload = null; }
+	function fin(msg) { actif = false; go.disabled = false; stop.style.display = "none"; etat.textContent = msg; window.onbeforeunload = null; }
 	function passage() {
 		if (!actif) { return; }
 		var corps = new FormData();
@@ -286,7 +286,7 @@ class Suivi_Admin {
 			.catch(function () { etat.textContent = 'Connexion interrompue, nouvel essai dans 15 secondes…'; setTimeout(passage, 15000); });
 	}
 	go.addEventListener('click', function () {
-		actif = true; go.disabled = true; stop.hidden = false; passages = 0;
+		actif = true; go.disabled = true; stop.style.display = ""; passages = 0;
 		etat.textContent = 'Scan en cours… (chaque passage dure environ 30 secondes)';
 		window.onbeforeunload = function () { return 'Le scan complet est en cours.'; };
 		passage();
