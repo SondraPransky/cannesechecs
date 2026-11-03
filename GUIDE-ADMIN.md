@@ -61,3 +61,25 @@ git push origin master:main
 ```
 
 Le site est mis à jour automatiquement en quelques minutes sur `cannes-echecs.fr`.
+
+---
+
+## 5. Suivi des joueurs en tournoi (site WordPress)
+
+L'onglet **Tournois › En direct** du site montre, ronde après ronde, les résultats des joueurs du club dans les tournois FFE et à l'étranger. Il se met à jour **tout seul** toutes les quelques minutes : il n'y a rien à faire au quotidien.
+
+Tout se règle dans l'admin WordPress, menu **Suivi tournoi** (colonne de gauche).
+
+**Ajouter des joueurs** — onglet *Joueurs* :
+- un joueur : taper son **code FFE** (sur sa fiche du site de la FFE, par exemple `S50192`), puis *Ajouter le joueur* ;
+- tout le club d'un coup : *Ajouter tous les joueurs d'un club* (311 = Cannes Échecs), avec un Elo minimum si besoin. Les joueurs déjà suivis ne sont pas ajoutés deux fois.
+
+**Retirer un joueur** — onglet *Joueurs*, bouton *Retirer* sur sa ligne.
+
+**Un tournoi qui n'a rien à faire là ?** (fiche de test d'un organisateur, homonyme…) — onglet *Suivi*, bouton *Masquer* sur la ligne. Pour le faire revenir : onglet *Tournois masqués*, *Réafficher*.
+
+**Après l'installation (ou une longue coupure)** — onglet *Suivi*, bouton *Lancer le scan complet*, et **laisser la page ouverte** jusqu'à la fin (environ une heure). Sans cela, le suivi met environ une journée à tout trouver.
+
+**Un message d'erreur dans l'onglet Suivi ?** Le plus souvent, le site de la FFE était lent ou indisponible : le suivi réessaie tout seul aux passages suivants.
+
+**« Une mise à jour du suivi est en cours » ?** Attendre une minute et recommencer.

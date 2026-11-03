@@ -58,7 +58,7 @@ img{max-width:100%;display:block}
 .surtitre{font-family:var(--font-label);font-size:var(--fs-label);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:block}
 .gold-bar{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0}
 .section-header{margin-bottom:48px}
-.section-header h2{font-size:var(--fs-h2);color:var(--bleu)}
+.section-header h2{font-size:var(--fs-h2);color:var(--bleu);text-wrap:balance}
 .section-header.center{text-align:center}
 .section-header.light h2{color:#fff}
 .section-header.light .surtitre{color:var(--gold)}
@@ -96,7 +96,7 @@ h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
 
 /* INTERACTIONS GLOBALES */
 /* Retour tactile au clic — boutons interactifs (valeur : --press-scale) */
-.btn:active,.nav-cta:active,.filtre-btn:active,.pg-btn:active{scale:var(--press-scale)}
+.btn:active,.nav-cta:active,.filtre-btn:active,.pg-btn:active,.share-btn:active,.footer-social a:active{scale:var(--press-scale)}
 /* Cible >= 44px sans grossir le visuel — reserve aux puces volontairement
    compactes ou l'agrandissement nuirait a la mise en page : chips filtre qui
    s'enroulent sur plusieurs rangees, liens sociaux du footer. Pseudo hors flux,
@@ -104,7 +104,11 @@ h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
    Les commandes qui peuvent grandir (nav-cta, hamburger, share) sont a 44px
    "honnete" via min-height — visible == cliquable. */
 .filtre-btn,.footer-social a{position:relative}
-.filtre-btn::after,.footer-social a::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:var(--hit-min)}
+.filtre-btn::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:var(--hit-min)}
+.footer-social{display:flex;gap:10px;margin-top:18px}
+.footer-social a{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:var(--r-md);color:rgba(255,255,255,.62);transition:color .2s,border-color .2s,background .2s,var(--press-tap)}
+.footer-social a:hover{color:var(--gold);border-color:var(--gold-tint-border);background:rgba(201,168,76,.08)}
+.footer-social .ic-social{width:19px;height:19px;display:block}
 /* Bouton de fermeture du bandeau HelloAsso — cible 40x40 */
 #ha-notice .ha-notice-close{position:absolute;top:2px;right:2px;width:var(--hit-min);height:var(--hit-min);display:flex;align-items:center;justify-content:center;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;line-height:1;cursor:pointer;border-radius:var(--r-md);transition:color .2s}
 #ha-notice .ha-notice-close:hover{color:#fff}
@@ -220,14 +224,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .footer-brand-info{list-style:none;display:flex;flex-direction:column;gap:8px}
 .footer-brand-info li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
 .footer-brand-info li .ico{color:var(--gold);font-size:14px;margin-top:1px;flex-shrink:0}
-.footer-col-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:16px}
+.footer-col-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:16px}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
 .footer-col ul li a{font-size:13px;color:rgba(255,255,255,.7);transition:color .2s}
 .footer-col ul li a:hover{color:var(--gold)}
 .footer-bottom{padding:18px 0;display:flex;align-items:center;justify-content:space-between}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.5)}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.65)}
 .footer-links{display:flex;gap:20px}
-.footer-links a{font-size:12px;color:rgba(255,255,255,.5);transition:color .2s}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.65);transition:color .2s}
 .footer-links a:hover{color:rgba(255,255,255,.8)}
 .footer-logo-row{display:flex;align-items:center;gap:14px;margin-bottom:20px}
 .footer-logo-img{height:88px;width:88px;border-radius:12px;display:block;object-fit:cover;box-shadow:0 0 0 2px rgba(201,168,76,.35),0 4px 16px rgba(0,0,0,.4)}
@@ -273,7 +277,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .sb-item{text-align:center;padding:0 20px}
 .sb-item+.sb-item{border-left:1px solid rgba(201,168,76,.25)}
 .sb-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
-.sb-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
+.sb-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:3px}
 
 /* Section FIJ home */
 .section-fij{background:linear-gradient(135deg,var(--noir) 0%,var(--bleu) 100%);padding:80px 0;position:relative;overflow:hidden}
@@ -363,7 +367,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire-img{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(201,168,76,.3);box-shadow:0 24px 60px rgba(30,58,95,.22);background:radial-gradient(120% 120% at 50% 30%,var(--bleu-mid),var(--bleu-deep) 60%,#070A12 100%);aspect-ratio:4/3;display:grid;place-items:center}
 .club-histoire-img::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.05) 25%,transparent 25% 75%,rgba(255,255,255,.05) 75%),linear-gradient(45deg,rgba(255,255,255,.05) 25%,transparent 25% 75%,rgba(255,255,255,.05) 75%);background-size:56px 56px;background-position:0 0,28px 28px;-webkit-mask-image:radial-gradient(90% 90% at 50% 45%,#000,transparent 78%);mask-image:radial-gradient(90% 90% at 50% 45%,#000,transparent 78%)}
 .chi-king{position:relative;font-size:120px;line-height:1;color:var(--gold-pale);text-shadow:0 0 44px rgba(201,168,76,.55),0 20px 40px rgba(0,0,0,.5)}
-.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 /* Tournois — point focal « Prochain PICO » + calendrier auto-surligné (JS: initPicoNext) */
 .pico-next{background:linear-gradient(135deg,#fff,var(--gold-pale));border:1.5px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 10px 30px rgba(201,168,76,.14)}
 .pn-cal{flex-shrink:0;width:58px;text-align:center;background:var(--bleu);border-radius:10px;padding:8px 0;box-shadow:0 6px 16px rgba(30,58,95,.3)}
@@ -390,7 +394,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .pico-ins{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold-pale);border-radius:7px;padding:6px 11px;cursor:pointer;transition:background-color .2s}
 .pico-ins:hover{background:rgba(201,168,76,.16)}
 .pico-row.is-next .pico-ins{background:var(--gold);color:var(--noir);border-color:var(--gold)}
-.pico-cal-foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.5);font-style:italic}
+.pico-cal-foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.65);font-style:italic}
 .club-equipe{padding:80px 0;background:#fff}
 .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:14px;border:1px solid var(--border);transition:border-color .2s,box-shadow .2s,transform .2s}
@@ -448,24 +452,33 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* =====================================================
    PAGE ARTICLE SINGLE
    ===================================================== */
-.article-hero{background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);padding:70px 0 50px}
-.article-hero .container{max-width:800px}
+.article-hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);padding:70px 0 64px}
+.article-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(255,255,255,.05) 0deg 90deg,transparent 90deg 180deg);background-size:44px 44px;opacity:.5;pointer-events:none}
+.article-hero .container{position:relative;max-width:800px}
+.article-hero h1{text-wrap:balance}
 .article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0}
-.article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.5)}
-.article-content-wrap{padding:60px 0;background:#fff}
+.article-meta .meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.82)}
+.article-meta .meta-item .ic{color:var(--gold)}
+.article-meta .cat-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.article-content-wrap{padding:0 0 60px;background:#fff}
 .article-content-wrap .container{max-width:800px}
-.article-featured-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md)}
-.article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:720px;margin:0 auto}
+.article-featured-img{position:relative;z-index:2;width:100%;border-radius:12px;overflow:hidden;margin:-48px 0 40px;background:linear-gradient(135deg,var(--bleu),var(--bleu-deep));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:80px;box-shadow:var(--sh-md),inset 0 0 0 1px rgba(0,0,0,.06)}
+.article-body{font-size:16px;color:var(--text);line-height:1.85;max-width:680px;margin:0 auto;text-wrap:pretty}
+.article-body>p:first-of-type{font-size:20px;line-height:1.6;color:var(--bleu);margin-bottom:24px}
 .article-body h2{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--bleu);margin:40px 0 16px;line-height:1.2}
 .article-body p{margin-bottom:20px}
 .article-body blockquote{padding:20px 28px;background:var(--gold-pale);border:1px solid rgba(201,168,76,.3);border-radius:8px;margin:32px 0;font-style:italic;color:var(--bleu);font-size:18px;line-height:1.6}
 .article-share{display:flex;align-items:center;gap:12px;padding:24px 0;border-top:1px solid var(--border);margin-top:40px}
 .share-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;min-height:var(--hit-min);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:opacity .2s,transform .2s}
-.share-fb{background:#1877F2;color:#fff}
-.share-tw{background:#000;color:#fff}
-.share-btn:hover{opacity:.85;transform:translateY(-1px)}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;min-height:var(--hit-min);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .2s,color .2s,border-color .2s,transform .2s,var(--press-tap);border:1.5px solid var(--bleu);color:var(--bleu);background:transparent;cursor:pointer}
+.share-fb,.share-tw{background:transparent;color:var(--bleu);border-color:var(--bleu)}
+.share-btn:hover{background:var(--bleu);color:#fff;border-color:var(--bleu);transform:translateY(-1px)}
 .article-related{padding:var(--sp-8) 0;background:var(--ivoire)}
+/* Grille creneaux Cours & Formation — 1 colonne sous 560px (les horaires en white-space:nowrap debordaient des cartes a 2 colonnes en mobile) */
+.cours-creneaux{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* Cartes 2 colonnes des onglets Competitions & Stages — repli 1 colonne sur mobile (le selecteur global #page-activites[...] est ecrit sans espace, donc inoperant sur les descendants) */
+.act-cards-2{display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:560px){.cours-creneaux,.act-cards-2{grid-template-columns:1fr}}
 
 /* =====================================================
    TABS — PAGE ACTIVITÉS
@@ -473,6 +486,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .tab-bar{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:64px;z-index:100}
 .tab-bar-inner{display:flex;align-items:center;gap:0;padding:0 40px;max-width:1200px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
 .tab-bar-inner::-webkit-scrollbar{display:none}
+.tab-wp-only{display:none}  /* onglet servi par WordPress seulement (build-wp-theme.js retire la classe) */
 .tab-btn{background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding:16px 22px;white-space:nowrap;transition:color .2s,border-color .2s}
 .tab-btn:hover{color:var(--bleu)}
 .tab-btn.tab-active{color:var(--bleu);border-bottom-color:var(--gold)}
@@ -633,7 +647,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   .article-hero{padding:24px 0 18px}
   .article-content-wrap{padding:24px 0 !important}
   .article-content-wrap .container{padding:0 16px}
-  .article-featured-img{margin-bottom:24px}
+  .article-featured-img{margin:-24px 0 24px}
   .article-meta{margin:10px 0}
   .article-related{padding:24px 0 !important}
 
@@ -647,8 +661,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-tournois [style*="padding:80px"],
   #page-fij      [style*="padding:80px"],
   #page-partenaires [style*="padding:80px"],
-  #page-agenda   [style*="padding:80px"],
-  #page-organigramme [style*="padding:80px"] {
+  #page-agenda   [style*="padding:80px"] {
     padding-top: 28px !important;
     padding-bottom: 28px !important;
   }
@@ -659,15 +672,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
      ══════════════════════════════════════════════════════ */
   #page-home     [style*="grid-template-columns"],
   #page-club     [style*="grid-template-columns"],
-  #page-activites[style*="grid-template-columns"],
+  #page-activites [style*="grid-template-columns"],
   #page-horaires [style*="grid-template-columns"],
   #page-adhesion [style*="grid-template-columns"],
   #page-contact  [style*="grid-template-columns"],
   #page-tournois [style*="grid-template-columns"],
   #page-fij      [style*="grid-template-columns"],
-  #page-partenaires[style*="grid-template-columns"],
-  #page-agenda   [style*="grid-template-columns"],
-  #page-organigramme[style*="grid-template-columns"] {
+  #page-partenaires [style*="grid-template-columns"],
+  #page-agenda   [style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
   }
@@ -709,7 +721,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-fij      h2[style*="font-size"],
   #page-partenaires h2[style*="font-size"],
   #page-agenda   h2[style*="font-size"],
-  #page-organigramme h2[style*="font-size"],
   #page-article  h2[style*="font-size"] { font-size: 26px !important; }
 
   /* h1 inline trop grands */
@@ -722,7 +733,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #page-fij      h1[style*="font-size"],
   #page-partenaires h1[style*="font-size"],
   #page-agenda   h1[style*="font-size"],
-  #page-organigramme h1[style*="font-size"],
   #page-actualites h1[style*="font-size"],
   #page-activites h1[style*="font-size"] { font-size: 34px !important; }
 

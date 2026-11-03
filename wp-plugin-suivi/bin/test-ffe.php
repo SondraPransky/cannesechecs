@@ -56,6 +56,29 @@ ok( 40 === count( $club ), 'club : 40 joueurs' );
 ok( 'S50192' === $club[0]['codeFFE'] && 'PRAGGNANANDHAA R' === $club[0]['nomComplet'], 'club : 1er = Praggnanandhaa' );
 ok( 2763.0 === $club[0]['elo'] && '617797' === $club[0]['id'] && '311' === $club[0]['clubRef'], 'club : Elo, id, clubRef' );
 ok( false !== stripos( $club[0]['club'], 'cannes' ), 'club : nom du club' );
+$n_club = 0;
+$coupe  = new Suivi_FFE(
+	function ( $url, $opts = array() ) use ( $http, &$n_club ) {
+		if ( ++$n_club > 2 ) {
+			throw new RuntimeException( 'budget' );
+		}
+		return $http( $url, $opts );
+	}
+);
+$rc = null;
+try {
+	$coupe->joueurs_du_club( 311, $rc );
+} catch ( RuntimeException $e ) {
+	unset( $e );
+}
+$n_suite = 0;
+$suite   = new Suivi_FFE(
+	function ( $url, $opts = array() ) use ( $http, &$n_suite ) {
+		$n_suite++;
+		return $http( $url, $opts );
+	}
+);
+ok( 2 === $rc['page'] && 40 === count( $suite->joueurs_du_club( 311, $rc ) ) && $n_suite >= 1, 'club interrompu page 2 puis repris sans relire la page 1' );
 
 section( 'Liste des tournois du mois' );
 $liste = Suivi_FFE::parse_liste_page( fx( 'liste-2026-10.html' ) );

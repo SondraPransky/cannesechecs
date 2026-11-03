@@ -48,7 +48,7 @@ get_header(); ?>
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#1a0c00,#7a5212);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">A</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">A</div>
                 <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">2 200 Elo et +</div>
               </div>
@@ -70,7 +70,7 @@ get_header(); ?>
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#060f22,#1a2a5c);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">B</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">B</div>
                 <div style="display:inline-block;margin-top:10px;background:var(--gold-tint);border:1px solid var(--gold-tint-border);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
               </div>
@@ -90,7 +90,7 @@ get_header(); ?>
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#0f0f1e,#2e3350);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">C</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">C</div>
                 <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">≤ 1 600 Elo</div>
               </div>
@@ -134,11 +134,11 @@ get_header(); ?>
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Avant le 31/12/2026</div><div>Junior : 45 €</div><div>Senior : 75 €</div></div>
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Standard</div><div>Junior : 55 €</div><div>Senior : 85 €</div></div>
               </div>
-              <div style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:10px;color:rgba(255,255,255,.4)">visiteurs du festival</div></div>
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:10px;color:rgba(255,255,255,.4)">FIJ 2027</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:10px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:10px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
             </div>
             <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>
           </div>
@@ -165,7 +165,7 @@ get_header(); ?>
             <div style="text-align:center;padding:28px 0 20px">
               <div style="font-size:52px;margin-bottom:14px;color:var(--gold)"><svg class="ic-xl" style="stroke:currentColor;fill:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></div>
               <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:10px">FIJ 2027 terminé !</div>
-              <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.8">Merci à tous les participants.<br>Rendez-vous pour le FIJ 2028 !</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.8">Merci à tous les participants.<br>Rendez-vous pour le FIJ 2028 !</div>
             </div>
           </div>
 
@@ -237,7 +237,7 @@ get_header(); ?>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:46px;color:#fff;margin-bottom:12px">Réservez votre place<br>au <em style="color:var(--gold)">FIJ 2027</em></h2>
       <p style="font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px">Places limitées · Inscription sécurisée via HelloAsso · Confirmation immédiate</p>
       <button class="btn btn-gold btn-lg" style="font-size:15px;padding:20px 48px;box-shadow:0 4px 24px var(--gold-tint-border)" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire maintenant →</button>
-      <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:var(--gold-pale);text-decoration:none">info@cannes-echecs.fr</a></p>
+      <p style="font-size:13px;color:rgba(255,255,255,.6);margin-top:20px">Questions ? <a href="mailto:info@cannes-echecs.fr" style="color:var(--gold-pale);text-decoration:none">info@cannes-echecs.fr</a></p>
     </div>
   </section>
 </div><!-- fin page-fij -->

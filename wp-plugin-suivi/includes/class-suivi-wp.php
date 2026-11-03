@@ -42,6 +42,7 @@ class Suivi_Store_WP implements Suivi_Store_Interface {
 			delete_option( self::PREFIXE . $cle );
 		}
 		delete_option( Suivi_WP::VERROU );
+		delete_option( Suivi_WP::PRIORITE );
 	}
 }
 
@@ -50,6 +51,8 @@ class Suivi_WP {
 	const HOOK_CRON  = 'suivi_tournoi_passage';
 	const PLANNING   = 'suivi_tournoi_intervalle';
 	const VERROU     = 'suivi_tournoi_verrou';
+	/** Une action de l'admin attend le verrou : les passages lui cèdent la place. */
+	const PRIORITE   = 'suivi_tournoi_priorite';
 	/** Un verrou plus vieux que ça vient d'un passage mort (PHP coupé) : on le casse. */
 	const VERROU_TTL = 300;
 
@@ -137,11 +140,18 @@ class Suivi_WP {
 	 */
 	public static function sous_verrou( $f, $attente_s = 45 ) {
 		$fin = time() + $attente_s;
-		while ( ! self::verrouiller() ) {
-			if ( time() >= $fin ) {
-				throw new RuntimeException( 'Une mise à jour du suivi est en cours. Réessayez dans une minute.' );
+		// Pendant un scan complet, les passages s'enchaînent presque sans pause :
+		// sans cette priorité, l'action attendrait en vain.
+		update_option( self::PRIORITE, time(), false );
+		try {
+			while ( ! self::verrouiller() ) {
+				if ( time() >= $fin ) {
+					throw new RuntimeException( 'Une mise à jour du suivi est en cours. Réessayez dans une minute.' );
+				}
+				sleep( 1 );
 			}
-			sleep( 2 );
+		} finally {
+			delete_option( self::PRIORITE );
 		}
 		try {
 			return $f();
@@ -155,6 +165,10 @@ class Suivi_WP {
 	 * passage était déjà en cours.
 	 */
 	public static function passage( $options = array() ) {
+		$prio = get_option( self::PRIORITE, false );
+		if ( false !== $prio && time() - (int) $prio < 120 ) {
+			return null; // une action de l'admin passe d'abord
+		}
 		if ( ! self::verrouiller() ) {
 			return null;
 		}

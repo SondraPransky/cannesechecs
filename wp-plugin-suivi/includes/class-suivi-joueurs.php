@@ -78,11 +78,20 @@ class Suivi_Joueurs {
 	 * @param array     $joueurs Liste des joueurs, modifiée sur place.
 	 * @param Suivi_FFE $ffe
 	 */
-	public static function maj_elo( &$joueurs, $ffe, $force, &$erreurs ) {
+	public static function maj_elo( &$joueurs, $ffe, $force, &$erreurs, &$reprises = null ) {
+		if ( ! is_array( $reprises ) ) {
+			$reprises = array();
+		}
 		$limite  = Suivi_Horloge::ts() - 20 * 3600;
 		$a_faire = array();
 		foreach ( $joueurs as $i => $j ) {
-			if ( $force || empty( $j['eloMajLe'] ) || Suivi_Horloge::parse( $j['eloMajLe'] ) <= $limite ) {
+			$perime = empty( $j['eloMajLe'] ) || Suivi_Horloge::parse( $j['eloMajLe'] ) <= $limite;
+			// Joueur introuvable à la FFE (a quitté le club, code changé…) : une
+			// tentative par jour suffit. Sans cette mémoire, il gardait son Elo
+			// « périmé » et toute la liste du club (10 pages) était relue à chaque
+			// passage pour rien, au détriment du reste du suivi.
+			$tente = ! empty( $j['eloEssaiLe'] ) && Suivi_Horloge::parse( $j['eloEssaiLe'] ) > $limite;
+			if ( $force || ( $perime && ! $tente ) ) {
 				$a_faire[ $i ] = true;
 			}
 		}
@@ -92,26 +101,45 @@ class Suivi_Joueurs {
 
 		$clubs = array();
 		foreach ( array_keys( $a_faire ) as $i ) {
-			if ( ! empty( $joueurs[ $i ]['clubRef'] ) ) {
+			// Absent de la liste de son club à la dernière lecture : recherche
+			// individuelle directement, sans relire tout le club.
+			$hors_club = ! empty( $joueurs[ $i ]['horsClubLe'] ) && Suivi_Horloge::parse( $joueurs[ $i ]['horsClubLe'] ) > $limite;
+			if ( ! empty( $joueurs[ $i ]['clubRef'] ) && ! $hors_club ) {
 				$clubs[ $joueurs[ $i ]['clubRef'] ] = true;
 			}
 		}
 		foreach ( array_keys( $clubs ) as $club_ref ) {
+			// Lecture du club commencée à un passage précédent (moins d'une heure) : on la continue.
+			$reprise = ( isset( $reprises[ $club_ref ]['a'] ) && Suivi_Horloge::ts() - $reprises[ $club_ref ]['a'] < 3600 ) ? $reprises[ $club_ref ]['reprise'] : null;
+			$depuis  = $reprise ? $reprises[ $club_ref ]['a'] : Suivi_Horloge::ts();
 			try {
 				$par_code = array();
-				foreach ( $ffe->joueurs_du_club( $club_ref ) as $r ) {
+				$liste    = $ffe->joueurs_du_club( $club_ref, $reprise );
+				unset( $reprises[ $club_ref ] );
+				foreach ( $liste as $r ) {
 					$par_code[ $r['codeFFE'] ] = $r;
 				}
 				foreach ( array_keys( $a_faire ) as $i ) {
 					$j = $joueurs[ $i ];
-					if ( ( isset( $j['clubRef'] ) ? $j['clubRef'] : null ) == $club_ref && ! empty( $j['codeFFE'] ) && isset( $par_code[ $j['codeFFE'] ] ) ) {
+					if ( ( isset( $j['clubRef'] ) ? $j['clubRef'] : null ) != $club_ref ) {
+						continue;
+					}
+					if ( ! empty( $j['codeFFE'] ) && isset( $par_code[ $j['codeFFE'] ] ) ) {
 						self::appliquer_elo( $joueurs[ $i ], $par_code[ $j['codeFFE'] ] );
 						unset( $a_faire[ $i ] );
+					} else {
+						$joueurs[ $i ]['horsClubLe'] = Suivi_Horloge::iso();
 					}
 				}
 			} catch ( Suivi_Budget_Epuise $e ) {
+				if ( $reprise ) {
+					$reprises[ $club_ref ] = array( 'reprise' => $reprise, 'a' => $depuis );
+				}
 				throw $e;
 			} catch ( Exception $e ) {
+				if ( $reprise ) {
+					$reprises[ $club_ref ] = array( 'reprise' => $reprise, 'a' => $depuis );
+				}
 				$erreurs[] = "Elo club $club_ref : " . $e->getMessage();
 			}
 		}
@@ -122,6 +150,7 @@ class Suivi_Joueurs {
 			// le nom littéral "undefined". On s'abstient plutôt que de risquer d'appliquer
 			// l'Elo d'un autre joueur.
 			if ( empty( $j['codeFFE'] ) ) {
+				$joueurs[ $i ]['eloEssaiLe'] = Suivi_Horloge::iso();
 				continue;
 			}
 			try {
@@ -129,10 +158,12 @@ class Suivi_Joueurs {
 				if ( $r ) {
 					self::appliquer_elo( $joueurs[ $i ], $r );
 				}
+				$joueurs[ $i ]['eloEssaiLe'] = Suivi_Horloge::iso();
 			} catch ( Suivi_Budget_Epuise $e ) {
 				throw $e;
 			} catch ( Exception $e ) {
-				$erreurs[] = 'Elo ' . $j['nomComplet'] . ' : ' . $e->getMessage();
+				$erreurs[]                   = 'Elo ' . $j['nomComplet'] . ' : ' . $e->getMessage();
+				$joueurs[ $i ]['eloEssaiLe'] = Suivi_Horloge::iso();
 			}
 		}
 	}

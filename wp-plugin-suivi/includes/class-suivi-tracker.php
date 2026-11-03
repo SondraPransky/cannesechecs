@@ -611,7 +611,10 @@ class Suivi_Tracker {
 		}
 
 		try {
-			Suivi_Joueurs::maj_elo( $db['joueurs'], $this->ffe, ! empty( $options['forceElo'] ), $erreurs );
+			if ( ! isset( $cache['clubs'] ) ) {
+				$cache['clubs'] = array(); // lectures de listes de club en cours (reprise)
+			}
+			Suivi_Joueurs::maj_elo( $db['joueurs'], $this->ffe, ! empty( $options['forceElo'] ), $erreurs, $cache['clubs'] );
 		} catch ( Suivi_Budget_Epuise $e ) {
 			unset( $e );
 		}

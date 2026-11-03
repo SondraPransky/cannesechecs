@@ -20,8 +20,9 @@ get_header(); ?>
     <div class="tab-bar-inner">
       <button class="tab-btn tab-active" data-tab="t-pico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-target"/></svg> PICO</button>
       <button class="tab-btn" data-tab="t-rapide"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-bolt"/></svg> Rapide</button>
-      <button class="tab-btn" data-tab="t-scolaire"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaires</button>
       <button class="tab-btn" data-tab="t-paques"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Open Pâques</button>
+      <button class="tab-btn" data-tab="t-ffe"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-users"/></svg> Compét. FFE</button>
+      <button class="tab-btn" data-tab="t-direct"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-clock"/></svg> En direct</button>
     </div>
   </div>
 
@@ -253,36 +254,39 @@ get_header(); ?>
   </div>
 
   <!-- Tab Scolaires -->
-  <div class="tab-panel" id="tab-t-scolaire" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
+  <!-- Onglet Compétitions officielles FFE (déplacé depuis l'ancien onglet Activités › Compétitions) -->
+  <div class="tab-panel" id="tab-t-ffe" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
-        <div>
-          <div class="badge badge-gold" style="margin-bottom:14px">Partenariat Éducation Nationale</div>
-          <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Tournois scolaires</h2>
-          <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Cannes Échecs organise les tournois inter-établissements pour les élèves du primaire et du secondaire du bassin cannois, du département au niveau national.</p>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-school"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-écoles</div><div style="font-size:12px;color:var(--muted)">Printemps · Primaires du bassin cannois</div></div></div>
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-cap"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Tournoi inter-collèges</div><div style="font-size:12px;color:var(--muted)">Décembre · Championnats départementaux</div></div></div>
-            <div style="background:#fff;border-radius:10px;padding:14px 18px;border:1px solid var(--border);display:flex;gap:12px;align-items:center"><span style="font-size:20px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span><div><div style="font-weight:600;color:var(--bleu);font-size:14px">Sélection régionale & nationale</div><div style="font-size:12px;color:var(--muted)">Février–avril · Championnats académiques et France</div></div></div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-gold" onclick="goToTab('activites','scolaire')">Nos interventions scolaires →</button>
-            <button class="btn btn-outline-dark" onclick="goTo('contact')">Inscrire votre école →</button>
-          </div>
+      <div class="section-header center" style="margin-bottom:24px">
+        <span class="surtitre">Compétitions fédérales</span>
+        <h2 style="font-size:var(--fs-h2);color:var(--bleu)">Compétitions officielles FFE</h2>
+      </div>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:640px;margin:0 auto 28px;text-align:center">Au-delà de ses tournois maison, Cannes Échecs engage ses membres dans les compétitions officielles de la Fédération Française des Échecs tout au long de la saison.</p>
+      <div style="max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:14px;padding:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:16px;min-width:0">
+          <span style="font-size:30px;color:var(--gold);flex-shrink:0"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg></span>
+          <div style="font-size:14px;color:var(--text);line-height:1.7">Championnat de France par équipes · Championnats jeunes FFE (U8→U18) · Interclubs régionaux</div>
         </div>
-        <div style="background:var(--bleu);border-radius:14px;padding:28px;color:#fff">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:4px">Bilan 2025–2026</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px;letter-spacing:.04em">Saison terminée · 4 titres majeurs</div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="background:rgba(201,168,76,.18);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Ville de Cannes — 130 enfants · 5 catégories</div></div>
-            <div style="background:rgba(201,168,76,.12);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:var(--gold-pale)"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Sainte-Marie — Championne d'Académie · qualifiée nationale</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Académique collèges</div></div>
-            <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px 16px"><div style="font-size:13px;font-weight:600;color:#fff"><svg class="ic" style="color:var(--gold-pale)" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> Stanislas — Champion Départ. écoles & collèges</div></div>
-          </div>
-          <button class="btn btn-outline-white btn-sm btn-full" style="margin-top:20px" onclick="goTo('actualites')">Voir tous les résultats →</button>
-        </div>
+        <button class="btn btn-outline-dark btn-sm" style="flex-shrink:0" onclick="goTo('adhesion')">Prendre une licence FFE →</button>
       </div>
     </div>
+  </div>
+
+  <!-- Tab En direct : suivi des joueurs du club en tournoi. Contenu fourni par le
+       plugin WordPress « Suivi tournoi » (shortcode injecté par build-wp-theme.js) ;
+       onglet masqué sur le site statique, qui n'a pas de serveur pour les données. -->
+  <div class="tab-panel" id="tab-t-direct" style="padding:var(--sp-8) 0;background:var(--ivoire);display:none">
+    <div class="container">
+      <div class="badge badge-gold" style="margin-bottom:14px">Nos joueurs en tournoi</div>
+      <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">En direct</h2>
+      <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:28px;max-width:640px">Les résultats des joueurs de Cannes Échecs dans les tournois homologués FFE et à l'étranger, ronde après ronde. Mis à jour automatiquement toutes les quelques minutes.</p>
+      <?php echo shortcode_exists('suivi_tournoi') ? do_shortcode('[suivi_tournoi]') : '<p>Le suivi des joueurs sera bientôt disponible.</p>'; ?>
+    </div>
+  </div>
+
+  <!-- Renvoi scolaire — regroupé dans Activités › Les échecs à l'école -->
+  <div class="container" style="padding:8px 0 44px;text-align:center">
+    <p style="font-size:13px;color:var(--muted)">Tournois et interventions scolaires sont désormais réunis dans <a href="<?php echo esc_url(home_url('/activites/')); ?>#activites-scolaire" style="color:var(--gold-text);font-weight:600;cursor:pointer">Activités › Les échecs à l'école →</a></p>
   </div>
 
 </div><!-- fin page-tournois -->

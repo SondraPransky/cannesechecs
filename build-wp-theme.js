@@ -32,8 +32,8 @@ function extractBetween(startMarker, endMarker, from = 0) {
   return html.slice(s, e + endMarker.length);
 }
 
-const PAGES = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
-const STATIC_PAGES = ['club','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'];
+const PAGES = ['home','club','actualites','article','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda'];
+const STATIC_PAGES = ['club','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda'];
 
 function phpUrl(slug) {
   return slug === 'home'
@@ -240,6 +240,10 @@ for (const id of PAGES) {
   // class="page" ou class="page active" (home) → class="page active"
   frag = frag.replace(/^<div id="page-\w+" class="page( active)?">/,
     m => m.replace('class="page"', 'class="page active"'));
+  // Onglets réservés à WordPress (ex. « En direct ») : visibles une fois la classe
+  // retirée ; leur contenu vient d'un shortcode de plugin.
+  frag = frag.replace(/ tab-wp-only/g, '')
+    .replace('<!--SUIVI_TOURNOI-->', "<?php echo shortcode_exists('suivi_tournoi') ? do_shortcode('[suivi_tournoi]') : '<p>Le suivi des joueurs sera bientôt disponible.</p>'; ?>");
   pageFragments[id] = transformLinks(frag);
 }
 

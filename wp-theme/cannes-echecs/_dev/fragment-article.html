@@ -2,16 +2,17 @@
 
   <section class="article-hero">
     <div class="container" style="max-width:800px">
-      <div class="breadcrumb" style="color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:20px">
-        <a href="<?php echo esc_url(home_url('/')); ?>" style="color:rgba(255,255,255,.4)">Accueil</a><span>›</span>
-        <a href="<?php echo esc_url(home_url('/actualites/')); ?>" style="color:rgba(255,255,255,.4)">Actualités</a><span>›</span>
-        <span style="color:rgba(255,255,255,.6)">Article</span>
+      <div class="breadcrumb" style="color:rgba(255,255,255,.62);display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:20px">
+        <a href="<?php echo esc_url(home_url('/')); ?>" style="color:rgba(255,255,255,.62)">Accueil</a><span>›</span>
+        <a href="<?php echo esc_url(home_url('/actualites/')); ?>" style="color:rgba(255,255,255,.62)">Actualités</a><span>›</span>
+        <span style="color:var(--gold)">Article</span>
       </div>
       <div id="art-badge" class="badge badge-gold" style="margin-bottom:16px">Actualité</div>
       <h1 id="art-title" style="font-size:46px;color:#fff;line-height:1.1;margin-bottom:16px">Titre de l'article</h1>
+      <div class="gold-bar" style="margin:0 0 18px"></div>
       <div class="article-meta">
         <div id="art-date" class="meta-item"><span><svg class="ic" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg></span> Date</div>
-        <div id="art-cat" class="meta-item"><span>🏷</span> Catégorie</div>
+        <div id="art-cat" class="meta-item"><span class="cat-dot"></span> Catégorie</div>
       </div>
     </div>
   </section>

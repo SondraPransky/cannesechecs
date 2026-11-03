@@ -184,7 +184,7 @@ get_header(); ?>
             <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Prochain événement</div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px">Reprise des cours</div>
             <div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:4px">Mercredi 9 septembre 2026</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px">Rentrée saison 2026–2027</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.65);margin-bottom:16px">Rentrée saison 2026–2027</div>
             <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-bottom:8px">
               <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Puis</div>
               <div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px">Ven. 18 sept. — Rapide du vendredi · 20h</div>

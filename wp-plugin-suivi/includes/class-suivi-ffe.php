@@ -617,36 +617,42 @@ class Suivi_FFE {
 	 *
 	 * @return array[] joueurs (voir parse_lignes_joueurs) + clubRef.
 	 */
-	public function joueurs_du_club( $club_ref ) {
-		$url  = 'ListeJoueurs.aspx?Action=JOUEURCLUBREF&JrTri=Elo&ClubRef=' . rawurlencode( (string) $club_ref );
-		$html = $this->fetch_page( $url );
-
-		$par_code = array();
-		foreach ( self::parse_lignes_joueurs( $html ) as $j ) {
-			$j['clubRef']          = (string) $club_ref;
-			$par_code[ $j['codeFFE'] ] = $j;
-		}
-
-		$vues = array( 1 => true );
-		for ( $p = 2; ; $p++ ) {
-			preg_match_all( "/PagerHeader','(\\d+)'\\)/", $html, $dispo );
-			$dispo = array_map( 'intval', $dispo[1] );
-			if ( ! in_array( $p, $dispo, true ) || isset( $vues[ $p ] ) ) {
-				break;
+	public function joueurs_du_club( $club_ref, &$reprise = null ) {
+		$url   = 'ListeJoueurs.aspx?Action=JOUEURCLUBREF&JrTri=Elo&ClubRef=' . rawurlencode( (string) $club_ref );
+		$pages = function ( $html ) {
+			preg_match_all( "/PagerHeader','(\\d+)'\\)/", $html, $m );
+			return array_map( 'intval', $m[1] );
+		};
+		$ajouter = function ( $lignes ) use ( &$reprise, $club_ref ) {
+			foreach ( $lignes as $j ) {
+				$j['clubRef']                         = (string) $club_ref;
+				$reprise['par_code'][ $j['codeFFE'] ] = $j;
 			}
-			$vues[ $p ] = true;
-			$html       = $this->postback_page( $url, self::champs_postback( $html ), $p );
-			$lignes     = self::parse_lignes_joueurs( $html );
+		};
+
+		// Reprenable comme la liste des mois : ~10 pages pour un gros club, plus
+		// qu'un passage quand la FFE est lente. $reprise garde les joueurs lus,
+		// la dernière page et ses champs de pagination.
+		if ( ! is_array( $reprise ) || empty( $reprise['champs'] ) ) {
+			$html    = $this->fetch_page( $url );
+			$reprise = array( 'par_code' => array(), 'page' => 1, 'champs' => self::champs_postback( $html ), 'dispo' => $pages( $html ) );
+			$ajouter( self::parse_lignes_joueurs( $html ) );
+		}
+		// La pagination n'annonce que les pages voisines : on avance tant que la
+		// page suivante figure parmi celles proposées par la dernière lue.
+		for ( $p = $reprise['page'] + 1; in_array( $p, $reprise['dispo'], true ); $p++ ) {
+			$html   = $this->postback_page( $url, $reprise['champs'], $p );
+			$lignes = self::parse_lignes_joueurs( $html );
 			if ( ! $lignes ) {
 				break;
 			}
-			foreach ( $lignes as $j ) {
-				$j['clubRef']          = (string) $club_ref;
-				$par_code[ $j['codeFFE'] ] = $j;
-			}
+			$ajouter( $lignes );
+			$reprise['page']   = $p;
+			$reprise['champs'] = self::champs_postback( $html );
+			$reprise['dispo']  = $pages( $html );
 		}
 
-		return array_values( $par_code );
+		return array_values( $reprise['par_code'] );
 	}
 
 	/** Page N d'une liste paginée ASP.NET (rejoue le __doPostBack du pager). */

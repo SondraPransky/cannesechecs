@@ -34,7 +34,6 @@
         <div class="dropdown">
           <a href="<?php echo esc_url(home_url('/actualites/')); ?>">Actualités</a>
           <a href="<?php echo esc_url(home_url('/club/')); ?>">Présentation</a>
-          <a href="<?php echo esc_url(home_url('/organigramme/')); ?>">Organigramme</a>
           <a href="<?php echo esc_url(home_url('/horaires/')); ?>">Horaires & Tarifs</a>
           <a href="<?php echo esc_url(home_url('/adhesion/')); ?>">Formules d'adhésion</a>
           <a href="<?php echo esc_url(home_url('/agenda/')); ?>">Agenda</a>
@@ -72,7 +71,6 @@
   <div class="nav-mobile" id="nav-mobile">
     <a class="nav-mobile-link" href="<?php echo esc_url(home_url('/actualites/')); ?>">Actualités</a>
     <a class="nav-mobile-link" href="<?php echo esc_url(home_url('/club/')); ?>">Le Club</a>
-    <a class="nav-mobile-link" href="<?php echo esc_url(home_url('/organigramme/')); ?>">Organigramme</a>
     <a class="nav-mobile-link" href="<?php echo esc_url(home_url('/horaires/')); ?>">Horaires & Tarifs</a>
     <a class="nav-mobile-link" href="<?php echo esc_url(home_url('/adhesion/')); ?>">Adhésion</a>
     <div class="nav-mobile-sep"></div>

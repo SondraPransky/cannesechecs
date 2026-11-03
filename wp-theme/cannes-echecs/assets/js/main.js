@@ -86,7 +86,7 @@ function renderFijSbInscrits() {
         var c = FIJ_INSCRITS[o.k].count;
         return '<div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
           + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1">' + (c || '—') + '</div>'
-          + '<div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
+          + '<div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
           + '</div>';
       }).join('') + '</div>';
 }
@@ -595,6 +595,14 @@ function applyArchiveFilters() {
 
 
 // ── TABS (Activités + Tournois + toute page) ─────────
+// Synchronise l'état ARIA (aria-selected + tabindex glissant) après un changement d'onglet
+function syncTabAria(container) {
+  container.querySelectorAll('.tab-btn').forEach(b => {
+    const active = b.classList.contains('tab-active');
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+    b.tabIndex = active ? 0 : -1;
+  });
+}
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     const container = this.closest('.page');
@@ -614,13 +622,52 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
       target.style.display = '';
       target.classList.add('tab-panel-active');
     }
+    syncTabAria(container);
     // Mettre à jour le hash pour permettre le partage de lien direct
     try {
       const pid = container.id.replace('page-', '');
       history.replaceState(null, '', location.pathname + location.search + '#' + pid + '-' + this.dataset.tab);
     } catch(e) {}
   });
+  // Navigation clavier entre onglets (flèches gauche/droite, Début/Fin) — motif WAI-ARIA tabs
+  btn.addEventListener('keydown', function(e) {
+    const map = { ArrowLeft: -1, ArrowRight: 1, Home: 'home', End: 'end' };
+    if (!(e.key in map)) return;
+    e.preventDefault();
+    const bar = this.closest('.tab-bar-inner') || this.parentElement;
+    const tabs = Array.prototype.slice.call(bar.querySelectorAll('.tab-btn'));
+    const i = tabs.indexOf(this), n = tabs.length;
+    let j;
+    if (map[e.key] === 'home') j = 0;
+    else if (map[e.key] === 'end') j = n - 1;
+    else j = (i + map[e.key] + n) % n;
+    tabs[j].focus();
+    tabs[j].click(); // activation automatique à l'arrivée
+  });
 });
+// Rôles ARIA statiques des onglets (une passe au chargement) — tablist / tab / tabpanel
+(function() {
+  document.querySelectorAll('.tab-bar-inner').forEach(bar => {
+    bar.setAttribute('role', 'tablist');
+    const page = bar.closest('.page');
+    const h1 = page && page.querySelector('h1');
+    bar.setAttribute('aria-label', h1 ? h1.textContent.trim() : 'Onglets');
+    bar.querySelectorAll('.tab-btn').forEach(b => {
+      const id = b.dataset.tab;
+      b.setAttribute('role', 'tab');
+      b.id = 'tabbtn-' + id;
+      b.setAttribute('aria-controls', 'tab-' + id);
+      b.querySelectorAll('svg').forEach(s => s.setAttribute('aria-hidden', 'true'));
+      const panel = page && page.querySelector('#tab-' + id);
+      if (panel) {
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', 'tabbtn-' + id);
+        if (!panel.hasAttribute('tabindex')) panel.tabIndex = 0;
+      }
+    });
+    if (page) syncTabAria(page);
+  });
+})();
 
 // ── DROPDOWN — SUPPORT TACTILE / CLICK ──────────────
 (function() {

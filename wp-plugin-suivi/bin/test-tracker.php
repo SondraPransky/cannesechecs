@@ -225,6 +225,31 @@ $trk->masquer( '72680', 'NICOT_ANNA' );
 $trk->retirer_joueur( 'NICOT_ANNA' );
 ok( ! $store->get( 'masques' )['liste'], 'retrait du joueur : ses masques sont oubliés' );
 
+section( 'Elo quotidien : joueur absent de la liste de son club' );
+Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
+$store = magasin();
+$db    = $store->get( 'joueurs' );
+$db['joueurs'][] = array( 'id' => 'Z99999', 'codeFFE' => 'Z99999', 'clubRef' => '311', 'nomComplet' => 'PARTI Joueur', 'elo' => 1500, 'eloMajLe' => '2026-10-01T00:00:00.000Z' );
+$store->set( 'joueurs', $db );
+$clubs = 0;
+$base  = transport();
+$cpt   = function ( $url, $opts = array() ) use ( $base, &$clubs ) {
+	if ( false !== strpos( $url, 'JOUEURCLUBREF' ) && empty( $opts['method'] ) ) {
+		$clubs++;
+	}
+	return $base( $url, $opts );
+};
+$trk = new Suivi_Tracker( $store, $cpt );
+$trk->rafraichir();
+$z = end( $store->get( 'joueurs' )['joueurs'] );
+ok( 1 === $clubs && ! empty( $z['horsClubLe'] ) && ! empty( $z['eloEssaiLe'] ), 'absent du club : noté, recherche individuelle tentée' );
+Suivi_Horloge::fixer( '2026-11-01T13:00:00Z' );
+$trk->rafraichir();
+ok( 1 === $clubs, 'passage suivant : la liste du club n\'est pas relue pour lui' );
+Suivi_Horloge::fixer( '2026-11-02T10:00:00Z' );
+$trk->rafraichir();
+ok( 2 === $clubs, 'le lendemain (20 h plus tard) : nouvelle tentative' );
+
 section( 'Listes de mois : relecture selon le mois, progression du premier scan' );
 Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
 $urls  = array();

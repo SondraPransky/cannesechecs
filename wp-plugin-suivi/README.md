@@ -8,7 +8,9 @@ But final : la liste des joueurs / le club suivi se règlent dans l'admin WP, le
 rafraîchissement tourne en WP-cron, et un bloc/shortcode affiche le tableau de
 bord sur la page Tournois.
 
-## État — Phase 1 terminée : FFE, Elo, moteur et chess-results portés et validés
+## État — plugin complet (moteur, admin, affichage), vérifié dans un WordPress local
+
+### Phase 1 : FFE, Elo, moteur et chess-results portés et validés
 
 | Brique | Source JS | Statut |
 |--------|-----------|--------|
@@ -26,7 +28,7 @@ bord sur la page Tournois.
 | Persistance | `store.js` | ✅ interface `includes/class-suivi-store.php` (mémoire, fichiers JSON ; WordPress en Phase 2) |
 | Tournois internationaux (chess-results) : recherche par FIDE-ID, fiche joueur/tournoi | `chessresults.js` | ✅ `includes/class-suivi-chessresults.php` |
 | Complément chess-results du moteur, ID FIDE lus sur les fiches FFE | `tracker.js`, `joueurs.js` | ✅ |
-| **Plugin WP** : admin, WP-cron, stockage en base, bloc d'affichage | `server.js` + `public/` | ⏳ Phase 2-3 (nécessite un WordPress local) |
+| **Plugin WP** : admin, WP-cron, stockage en base, affichage | `server.js` + `public/` | ✅ Phases 2-3 (ci-dessous) |
 
 **Validation par parité** : le code JS d'origine et le portage PHP ont été exécutés
 sur les mêmes pages ; sorties identiques champ par champ (club, liste, fiches,
@@ -71,6 +73,48 @@ Papi préfixe le titre (`g Eric PRIE`), et `ffe.js` produisait `Eric PRIE g`, no
 alors introuvable par le suivi. Le portage rend `PRIE Eric` + `titre: "g"`, et gère
 les prénoms composés (`Jean-Marie MARTINE` → `MARTINE Jean-Marie`). L'app Node
 d'origine a toujours ce bug.
+
+## Phases 2-3 : le plugin WordPress
+
+| Fichier | Rôle |
+|---------|------|
+| `suivi-tournoi.php` | En-tête du plugin, chargement, crochets (cron, AJAX, admin, shortcode) |
+| `includes/class-suivi-wp.php` | Stockage en options (sans autoload), transport `wp_remote_request` (délai 30 s), WP-cron à l'intervalle de la config, **verrou** atomique (`add_option`), priorité aux actions de l'admin, action AJAX du scan complet |
+| `includes/class-suivi-admin.php` | Menu « Suivi tournoi », 4 onglets : Suivi (état, scan complet, masquer), Joueurs, Tournois masqués, Réglages. Actions par `admin-post` (jeton + `manage_options`) sous le verrou |
+| `includes/class-suivi-public.php` | Shortcode `[suivi_tournoi]` + `GET /wp-json/suivi-tournoi/v1/etat` (lecture seule, données publiques seulement) |
+| `assets/suivi-public.{js,css}` | Affichage : vues Tournois / En direct / Résultats, rafraîchi toutes les 2 min, aux couleurs du site (DESIGN.md) |
+| `uninstall.php` | Efface les données à la suppression du plugin |
+
+**Côté thème** : onglet « En direct » de la page Tournois dans `index.html` (classe
+`tab-wp-only`, masqué sur le site statique) ; `build-wp-theme.js` retire la classe et
+remplace `<!--SUIVI_TOURNOI-->` par le shortcode.
+
+**Installation** : `python wp-plugin-suivi/bin/construire-zip.py` → `suivi-tournoi.zip`
+(sans `bin/` ni `tests/`) → Extensions › Ajouter › Téléverser. Puis onglet Joueurs
+(ajouter le club 311), onglet Suivi › *Lancer le scan complet*. Guide bénévoles :
+`GUIDE-ADMIN.md` § 5.
+
+**Hébergement** : WP-cron ne tourne qu'aux visites du site. Site peu visité → demander à
+l'hébergeur une tâche planifiée qui appelle `wp-cron.php` toutes les 5 minutes (et mettre
+`DISABLE_WP_CRON` à `true`). Le passage demande ~60 s de `max_execution_time` (budget 25 s
++ une requête FFE lente jusqu'à 30 s).
+
+### Ce que le vrai réseau a appris (vérifié le 2026-11-03 dans Local)
+
+La FFE met parfois **10 à 20 s par page**. Tout ce qui lisait plusieurs pages d'un bloc
+dépassait un passage et recommençait sans fin :
+- **liste du mois** (5-15 pages) et **liste d'un club** (~10 pages) : reprenables page par
+  page (jeton de pagination ASP.NET en cache), une page en échec retentée 3 fois ;
+- **listes de mois relues selon le mois** : en cours 2 h, précédent 12 h, suivant 6 h ;
+- **Elo quotidien** : un joueur absent de la liste de son club (`horsClubLe`) passe
+  directement à la recherche individuelle, une tentative par jour (`eloEssaiLe`) — sinon
+  tout le club était relu à chaque passage ;
+- **chess-results** : part de budget réservée (FFE ≤ 75 %), tour de rôle direct / recherche ;
+- **fiches de test d'organisateurs** écartées (homme dans un tournoi féminin, adulte dans un
+  tournoi jeunes, d'après la catégorie FFE) ; les autres cas se masquent depuis l'admin.
+
+Premier scan : ~1 000 éléments (fiches, participants, recherches chess-results) ; avec le
+bouton « scan complet », environ 1 à 2 h selon la vitesse de la FFE.
 
 ## Contrainte d'environnement
 

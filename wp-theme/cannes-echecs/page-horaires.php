@@ -11,7 +11,7 @@ get_header(); ?>
     <div class="container">
       <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Accueil</a><span>›</span><span>Horaires & Tarifs</span></div>
       <h1>Horaires & <em>Tarifs</em></h1>
-      <p style="font-size:14px;color:rgba(255,255,255,.4);margin-top:8px;font-style:italic">Saison 2026–2027 · Mis à jour en septembre 2026</p>
+      <p style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;font-style:italic">Saison 2026–2027 · Mis à jour en septembre 2026</p>
     </div>
   </section>
 
