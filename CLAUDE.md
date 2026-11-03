@@ -38,6 +38,12 @@ Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
 - **Classement affiché** : bloc dans `index.html` onglet Tournois → PICO, `<iframe src="classement.html">` (auto-hauteur). `classement.html` (racine du dépôt) = page du classement, remplacée à chaque tournoi via le bouton « Publier sur le site » de l'outil (placeholder clair en attendant la 1re vraie publication).
 - **Publication mensuelle** = Romuald/Marlies (non-tech). Guide : `PicoElo\Guide_Publier_Classement.html`. Cible WordPress = plugin *Enable Media Replace*.
 
+## Plugin WordPress « Suivi tournoi » (`wp-plugin-suivi/`)
+- **But** : suivre en direct les joueurs de Cannes Échecs sur les tournois FFE, géré depuis l'admin WordPress (zéro terminal pour les bénévoles). Portage PHP de l'app Node `C:\Users\mathi\Desktop\suivi tournoi` (ne pas la modifier sans demande).
+- **État** : cœur data + moteur de suivi portés et validés par parité avec l'app Node. Reste : chess-results, puis la couche WordPress (nécessite un WordPress local). Détail et feuille de route : `wp-plugin-suivi/README.md`.
+- **Tests** (PHP CLI : `C:\Users\mathi\AppData\Local\Programs\php84\php.exe`, sans curl/openssl/mbstring) : `php bin/test-ffe.php`, `php bin/test-tracker.php` (fixtures, sans réseau) ; `php bin/live-ffe.php` (FFE en direct via curl système, ponctuel).
+- Le dossier est servi en clair par GitHub Pages : **ne jamais y mettre de secret**.
+
 ## Mainteneurs non-techniques
 Romuald de Labaca et Marlies Bensdorp De Labaca mettront à jour le site.
 Aucune compétence technique. Toute procédure doit rester simple.
