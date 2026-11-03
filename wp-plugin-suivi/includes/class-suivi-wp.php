@@ -117,8 +117,24 @@ class Suivi_WP {
 	// atomique : la base refuse un second INSERT sur le même nom.
 	// ---------------------------------------------------------------------
 
+	/**
+	 * Lit une option en base, sans le cache de la requête. WordPress garde une
+	 * option lue pendant toute la requête : une boucle qui attend le verrou ne
+	 * verrait jamais un autre processus le libérer (bug trouvé en réel : une
+	 * action de l'admin pendant un scan abandonnait au bout de 45 s).
+	 */
+	private static function option_fraiche( $nom ) {
+		wp_cache_delete( $nom, 'options' );
+		$absentes = wp_cache_get( 'notoptions', 'options' );
+		if ( is_array( $absentes ) && isset( $absentes[ $nom ] ) ) {
+			unset( $absentes[ $nom ] );
+			wp_cache_set( 'notoptions', $absentes, 'options' );
+		}
+		return get_option( $nom, false );
+	}
+
 	public static function verrouiller() {
-		$pose = get_option( self::VERROU, false );
+		$pose = self::option_fraiche( self::VERROU );
 		if ( false !== $pose ) {
 			if ( time() - (int) $pose < self::VERROU_TTL ) {
 				return false;
@@ -165,7 +181,7 @@ class Suivi_WP {
 	 * passage était déjà en cours.
 	 */
 	public static function passage( $options = array() ) {
-		$prio = get_option( self::PRIORITE, false );
+		$prio = self::option_fraiche( self::PRIORITE );
 		if ( false !== $prio && time() - (int) $prio < 120 ) {
 			return null; // une action de l'admin passe d'abord
 		}

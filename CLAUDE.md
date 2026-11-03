@@ -44,6 +44,14 @@ Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
 - **Tests** (PHP CLI : `C:\Users\mathi\AppData\Local\Programs\php84\php.exe`, sans curl/openssl/mbstring) : `php bin/test-ffe.php`, `php bin/test-tracker.php`, `php bin/test-chessresults.php` (fixtures, sans réseau) ; `php bin/live-ffe.php`, `php bin/live-chessresults.php` (en direct via curl système, ponctuel).
 - Le dossier est servi en clair par GitHub Pages : **ne jamais y mettre de secret**.
 
+### À faire plus tard — Suivi tournoi (noté le 2026-11-03)
+1. **Installer sur le vrai WordPress du club** quand il existera : `python wp-plugin-suivi/bin/construire-zip.py` → Extensions › Téléverser ; installer aussi le thème régénéré (`node build-wp-theme.js` + zip Python). Puis admin › Suivi tournoi › Joueurs : ajouter le club 311 ; onglet Suivi : *Lancer le scan complet* (page ouverte ~1-2 h).
+2. **Chez l'hébergeur** : si le site a peu de visites, tâche planifiée sur `wp-cron.php` toutes les 5 min + `DISABLE_WP_CRON` ; `max_execution_time` ≥ 60 s.
+3. **Montrer l'admin à Romuald et Marlies** (GUIDE-ADMIN.md § 5).
+4. **Ensuite seulement** : archiver en zip le dossier `C:\Users\mathi\Desktop\suivi tournoi` (app Node d'origine). Ne pas le supprimer avant : référence de parité + source des 114 joueurs.
+5. Nettoyer le site Local : effacer `app/public/apercu-suivi/` (dossier d'aperçu).
+6. Photo non suivie `photos/vichy_chptfrancejeunes.jpg` : à intégrer au site ou à supprimer (laissée hors des commits).
+
 ## Mainteneurs non-techniques
 Romuald de Labaca et Marlies Bensdorp De Labaca mettront à jour le site.
 Aucune compétence technique. Toute procédure doit rester simple.

@@ -109,6 +109,7 @@ dépassait un passage et recommençait sans fin :
 - **Elo quotidien** : un joueur absent de la liste de son club (`horsClubLe`) passe
   directement à la recherche individuelle, une tentative par jour (`eloEssaiLe`) — sinon
   tout le club était relu à chaque passage ;
+- **verrou** : relu en base à chaque vérification (WordPress garde une option lue pendant toute la requête ; une attente du verrou ne voyait jamais sa libération) ; les actions de l'admin passent avant les passages ;
 - **chess-results** : part de budget réservée (FFE ≤ 75 %), tour de rôle direct / recherche ;
 - **fiches de test d'organisateurs** écartées (homme dans un tournoi féminin, adulte dans un
   tournoi jeunes, d'après la catégorie FFE) ; les autres cas se masquent depuis l'admin.
