@@ -86,3 +86,34 @@ function suivi_transport_curl_cli( $delai_ms = 150 ) {
 		);
 	};
 }
+
+/**
+ * Version groupée (développement) : lance un curl par requête, tous ensemble.
+ * [clé => ['url', 'opts']] -> [clé => réponse | Throwable].
+ */
+function suivi_transport_curl_cli_multiple() {
+	$un = suivi_transport_curl_cli( 0 );
+	return function ( $requetes ) use ( $un ) {
+		// Les curl tournent en parallèle dans des sous-processus PHP : chacun
+		// rend sa réponse sérialisée sur sa sortie.
+		$procs = array();
+		foreach ( $requetes as $k => $r ) {
+			$code = '<?php define("SUIVI_CLI",1); require ' . var_export( __DIR__ . '/../includes/class-suivi-ffe.php', true ) . '; require ' . var_export( __FILE__, true ) . ';'
+				. '$t = suivi_transport_curl_cli(0); try { $r = $t(' . var_export( $r['url'], true ) . ', ' . var_export( isset( $r['opts'] ) ? $r['opts'] : array(), true ) . '); } catch (Exception $e) { $r = new RuntimeException($e->getMessage()); } echo serialize($r);';
+			$f    = tempnam( sys_get_temp_dir(), 'suivim' );
+			file_put_contents( $f, $code );
+			$procs[ $k ] = array( proc_open( array( PHP_BINARY, $f ), array( 1 => array( 'pipe', 'w' ), 2 => array( 'pipe', 'w' ) ), $pipes ), $pipes, $f );
+		}
+		$out = array();
+		foreach ( $procs as $k => $p ) {
+			$txt = stream_get_contents( $p[1][1] );
+			fclose( $p[1][1] );
+			fclose( $p[1][2] );
+			proc_close( $p[0] );
+			unlink( $p[2] );
+			$v         = @unserialize( $txt );
+			$out[ $k ] = false === $v ? new RuntimeException( 'sous-processus curl en échec' ) : $v;
+		}
+		return $out;
+	};
+}

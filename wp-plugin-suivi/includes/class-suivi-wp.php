@@ -107,8 +107,68 @@ class Suivi_WP {
 		};
 	}
 
+	/**
+	 * Transport groupé : plusieurs requêtes envoyées ensemble (Requests, la
+	 * bibliothèque HTTP de WordPress). Même contrat que transport(), par clé :
+	 * [clé => ['url', 'opts']] -> [clé => réponse | Throwable].
+	 * L'app d'origine envoyait 4 requêtes à la fois à la FFE (2 à chess-results) ;
+	 * une par une, le premier scan prenait des heures.
+	 */
+	public static function transport_multiple() {
+		return function ( $requetes ) {
+			$classe = class_exists( '\WpOrg\Requests\Requests' ) ? '\WpOrg\Requests\Requests' : 'Requests';
+			$ca     = ABSPATH . WPINC . '/certificates/ca-bundle.crt';
+			$liste  = array();
+			$suivre = array();
+			foreach ( $requetes as $k => $r ) {
+				$o            = isset( $r['opts'] ) ? $r['opts'] : array();
+				$entetes      = isset( $o['headers'] ) ? $o['headers'] : array();
+				$ua           = isset( $entetes['User-Agent'] ) ? $entetes['User-Agent'] : Suivi_FFE::UA;
+				unset( $entetes['User-Agent'] );
+				$suivre[ $k ] = ! ( isset( $o['redirection'] ) && 0 === $o['redirection'] );
+				$liste[ $k ]  = array(
+					'url'     => $r['url'],
+					'type'    => isset( $o['method'] ) ? $o['method'] : 'GET',
+					'headers' => $entetes,
+					'data'    => isset( $o['body'] ) && null !== $o['body'] ? $o['body'] : array(),
+					'options' => array(
+						'timeout'          => 30,
+						'connect_timeout'  => 10,
+						'useragent'        => $ua,
+						'follow_redirects' => $suivre[ $k ],
+						'redirects'        => 5,
+						'verify'           => is_file( $ca ) ? $ca : true,
+					),
+				);
+			}
+			$out = array();
+			foreach ( $classe::request_multiple( $liste ) as $k => $rep ) {
+				if ( $rep instanceof Throwable ) {
+					$out[ $k ] = new RuntimeException( $rep->getMessage() . ' sur ' . $requetes[ $k ]['url'] );
+					continue;
+				}
+				$statut = (int) $rep->status_code;
+				if ( $suivre[ $k ] && $statut >= 400 ) {
+					$out[ $k ] = new RuntimeException( "HTTP $statut sur " . $requetes[ $k ]['url'] );
+					continue;
+				}
+				$cookies = method_exists( $rep->headers, 'getValues' ) ? (array) $rep->headers->getValues( 'set-cookie' ) : array();
+				$out[ $k ] = array(
+					'body'         => (string) $rep->body,
+					'content_type' => (string) $rep->headers['content-type'],
+					'status'       => $statut,
+					'headers'      => array(
+						'location'   => (string) $rep->headers['location'],
+						'set-cookie' => $cookies,
+					),
+				);
+			}
+			return $out;
+		};
+	}
+
 	public static function tracker() {
-		return new Suivi_Tracker( new Suivi_Store_WP(), self::transport() );
+		return new Suivi_Tracker( new Suivi_Store_WP(), self::transport(), array( 'transportMultiple' => self::transport_multiple() ) );
 	}
 
 	// ---------------------------------------------------------------------

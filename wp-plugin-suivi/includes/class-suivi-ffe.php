@@ -29,8 +29,21 @@ class Suivi_FFE {
 	 * @param callable|null $http Transport HTTP injecté. Null = pas de réseau
 	 *                            (seules les méthodes de parsing sont utilisables).
 	 */
-	public function __construct( $http = null ) {
-		$this->http = $http;
+	/** @var callable|null fn(array $requetes): array — voir fetch_pages(). */
+	private $http_multi;
+
+	/** Requêtes simultanées au plus vers la FFE (comme l'app d'origine). */
+	const PARALLELE = 4;
+
+	/**
+	 * @param callable|null $http       fn(string $url, array $opts): array (une requête)
+	 * @param callable|null $http_multi fn(array $requetes): array — $requetes = [clé => ['url', 'opts']],
+	 *                                  rend [clé => réponse | Throwable] (requêtes envoyées ensemble).
+	 *                                  Sans lui, les lectures groupées se font une par une.
+	 */
+	public function __construct( $http = null, $http_multi = null ) {
+		$this->http       = $http;
+		$this->http_multi = $http_multi;
 	}
 
 	// ---------------------------------------------------------------------
@@ -609,6 +622,67 @@ class Suivi_FFE {
 		$url = ( 0 === strpos( $path, 'http' ) ) ? $path : self::BASE . ltrim( $path, '/' );
 		$res = call_user_func( $this->http, $url, $options );
 		return self::decode( $res['body'], isset( $res['content_type'] ) ? $res['content_type'] : '' );
+	}
+
+	/**
+	 * Plusieurs pages, par lots de PARALLELE envoyés ensemble.
+	 * Rend [clé => html décodé | Exception] ; une clé ABSENTE n'a pas été lue
+	 * (budget du passage atteint : l'appelant la lira au passage suivant).
+	 */
+	public function fetch_pages( $paths ) {
+		$out = array();
+		foreach ( array_chunk( $paths, self::PARALLELE, true ) as $lot ) {
+			try {
+				if ( $this->http_multi ) {
+					$req = array();
+					foreach ( $lot as $k => $path ) {
+						$req[ $k ] = array( 'url' => ( 0 === strpos( $path, 'http' ) ) ? $path : self::BASE . ltrim( $path, '/' ), 'opts' => array() );
+					}
+					foreach ( call_user_func( $this->http_multi, $req ) as $k => $r ) {
+						$out[ $k ] = $r instanceof Throwable ? $r : self::decode( $r['body'], isset( $r['content_type'] ) ? $r['content_type'] : '' );
+					}
+				} else {
+					foreach ( $lot as $k => $path ) {
+						try {
+							$out[ $k ] = $this->fetch_page( $path );
+						} catch ( Suivi_Budget_Epuise $e ) {
+							throw $e;
+						} catch ( Exception $e ) {
+							$out[ $k ] = $e;
+						}
+					}
+				}
+			} catch ( Suivi_Budget_Epuise $e ) {
+				break; // le reste au prochain passage
+			}
+		}
+		return $out;
+	}
+
+	/** Fiches de plusieurs tournois : [ref => fiche | Exception] (refs absentes = non lues). */
+	public function fiches_tournois( $refs ) {
+		$paths = array();
+		foreach ( $refs as $ref ) {
+			$paths[ (string) $ref ] = 'FicheTournoi.aspx?Ref=' . rawurlencode( (string) $ref );
+		}
+		$out = array();
+		foreach ( $this->fetch_pages( $paths ) as $ref => $html ) {
+			$out[ $ref ] = $html instanceof Throwable ? $html : self::parse_fiche( $html, (string) $ref );
+		}
+		return $out;
+	}
+
+	/** Participants de plusieurs tournois : [ref => participants | null (pas de liste) | Exception]. */
+	public function participants_multiples( $refs ) {
+		$paths = array();
+		foreach ( $refs as $ref ) {
+			$paths[ (string) $ref ] = 'Resultats.aspx?URL=Tournois/Id/' . $ref . '/' . $ref . '&Action=Ls';
+		}
+		$out = array();
+		foreach ( $this->fetch_pages( $paths ) as $ref => $html ) {
+			$out[ $ref ] = $html instanceof Throwable ? $html : ( self::fichier_absent( $html ) ? null : self::participants_depuis_html( $html ) );
+		}
+		return $out;
 	}
 
 	/**

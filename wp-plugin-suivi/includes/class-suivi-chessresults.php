@@ -45,9 +45,16 @@ class Suivi_ChessResults {
 	/** @var float Instant de la dernière requête (microtime). */
 	private $dernier = 0.0;
 
-	public function __construct( $transport = null, $delai_ms = 350 ) {
-		$this->http     = $transport;
-		$this->delai_ms = (int) $delai_ms;
+	/** @var callable|null Transport groupé (voir Suivi_FFE::__construct). */
+	private $http_multi;
+
+	/** Requêtes simultanées au plus (comme l'app d'origine : le site est tenu par une seule personne). */
+	const PARALLELE = 2;
+
+	public function __construct( $transport = null, $delai_ms = 350, $transport_multi = null ) {
+		$this->http       = $transport;
+		$this->delai_ms   = (int) $delai_ms;
+		$this->http_multi = $transport_multi;
 	}
 
 	// ---------------------------------------------------------------------
@@ -135,6 +142,149 @@ class Suivi_ChessResults {
 			$envoi = array();
 		}
 		throw new RuntimeException( 'trop de redirections' );
+	}
+
+	/**
+	 * Plusieurs requêtes à la fois, chacune suivant ses redirections de nœud
+	 * avec ses cookies. $items = [clé => ['url', 'opts', 'jar']].
+	 * Rend [clé => ['url', 'statut', 'html', 'jar'] | Throwable].
+	 * Le budget épuisé (exception du transport) remonte tel quel.
+	 */
+	private function req_multiple( $items ) {
+		$out     = array();
+		$encours = array();
+		foreach ( $items as $k => $it ) {
+			$encours[ $k ] = array(
+				'url'  => $it['url'],
+				'opts' => isset( $it['opts'] ) ? $it['opts'] : array(),
+				'jar'  => isset( $it['jar'] ) ? $it['jar'] : array(),
+			);
+		}
+		for ( $saut = 0; $encours && $saut <= self::MAX_SAUTS; $saut++ ) {
+			$this->patienter();
+			$req = array();
+			foreach ( $encours as $k => $e ) {
+				$entetes = array( 'User-Agent' => self::UA );
+				if ( $e['jar'] ) {
+					$paires = array();
+					foreach ( $e['jar'] as $ck => $cv ) {
+						$paires[] = "$ck=$cv";
+					}
+					$entetes['Cookie'] = implode( '; ', $paires );
+				}
+				$req[ $k ] = array(
+					'url'  => $e['url'],
+					'opts' => array(
+						'method'      => isset( $e['opts']['method'] ) ? $e['opts']['method'] : 'GET',
+						'body'        => isset( $e['opts']['body'] ) ? $e['opts']['body'] : null,
+						'headers'     => array_merge( $entetes, isset( $e['opts']['headers'] ) ? $e['opts']['headers'] : array() ),
+						'redirection' => 0,
+					),
+				);
+			}
+			if ( $this->http_multi ) {
+				$reps = call_user_func( $this->http_multi, $req );
+			} else {
+				$reps = array();
+				foreach ( $req as $k => $r ) {
+					try {
+						$reps[ $k ] = call_user_func( $this->http, $r['url'], $r['opts'] );
+					} catch ( Suivi_Budget_Epuise $ex ) {
+						throw $ex;
+					} catch ( Exception $ex ) {
+						$reps[ $k ] = $ex;
+					}
+				}
+			}
+			foreach ( $reps as $k => $r ) {
+				if ( $r instanceof Throwable ) {
+					$out[ $k ] = $r;
+					unset( $encours[ $k ] );
+					continue;
+				}
+				$statut  = isset( $r['status'] ) ? (int) $r['status'] : 200;
+				$headers = isset( $r['headers'] ) ? array_change_key_case( (array) $r['headers'], CASE_LOWER ) : array();
+				foreach ( (array) ( isset( $headers['set-cookie'] ) ? $headers['set-cookie'] : array() ) as $c ) {
+					$kv = explode( '=', explode( ';', $c )[0] );
+					if ( '' !== trim( $kv[0] ) ) {
+						$encours[ $k ]['jar'][ trim( $kv[0] ) ] = isset( $kv[1] ) ? $kv[1] : '';
+					}
+				}
+				if ( $statut < 300 || $statut >= 400 ) {
+					$out[ $k ] = $statut >= 400
+						? new RuntimeException( "HTTP $statut sur {$encours[ $k ]['url']}" )
+						: array( 'url' => $encours[ $k ]['url'], 'statut' => $statut, 'html' => (string) $r['body'], 'jar' => $encours[ $k ]['jar'] );
+					unset( $encours[ $k ] );
+				} elseif ( empty( $headers['location'] ) ) {
+					$out[ $k ] = new RuntimeException( "redirection sans destination sur {$encours[ $k ]['url']}" );
+					unset( $encours[ $k ] );
+				} else {
+					$loc                   = is_array( $headers['location'] ) ? $headers['location'][0] : $headers['location'];
+					$encours[ $k ]['url']  = self::resoudre( $loc, $encours[ $k ]['url'] );
+					$encours[ $k ]['opts'] = array(); // une redirection après POST se poursuit en GET
+				}
+			}
+		}
+		foreach ( array_keys( $encours ) as $k ) {
+			$out[ $k ] = new RuntimeException( 'trop de redirections' );
+		}
+		return $out;
+	}
+
+	/**
+	 * Recherches de plusieurs joueurs, PARALLELE à la fois.
+	 * $demandes = [clé => [fideId, du, au]] ; rend [clé => tournois | Throwable].
+	 * Une clé absente n'a pas été traitée (budget du passage atteint).
+	 */
+	public function tournois_des_joueurs( $demandes ) {
+		$out = array();
+		foreach ( array_chunk( $demandes, self::PARALLELE, true ) as $lot ) {
+			try {
+				$pages = $this->req_multiple( array_map( function () { return array( 'url' => self::BASE . 'spielersuche.aspx?lan=1' ); }, $lot ) );
+				$posts = array();
+				foreach ( $pages as $k => $page ) {
+					if ( $page instanceof Throwable ) {
+						$out[ $k ] = $page;
+						continue;
+					}
+					list( $fide, $du, $au ) = $lot[ $k ];
+					$posts[ $k ] = array(
+						'url'  => $page['url'],
+						'jar'  => $page['jar'],
+						'opts' => array(
+							'method'  => 'POST',
+							'headers' => array( 'Content-Type' => 'application/x-www-form-urlencoded' ),
+							'body'    => self::corps_recherche( $page['html'], $fide, $du, $au ),
+						),
+					);
+				}
+				foreach ( $posts ? $this->req_multiple( $posts ) : array() as $k => $res ) {
+					$out[ $k ] = $res instanceof Throwable ? $res : self::recherche_depuis_html( $res['html'] );
+				}
+			} catch ( Suivi_Budget_Epuise $e ) {
+				break;
+			}
+		}
+		return $out;
+	}
+
+	/** Fiches de plusieurs joueurs/tournois : $items = [clé => [tnr, snr]] ; rend [clé => fiche | null | Throwable]. */
+	public function fiches_par_tournoi( $items ) {
+		$out = array();
+		foreach ( array_chunk( $items, self::PARALLELE, true ) as $lot ) {
+			try {
+				$req = array();
+				foreach ( $lot as $k => $it ) {
+					$req[ $k ] = array( 'url' => self::BASE . "tnr{$it[0]}.aspx?lan=1&art=9&snr={$it[1]}" );
+				}
+				foreach ( $this->req_multiple( $req ) as $k => $r ) {
+					$out[ $k ] = $r instanceof Throwable ? $r : self::fiche_depuis_html( $r['html'], $lot[ $k ][0], $lot[ $k ][1] );
+				}
+			} catch ( Suivi_Budget_Epuise $e ) {
+				break;
+			}
+		}
+		return $out;
 	}
 
 	// ---------------------------------------------------------------------
@@ -243,7 +393,22 @@ class Suivi_ChessResults {
 	 */
 	public function tournois_du_joueur( $fide_id, $du, $au ) {
 		$page  = $this->req( self::BASE . 'spielersuche.aspx?lan=1' );
-		$corps = http_build_query(
+		$res   = $this->req(
+			$page['url'],
+			array(
+				'method'  => 'POST',
+				'headers' => array( 'Content-Type' => 'application/x-www-form-urlencoded' ),
+				'body'    => self::corps_recherche( $page['html'], $fide_id, $du, $au ),
+			),
+			$page['jar']
+		);
+		return self::recherche_depuis_html( $res['html'] );
+	}
+
+	/** Corps du formulaire de recherche par FIDE-ID (champs cachés ASP.NET de la page du formulaire). */
+	private static function corps_recherche( $html, $fide_id, $du, $au ) {
+		$page  = array( 'html' => $html );
+		return http_build_query(
 			array(
 				'__VIEWSTATE'                  => self::cache_aspnet( $page['html'], '__VIEWSTATE' ),
 				'__VIEWSTATEGENERATOR'         => self::cache_aspnet( $page['html'], '__VIEWSTATEGENERATOR' ),
@@ -264,16 +429,6 @@ class Suivi_ChessResults {
 				'ctl00$P1$cb_suchen'           => 'Search',
 			)
 		);
-		$res = $this->req(
-			$page['url'],
-			array(
-				'method'  => 'POST',
-				'headers' => array( 'Content-Type' => 'application/x-www-form-urlencoded' ),
-				'body'    => $corps,
-			),
-			$page['jar']
-		);
-		return self::recherche_depuis_html( $res['html'] );
 	}
 
 	public static function recherche_depuis_html( $html ) {

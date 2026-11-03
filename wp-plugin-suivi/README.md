@@ -109,6 +109,8 @@ dépassait un passage et recommençait sans fin :
 - **Elo quotidien** : un joueur absent de la liste de son club (`horsClubLe`) passe
   directement à la recherche individuelle, une tentative par jour (`eloEssaiLe`) — sinon
   tout le club était relu à chaque passage ;
+- **requêtes groupées** (comme l'app d'origine) : 4 à la fois vers la FFE, 2 vers chess-results (`transport_multiple`, bibliothèque Requests de WordPress) ; ~4× plus rapide en réel (8-14 éléments par passage au lieu de 2-3), même résultat vérifié par test ;
+- **rattrapage chess-results** : tant que des joueurs n'y ont jamais été cherchés, chess-results a 60 % du budget (sinon une compétition internationale en cours restait invisible des heures) ;
 - **verrou** : relu en base à chaque vérification (WordPress garde une option lue pendant toute la requête ; une attente du verrou ne voyait jamais sa libération) ; les actions de l'admin passent avant les passages ;
 - **chess-results** : part de budget réservée (FFE ≤ 75 %), tour de rôle direct / recherche ;
 - **fiches de test d'organisateurs** écartées (homme dans un tournoi féminin, adulte dans un

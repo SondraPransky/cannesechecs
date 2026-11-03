@@ -103,10 +103,20 @@ class Suivi_Tracker {
 			}
 			return call_user_func( $transport, $url, $opts );
 		};
-		$this->ffe   = new Suivi_FFE( $budgete );
+		// Transport groupé (requêtes envoyées ensemble), même contrôle de budget.
+		$multi = isset( $options['transportMultiple'] ) ? $options['transportMultiple'] : null;
+		$budgete_multi = $multi ? function ( $requetes ) use ( $multi ) {
+			if ( null !== $this->echeance && microtime( true ) >= $this->echeance ) {
+				$this->budget_atteint = true;
+				throw new Suivi_Budget_Epuise( 'Budget de temps du passage atteint' );
+			}
+			return call_user_func( $multi, $requetes );
+		} : null;
+		$this->ffe   = new Suivi_FFE( $budgete, $budgete_multi );
 		$this->cr    = new Suivi_ChessResults(
 			$budgete,
-			isset( $options['delaiChessResultsMs'] ) ? $options['delaiChessResultsMs'] : 350
+			isset( $options['delaiChessResultsMs'] ) ? $options['delaiChessResultsMs'] : 350,
+			$budgete_multi
 		);
 	}
 
@@ -231,30 +241,39 @@ class Suivi_Tracker {
 		// Présélection sur la date de début annoncée.
 		$borne   = Suivi_Horloge::shift( $debut, -14 );
 		$retenus = array();
+		$candidats = array();
+		$a_lire    = array();
 		foreach ( array_keys( $cache['tournois'] ) as $ref ) {
 			$t = self::tournoi( $cache, $ref );
 			if ( empty( $t['dateDebut'] ) || strcmp( $t['dateDebut'], $borne ) < 0 || strcmp( $t['dateDebut'], $fin ) > 0 ) {
 				continue;
 			}
+			$candidats[] = $ref;
 			// La fiche donne la date de fin et le nombre de rondes : relue si
 			// inconnue, ou si le tournoi n'est pas fini (et pas relue récemment).
-			$connu = ! empty( $t['dateFin'] ) && null !== self::v( $t, 'nbRondes' );
-			$fini  = $connu && strcmp( $t['dateFin'], Suivi_Horloge::shift( $today, -2 ) ) < 0;
+			$connu   = ! empty( $t['dateFin'] ) && null !== self::v( $t, 'nbRondes' );
+			$fini    = $connu && strcmp( $t['dateFin'], Suivi_Horloge::shift( $today, -2 ) ) < 0;
 			$fiche   = self::v( $cache['fiches'], $ref );
 			$recente = ( isset( $fiche['lueA'] ) && $now - $fiche['lueA'] < self::TTL_FICHE ) || self::echec_recent( $fiche );
-			if ( ( ! $connu || ! $fini ) && ! $recente && ! $this->budget_atteint ) {
-				try {
-					$cache['fiches'][ $ref ] = $this->ffe->fiche_tournoi( $ref ) + array( 'lueA' => $now );
-					$t                       = self::tournoi( $cache, $ref );
-				} catch ( Suivi_Budget_Epuise $e ) {
-					// On garde ce qu'on sait ; la fiche sera lue au prochain passage.
-					unset( $e );
-				} catch ( Exception $e ) {
-					$erreurs[]                         = "Fiche $ref : " . $e->getMessage();
+			if ( ( ! $connu || ! $fini ) && ! $recente ) {
+				$a_lire[] = $ref;
+			}
+		}
+
+		// Lues par lots (4 requêtes à la fois) ; sous budget, le reste attend le passage suivant.
+		if ( $a_lire && ! $this->budget_atteint ) {
+			foreach ( $this->ffe->fiches_tournois( $a_lire ) as $ref => $f ) {
+				if ( $f instanceof Throwable ) {
+					$erreurs[]                         = "Fiche $ref : " . $f->getMessage();
 					$cache['fiches'][ $ref ]['echecA'] = $now; // données déjà lues conservées
+				} else {
+					$cache['fiches'][ $ref ] = $f + array( 'lueA' => $now );
 				}
 			}
-			if ( self::dans_fenetre( $t, $debut, $fin ) ) {
+		}
+
+		foreach ( $candidats as $ref ) {
+			if ( self::dans_fenetre( self::tournoi( $cache, $ref ), $debut, $fin ) ) {
 				$retenus[] = (string) $ref;
 			}
 		}
@@ -273,30 +292,36 @@ class Suivi_Tracker {
 		foreach ( $joueurs as $j ) {
 			$noms[ Suivi_FFE::norm_name( $j['nomComplet'] ) ] = true;
 		}
-		$concernes = array();
+		$a_lire = array();
 		foreach ( $refs as $ref ) {
-			$t      = self::tournoi( $cache, $ref );
 			$entree = self::v( $cache['participants'], $ref );
-			$frais  = $entree && ( self::fini( $t ) || $now - $entree['fetchedAt'] < $ttl || self::echec_recent( $entree ) );
-			$liste  = $entree ? $entree['joueurs'] : null;
-			if ( ! $frais && ! $this->budget_atteint ) {
-				try {
-					$p                             = $this->ffe->participants( $ref );
-					$liste                         = $p ? $p['joueurs'] : array();
-					$cache['participants'][ $ref ] = array( 'joueurs' => $liste, 'fetchedAt' => $now );
-				} catch ( Suivi_Budget_Epuise $e ) {
-					$liste = $entree ? $entree['joueurs'] : array();
-				} catch ( Exception $e ) {
-					$erreurs[] = "Participants $ref : " . $e->getMessage();
-					$liste     = $entree ? $entree['joueurs'] : array();
+			$frais  = $entree && ( self::fini( self::tournoi( $cache, $ref ) ) || $now - $entree['fetchedAt'] < $ttl || self::echec_recent( $entree ) );
+			if ( ! $frais ) {
+				$a_lire[] = $ref;
+			}
+		}
+		// Lues par lots (4 requêtes à la fois) ; sous budget, le reste attend le passage suivant.
+		if ( $a_lire && ! $this->budget_atteint ) {
+			foreach ( $this->ffe->participants_multiples( $a_lire ) as $ref => $p ) {
+				$entree = self::v( $cache['participants'], $ref );
+				if ( $p instanceof Throwable ) {
+					$erreurs[] = "Participants $ref : " . $p->getMessage();
 					// Liste déjà connue conservée ; échec mémorisé pour ne pas retenter en boucle.
 					$cache['participants'][ $ref ] = array(
-						'joueurs'   => $liste,
+						'joueurs'   => $entree ? $entree['joueurs'] : array(),
 						'fetchedAt' => $entree ? $entree['fetchedAt'] : 0,
 						'echecA'    => $now,
 					);
+				} else {
+					$cache['participants'][ $ref ] = array( 'joueurs' => $p ? $p['joueurs'] : array(), 'fetchedAt' => $now );
 				}
 			}
+		}
+
+		$concernes = array();
+		foreach ( $refs as $ref ) {
+			$entree = self::v( $cache['participants'], $ref );
+			$liste  = $entree ? $entree['joueurs'] : array();
 			foreach ( (array) $liste as $l ) {
 				if ( isset( $noms[ Suivi_FFE::norm_name( $l['nom'] ) ] ) ) {
 					$concernes[] = (string) $ref;
@@ -859,27 +884,46 @@ class Suivi_Tracker {
 	 * est assez fraîche : relue à chaque passage tant que le tournoi n'est pas
 	 * fini, une fois par jour ensuite. Rend null si rien n'est lisible.
 	 */
-	private function fiche_cr( $entree, &$memoire, &$erreurs ) {
-		$cle     = $entree['tnr'] . '|' . $entree['snr'];
-		$cached  = self::v( $memoire['fiches'], $cle );
-		$fini    = ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], Suivi_Horloge::today() ) < 0;
+	private static function cle_cr( $entree ) {
+		return $entree['tnr'] . '|' . $entree['snr'];
+	}
+
+	/** La fiche doit-elle être (re)lue ? Tournoi en cours : à chaque passage ; fini : une fois par jour. */
+	private function fiche_cr_a_lire( $entree, $memoire ) {
+		$cle    = self::cle_cr( $entree );
+		$cached = self::v( $memoire['fiches'], $cle );
+		$fini   = ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], Suivi_Horloge::today() ) < 0;
 		$fraiche = isset( $cached['luA'] ) && $fini && Suivi_Horloge::ts() - $cached['luA'] < self::TTL_DETAIL_FINI;
-		if ( $fraiche || isset( $this->lus[ "cr$cle" ] ) || $this->budget_atteint || self::echec_recent( $cached ) ) {
-			return self::v( $cached, 'fiche' );
+		return ! ( $fraiche || isset( $this->lus[ "cr$cle" ] ) || self::echec_recent( $cached ) );
+	}
+
+	/**
+	 * Lit les fiches chess-results demandées, 2 à la fois, jusqu'à $fin
+	 * (microtime) ou au budget. Une fiche en panne garde sa dernière version
+	 * (l'original écartait le tournoi pour ce passage).
+	 */
+	private function lire_fiches_cr( $entrees, &$memoire, &$erreurs, $fin = null ) {
+		$items = array();
+		foreach ( $entrees as $entree ) {
+			if ( $this->fiche_cr_a_lire( $entree, $memoire ) ) {
+				$items[ self::cle_cr( $entree ) ] = array( $entree['tnr'], $entree['snr'] );
+			}
 		}
-		try {
-			$fiche                     = $this->cr->fiche_par_tournoi( $entree['tnr'], $entree['snr'] );
-			$memoire['fiches'][ $cle ] = array( 'fiche' => $fiche, 'luA' => Suivi_Horloge::ts() );
-			$this->lus[ "cr$cle" ]     = true;
-			return $fiche;
-		} catch ( Suivi_Budget_Epuise $e ) {
-			return self::v( $cached, 'fiche' );
-		} catch ( Exception $e ) {
-			// L'original écartait le tournoi pour ce passage ; on garde la dernière fiche lue.
-			$erreurs[]                           = "chess-results tnr{$entree['tnr']} : " . $e->getMessage();
-			$memoire['fiches'][ $cle ]           = is_array( $cached ) ? $cached : array( 'fiche' => null );
-			$memoire['fiches'][ $cle ]['echecA'] = Suivi_Horloge::ts();
-			return self::v( $cached, 'fiche' );
+		foreach ( array_chunk( $items, Suivi_ChessResults::PARALLELE, true ) as $lot ) {
+			if ( $this->budget_atteint || ( null !== $fin && microtime( true ) >= $fin ) ) {
+				break;
+			}
+			foreach ( $this->cr->fiches_par_tournoi( $lot ) as $cle => $f ) {
+				$cached = self::v( $memoire['fiches'], $cle );
+				if ( $f instanceof Throwable ) {
+					$erreurs[]                           = 'chess-results tnr' . $lot[ $cle ][0] . ' : ' . $f->getMessage();
+					$memoire['fiches'][ $cle ]           = is_array( $cached ) ? $cached : array( 'fiche' => null );
+					$memoire['fiches'][ $cle ]['echecA'] = Suivi_Horloge::ts();
+				} else {
+					$memoire['fiches'][ $cle ] = array( 'fiche' => $f, 'luA' => Suivi_Horloge::ts() );
+					$this->lus[ "cr$cle" ]     = true;
+				}
+			}
 		}
 	}
 
@@ -912,17 +956,63 @@ class Suivi_Tracker {
 		$memoire['rechercheEnAttente'] = false;
 		$t0         = microtime( true );
 		$fin_direct = $this->echeance ? $t0 + $part_direct * max( 0, $this->echeance - $t0 ) : null;
+		$direct     = array();
 		foreach ( $joueurs as $joueur ) {
 			$memo = empty( $joueur['fideId'] ) ? null : self::v( $memoire['parJoueur'], $joueur['id'] );
 			foreach ( $memo ? $memo['tournois'] : array() as $entree ) {
-				if ( null !== $fin_direct && microtime( true ) >= $fin_direct ) {
-					break 2;
-				}
 				if ( ! self::entree_ignoree( $entree ) && ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], $today ) >= 0 ) {
-					$this->fiche_cr( $entree, $memoire, $erreurs );
+					$direct[] = $entree;
 				}
 			}
 		}
+		if ( null === $fin_direct || $part_direct > 0 ) {
+			$this->lire_fiches_cr( $direct, $memoire, $erreurs, $fin_direct );
+		}
+
+		// Recherches à faire (2 à la fois).
+		$demandes = array();
+		foreach ( $joueurs as $joueur ) {
+			if ( empty( $joueur['fideId'] ) ) {
+				continue;
+			}
+			$memo   = self::v( $memoire['parJoueur'], $joueur['id'] );
+			$perime = ! $memo || $memo['fenetre'] !== $fenetre || $now - $memo['a'] > $ttl;
+			if ( $perime && ! self::echec_recent( $memo ) ) {
+				$demandes[ $joueur['id'] ] = array( $joueur['fideId'], $du, $au );
+			}
+		}
+		if ( $demandes ) {
+			$faites = $this->budget_atteint ? array() : $this->cr->tournois_des_joueurs( $demandes );
+			if ( count( $faites ) < count( $demandes ) ) {
+				$memoire['rechercheEnAttente'] = true; // le reste en priorité au prochain passage
+			}
+			$noms = array();
+			foreach ( $joueurs as $joueur ) {
+				$noms[ $joueur['id'] ] = $joueur['nomComplet'];
+			}
+			foreach ( $faites as $id => $r ) {
+				$memo = self::v( $memoire['parJoueur'], $id );
+				if ( $r instanceof Throwable ) {
+					$erreurs[]                             = "chess-results {$noms[ $id ]} : " . $r->getMessage();
+					$memoire['parJoueur'][ $id ]           = $memo ? $memo : array( 'tournois' => array(), 'a' => 0, 'fenetre' => '' );
+					$memoire['parJoueur'][ $id ]['echecA'] = $now;
+				} else {
+					$memoire['parJoueur'][ $id ] = array( 'tournois' => $r, 'a' => $now, 'fenetre' => $fenetre );
+				}
+			}
+		}
+
+		// Fiches de tous les tournois retenus (lues par lots), puis assemblage sans réseau.
+		$a_lire = array();
+		foreach ( $joueurs as $joueur ) {
+			$memo = empty( $joueur['fideId'] ) ? null : self::v( $memoire['parJoueur'], $joueur['id'] );
+			foreach ( $memo ? $memo['tournois'] : array() as $entree ) {
+				if ( ! self::entree_ignoree( $entree ) ) {
+					$a_lire[] = $entree;
+				}
+			}
+		}
+		$this->lire_fiches_cr( $a_lire, $memoire, $erreurs );
 
 		foreach ( $joueurs as $joueur ) {
 			if ( empty( $joueur['fideId'] ) ) {
@@ -931,23 +1021,6 @@ class Suivi_Tracker {
 			$id       = $joueur['id'];
 			$memo     = self::v( $memoire['parJoueur'], $id );
 			$tournois = $memo ? $memo['tournois'] : array();
-			$perime   = ! $memo || $memo['fenetre'] !== $fenetre || $now - $memo['a'] > $ttl;
-
-			if ( $perime && $this->budget_atteint ) {
-				$memoire['rechercheEnAttente'] = true;
-			}
-			if ( $perime && ! $this->budget_atteint && ! self::echec_recent( $memo ) ) {
-				try {
-					$tournois                    = $this->cr->tournois_du_joueur( $joueur['fideId'], $du, $au );
-					$memoire['parJoueur'][ $id ] = array( 'tournois' => $tournois, 'a' => $now, 'fenetre' => $fenetre );
-				} catch ( Suivi_Budget_Epuise $e ) {
-					$memoire['rechercheEnAttente'] = true; // prioritaire au prochain passage
-				} catch ( Exception $e ) {
-					$erreurs[]                             = "chess-results {$joueur['nomComplet']} : " . $e->getMessage();
-					$memoire['parJoueur'][ $id ]           = $memo ? $memo : array( 'tournois' => array(), 'a' => 0, 'fenetre' => '' );
-					$memoire['parJoueur'][ $id ]['echecA'] = $now;
-				}
-			}
 
 			$siens = array();
 			foreach ( $suivi_ffe as $s ) {
@@ -960,8 +1033,8 @@ class Suivi_Tracker {
 				if ( self::entree_ignoree( $entree ) ) {
 					continue;
 				}
-				$utilisees[ $entree['tnr'] . '|' . $entree['snr'] ] = true;
-				$fiche = $this->fiche_cr( $entree, $memoire, $erreurs );
+				$utilisees[ self::cle_cr( $entree ) ] = true;
+				$fiche = self::v( self::v( $memoire['fiches'], self::cle_cr( $entree ) ), 'fiche' );
 				if ( ! $fiche ) {
 					continue;
 				}

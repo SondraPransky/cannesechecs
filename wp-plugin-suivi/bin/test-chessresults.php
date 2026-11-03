@@ -245,6 +245,29 @@ $req = array();
 $st  = ( new Suivi_Tracker( $store, transport( $req ), array( 'delaiChessResultsMs' => 0 ) ) )->rafraichir();
 ok( 3 === count( $st['suivi'] ) && ! $req, 'chess-results désactivé : aucune requête, FFE seule' );
 
+section( 'Requêtes groupées (4 à la fois vers la FFE, 2 vers chess-results)' );
+Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
+$seq    = par_ref( ( new Suivi_Tracker( magasin(), transport(), array( 'delaiChessResultsMs' => 0 ) ) )->rafraichir() );
+$t1     = transport();
+$lots   = array( 'ffe' => array(), 'cr' => array() );
+$groupe = function ( $requetes ) use ( $t1, &$lots ) {
+	$cr                    = false !== strpos( reset( $requetes )['url'], 'chess-results' );
+	$lots[ $cr ? 'cr' : 'ffe' ][] = count( $requetes );
+	$out = array();
+	foreach ( $requetes as $k => $r ) {
+		try {
+			$out[ $k ] = $t1( $r['url'], $r['opts'] );
+		} catch ( Exception $e ) {
+			$out[ $k ] = $e;
+		}
+	}
+	return $out;
+};
+$par = par_ref( ( new Suivi_Tracker( magasin(), transport(), array( 'delaiChessResultsMs' => 0, 'transportMultiple' => $groupe ) ) )->rafraichir() );
+ok( json_encode( $par ) === json_encode( $seq ), 'mode groupé : exactement le même résultat qu\'une requête à la fois' );
+ok( $lots['ffe'] && max( $lots['ffe'] ) === 4 && max( $lots['cr'] ) === 2, 'lots : 4 au plus vers la FFE, 2 au plus vers chess-results' );
+echo '    lots FFE : ' . count( $lots['ffe'] ) . ' (au lieu de ' . array_sum( $lots['ffe'] ) . ' requêtes une par une), lots chess-results : ' . count( $lots['cr'] ) . "\n";
+
 section( 'Retrait d\'un joueur' );
 $store = magasin();
 $trk   = new Suivi_Tracker( $store, transport(), array( 'delaiChessResultsMs' => 0 ) );
