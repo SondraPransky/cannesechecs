@@ -210,5 +210,32 @@ try {
 }
 ok( false !== strpos( $err, 'déjà suivi' ), 'doublon refusé' );
 
+section( 'Listes de mois : relecture selon le mois, progression du premier scan' );
+Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
+$urls  = array();
+$base  = transport();
+$espion = function ( $url, $opts = array() ) use ( $base, &$urls ) {
+	if ( false !== strpos( $url, 'ListeTournois' ) && empty( $opts['method'] ) ) {
+		$urls[] = preg_match( '/Mois=(\d+)/', $url, $m ) ? (int) $m[1] : 0;
+	}
+	return $base( $url, $opts );
+};
+$store = magasin();
+$trk   = new Suivi_Tracker( $store, $espion );
+$pr0   = $trk->progression();
+ok( 0 === $pr0['fait'] && 3 === $pr0['detail']['mois'][1], 'progression avant tout passage : rien de fait, 3 mois à lire' );
+$trk->rafraichir();
+$pr = $trk->progression();
+ok( $pr['fait'] === $pr['total'] && $pr['total'] > 3 && true === $pr['scanComplet'], 'progression après un passage complet : tout est lu' );
+$urls = array();
+Suivi_Horloge::fixer( '2026-11-01T15:00:00Z' ); // +3 h
+$trk->rafraichir();
+ok( array( 11 ) === $urls, '+3 h : seul le mois en cours est relu (2 h) ; précédent (12 h) et suivant (6 h) gardés' );
+$urls = array();
+Suivi_Horloge::fixer( '2026-11-01T19:00:00Z' ); // +7 h
+$trk->rafraichir();
+sort( $urls );
+ok( array( 11, 12 ) === $urls, '+7 h : mois en cours et mois suivant relus, pas le précédent' );
+
 echo "\n" . ( $fail ? "ÉCHEC : $fail/$nb assertion(s)\n" : "SUCCÈS : $nb assertions passent\n" );
 exit( $fail ? 1 : 0 );

@@ -37,8 +37,18 @@ class Suivi_Budget_Epuise extends RuntimeException {}
 
 class Suivi_Tracker {
 
-	/** Liste d'un mois considérée fraîche pendant… (s). */
-	const TTL_MOIS = 3600;
+	/**
+	 * Liste d'un mois considérée fraîche pendant… (s), selon le mois. Une liste
+	 * fait 5 à 15 pages et la FFE met jusqu'à 20 s par page : relue toutes les
+	 * heures, elle mangeait la moitié des passages. Le mois en cours est celui
+	 * où apparaissent les tournois qui commencent ; le précédent ne reçoit plus
+	 * que des résultats tardifs ; le suivant est presque vide.
+	 */
+	const TTL_MOIS_COURANT   = 2 * 3600;
+	const TTL_MOIS_PRECEDENT = 12 * 3600;
+	const TTL_MOIS_SUIVANT   = 6 * 3600;
+	/** Une lecture de liste commencée reste reprenable pendant… (s). */
+	const TTL_REPRISE = 3600;
 	/** Fiche d'un tournoi non terminé relue au plus tous les… (s). */
 	const TTL_FICHE = 6 * 3600;
 	/** Détail d'un tournoi terminé relu au plus tous les… (s) : saisies tardives de l'arbitre. */
@@ -112,6 +122,12 @@ class Suivi_Tracker {
 		return array_values( $out );
 	}
 
+	private static function ttl_mois( $mm ) {
+		$courant = (int) substr( Suivi_Horloge::today(), 0, 4 ) * 12 + (int) substr( Suivi_Horloge::today(), 5, 2 );
+		$ecart   = $mm['annee'] * 12 + $mm['mois'] - $courant;
+		return 0 === $ecart ? self::TTL_MOIS_COURANT : ( $ecart < 0 ? self::TTL_MOIS_PRECEDENT : self::TTL_MOIS_SUIVANT );
+	}
+
 	/**
 	 * Tournoi tel que le moteur le voit : données de la liste du mois, complétées
 	 * et corrigées par la fiche (qui fait foi : dates exactes, nom complet).
@@ -174,12 +190,12 @@ class Suivi_Tracker {
 		foreach ( self::mois_a_scanner( $cfg['joursAvant'], $cfg['joursApres'] ) as $mm ) {
 			$cle   = $mm['annee'] . '-' . $mm['mois'];
 			$connu = self::v( $cache['mois'], $cle );
-			if ( ( isset( $connu['a'] ) && $now - $connu['a'] < self::TTL_MOIS ) || self::echec_recent( $connu ) ) {
+			if ( ( isset( $connu['a'] ) && $now - $connu['a'] < self::ttl_mois( $mm ) ) || self::echec_recent( $connu ) ) {
 				continue;
 			}
 			// Lecture commencée par un passage précédent : on la continue, sauf
 			// si elle est trop vieille (la liste a pu bouger entre-temps).
-			$reprise = ( isset( $connu['reprise'], $connu['repriseA'] ) && $now - $connu['repriseA'] < self::TTL_MOIS ) ? $connu['reprise'] : null;
+			$reprise = ( isset( $connu['reprise'], $connu['repriseA'] ) && $now - $connu['repriseA'] < self::TTL_REPRISE ) ? $connu['reprise'] : null;
 			$depuis  = $reprise ? $connu['repriseA'] : $now;
 			try {
 				foreach ( $this->ffe->liste_tournois_mois( $mm['mois'], $mm['annee'], $reprise ) as $t ) {
@@ -964,6 +980,76 @@ class Suivi_Tracker {
 		// Les fiches qui ne servent plus (tournoi sorti de la fenêtre, joueur retiré) sont oubliées.
 		$memoire['fiches'] = array_intersect_key( $memoire['fiches'], $utilisees );
 		return $ajouts;
+	}
+
+	/**
+	 * Avancement du premier scan, sans réseau (pour la barre de progression du
+	 * bouton « scan complet ») : ce qui n'a JAMAIS été lu. Les relectures
+	 * périodiques n'y comptent pas, la barre ne recule donc pas.
+	 *
+	 * @return array fait, total, detail (mois, fiches, participants, chessResults), scanComplet
+	 */
+	public function progression() {
+		$cfg   = $this->store->get( 'config' );
+		$cache = $this->store->get( 'cache' );
+		$db    = $this->store->get( 'joueurs' );
+		$today = Suivi_Horloge::today();
+		$debut = Suivi_Horloge::shift( $today, -$cfg['joursAvant'] );
+		$fin   = Suivi_Horloge::shift( $today, $cfg['joursApres'] );
+		$borne = Suivi_Horloge::shift( $debut, -14 );
+
+		$d = array();
+		$mois = self::mois_a_scanner( $cfg['joursAvant'], $cfg['joursApres'] );
+		$lus  = 0;
+		foreach ( $mois as $mm ) {
+			$c    = self::v( $cache['mois'], $mm['annee'] . '-' . $mm['mois'] );
+			$lus += ( isset( $c['a'] ) || isset( $c['echecA'] ) ) ? 1 : 0;
+		}
+		$d['mois'] = array( $lus, count( $mois ) );
+
+		$f = array( 0, 0 );
+		$p = array( 0, 0 );
+		foreach ( array_keys( $cache['tournois'] ) as $ref ) {
+			$t = self::tournoi( $cache, $ref );
+			if ( empty( $t['dateDebut'] ) || strcmp( $t['dateDebut'], $borne ) < 0 || strcmp( $t['dateDebut'], $fin ) > 0 ) {
+				continue;
+			}
+			$fiche = self::v( $cache['fiches'], $ref );
+			$f[1]++;
+			$f[0] += ( isset( $fiche['lueA'] ) || isset( $fiche['echecA'] ) ) ? 1 : 0;
+			if ( self::dans_fenetre( $t, $debut, $fin ) ) {
+				$p[1]++;
+				$p[0] += isset( $cache['participants'][ $ref ] ) ? 1 : 0;
+			}
+		}
+		$d['fiches']       = $f;
+		$d['participants'] = $p;
+
+		$cr = array( 0, 0 );
+		if ( false !== self::v( $cfg, 'chessResultsActif', true ) ) {
+			$memoire = $this->store->get( 'chessresults' );
+			foreach ( $db['joueurs'] as $j ) {
+				if ( ! empty( $j['fideId'] ) ) {
+					$cr[1]++;
+					$cr[0] += isset( $memoire['parJoueur'][ $j['id'] ] ) ? 1 : 0;
+				}
+			}
+		}
+		$d['chessResults'] = $cr;
+
+		$fait  = 0;
+		$total = 0;
+		foreach ( $d as $x ) {
+			$fait  += $x[0];
+			$total += $x[1];
+		}
+		$st = $this->store->get( 'etat' );
+		return array(
+			'fait'        => $fait,
+			'total'       => $total,
+			'detail'      => $d,
+			'scanComplet' => ! empty( $st['scanComplet'] ) && $fait === $total,
+		);
 	}
 
 	/** Ce que l'affichage reçoit : joueurs (avec leur Elo en direct), suivi, fil. */

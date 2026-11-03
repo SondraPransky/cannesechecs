@@ -151,6 +151,31 @@ class Suivi_WP {
 	}
 
 	// ---------------------------------------------------------------------
+	// Scan complet à la demande : la page d'admin enchaîne des appels AJAX,
+	// un passage chacun, tant qu'elle reste ouverte (premier scan en ~1 h au
+	// lieu d'une journée au rythme du cron).
+	// ---------------------------------------------------------------------
+
+	const AJAX_SCAN = 'suivi_tournoi_scan';
+
+	public static function ajax_scan() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => 'Accès refusé.' ), 403 );
+		}
+		check_ajax_referer( self::AJAX_SCAN );
+		$st  = self::passage();
+		$trk = self::tracker();
+		wp_send_json_success(
+			array(
+				'occupe'      => null === $st, // un passage (cron) tournait déjà : réessayer
+				'progression' => $trk->progression(),
+				'engagements' => null === $st ? null : count( $st['suivi'] ),
+				'erreurs'     => null === $st ? array() : array_slice( $st['erreurs'], 0, 5 ),
+			)
+		);
+	}
+
+	// ---------------------------------------------------------------------
 	// WP-cron
 	// ---------------------------------------------------------------------
 

@@ -24,6 +24,7 @@ unset( $suivi_c );
 
 add_filter( 'cron_schedules', array( 'Suivi_WP', 'plannings' ) );
 add_action( Suivi_WP::HOOK_CRON, array( 'Suivi_WP', 'passage' ) );
+add_action( 'wp_ajax_' . Suivi_WP::AJAX_SCAN, array( 'Suivi_WP', 'ajax_scan' ) );
 
 register_activation_hook( __FILE__, array( 'Suivi_WP', 'planifier' ) );
 register_deactivation_hook( __FILE__, array( 'Suivi_WP', 'deplanifier' ) );
