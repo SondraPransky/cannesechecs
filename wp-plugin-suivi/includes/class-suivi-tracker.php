@@ -66,6 +66,13 @@ class Suivi_Tracker {
 	 * indivisibles — n'aboutissait jamais (trouvé par les tests).
 	 */
 	const PART_FFE = 0.75;
+	/**
+	 * Part de la FFE tant que des joueurs n'ont JAMAIS été cherchés sur
+	 * chess-results (premier scan, joueurs ajoutés) : à 25 %, 114 recherches
+	 * prenaient des heures et une compétition internationale en cours (ex.
+	 * championnat d'Europe jeunes) restait invisible pendant tout ce temps.
+	 */
+	const PART_FFE_RATTRAPAGE = 0.4;
 
 	/** @var Suivi_Store_Interface */
 	private $store;
@@ -590,7 +597,15 @@ class Suivi_Tracker {
 		$cr_actif             = false !== self::v( $cfg, 'chessResultsActif', true );
 		$echeance_passage     = $this->echeance;
 		if ( $cr_actif && $this->echeance ) {
-			$this->echeance = $debut_passage + self::PART_FFE * $budget;
+			$memo_cr  = $this->store->get( 'chessresults' );
+			$a_cherch = false;
+			foreach ( $this->store->get( 'joueurs' )['joueurs'] as $j ) {
+				if ( ! empty( $j['fideId'] ) && ! isset( $memo_cr['parJoueur'][ $j['id'] ] ) ) {
+					$a_cherch = true;
+					break;
+				}
+			}
+			$this->echeance = $debut_passage + ( $a_cherch ? self::PART_FFE_RATTRAPAGE : self::PART_FFE ) * $budget;
 		}
 		$this->lus            = array();
 
