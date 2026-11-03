@@ -6,7 +6,8 @@
  *
  * Validé par parité avec l'app Node d'origine : mêmes fiches lues champ par
  * champ sur les six dispositions de pages, et même état du moteur sur le
- * scénario ci-dessous (8 engagements, 23 requêtes chess-results).
+ * scénario ci-dessous (8 engagements, 23 requêtes chess-results), avant l'ajout
+ * volontaire du filtre des fiches de test d'organisateurs (+2 requêtes).
  *
  * Le faux réseau reproduit le comportement du site : redirection vers un nœud
  * (S3…), cookie de session posé par le formulaire et exigé par la recherche
@@ -42,6 +43,7 @@ const FICHES_CR = array(
 	'1338670|2'   => 'cr-fiche-9col.html',
 	'1448047|2'   => 'cr-fiche-ferme.html',
 	'1500000|4'   => 'cr-fiche-doublon.html',
+	'1529799|12'  => 'cr-fiche-test-organisateur.html',
 );
 
 /**
@@ -171,7 +173,8 @@ $trk   = new Suivi_Tracker( $store, transport( $req ), array( 'delaiChessResults
 $st    = $trk->rafraichir();
 $e     = par_ref( $st );
 ok( 8 === count( $st['suivi'] ), '8 engagements (3 FFE + 5 chess-results)' );
-ok( 23 === count( $req ), '23 requêtes chess-results (même profil que l\'original)' );
+ok( 25 === count( $req ), '25 requêtes chess-results (23 comme l\'original + la fiche de test, lue pour connaître son nom complet)' );
+ok( ! isset( $e['cr1529799|S50192'] ), 'fiche de test d\'organisateur écartée (GM senior dans un tournoi « Juventud … Femenino »)' );
 ok( '999999' === $store->get( 'joueurs' )['joueurs'][1]['fideId'], 'ID FIDE d\'Anna lu sur sa fiche FFE' );
 ok( ! isset( $e['cr1500000|PRIE_ERIC'] ) && isset( $e['71425|PRIE_ERIC'] ), 'PRIE : tournoi publié aussi par chess-results → la version FFE est gardée seule' );
 ok( ! isset( $e['cr1338669|S50192'] ) && ! isset( $e['cr1338670|S50192'] ), 'tournoi de test et vue « Full list » écartés' );
@@ -191,7 +194,7 @@ $posts = array_filter( $req, function ( $x ) { return 0 === strpos( $x, 'POST' )
 ok( ! $posts, 'recherches en cache : aucune nouvelle recherche' );
 $lus = array_unique( array_map( function ( $x ) { return preg_match( '/tnr(\d+)/', $x, $m ) ? $m[1] : ''; }, $req ) );
 sort( $lus );
-ok( array( '1436548', '1454061', '1496391', '1500000' ) === array_values( array_filter( $lus ) ), 'seules les fiches des tournois non finis sont relues' );
+ok( array( '1436548', '1454061', '1496391', '1500000', '1529799' ) === array_values( array_filter( $lus ) ), 'seules les fiches des tournois non finis sont relues' );
 ok( ! in_array( '1450094', $lus, true ) && ! in_array( '1448047', $lus, true ), 'fiches des tournois finis non relues (cache 24 h)' );
 ok( ! in_array( '1000001', $lus, true ), 'fiche en échec non retentée avant une heure' );
 Suivi_Horloge::fixer( '2026-11-01T19:00:00Z' );
@@ -212,8 +215,8 @@ ok( isset( $cr['fiches']['1454061|6']['echecA'], $cr['fiches']['1454061|6']['fic
 section( 'Moteur : budget de temps et désactivation' );
 Suivi_Horloge::fixer( '2026-11-01T12:00:00Z' );
 $ref    = par_ref( ( new Suivi_Tracker( magasin(), transport(), array( 'delaiChessResultsMs' => 0 ) ) )->rafraichir() );
-// 4 ms de latence par requête et 0,25 s par passage : une soixantaine de
-// requêtes par passage, l'ordre de grandeur d'un cron réel (25 s, ~0,4 s/requête).
+// 4 ms de latence simulée (~15 ms réels sous Windows) et 0,6 s par passage :
+// ~40 requêtes par passage, le rapport d'un cron réel (25 s, ~0,7 s/requête).
 $t      = transport();
 $lent   = function ( $url, $opts ) use ( $t ) {
 	usleep( 4000 );
@@ -224,13 +227,13 @@ $trk    = new Suivi_Tracker( $store, $lent, array( 'delaiChessResultsMs' => 0 ) 
 $passes = 0;
 $cr_vu  = false;
 do {
-	$st = $trk->rafraichir( array( 'budget_s' => 0.25 ) );
+	$st = $trk->rafraichir( array( 'budget_s' => 0.6 ) );
 	$passes++;
 	foreach ( $st['suivi'] as $s ) {
 		$cr_vu = $cr_vu || ( 'chess-results' === $s['source'] && ! $st['scanComplet'] );
 	}
 } while ( ! $st['scanComplet'] && $passes < 300 );
-echo "    sous budget de 0,25 s : $passes passages\n";
+echo "    sous budget de 0,6 s : $passes passages\n";
 ok( $passes > 1 && true === $st['scanComplet'], 'scan étalé sur plusieurs passages, puis complet' );
 ok( $cr_vu, 'chess-results avance pendant que la découverte FFE n\'est pas finie (part réservée)' );
 ok( json_encode( par_ref( $st ) ) === json_encode( $ref ), 'résultat final identique à un passage unique sans limite' );

@@ -64,6 +64,32 @@ ok( '72680' === $liste[0]['ref'] && '2026-10-31' === $liste[0]['dateDebut'] && '
 ok( 'SAINT BRISSON' === $liste[0]['ville'], 'liste : ville' );
 ok( 40 === count( $ffe->liste_tournois_mois( 10, 2026 ) ), 'liste : pagination dédoublonnée' );
 
+// Reprise : coupée après 4 requêtes (page 1 + 3 pages suivantes), puis reprise.
+$compte = 0;
+$coupe  = new Suivi_FFE(
+	function ( $url, $opts = array() ) use ( $http, &$compte ) {
+		if ( ++$compte > 4 ) {
+			throw new RuntimeException( 'budget' );
+		}
+		return $http( $url, $opts );
+	}
+);
+$reprise = null;
+try {
+	$coupe->liste_tournois_mois( 10, 2026, $reprise );
+} catch ( RuntimeException $e ) {
+	unset( $e );
+}
+ok( 4 === $reprise['page'] && 10 === $reprise['max'] && '' !== $reprise['champs']['__VIEWSTATE'], 'liste interrompue : progression gardée (page 4/10, jeton de pagination)' );
+$posts  = 0;
+$suite  = new Suivi_FFE(
+	function ( $url, $opts = array() ) use ( $http, &$posts ) {
+		$posts += ( isset( $opts['method'] ) && 'POST' === $opts['method'] ) ? 1 : 0;
+		return $http( $url, $opts );
+	}
+);
+ok( 40 === count( $suite->liste_tournois_mois( 10, 2026, $reprise ) ) && 6 === $posts, 'liste reprise : continue à la page 5 (6 pages restantes), même résultat' );
+
 section( 'Fiche tournoi' );
 $f = $ffe->fiche_tournoi( 72680 );
 ok( 5.0 === $f['nbRondes'], 'fiche : 5 rondes' );

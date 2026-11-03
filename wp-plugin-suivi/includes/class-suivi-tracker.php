@@ -177,16 +177,31 @@ class Suivi_Tracker {
 			if ( ( isset( $connu['a'] ) && $now - $connu['a'] < self::TTL_MOIS ) || self::echec_recent( $connu ) ) {
 				continue;
 			}
+			// Lecture commencée par un passage précédent : on la continue, sauf
+			// si elle est trop vieille (la liste a pu bouger entre-temps).
+			$reprise = ( isset( $connu['reprise'], $connu['repriseA'] ) && $now - $connu['repriseA'] < self::TTL_MOIS ) ? $connu['reprise'] : null;
+			$depuis  = $reprise ? $connu['repriseA'] : $now;
 			try {
-				foreach ( $this->ffe->liste_tournois_mois( $mm['mois'], $mm['annee'] ) as $t ) {
+				foreach ( $this->ffe->liste_tournois_mois( $mm['mois'], $mm['annee'], $reprise ) as $t ) {
 					$cache['tournois'][ $t['ref'] ] = array_merge( self::v( $cache['tournois'], $t['ref'], array() ), $t );
 				}
 				$cache['mois'][ $cle ] = array( 'a' => $now );
 			} catch ( Suivi_Budget_Epuise $e ) {
+				if ( $reprise ) {
+					$cache['mois'][ $cle ] = array( 'reprise' => $reprise, 'repriseA' => $depuis ) + ( isset( $connu['echecs'] ) ? array( 'echecs' => $connu['echecs'] ) : array() );
+				}
 				break;
 			} catch ( Exception $e ) {
-				$erreurs[]                       = "Liste {$mm['mois']}/{$mm['annee']} : " . $e->getMessage();
-				$cache['mois'][ $cle ]['echecA'] = $now;
+				$erreurs[] = "Liste {$mm['mois']}/{$mm['annee']} : " . $e->getMessage();
+				// La FFE est lente (~5 s par page) et dépasse parfois le délai : une
+				// lecture déjà avancée est gardée et retentée au passage suivant ;
+				// au 3e échec d'affilée, on abandonne le mois pour une heure.
+				$echecs = ( $reprise && isset( $connu['echecs'] ) ? $connu['echecs'] : 0 ) + 1;
+				if ( $reprise && $echecs < 3 ) {
+					$cache['mois'][ $cle ] = array( 'reprise' => $reprise, 'repriseA' => $depuis, 'echecs' => $echecs );
+				} else {
+					$cache['mois'][ $cle ] = array( 'echecA' => $now ) + ( isset( $connu['a'] ) ? array( 'a' => $connu['a'] ) : array() );
+				}
 			}
 		}
 
@@ -699,6 +714,27 @@ class Suivi_Tracker {
 	/** Vues d'agrégation du site, qui ne sont pas des épreuves. */
 	const VUE_AGREGEE = '/\b(full list|all participants|all groups)\b/i';
 
+	/**
+	 * Fiche visiblement fausse : un organisateur a inscrit le joueur pour
+	 * tester (vu le 2026-11-03 : Praggnanandhaa, GM, dans un festival « Juventud
+	 * … Femenino »). La catégorie FFE (« SenM », « MinF »…) donne le sexe et la
+	 * tranche d'âge : un homme dans un tournoi féminin, ou un adulte dans un
+	 * tournoi jeunes, est écarté. Sans catégorie connue, rien n'est écarté.
+	 * Écart volontaire avec l'original, qui affichait ces fiches.
+	 */
+	public static function fiche_incoherente( $joueur, $nom_tournoi ) {
+		$cat = isset( $joueur['cat'] ) ? (string) $joueur['cat'] : '';
+		if ( ! preg_match( '/^([A-Za-z]{3})([MF])$/', $cat, $m ) ) {
+			return false;
+		}
+		$nom = (string) $nom_tournoi;
+		if ( 'M' === $m[2] && preg_match( '/\b(f[eé]minin[es]*|femenin[oa]s?|femmes?|women|woman|ladies|girls?|damen|m[aä]dchen)\b/iu', $nom ) ) {
+			return true;
+		}
+		$adulte = in_array( strtolower( $m[1] ), array( 'sen', 'sep', 'vet' ), true );
+		return $adulte && (bool) preg_match( '/\b(u ?\d{1,2}|juventud|youth|jeunes?|juniors?|kids|enfants|cadets?|minimes|benjamins|pupilles|poussins|scolaires?)\b/iu', $nom );
+	}
+
 	/** Le site héberge des tournois de test et des vues d'agrégation. */
 	private static function entree_ignoree( $entree ) {
 		return preg_match( '/^TEST\b/i', $entree['nom'] ) || preg_match( self::VUE_AGREGEE, $entree['nom'] );
@@ -820,10 +856,15 @@ class Suivi_Tracker {
 		$utilisees = array();
 
 		// Le direct d'abord : les fiches des tournois non finis déjà connus sont
-		// relues avant les recherches, plafonnées à 60 % du temps restant pour
-		// que la découverte avance aussi à chaque passage.
+		// relues avant les recherches, plafonnées à 60 % du temps restant. Une
+		// recherche (3 requêtes indivisibles) peut quand même ne pas tenir dans
+		// le reste : elle est alors « en attente » et le passage suivant ramène
+		// le direct à zéro pour la laisser aboutir (tour de rôle, sinon elle
+		// serait coupée à chaque passage et recommencée sans fin).
+		$part_direct         = empty( $memoire['rechercheEnAttente'] ) ? 0.6 : 0.0;
+		$memoire['rechercheEnAttente'] = false;
 		$t0         = microtime( true );
-		$fin_direct = $this->echeance ? $t0 + 0.6 * max( 0, $this->echeance - $t0 ) : null;
+		$fin_direct = $this->echeance ? $t0 + $part_direct * max( 0, $this->echeance - $t0 ) : null;
 		foreach ( $joueurs as $joueur ) {
 			$memo = empty( $joueur['fideId'] ) ? null : self::v( $memoire['parJoueur'], $joueur['id'] );
 			foreach ( $memo ? $memo['tournois'] : array() as $entree ) {
@@ -845,12 +886,15 @@ class Suivi_Tracker {
 			$tournois = $memo ? $memo['tournois'] : array();
 			$perime   = ! $memo || $memo['fenetre'] !== $fenetre || $now - $memo['a'] > $ttl;
 
+			if ( $perime && $this->budget_atteint ) {
+				$memoire['rechercheEnAttente'] = true;
+			}
 			if ( $perime && ! $this->budget_atteint && ! self::echec_recent( $memo ) ) {
 				try {
 					$tournois                    = $this->cr->tournois_du_joueur( $joueur['fideId'], $du, $au );
 					$memoire['parJoueur'][ $id ] = array( 'tournois' => $tournois, 'a' => $now, 'fenetre' => $fenetre );
 				} catch ( Suivi_Budget_Epuise $e ) {
-					unset( $e ); // recherche faite à un prochain passage
+					$memoire['rechercheEnAttente'] = true; // prioritaire au prochain passage
 				} catch ( Exception $e ) {
 					$erreurs[]                             = "chess-results {$joueur['nomComplet']} : " . $e->getMessage();
 					$memoire['parJoueur'][ $id ]           = $memo ? $memo : array( 'tournois' => array(), 'a' => 0, 'fenetre' => '' );
@@ -878,7 +922,8 @@ class Suivi_Tracker {
 				// avec la FFE qu'une fois le nom complet connu.
 				$complet        = $entree;
 				$complet['nom'] = '' !== $fiche['tournoi'] ? $fiche['tournoi'] : $entree['nom'];
-				if ( preg_match( self::VUE_AGREGEE, $complet['nom'] ) || Suivi_Appariement::est_doublon( $complet, $siens ) ) {
+				if ( preg_match( self::VUE_AGREGEE, $complet['nom'] ) || self::fiche_incoherente( $joueur, $complet['nom'] )
+					|| Suivi_Appariement::est_doublon( $complet, $siens ) ) {
 					continue;
 				}
 				$e = self::engagement_chess_results( $joueur, $complet, $fiche );

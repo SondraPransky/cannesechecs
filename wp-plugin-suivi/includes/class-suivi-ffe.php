@@ -635,7 +635,7 @@ class Suivi_FFE {
 				break;
 			}
 			$vues[ $p ] = true;
-			$html       = $this->postback_page( $url, $html, $p );
+			$html       = $this->postback_page( $url, self::champs_postback( $html ), $p );
 			$lignes     = self::parse_lignes_joueurs( $html );
 			if ( ! $lignes ) {
 				break;
@@ -650,15 +650,21 @@ class Suivi_FFE {
 	}
 
 	/** Page N d'une liste paginée ASP.NET (rejoue le __doPostBack du pager). */
-	private function postback_page( $url, $html_precedent, $page ) {
+	/** Champs cachés ASP.NET d'une page, nécessaires pour demander la suivante. */
+	private static function champs_postback( $html ) {
+		return array(
+			'__VIEWSTATE'          => self::hidden( $html, '__VIEWSTATE' ),
+			'__VIEWSTATEGENERATOR' => self::hidden( $html, '__VIEWSTATEGENERATOR' ),
+			'__EVENTVALIDATION'    => self::hidden( $html, '__EVENTVALIDATION' ),
+		);
+	}
+
+	private function postback_page( $url, $champs, $page ) {
 		$body = http_build_query(
 			array(
-				'__EVENTTARGET'        => 'ctl00$ContentPlaceHolderMain$PagerHeader',
-				'__EVENTARGUMENT'      => (string) $page,
-				'__VIEWSTATE'          => self::hidden( $html_precedent, '__VIEWSTATE' ),
-				'__VIEWSTATEGENERATOR' => self::hidden( $html_precedent, '__VIEWSTATEGENERATOR' ),
-				'__EVENTVALIDATION'    => self::hidden( $html_precedent, '__EVENTVALIDATION' ),
-			)
+				'__EVENTTARGET'   => 'ctl00$ContentPlaceHolderMain$PagerHeader',
+				'__EVENTARGUMENT' => (string) $page,
+			) + $champs
 		);
 		return $this->fetch_page(
 			$url,
@@ -673,23 +679,38 @@ class Suivi_FFE {
 	/**
 	 * Tous les tournois avec résultats publiés pour un mois donné.
 	 * Suit la pagination jusqu'à la dernière page annoncée par la première.
+	 *
+	 * Reprenable : un mois chargé compte une vingtaine de pages (~25 s), plus
+	 * qu'un passage du moteur sous WordPress. `$reprise` garde les tournois déjà
+	 * lus, la dernière page lue et ses champs de pagination ; mise à jour après
+	 * chaque page, elle survit à une interruption (exception) et permet au
+	 * passage suivant de continuer au lieu de recommencer à la page 1.
 	 */
-	public function liste_tournois_mois( $mois, $annee ) {
-		$url  = 'ListeTournois.aspx?Action=RES&Mois=' . (int) $mois . '&Annee=' . (int) $annee;
-		$html = $this->fetch_page( $url );
-		$vus  = array();
-		foreach ( self::parse_liste_page( $html ) as $t ) {
-			$vus[ $t['ref'] ] = $t;
-		}
-		preg_match_all( "/PagerHeader','(\\d+)'\\)/", $html, $pages );
-		$max = $pages[1] ? max( array_map( 'intval', $pages[1] ) ) : 1;
-		for ( $p = 2; $p <= $max; $p++ ) {
-			$html = $this->postback_page( $url, $html, $p );
+	public function liste_tournois_mois( $mois, $annee, &$reprise = null ) {
+		$url = 'ListeTournois.aspx?Action=RES&Mois=' . (int) $mois . '&Annee=' . (int) $annee;
+		if ( ! is_array( $reprise ) || empty( $reprise['champs'] ) ) {
+			$html = $this->fetch_page( $url );
+			preg_match_all( "/PagerHeader','(\\d+)'\\)/", $html, $pages );
+			$vus = array();
 			foreach ( self::parse_liste_page( $html ) as $t ) {
 				$vus[ $t['ref'] ] = $t;
 			}
+			$reprise = array(
+				'vus'    => $vus,
+				'page'   => 1,
+				'max'    => $pages[1] ? max( array_map( 'intval', $pages[1] ) ) : 1,
+				'champs' => self::champs_postback( $html ),
+			);
 		}
-		return array_values( $vus );
+		for ( $p = $reprise['page'] + 1; $p <= $reprise['max']; $p++ ) {
+			$html = $this->postback_page( $url, $reprise['champs'], $p );
+			foreach ( self::parse_liste_page( $html ) as $t ) {
+				$reprise['vus'][ $t['ref'] ] = $t;
+			}
+			$reprise['page']   = $p;
+			$reprise['champs'] = self::champs_postback( $html );
+		}
+		return array_values( $reprise['vus'] );
 	}
 
 	/** Métadonnées d'un tournoi : dates, rondes, cadence, lieu, vues publiées. */
