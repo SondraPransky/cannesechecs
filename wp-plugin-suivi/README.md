@@ -111,6 +111,8 @@ dépassait un passage et recommençait sans fin :
   tout le club était relu à chaque passage ;
 - **requêtes groupées** (comme l'app d'origine) : 4 à la fois vers la FFE, 2 vers chess-results (`transport_multiple`, bibliothèque Requests de WordPress) ; ~4× plus rapide en réel (8-14 éléments par passage au lieu de 2-3), même résultat vérifié par test ;
 - **rattrapage chess-results** : tant que des joueurs n'y ont jamais été cherchés, chess-results a 60 % du budget (sinon une compétition internationale en cours restait invisible des heures) ;
+- **ordre de lecture** : participants avant fiches (ce sont eux qui révèlent nos joueurs ; la FFE peut mettre 16 s par lot de fiches), région du club d'abord (06, puis PACA), tournois commencés avant ceux à venir, le plus proche d'aujourd'hui d'abord ; sans limite de budget, ordre de l'original (parité conservée) ;
+- **direct relu au plus toutes les 4 min** (FFE et chess-results), et relu en tout début de passage pour chess-results ; délai d'attente d'une requête borné par le temps restant au passage ; scan complet de l'admin en passages de 50 s ;
 - **verrou** : relu en base à chaque vérification (WordPress garde une option lue pendant toute la requête ; une attente du verrou ne voyait jamais sa libération) ; les actions de l'admin passent avant les passages ;
 - **chess-results** : part de budget réservée (FFE ≤ 75 %), tour de rôle direct / recherche ;
 - **fiches de test d'organisateurs** écartées (homme dans un tournoi féminin, adulte dans un

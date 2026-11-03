@@ -60,6 +60,13 @@ class Suivi_Tracker {
 	 */
 	const TTL_ECHEC = 3600;
 	/**
+	 * Un tournoi en cours n'est pas relu plus souvent que… (s). Une ronde dure
+	 * au moins une heure : relire toutes les 4 minutes suffit au direct, et un
+	 * scan complet (passages enchaînés) ne gaspille plus son temps à relire
+	 * sans cesse les mêmes pages.
+	 */
+	const TTL_DIRECT = 240;
+	/**
 	 * Part du budget d'un passage laissée à la FFE quand chess-results est
 	 * actif. Sans cette réserve, la FFE (relecture du direct, découverte)
 	 * consommait tout le budget et la recherche chess-results — trois requêtes
@@ -82,8 +89,12 @@ class Suivi_Tracker {
 	private $cr;
 	/** @var float|null Échéance du passage en cours (microtime), null = sans limite. */
 	private $echeance = null;
+	/** @var float|null Fin du passage entier (microtime), pour borner l'attente d'une requête. */
+	private $fin_passage = null;
 	/** @var bool Le budget a-t-il été atteint pendant ce passage ? */
 	private $budget_atteint = false;
+	/** @var array Fiches de tournoi à lire (refs, les plus proches d'aujourd'hui d'abord). */
+	private $fiches_a_lire = array();
 	/** @var array Refs dont le détail a été lu pendant ce passage. */
 	private $lus = array();
 
@@ -101,7 +112,7 @@ class Suivi_Tracker {
 				$this->budget_atteint = true;
 				throw new Suivi_Budget_Epuise( 'Budget de temps du passage atteint' );
 			}
-			return call_user_func( $transport, $url, $opts );
+			return call_user_func( $transport, $url, $this->borner( $opts ) );
 		};
 		// Transport groupé (requêtes envoyées ensemble), même contrôle de budget.
 		$multi = isset( $options['transportMultiple'] ) ? $options['transportMultiple'] : null;
@@ -109,6 +120,9 @@ class Suivi_Tracker {
 			if ( null !== $this->echeance && microtime( true ) >= $this->echeance ) {
 				$this->budget_atteint = true;
 				throw new Suivi_Budget_Epuise( 'Budget de temps du passage atteint' );
+			}
+			foreach ( $requetes as $k => $r ) {
+				$requetes[ $k ]['opts'] = $this->borner( isset( $r['opts'] ) ? $r['opts'] : array() );
 			}
 			return call_user_func( $multi, $requetes );
 		} : null;
@@ -118,6 +132,18 @@ class Suivi_Tracker {
 			isset( $options['delaiChessResultsMs'] ) ? $options['delaiChessResultsMs'] : 350,
 			$budgete_multi
 		);
+	}
+
+	/**
+	 * Délai d'attente d'une requête borné par ce qui reste au passage (entre 5
+	 * et 30 s) : une page FFE à 30 s bloquait tout son lot et faisait déborder
+	 * le passage, au détriment de chess-results.
+	 */
+	private function borner( $opts ) {
+		if ( null !== $this->fin_passage ) {
+			$opts['timeout'] = (int) max( 5, min( 30, ceil( $this->fin_passage - microtime( true ) ) + 2 ) );
+		}
+		return $opts;
 	}
 
 	public function ffe() {
@@ -157,6 +183,55 @@ class Suivi_Tracker {
 			$t = array_merge( $t, $f );
 		}
 		return $t;
+	}
+
+	/** Lit les fiches en attente par lots de 4, jusqu'à $fin (microtime) ou au budget. */
+	private function lire_fiches( &$cache, &$erreurs, $fin = null ) {
+		$now  = Suivi_Horloge::ts();
+		$lues = array();
+		foreach ( array_chunk( $this->fiches_a_lire, Suivi_FFE::PARALLELE ) as $lot ) {
+			if ( $this->budget_atteint || ( null !== $fin && microtime( true ) >= $fin ) ) {
+				break;
+			}
+			$lues += $this->ffe->fiches_tournois( $lot );
+		}
+		foreach ( $lues as $ref => $f ) {
+			if ( $f instanceof Throwable ) {
+				$erreurs[]                         = "Fiche $ref : " . $f->getMessage();
+				$cache['fiches'][ $ref ]['echecA'] = $now; // données déjà lues conservées
+			} else {
+				$cache['fiches'][ $ref ] = $f + array( 'lueA' => $now );
+			}
+		}
+		$this->fiches_a_lire = array();
+	}
+
+	/** Refs triées par écart entre leur date de début et aujourd'hui (le plus proche d'abord). */
+	private static function par_proximite( $refs, $cache ) {
+		// Ordre de lecture : la région du club d'abord (Alpes-Maritimes, puis le
+		// reste de PACA), les tournois déjà commencés avant ceux à venir, puis le
+		// plus proche d'aujourd'hui. Tout finit par être lu : seul l'ordre change.
+		$region = array( '06' => 0, '83' => 1, '13' => 1, '04' => 1, '05' => 1, '84' => 1 );
+		$auj    = Suivi_Horloge::parse( Suivi_Horloge::today() );
+		$cle    = array();
+		foreach ( $refs as $ref ) {
+			$t     = self::tournoi( $cache, $ref );
+			$dept  = isset( $t['dept'] ) ? str_pad( (string) $t['dept'], 2, '0', STR_PAD_LEFT ) : '';
+			$d     = ! empty( $t['dateDebut'] ) ? Suivi_Horloge::parse( $t['dateDebut'] ) : null;
+			$cle[ $ref ] = array(
+				isset( $region[ $dept ] ) ? $region[ $dept ] : 2,
+				null !== $d && $d <= $auj ? 0 : 1,
+				null !== $d ? abs( $d - $auj ) : PHP_INT_MAX,
+			);
+		}
+		$refs = array_values( $refs );
+		usort(
+			$refs,
+			function ( $a, $b ) use ( $cle ) {
+				return $cle[ $a ] <=> $cle[ $b ] ?: strcmp( (string) $a, (string) $b );
+			}
+		);
+		return $refs;
 	}
 
 	/** Une entrée de cache a-t-elle échoué récemment (à ne pas retenter) ? */
@@ -260,16 +335,14 @@ class Suivi_Tracker {
 			}
 		}
 
-		// Lues par lots (4 requêtes à la fois) ; sous budget, le reste attend le passage suivant.
-		if ( $a_lire && ! $this->budget_atteint ) {
-			foreach ( $this->ffe->fiches_tournois( $a_lire ) as $ref => $f ) {
-				if ( $f instanceof Throwable ) {
-					$erreurs[]                         = "Fiche $ref : " . $f->getMessage();
-					$cache['fiches'][ $ref ]['echecA'] = $now; // données déjà lues conservées
-				} else {
-					$cache['fiches'][ $ref ] = $f + array( 'lueA' => $now );
-				}
-			}
+		// Les plus proches d'aujourd'hui d'abord. Sans limite de budget, lues tout
+		// de suite (résultat identique à l'original) ; sous budget, APRÈS les
+		// participants : ce sont eux qui révèlent nos joueurs, et la FFE peut
+		// mettre 16 s par lot de fiches (un tournoi joué la semaine dernière,
+		// Menton, Cap d'Agde, attendait derrière ~500 fiches).
+		$this->fiches_a_lire = self::par_proximite( $a_lire, $cache );
+		if ( null === $this->echeance ) {
+			$this->lire_fiches( $cache, $erreurs );
 		}
 
 		foreach ( $candidats as $ref ) {
@@ -300,9 +373,19 @@ class Suivi_Tracker {
 				$a_lire[] = $ref;
 			}
 		}
-		// Lues par lots (4 requêtes à la fois) ; sous budget, le reste attend le passage suivant.
+		// Lues par lots (4 requêtes à la fois), les plus proches d'aujourd'hui
+		// d'abord ; sous budget, le reste attend le passage suivant.
 		if ( $a_lire && ! $this->budget_atteint ) {
-			foreach ( $this->ffe->participants_multiples( $a_lire ) as $ref => $p ) {
+			$t0    = microtime( true );
+			$fin_p = ( $this->echeance && $this->fiches_a_lire ) ? $t0 + 0.6 * max( 0, $this->echeance - $t0 ) : null;
+			$lues  = array();
+			foreach ( array_chunk( self::par_proximite( $a_lire, $cache ), Suivi_FFE::PARALLELE ) as $lot ) {
+				if ( $this->budget_atteint || ( null !== $fin_p && microtime( true ) >= $fin_p ) ) {
+					break;
+				}
+				$lues += $this->ffe->participants_multiples( $lot );
+			}
+			foreach ( $lues as $ref => $p ) {
 				$entree = self::v( $cache['participants'], $ref );
 				if ( $p instanceof Throwable ) {
 					$erreurs[] = "Participants $ref : " . $p->getMessage();
@@ -414,7 +497,8 @@ class Suivi_Tracker {
 		}
 		$t      = self::tournoi( $cache, $ref );
 		$cached = self::v( $cache['details'], $ref );
-		if ( $cached && self::fini( $t ) && Suivi_Horloge::ts() - $cached['luA'] < self::TTL_DETAIL_FINI ) {
+		$age    = $cached ? Suivi_Horloge::ts() - $cached['luA'] : PHP_INT_MAX;
+		if ( $age < self::TTL_DIRECT || ( self::fini( $t ) && $age < self::TTL_DETAIL_FINI ) ) {
 			return;
 		}
 		try {
@@ -618,6 +702,7 @@ class Suivi_Tracker {
 		$cfg                  = $this->store->get( 'config' );
 		$budget               = isset( $options['budget_s'] ) ? $options['budget_s'] : $cfg['budgetSecondes'];
 		$this->echeance       = $budget ? $debut_passage + $budget : null;
+		$this->fin_passage    = $this->echeance;
 		$this->budget_atteint = false;
 		$cr_actif             = false !== self::v( $cfg, 'chessResultsActif', true );
 		$echeance_passage     = $this->echeance;
@@ -630,7 +715,8 @@ class Suivi_Tracker {
 					break;
 				}
 			}
-			$this->echeance = $debut_passage + ( $a_cherch ? self::PART_FFE_RATTRAPAGE : self::PART_FFE ) * $budget;
+			$part_ffe       = $a_cherch ? self::PART_FFE_RATTRAPAGE : self::PART_FFE;
+			$this->echeance = $debut_passage + $part_ffe * $budget;
 		}
 		$this->lus            = array();
 
@@ -647,6 +733,7 @@ class Suivi_Tracker {
 			$st['erreurs']                 = array();
 			$this->store->set( 'etat', $st );
 			$this->echeance = null;
+			$this->fin_passage = null;
 			return $st;
 		}
 
@@ -662,6 +749,36 @@ class Suivi_Tracker {
 		$today       = Suivi_Horloge::today();
 		$debut       = Suivi_Horloge::shift( $today, -$cfg['joursAvant'] );
 		$fin_fenetre = Suivi_Horloge::shift( $today, $cfg['joursApres'] );
+
+		// 0. Le direct chess-results aussi, dès le début : tournois en cours déjà
+		// trouvés (championnat d'Europe jeunes…). Placé après la FFE, il était
+		// affamé quand une page FFE lente faisait déborder la part de la FFE.
+		if ( $cr_actif ) {
+			$memoire_cr0 = $this->store->get( 'chessresults' );
+			if ( ! isset( $memoire_cr0['fiches'] ) ) {
+				$memoire_cr0['fiches'] = array();
+			}
+			$en_cours = array();
+			foreach ( $db['joueurs'] as $j ) {
+				$memo = empty( $j['fideId'] ) ? null : self::v( $memoire_cr0['parJoueur'], $j['id'] );
+				foreach ( $memo ? $memo['tournois'] : array() as $entree ) {
+					if ( ! self::entree_ignoree( $entree ) && ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], $today ) >= 0 ) {
+						$en_cours[] = $entree;
+					}
+				}
+			}
+			if ( $en_cours ) {
+				$this->lire_fiches_cr( $en_cours, $memoire_cr0, $erreurs, $this->echeance ? $debut_passage + 0.25 * $budget : null );
+				$this->store->set( 'chessresults', $memoire_cr0 );
+			}
+			// La part de la FFE se calcule sur ce qui reste après ce direct : prélevé
+			// sur elle, il ne lui laissait qu'un lot de fiches et jamais de participants.
+			if ( $this->echeance ) {
+				$this->budget_atteint = false;
+				$maintenant           = microtime( true );
+				$this->echeance       = $maintenant + $part_ffe * max( 0, $this->fin_passage - $maintenant );
+			}
+		}
 
 		// 1. Le direct d'abord : tournois en cours déjà connus comme concernés.
 		// Plafonné à 60 % du budget, pour que chaque passage fasse aussi
@@ -681,6 +798,7 @@ class Suivi_Tracker {
 		// 2. Découverte : listes des mois, fiches, participants.
 		$refs      = $this->recenser( $cfg, $cache, $erreurs );
 		$concernes = $this->croiser( $refs, $db['joueurs'], $cfg, $cache, $erreurs );
+		$this->lire_fiches( $cache, $erreurs ); // sous budget : avec le temps laissé par les participants
 		if ( $this->budget_atteint ) {
 			// Découverte incomplète : on ne perd pas ce qu'on savait déjà.
 			$concernes = array_values( array_unique( array_merge( $precedents, $concernes ) ) );
@@ -776,6 +894,7 @@ class Suivi_Tracker {
 			$this->store->set( 'chessresults', $memoire_cr );
 		}
 		$this->echeance = null;
+		$this->fin_passage = null;
 		return $st;
 	}
 
@@ -893,7 +1012,8 @@ class Suivi_Tracker {
 		$cle    = self::cle_cr( $entree );
 		$cached = self::v( $memoire['fiches'], $cle );
 		$fini   = ! empty( $entree['dateFin'] ) && strcmp( $entree['dateFin'], Suivi_Horloge::today() ) < 0;
-		$fraiche = isset( $cached['luA'] ) && $fini && Suivi_Horloge::ts() - $cached['luA'] < self::TTL_DETAIL_FINI;
+		$age     = isset( $cached['luA'] ) ? Suivi_Horloge::ts() - $cached['luA'] : PHP_INT_MAX;
+		$fraiche = $age < self::TTL_DIRECT || ( $fini && $age < self::TTL_DETAIL_FINI );
 		return ! ( $fraiche || isset( $this->lus[ "cr$cle" ] ) || self::echec_recent( $cached ) );
 	}
 
@@ -952,7 +1072,9 @@ class Suivi_Tracker {
 		// le reste : elle est alors « en attente » et le passage suivant ramène
 		// le direct à zéro pour la laisser aboutir (tour de rôle, sinon elle
 		// serait coupée à chaque passage et recommencée sans fin).
-		$part_direct         = empty( $memoire['rechercheEnAttente'] ) ? 0.6 : 0.0;
+		// Avec les lectures groupées, une recherche tient dans un passage : le
+		// direct garde toujours une part (25 % si des recherches attendent).
+		$part_direct         = empty( $memoire['rechercheEnAttente'] ) ? 0.6 : 0.25;
 		$memoire['rechercheEnAttente'] = false;
 		$t0         = microtime( true );
 		$fin_direct = $this->echeance ? $t0 + $part_direct * max( 0, $this->echeance - $t0 ) : null;
@@ -965,9 +1087,7 @@ class Suivi_Tracker {
 				}
 			}
 		}
-		if ( null === $fin_direct || $part_direct > 0 ) {
-			$this->lire_fiches_cr( $direct, $memoire, $erreurs, $fin_direct );
-		}
+		$this->lire_fiches_cr( $direct, $memoire, $erreurs, $fin_direct );
 
 		// Recherches à faire (2 à la fois).
 		$demandes = array();
@@ -982,7 +1102,20 @@ class Suivi_Tracker {
 			}
 		}
 		if ( $demandes ) {
-			$faites = $this->budget_atteint ? array() : $this->cr->tournois_des_joueurs( $demandes );
+			// Plafonnées à 60 % du temps restant : les fiches des tournois trouvés
+			// (souvent en cours) doivent être lues dans le même passage. Sans
+			// plafond, pendant le premier scan, les recherches prenaient tout et
+			// aucune fiche n'était lue (Émilie Nègre, Benjamin Defromont : trouvés
+			// mais jamais affichés).
+			$t1     = microtime( true );
+			$fin_r  = $this->echeance ? $t1 + 0.6 * max( 0, $this->echeance - $t1 ) : null;
+			$faites = array();
+			foreach ( array_chunk( $demandes, Suivi_ChessResults::PARALLELE, true ) as $lot ) {
+				if ( $this->budget_atteint || ( null !== $fin_r && microtime( true ) >= $fin_r ) ) {
+					break;
+				}
+				$faites += $this->cr->tournois_des_joueurs( $lot );
+			}
 			if ( count( $faites ) < count( $demandes ) ) {
 				$memoire['rechercheEnAttente'] = true; // le reste en priorité au prochain passage
 			}

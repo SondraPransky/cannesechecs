@@ -75,7 +75,7 @@ class Suivi_WP {
 				'method'      => isset( $opts['method'] ) ? $opts['method'] : 'GET',
 				// La FFE met parfois 10 à 20 s pour une page de liste (mesuré le
 				// 2026-11-03) : 15 s faisait échouer des pages saines.
-				'timeout'     => 30,
+				'timeout'     => isset( $opts['timeout'] ) ? $opts['timeout'] : 30,
 				'user-agent'  => $ua,
 				'headers'     => $entetes,
 				'redirection' => $suivre ? 5 : 0,
@@ -132,7 +132,7 @@ class Suivi_WP {
 					'headers' => $entetes,
 					'data'    => isset( $o['body'] ) && null !== $o['body'] ? $o['body'] : array(),
 					'options' => array(
-						'timeout'          => 30,
+						'timeout'          => isset( $o['timeout'] ) ? $o['timeout'] : 30,
 						'connect_timeout'  => 10,
 						'useragent'        => $ua,
 						'follow_redirects' => $suivre[ $k ],
@@ -274,7 +274,9 @@ class Suivi_WP {
 			wp_send_json_error( array( 'message' => 'Accès refusé.' ), 403 );
 		}
 		check_ajax_referer( self::AJAX_SCAN );
-		$st  = self::passage();
+		// Passages plus longs pendant un scan complet (le cron garde 25 s) : moins
+		// de temps perdu entre deux appels. Reste sous set_time_limit( 90 ).
+		$st  = self::passage( array( 'budget_s' => 50 ) );
 		$trk = self::tracker();
 		wp_send_json_success(
 			array(
