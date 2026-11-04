@@ -911,6 +911,9 @@ class Suivi_Tracker {
 	 * … Femenino »). La catégorie FFE (« SenM », « MinF »…) donne le sexe et la
 	 * tranche d'âge : un homme dans un tournoi féminin, ou un adulte dans un
 	 * tournoi jeunes, est écarté. Sans catégorie connue, rien n'est écarté.
+	 * Pas de règle inverse : une joueuse dans un tournoi masculin ou open est
+	 * normal (ex. Anna Shukhman aux championnats de Russie masculins, confirmé
+	 * par Mathilde le 2026-11-04).
 	 * Écart volontaire avec l'original, qui affichait ces fiches.
 	 */
 	public static function fiche_incoherente( $joueur, $nom_tournoi ) {
