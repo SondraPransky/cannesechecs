@@ -206,6 +206,24 @@ class Suivi_Tracker {
 		$this->fiches_a_lire = array();
 	}
 
+	/**
+	 * Ce qui n'a jamais été lu passe avant les simples rafraîchissements (délai
+	 * de fraîcheur écoulé) : sinon, le lendemain d'un scan, la relecture des
+	 * listes d'hier retardait sans fin les derniers tournois découverts.
+	 */
+	private static function jamais_lus_d_abord( $refs, $deja ) {
+		$neufs = array();
+		$vus   = array();
+		foreach ( $refs as $ref ) {
+			if ( isset( $deja[ $ref ] ) ) {
+				$vus[] = $ref;
+			} else {
+				$neufs[] = $ref;
+			}
+		}
+		return array_merge( $neufs, $vus );
+	}
+
 	/** Refs triées par écart entre leur date de début et aujourd'hui (le plus proche d'abord). */
 	private static function par_proximite( $refs, $cache ) {
 		// Ordre de lecture : la région du club d'abord (Alpes-Maritimes, puis le
@@ -340,7 +358,7 @@ class Suivi_Tracker {
 		// participants : ce sont eux qui révèlent nos joueurs, et la FFE peut
 		// mettre 16 s par lot de fiches (un tournoi joué la semaine dernière,
 		// Menton, Cap d'Agde, attendait derrière ~500 fiches).
-		$this->fiches_a_lire = self::par_proximite( $a_lire, $cache );
+		$this->fiches_a_lire = self::jamais_lus_d_abord( self::par_proximite( $a_lire, $cache ), $cache['fiches'] );
 		if ( null === $this->echeance ) {
 			$this->lire_fiches( $cache, $erreurs );
 		}
@@ -379,7 +397,7 @@ class Suivi_Tracker {
 			$t0    = microtime( true );
 			$fin_p = ( $this->echeance && $this->fiches_a_lire ) ? $t0 + 0.6 * max( 0, $this->echeance - $t0 ) : null;
 			$lues  = array();
-			foreach ( array_chunk( self::par_proximite( $a_lire, $cache ), Suivi_FFE::PARALLELE ) as $lot ) {
+			foreach ( array_chunk( self::jamais_lus_d_abord( self::par_proximite( $a_lire, $cache ), $cache['participants'] ), Suivi_FFE::PARALLELE ) as $lot ) {
 				if ( $this->budget_atteint || ( null !== $fin_p && microtime( true ) >= $fin_p ) ) {
 					break;
 				}
