@@ -44,6 +44,9 @@ Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
 - **Tests** (PHP CLI : `C:\Users\mathi\AppData\Local\Programs\php84\php.exe`, sans curl/openssl/mbstring) : `php bin/test-ffe.php`, `php bin/test-tracker.php`, `php bin/test-chessresults.php` (fixtures, sans réseau) ; `php bin/live-ffe.php`, `php bin/live-chessresults.php` (en direct via curl système, ponctuel).
 - Le dossier est servi en clair par GitHub Pages : **ne jamais y mettre de secret**.
 
+### État au 2026-11-04 (pause, tout est poussé)
+Scan complet terminé dans le site Local : 114 joueurs (importés de l'app Node), 69 participations suivies (7 en cours, 5 à venir, 57 terminées), noms russes/arabes traduits, tournois de test écartés. Le site Local doit être démarré (Local › Start site) pour toute vérification ; wp-cli et commandes de diag : voir la mémoire `project-wp-plugin-suivi`.
+
 ### À faire plus tard — Suivi tournoi (noté le 2026-11-03)
 1. **Installer sur le vrai WordPress du club** quand il existera : `python wp-plugin-suivi/bin/construire-zip.py` → Extensions › Téléverser ; installer aussi le thème régénéré (`node build-wp-theme.js` + zip Python). Puis admin › Suivi tournoi › Joueurs : ajouter le club 311 ; onglet Suivi : *Lancer le scan complet* (page ouverte ~1-2 h).
 2. **Chez l'hébergeur** : si le site a peu de visites, tâche planifiée sur `wp-cron.php` toutes les 5 min + `DISABLE_WP_CRON` ; `max_execution_time` ≥ 60 s.
