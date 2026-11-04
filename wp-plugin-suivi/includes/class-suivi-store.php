@@ -70,6 +70,9 @@ class Suivi_Store_Defauts {
 				return array( 'parties' => array(), 'cles' => array() );
 			case 'chessresults':
 				return array( 'parJoueur' => array() );
+			case 'noms':
+				// ref -> nom affiché, donné à la main depuis l'admin (« Renommer »).
+				return array( 'liste' => array() );
 			case 'masques':
 				// "ref|joueurId" -> tournoi, joueur, le : engagements masqués à la main
 				// (fiche fausse, tournoi sans intérêt) depuis l'admin.

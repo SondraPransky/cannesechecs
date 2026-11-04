@@ -928,7 +928,7 @@ class Suivi_Tracker {
 
 	/** Le site héberge des tournois de test et des vues d'agrégation. */
 	private static function entree_ignoree( $entree ) {
-		return preg_match( '/^TEST\b/i', $entree['nom'] ) || preg_match( self::VUE_AGREGEE, $entree['nom'] );
+		return preg_match( '/^TEST\b/i', $entree['nom'] ) || preg_match( self::VUE_AGREGEE, $entree['nom'] ) || Suivi_Noms::de_test( $entree['nom'] );
 	}
 
 	private static function engagement_chess_results( $joueur, $entree, $fiche ) {
@@ -1175,7 +1175,7 @@ class Suivi_Tracker {
 				// avec la FFE qu'une fois le nom complet connu.
 				$complet        = $entree;
 				$complet['nom'] = '' !== $fiche['tournoi'] ? $fiche['tournoi'] : $entree['nom'];
-				if ( preg_match( self::VUE_AGREGEE, $complet['nom'] ) || self::fiche_incoherente( $joueur, $complet['nom'] )
+				if ( preg_match( self::VUE_AGREGEE, $complet['nom'] ) || Suivi_Noms::de_test( $complet['nom'] ) || self::fiche_incoherente( $joueur, $complet['nom'] )
 					|| Suivi_Appariement::est_doublon( $complet, $siens ) ) {
 					continue;
 				}

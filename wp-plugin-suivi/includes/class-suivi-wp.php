@@ -22,7 +22,7 @@ class Suivi_Store_WP implements Suivi_Store_Interface {
 	const PREFIXE = 'suivi_tournoi_';
 
 	/** Toutes les clés que le moteur utilise (pour la désinstallation). */
-	const CLES = array( 'config', 'joueurs', 'cache', 'etat', 'journal', 'archive', 'chessresults', 'masques' );
+	const CLES = array( 'config', 'joueurs', 'cache', 'etat', 'journal', 'archive', 'chessresults', 'masques', 'noms' );
 
 	public function get( $cle ) {
 		return Suivi_Store_Defauts::completer( $cle, get_option( self::PREFIXE . $cle, null ) );

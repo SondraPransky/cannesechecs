@@ -128,7 +128,7 @@
     var meta = [t.ville ? esc(t.ville.charAt(0) + t.ville.slice(1).toLowerCase()) : '', esc(periode(t)), ronde && nb ? 'ronde ' + ronde + '/' + nb : '']
       .filter(Boolean).join(' · ');
     var h = '<article class="sd-carte' + (eng.some(function (e) { return e.partie && e.partie.enCours; }) ? ' sd-live' : '') + '">';
-    h += '<div class="sd-carte-h"><div><h4>' + esc(t.nom) + '</h4><p class="sd-meta">' + meta + (eng[0].source !== 'ffe' ? ' · <span class="sd-src">chess-results</span>' : '') + '</p></div></div>';
+    h += '<div class="sd-carte-h"><div><h4' + (t.nomOriginal ? ' title="' + esc(t.nomOriginal) + '"' : '') + '>' + esc(t.nom) + '</h4><p class="sd-meta">' + meta + (eng[0].source !== 'ffe' ? ' · <span class="sd-src">chess-results</span>' : '') + '</p></div></div>';
     h += '<ul class="sd-joueurs">';
     eng.forEach(function (e) {
       var score = e.points != null ? '<span class="sd-score">' + pts(e.points) + '<small>/' + (e.rondeJouee || '') + '</small></span>' : '';

@@ -41,19 +41,22 @@ class Suivi_Public {
 	}
 
 	/** Engagement réduit à ce que l'affichage utilise. */
-	private static function engagement( $e, $noms ) {
+	private static function engagement( $e, $noms, $renommes = array() ) {
 		$garder = array( 'source', 'statut', 'place', 'points', 'nbJoueurs', 'eloTournoi', 'rondeJouee', 'nbRondes', 'rondes', 'liens' );
 		$out    = array_intersect_key( $e, array_flip( $garder ) );
 		$t      = $e['tournoi'];
 		$out['joueur']  = isset( $noms[ $e['joueurId'] ] ) ? $noms[ $e['joueurId'] ] : $e['nomPapi'];
 		$out['tournoi'] = array(
 			'ref'       => (string) $t['ref'],
-			'nom'       => (string) $t['nom'],
+			'nom'       => Suivi_Noms::affiche( $t['ref'], $t['nom'], $renommes ),
 			'ville'     => ! empty( $t['ville'] ) ? $t['ville'] : '',
 			'dateDebut' => isset( $t['dateDebut'] ) ? $t['dateDebut'] : null,
 			'dateFin'   => isset( $t['dateFin'] ) ? $t['dateFin'] : null,
 			'cadence'   => isset( $t['cadence'] ) ? $t['cadence'] : null,
 		);
+		if ( $out['tournoi']['nom'] !== (string) $t['nom'] ) {
+			$out['tournoi']['nomOriginal'] = (string) $t['nom']; // en info-bulle
+		}
 		$p = $e['partieEnCours'];
 		$out['partie'] = $p ? array_intersect_key( $p, array_flip( array( 'ronde', 'echiquier', 'couleur', 'adversaire', 'resultat', 'enCours', 'pasEncoreCommencee' ) ) ) : null;
 		$out['perf']   = ! empty( $e['performance']['perf'] ) ? $e['performance']['perf'] : null;
@@ -68,13 +71,16 @@ class Suivi_Public {
 		foreach ( $s->get( 'joueurs' )['joueurs'] as $j ) {
 			$noms[ $j['id'] ] = $j['nomComplet'];
 		}
-		$suivi = array();
+		$renommes = $s->get( 'noms' )['liste'];
+		$suivi    = array();
 		foreach ( $st['suivi'] as $e ) {
-			$suivi[] = self::engagement( $e, $noms );
+			$suivi[] = self::engagement( $e, $noms, $renommes );
 		}
 		$fil = array();
 		foreach ( array_slice( $jl['evenements'], 0, 40 ) as $ev ) {
-			$fil[] = array_intersect_key( $ev, array_flip( array( 'a', 'joueur', 'tournoi', 'ville', 'ronde', 'resultat', 'couleur', 'adversaire', 'lien' ) ) );
+			$x            = array_intersect_key( $ev, array_flip( array( 'a', 'joueur', 'tournoi', 'ville', 'ronde', 'resultat', 'couleur', 'adversaire', 'lien' ) ) );
+			$x['tournoi'] = Suivi_Noms::affiche( isset( $ev['tournoiRef'] ) ? $ev['tournoiRef'] : '', $ev['tournoi'], $renommes );
+			$fil[]        = $x;
 		}
 		return array(
 			'misAJour' => $st['dernierRafraichissement'],

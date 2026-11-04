@@ -15,7 +15,7 @@
  */
 
 define( 'SUIVI_CLI', true );
-foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'chessresults', 'tracker' ) as $c ) {
+foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'noms', 'chessresults', 'tracker' ) as $c ) {
 	require __DIR__ . "/../includes/class-suivi-$c.php";
 }
 
@@ -271,6 +271,15 @@ $par = par_ref( ( new Suivi_Tracker( magasin(), transport(), array( 'delaiChessR
 ok( json_encode( $par ) === json_encode( $seq ), 'mode groupé : exactement le même résultat qu\'une requête à la fois' );
 ok( $lots['ffe'] && max( $lots['ffe'] ) === 4 && max( $lots['cr'] ) === 2, 'lots : 4 au plus vers la FFE, 2 au plus vers chess-results' );
 echo '    lots FFE : ' . count( $lots['ffe'] ) . ' (au lieu de ' . array_sum( $lots['ffe'] ) . ' requêtes une par une), lots chess-results : ' . count( $lots['cr'] ) . "\n";
+
+section( 'Noms : traduction, tournois de test' );
+ok( 'Championnat de Russie 2026 féminin blitz Blitz_Women Champ. 2026' === Suivi_Noms::traduire( 'Чемпионат России 2026 года среди женщин по блицу Blitz_Women Champ. 2026 (ЕКП часть II № 2088230019045359)' ), 'russe : glossaire, numéro de registre retiré' );
+ok( 'Championnat stage d’arbitrage (essai)' === Suivi_Noms::traduire( 'بطولة دورة التحكيم التجريبية' ), 'arabe : glossaire' );
+ok( "Open International d'Aix" === Suivi_Noms::traduire( "Open International d'Aix" ), 'nom latin : inchangé' );
+ok( 'Mon nom' === Suivi_Noms::affiche( 'cr1', 'Чемпионат России', array( 'cr1' => 'Mon nom' ) ), 'nom donné dans l\'admin : prioritaire' );
+$tests = array( 'chess tournament', 'ABC', 'Test 2', 'Torneo de prueba', 'بطولة دورة التحكيم التجريبية' );
+$vrais = array( 'Chess Tournament 2026 Mumbai', 'Testa Open', 'Open International de Menton', 'European Youth Chess Championships 2026 - Girls 16' );
+ok( 5 === count( array_filter( $tests, array( 'Suivi_Noms', 'de_test' ) ) ) && ! array_filter( $vrais, array( 'Suivi_Noms', 'de_test' ) ), 'tournois de test reconnus, vrais tournois gardés' );
 
 section( 'Retrait d\'un joueur' );
 $store = magasin();

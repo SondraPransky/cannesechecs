@@ -98,6 +98,19 @@ class Suivi_Admin {
 							$trk->masquer( $champ( 'ref' ), $champ( 'joueurId' ) );
 							return 'Tournoi masqué pour ce joueur. Vous pouvez le réafficher dans l\'onglet « Tournois masqués ».';
 
+						case 'renommer':
+							$s           = new Suivi_Store_WP();
+							$n           = $s->get( 'noms' );
+							$ref         = $champ( 'ref' );
+							$nom         = $champ( 'nom' );
+							if ( '' === $nom ) {
+								unset( $n['liste'][ $ref ] );
+							} else {
+								$n['liste'][ $ref ] = $nom;
+							}
+							$s->set( 'noms', $n );
+							return '' === $nom ? 'Nom d’origine rétabli.' : 'Tournoi renommé : « ' . $nom . ' ».';
+
 						case 'demasquer':
 							$trk->demasquer( $champ( 'cle' ) );
 							return 'Tournoi réaffiché : il reviendra au prochain passage.';
@@ -141,6 +154,15 @@ class Suivi_Admin {
 			echo '<input type="hidden" name="' . esc_attr( $k ) . '" value="' . esc_attr( $v ) . '">';
 		}
 		echo '<button type="submit" class="' . esc_attr( $classe ) . '">' . esc_html( $libelle ) . '</button></form>';
+	}
+
+	/** « Renommer » : demande le nouveau nom (vide = nom d'origine), puis envoie le formulaire. */
+	private static function bouton_renommer( $ref, $actuel ) {
+		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" style="display:inline" onsubmit="var n = prompt(' . esc_attr( wp_json_encode( 'Nom à afficher pour ce tournoi (laisser vide pour revenir au nom d’origine) :' ) ) . ', this.nom.value); if (n === null) return false; this.nom.value = n; return true;">';
+		wp_nonce_field( self::ACTION );
+		echo '<input type="hidden" name="action" value="' . esc_attr( self::ACTION ) . '"><input type="hidden" name="op" value="renommer"><input type="hidden" name="onglet" value="suivi">';
+		echo '<input type="hidden" name="ref" value="' . esc_attr( $ref ) . '"><input type="hidden" name="nom" value="' . esc_attr( $actuel ) . '">';
+		echo '<button type="submit" class="button button-small">Renommer</button></form>';
 	}
 
 	private static function debut_formulaire( $op, $onglet ) {
@@ -201,7 +223,8 @@ class Suivi_Admin {
 		$st   = $s->get( 'etat' );
 		$cfg  = $s->get( 'config' );
 		$pr   = Suivi_WP::tracker()->progression();
-		$noms = self::noms_joueurs();
+		$noms     = self::noms_joueurs();
+		$renommes = $s->get( 'noms' )['liste'];
 		$prochain = wp_next_scheduled( Suivi_WP::HOOK_CRON );
 		$pct  = $pr['total'] ? (int) floor( 100 * $pr['fait'] / $pr['total'] ) : 100;
 
@@ -235,16 +258,19 @@ class Suivi_Admin {
 			echo '<p>Aucun tournoi trouvé pour l\'instant' . ( $pct < 100 ? ' : le premier scan n\'est pas terminé.' : '.' ) . '</p>';
 			return;
 		}
-		echo '<p class="description">Un tournoi qui n\'a rien à faire ici (fiche de test d\'un organisateur, homonyme…) ? « Masquer » le retire pour ce joueur.</p>';
-		echo '<table class="wp-list-table widefat fixed striped"><thead><tr><th>Joueur</th><th>Tournoi</th><th style="width:90px">Statut</th><th style="width:110px">Résultat</th><th style="width:110px">Source</th><th style="width:90px"></th></tr></thead><tbody>';
+		echo '<p class="description">Un tournoi qui n\'a rien à faire ici (fiche de test d\'un organisateur, homonyme…) ? « Masquer » le retire pour ce joueur. Un nom mal traduit ? « Renommer » le corrige pour tout le monde.</p>';
+		echo '<table class="wp-list-table widefat fixed striped"><thead><tr><th>Joueur</th><th>Tournoi</th><th style="width:90px">Statut</th><th style="width:110px">Résultat</th><th style="width:110px">Source</th><th style="width:180px"></th></tr></thead><tbody>';
 		foreach ( $st['suivi'] as $e ) {
 			$res = null !== $e['points'] ? ( 0 + $e['points'] ) . ' pt' . ( null !== $e['place'] ? ', ' . (int) $e['place'] . 'e' : '' ) : '—';
 			echo '<tr><td>' . esc_html( isset( $noms[ $e['joueurId'] ] ) ? $noms[ $e['joueurId'] ] : $e['joueurId'] ) . '</td>';
-			echo '<td>' . esc_html( $e['tournoi']['nom'] ) . '</td>';
+			$affiche = Suivi_Noms::affiche( $e['tournoi']['ref'], $e['tournoi']['nom'], $renommes );
+			echo '<td>' . esc_html( $affiche ) . ( $affiche !== $e['tournoi']['nom'] ? '<br><span class="description">' . esc_html( $e['tournoi']['nom'] ) . '</span>' : '' ) . '</td>';
 			echo '<td>' . esc_html( isset( self::STATUTS[ $e['statut'] ] ) ? self::STATUTS[ $e['statut'] ] : $e['statut'] ) . '</td>';
 			echo '<td>' . esc_html( $res ) . '</td>';
 			echo '<td>' . esc_html( 'ffe' === $e['source'] ? 'FFE' : $e['source'] ) . '</td><td>';
 			self::bouton( 'masquer', 'suivi', 'Masquer', array( 'ref' => $e['tournoi']['ref'], 'joueurId' => $e['joueurId'] ), 'button button-small' );
+			echo ' ';
+			self::bouton_renommer( $e['tournoi']['ref'], $affiche );
 			echo '</td></tr>';
 		}
 		echo '</tbody></table>';

@@ -10,7 +10,7 @@
  */
 
 define( 'SUIVI_CLI', true );
-foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'chessresults', 'tracker' ) as $c ) {
+foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'noms', 'chessresults', 'tracker' ) as $c ) {
 	require __DIR__ . "/../includes/class-suivi-$c.php";
 }
 

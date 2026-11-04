@@ -113,6 +113,8 @@ dépassait un passage et recommençait sans fin :
 - **rattrapage chess-results** : tant que des joueurs n'y ont jamais été cherchés, chess-results a 60 % du budget (sinon une compétition internationale en cours restait invisible des heures) ;
 - **ordre de lecture** : participants avant fiches (ce sont eux qui révèlent nos joueurs ; la FFE peut mettre 16 s par lot de fiches), région du club d'abord (06, puis PACA), tournois commencés avant ceux à venir, le plus proche d'aujourd'hui d'abord ; sans limite de budget, ordre de l'original (parité conservée) ;
 - **direct relu au plus toutes les 4 min** (FFE et chess-results), et relu en tout début de passage pour chess-results ; délai d'attente d'une requête borné par le temps restant au passage ; scan complet de l'admin en passages de 50 s ;
+- **noms de tournois** (`class-suivi-noms.php`) : noms en russe / grec / arabe traduits par glossaire des termes d'échecs, le reste transcrit en lettres latines (extension intl) ; « Renommer » dans l'admin ; nom d'origine en info-bulle ;
+- **tournois de test d'organisateurs** écartés : « chess tournament », « ABC », « Test 2 », noms avec test / essai / prueba / тест / تجريبي ;
 - **verrou** : relu en base à chaque vérification (WordPress garde une option lue pendant toute la requête ; une attente du verrou ne voyait jamais sa libération) ; les actions de l'admin passent avant les passages ;
 - **chess-results** : part de budget réservée (FFE ≤ 75 %), tour de rôle direct / recherche ;
 - **fiches de test d'organisateurs** écartées (homme dans un tournoi féminin, adulte dans un

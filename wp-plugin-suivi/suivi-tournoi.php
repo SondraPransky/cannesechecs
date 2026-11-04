@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'SUIVI_TOURNOI_DIR', __DIR__ );
 
-foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'chessresults', 'tracker', 'wp', 'admin', 'public' ) as $suivi_c ) {
+foreach ( array( 'ffe', 'elo', 'horloge', 'store', 'engagement', 'appariement', 'joueurs', 'journal', 'noms', 'chessresults', 'tracker', 'wp', 'admin', 'public' ) as $suivi_c ) {
 	require_once SUIVI_TOURNOI_DIR . "/includes/class-suivi-$suivi_c.php";
 }
 unset( $suivi_c );
