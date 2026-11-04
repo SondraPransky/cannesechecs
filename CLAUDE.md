@@ -50,7 +50,7 @@ Visible uniquement avec `?admin` — à bookmarker par Romuald et Marlies.
 3. **Montrer l'admin à Romuald et Marlies** (GUIDE-ADMIN.md § 5).
 4. **Ensuite seulement** : archiver en zip le dossier `C:\Users\mathi\Desktop\suivi tournoi` (app Node d'origine). Ne pas le supprimer avant : référence de parité + source des 114 joueurs.
 5. Nettoyer le site Local : effacer `app/public/apercu-suivi/` (dossier d'aperçu).
-6. Photo non suivie `photos/vichy_chptfrancejeunes.jpg` : à intégrer au site ou à supprimer (laissée hors des commits).
+6. ~~Photo `photos/vichy_chptfrancejeunes.jpg`~~ : réglé — vieille photo (Vichy 2025, championnat de France jeunes), à laisser dans le dossier sans l'utiliser en article ni la commiter (Mathilde, 2026-11-04).
 
 ## Mainteneurs non-techniques
 Romuald de Labaca et Marlies Bensdorp De Labaca mettront à jour le site.
