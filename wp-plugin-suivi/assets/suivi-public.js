@@ -53,6 +53,54 @@
     if (!c) return '';
     return '<span class="sd-coul sd-coul-' + (c === 'blancs' ? 'b' : 'n') + '" title="' + (c === 'blancs' ? 'Blancs' : 'Noirs') + '">' + (c === 'blancs' ? 'B' : 'N') + '</span>';
   }
+  // --- Mise en forme des noms (affichage seulement, les données restent brutes) ---
+  var PETITS = /^(de|du|des|la|le|les|sur|sous|en|et|aux|au|lès|lez)$/;
+  function cap(m) { return m.charAt(0).toUpperCase() + m.slice(1); }
+
+  // « SALON DE PROVENCE » → « Salon-de-Provence », « LE CANNET » → « Le Cannet ».
+  // Communes françaises : traits d'union entre les mots, sauf après l'article de tête.
+  function joliVille(v) {
+    if (!v) return '';
+    var mots = String(v).toLowerCase().trim().split(/[\s-]+/);
+    var tete = '';
+    if (mots.length > 1 && /^(le|la|les)$/.test(mots[0])) tete = cap(mots.shift()) + ' ';
+    return tete + mots.map(function (m, i) {
+      if (i > 0 && PETITS.test(m)) return m;
+      return m.replace(/^(l|d)'(.)/, function (x, a, b) { return (i > 0 ? a : a.toUpperCase()) + "'" + b.toUpperCase(); })
+        .replace(/^./, function (c) { return c.toUpperCase(); });
+    }).join('-');
+  }
+
+  // Mot tout en majuscules → « Mot » (sauf chiffres romains et sigles courts).
+  function adoucir(m, tout) {
+    if (!/[A-ZÀ-Ý]{2}/.test(m) || /[a-zà-ÿ]/.test(m)) return m;
+    if (/^[IVXLC]+\.?$/.test(m)) return m;
+    if (!tout && m.replace(/[^A-ZÀ-Ý]/g, '').length < 5) return m;
+    return m.toLowerCase().replace(/(^|[-'’.(])([a-zà-ÿ])/g, function (x, a, b) { return a + b.toUpperCase(); });
+  }
+
+  var MOIS_FR = 'janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre';
+  function joliNom(n) {
+    if (!n) return '';
+    var s = String(n).trim();
+    // Reste anglais accolé aux noms traduits : « … blitz Blitz_Women Champ. 2026 ».
+    s = s.replace(/\s+\S*_\S*.*$/, '');
+    // Date dans le nom (déjà affichée sous le titre) : « 11 novembre 26 ».
+    s = s.replace(new RegExp('\\s+\\d{1,2}\\s+(' + MOIS_FR + ')\\s+\\d{2,4}\\b', 'i'), '');
+    // Groupe en lettre isolée à la fin : « … A » → « … – Tournoi A ».
+    s = s.replace(/\s+([A-F])$/, ' – Tournoi $1');
+    // Segment répété : « Annemasse 2026 - MAITRES - Annemasse 2026 ».
+    var seg = s.split(/\s+[-–]\s+/);
+    if (seg.length > 2 && seg[0].toLowerCase() === seg[seg.length - 1].toLowerCase()) s = seg.slice(0, -1).join(' - ');
+    // Majuscules : nom entier en capitales → tout adoucir ; sinon seulement les longs mots criés.
+    var tout = !/[a-zà-ÿ]/.test(s);
+    s = s.split(' ').map(function (m, i) {
+      var r = adoucir(m, tout);
+      return tout && i > 0 && PETITS.test(r.toLowerCase()) ? r.toLowerCase() : r;
+    }).join(' ');
+    return s;
+  }
+
   function adv(a) {
     if (!a || !a.nom) return '<span class="sd-muted">exempt</span>';
     return esc(a.nom) + (a.elo ? ' <span class="sd-elo">' + Math.round(a.elo) + '</span>' : '');
@@ -125,10 +173,10 @@
     var t = eng[0].tournoi, ouvert = !!this.ouverts[ref];
     var ronde = Math.max.apply(null, eng.map(function (e) { return e.rondeJouee || 0; }));
     var nb = eng[0].nbRondes;
-    var meta = [t.ville ? esc(t.ville.charAt(0) + t.ville.slice(1).toLowerCase()) : '', esc(periode(t)), ronde && nb ? 'ronde ' + ronde + '/' + nb : '']
+    var meta = [esc(joliVille(t.ville)), esc(periode(t)), ronde && nb ? 'ronde ' + ronde + '/' + nb : '']
       .filter(Boolean).join(' · ');
     var h = '<article class="sd-carte' + (eng.some(function (e) { return e.partie && e.partie.enCours; }) ? ' sd-live' : '') + '">';
-    h += '<div class="sd-carte-h"><div><h4' + (t.nomOriginal ? ' title="' + esc(t.nomOriginal) + '"' : '') + '>' + esc(t.nom) + '</h4><p class="sd-meta">' + meta + (eng[0].source !== 'ffe' ? ' · <span class="sd-src">chess-results</span>' : '') + '</p></div></div>';
+    h += '<div class="sd-carte-h"><div><h4' + (t.nomOriginal ? ' title="' + esc(t.nomOriginal) + '"' : '') + '>' + esc(joliNom(t.nom)) + '</h4><p class="sd-meta">' + meta + (eng[0].source !== 'ffe' ? ' · <span class="sd-src">chess-results</span>' : '') + '</p></div></div>';
     h += '<ul class="sd-joueurs">';
     eng.forEach(function (e) {
       var score = e.points != null ? '<span class="sd-score">' + pts(e.points) + '<small>/' + (e.rondeJouee || '') + '</small></span>' : '';
@@ -165,7 +213,7 @@
     var h = '<div class="sd-cartes">';
     jeu.forEach(function (e) {
       var p = e.partie;
-      h += '<article class="sd-carte sd-live sd-partie"><p class="sd-meta">' + esc(e.tournoi.nom) + '</p>';
+      h += '<article class="sd-carte sd-live sd-partie"><p class="sd-meta">' + esc(joliNom(e.tournoi.nom)) + '</p>';
       h += '<p class="sd-duel"><span class="sd-nom">' + esc(e.joueur) + '</span> ' + couleur(p.couleur) + ' <span class="sd-contre">contre</span> ' + adv(p.adversaire) + '</p>';
       h += '<p class="sd-meta">Ronde ' + p.ronde + (p.echiquier ? ' · table ' + p.echiquier : '') + (e.points != null ? ' · ' + pts(e.points) + ' pt avant la ronde' : '') + (p.pasEncoreCommencee ? ' · pas encore commencée' : '') + '</p></article>';
     });
@@ -179,7 +227,7 @@
     f.forEach(function (ev) {
       h += '<li><span class="sd-pastille sd-res-' + esc(ev.resultat) + '">' + (RES_LONG[ev.resultat] || '') + '</span>'
         + '<span class="sd-fil-txt"><strong>' + esc(ev.joueur) + '</strong> ' + couleur(ev.couleur) + ' contre ' + adv(ev.adversaire)
-        + '<span class="sd-meta"> · ronde ' + ev.ronde + ' · ' + esc(ev.tournoi) + '</span></span>'
+        + '<span class="sd-meta"> · ronde ' + ev.ronde + ' · ' + esc(joliNom(ev.tournoi)) + '</span></span>'
         + '<span class="sd-quand">' + esc(ilya(ev.a)) + '</span>'
         + (ev.lien ? '<a class="sd-fil-lien" href="' + esc(ev.lien) + '" target="_blank" rel="noopener" aria-label="Voir la ronde sur le site de la FFE">' + FLECHE + '</a>' : '') + '</li>';
     });
