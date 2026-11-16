@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banc d'essai — site</title>
+<!-- Outil de dev (break-ui) : charge le vrai index.html dans un cadre et remplace ses données
+     (ARTICLES, EQUIPE, HORAIRES) par des cas extrêmes réalistes. Rien n'est modifié dans le site.
+     Lancer `npx serve .` à la racine puis ouvrir /tests/banc-site?data=pire&page=home&l=375 -->
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#d9d9d9;font:13px/1 system-ui,sans-serif}
+.scene{display:flex;justify-content:center;height:100%;padding:0 0 64px}
+iframe{border:0;height:100%;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.banc{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;z-index:9;max-width:calc(100vw - 16px)}
+.seg{display:flex;background:#ececec;border-radius:999px;padding:3px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.seg a{padding:7px 10px;border-radius:999px;color:#333;text-decoration:none;white-space:nowrap}
+.seg a.on{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+</style>
+</head>
+<body>
+<div class="scene"><iframe id="cadre" title="Site en test"></iframe></div>
+<nav class="banc" aria-label="Banc d'essai">
+  <div class="seg" id="s-data"></div><div class="seg" id="s-page"></div><div class="seg" id="s-l"></div>
+</nav>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var data = q.get('data') || 'demo', page = q.get('page') || 'home', larg = q.get('l') || 'max';
+  function seg(id, cle, opts, cur) {
+    document.getElementById(id).innerHTML = opts.map(function (o) {
+      var p = new URLSearchParams(location.search); p.set(cle, o[0]);
+      return '<a href="?' + p + '"' + (o[0] === cur ? ' class="on"' : '') + '>' + o[1] + '</a>';
+    }).join('');
+  }
+  seg('s-data', 'data', [['demo', 'Démo'], ['pire', 'Pire cas'], ['vide', 'Vide'], ['un', 'Un seul']], data);
+  seg('s-page', 'page', [['home', 'Accueil'], ['actualites', 'Actualités'], ['article', 'Article'], ['club', 'Club'], ['horaires', 'Horaires']], page);
+  seg('s-l', 'l', [['max', 'Large'], ['768', '768'], ['375', '375'], ['320', '320']], larg);
+  var f = document.getElementById('cadre');
+  f.style.width = larg === 'max' ? '100%' : larg + 'px';
+
+  var PIRE_ARTICLES = {
+    'pire-long': {
+      cat: 'Compétition · International · Jeunes', badge: 'Résultats', emoji: '🏆', bg: 'linear-gradient(135deg,#1E3A5F,#0A1F38)',
+      title: 'Championnat de France des Jeunes 2027 à Agen : Marie-Charlotte Bensdorp de Labaca sacrée championne de France U12 Féminin après un départage au Buchholz !',
+      date: '1er septembre 2026', img: 'photos/introuvable-2027.jpg',
+      body: '<p>Une très longue journée pour <strong>Marie-Charlotte</strong>, qui l’emporte au départage devant Aleksandra Wiśniewska-Kowalczyk.</p>'
+    },
+    'pire-sansphoto': { cat: 'Club', badge: 'Club', emoji: '♟️', bg: 'linear-gradient(135deg,#7E6420,#3a2a05)', title: 'AG', date: '3 sept. 2026', img: '', body: '<p>Assemblée générale.</p>' },
+    'pire-url': {
+      cat: 'Vie du club · Événement', badge: 'Club', emoji: '📣', bg: 'linear-gradient(135deg,#2D5A8E,#0A1F38)',
+      title: 'Inscriptions ouvertes : https://www.helloasso.com/associations/cannes-echecs/adhesions/saison-2026-2027',
+      date: '12 septembre 2026', img: '', body: '<p>Lien d’inscription.</p>'
+    }
+  };
+  var PIRE_EXTRAITS = {
+    'pire-long': 'Après neuf rondes disputées à Agen, notre jeune championne termine à égalité de points avec deux autres joueuses et décroche le titre au départage — un moment inoubliable pour toute la délégation cannoise, ses entraîneurs et ses parents venus la soutenir.',
+    'pire-url': 'bartholomew.fitzgerald@northwind-industries-holdings.example.com vous répond pour toute question sur les inscriptions.'
+  };
+  var PIRE_EQUIPE = [
+    { nom: 'Marie-Charlotte Bensdorp de Labaca', role: 'Responsable des interventions scolaires et de la formation des animateurs', avatar: 'photos/absente.jpg' },
+    { nom: 'Jo', role: 'Animateur', avatar: '👤' },
+    { nom: 'Aleksandra Wiśniewska-Kowalczyk', role: 'Arbitre fédérale', avatar: 'photos/joffrey.jpg' },
+    { nom: 'Nguyễn Thị Phương Thảo', role: 'Trésorière', avatar: '' },
+    { nom: 'Romu', role: 'Directeur sportif', avatar: 'photos/romuald_photostaff.jpg' }
+  ];
+  var PIRE_HORAIRES = [
+    { jour: 'Lundi', h: '13h30–18h30', detail: 'Parties libres · Accès club' },
+    { jour: 'Mardi', h: '', detail: 'Cours jeunes uniquement', highlight: true },
+    { jour: 'Mercredi', h: '9h00–12h00 · 13h30–20h00', detail: 'Pitchounets 13h30 · Jeunes 13h30–17h30 · Adultes débutants 17h30 · Adultes confirmés 18h30 · Préparation aux championnats de France jeunes (sur sélection) 19h30' },
+    { jour: 'Samedi', h: '', detail: 'Fermé (sauf tournois PICO)', ferme: true }
+  ];
+
+  function vider(o) { Object.keys(o).forEach(function (k) { delete o[k]; }); }
+  function injecter(w) {
+    var A = w.eval('ARTICLES'), O = w.eval('ARCHIVE_ORDER'), X = w.eval('EXTRAITS'), E = w.eval('EQUIPE'), H = w.eval('HORAIRES');
+    var cle = O[0];
+    if (data === 'pire') {
+      Object.assign(A, PIRE_ARTICLES); Object.assign(X, PIRE_EXTRAITS);
+      O.splice(0, 0, 'pire-long', 'pire-sansphoto', 'pire-url'); cle = 'pire-long';
+      E.splice(0, E.length); PIRE_EQUIPE.forEach(function (m) { E.push(m); });
+      H.splice(0, H.length); PIRE_HORAIRES.forEach(function (m) { H.push(m); });
+    } else if (data === 'vide') {
+      O.splice(0, O.length); E.splice(0, E.length); cle = null;
+    } else if (data === 'un') {
+      O.splice(1, O.length); E.splice(1, E.length);
+    }
+    ['renderArchiveGrid', 'renderHomeActus', 'renderHoraires', 'renderEquipe'].forEach(function (fn) { try { w[fn](); } catch (e) { console.error(fn, e); } });
+    if (page === 'article') { if (cle) w.goToArticle(cle); else w.goTo('article'); }
+    else w.goTo(page);
+  }
+  f.addEventListener('load', function () { try { injecter(f.contentWindow); } catch (e) { console.error(e); } });
+  f.src = '../index.html';
+})();
+</script>
+</body>
+</html>
