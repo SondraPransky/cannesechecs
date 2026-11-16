@@ -469,6 +469,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .pico-row{display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid rgba(255,255,255,.1)}
 .pico-rows .pico-row:last-child{border-bottom:none}
 .pico-row.off{opacity:.5;font-style:italic}
+.pico-row.is-past{opacity:.55}
+.pico-row.is-past .pico-ins{display:none}
+.pico-row.is-past::after{content:'Terminé';margin-left:auto;flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
 .pico-row.is-next{background:rgba(201,168,76,.16);border-radius:9px;box-shadow:inset 0 0 0 1px rgba(201,168,76,.4);border-bottom-color:transparent}
 .pico-chip{flex-shrink:0;min-width:44px;height:44px;border-radius:8px;background:var(--gold-tint);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold-pale)}
 .pico-row.is-next .pico-chip{background:var(--gold);color:var(--noir)}
@@ -1300,7 +1303,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <button class="filtre-btn">Scolaire</button>
       <button class="filtre-btn">Club</button>
       <div class="archive-search">
-        <input type="search" id="actu-search" placeholder="Rechercher un joueur, un tournoi…" aria-label="Rechercher dans les actualités" autocomplete="off">
+        <input type="search" id="actu-search" placeholder="Rechercher un joueur…" aria-label="Rechercher dans les actualités" autocomplete="off">
       </div>
     </div>
   </div>
@@ -2683,10 +2686,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div>
           <div style="background:var(--bleu);border-radius:14px;padding:22px;margin-bottom:16px;color:#fff">
             <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Prochain événement</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px">Reprise des cours</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:4px">Mercredi 9 septembre 2026</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.65);margin-bottom:16px">Rentrée saison 2026–2027</div>
-            <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-bottom:8px">
+            <div id="ag-next-titre" style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px">Reprise des cours</div>
+            <div id="ag-next-date" style="font-size:13px;color:rgba(255,255,255,.72);margin-bottom:4px">Mercredi 9 septembre 2026</div>
+            <div id="ag-next-desc" style="font-size:13px;color:rgba(255,255,255,.72);margin-bottom:16px">Rentrée saison 2026–2027</div>
+            <div id="ag-next-puis" style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-bottom:8px">
               <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Puis</div>
               <div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px">Ven. 18 sept. — Rapide du vendredi · 20h</div>
               <div style="font-size:13px;color:rgba(255,255,255,.75)">Sam. 19 sept. — PICO Septembre · 13h30</div>
@@ -4388,9 +4391,41 @@ function hideOldAgendaEvents(now) {
   var empty = document.getElementById('agenda-empty');
   if (empty && visibles === 0) empty.style.display = 'block';
 }
+// Encadré « Prochain événement » : rempli à partir des 3 premières cartes encore visibles
+// (avant : texte figé sur la rentrée de septembre, resté affiché après la date).
+function renderAgendaNext() {
+  var cont = document.getElementById('agenda-events'), titre = document.getElementById('ag-next-titre');
+  if (!cont || !titre) return;
+  var yrs = SAISON.match(/\d{4}/g) || [];
+  var y1 = parseInt(yrs[0], 10) || new Date().getFullYear(), y2 = parseInt(yrs[1], 10) || y1 + 1;
+  var JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var MCOURT = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  var evs = Array.prototype.slice.call(cont.querySelectorAll('.agenda-event')).filter(function (e) { return e.dataset.past !== '1'; }).slice(0, 3);
+  var infos = evs.map(function (ev) {
+    var spans = ev.querySelectorAll('span'), mo = agendaEventMonth(ev), day = parseInt(spans[0] && spans[0].textContent, 10);
+    if (mo === undefined || isNaN(day)) return null;
+    var d = new Date(mo >= 6 ? y1 : y2, mo, day);
+    var corps = ev.querySelector('div[style*="flex:1"]'), lignes = corps ? corps.children : [];
+    var label = lignes[0] ? lignes[0].textContent.trim() : '', heure = (label.split('·')[1] || '').trim().toLowerCase();
+    return { d: d, titre: lignes[1] ? lignes[1].textContent.trim() : '', desc: lignes[2] ? lignes[2].textContent.trim() : '', heure: heure };
+  }).filter(Boolean);
+  var bloc = titre.parentElement;
+  if (!infos.length) { bloc.style.display = 'none'; return; }
+  var a = infos[0];
+  titre.textContent = a.titre;
+  document.getElementById('ag-next-date').textContent = JOURS[a.d.getDay()] + ' ' + a.d.getDate() + ' ' + MOIS_FULL[a.d.getMonth()].toLowerCase() + ' ' + a.d.getFullYear() + (a.heure ? ' · ' + a.heure : '');
+  document.getElementById('ag-next-desc').textContent = a.desc;
+  var puis = document.getElementById('ag-next-puis');
+  if (infos.length < 2) { puis.style.display = 'none'; return; }
+  var lignesPuis = infos.slice(1).map(function (x) {
+    return '<div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px">' + JOURS[x.d.getDay()].slice(0, 3) + '. ' + x.d.getDate() + ' ' + MCOURT[x.d.getMonth()] + ' — ' + x.titre.replace(/[<>&]/g, '') + (x.heure ? ' · ' + x.heure : '') + '</div>';
+  }).join('');
+  puis.innerHTML = puis.firstElementChild.outerHTML + lignesPuis;
+}
 buildAgendaMonths();
 hideOldAgendaEvents();
 refreshAgendaMonths();
+renderAgendaNext();
 
 // ── FILTRES (Agenda + Archive Actualités) ────────────
 document.querySelectorAll('.filtre-btn').forEach(btn => {
@@ -4783,12 +4818,13 @@ function initPicoNext() {
   var today = new Date(); today.setHours(0,0,0,0);
   var next = null;
   rows.forEach(function(r){
-    r.classList.remove('is-next');
+    r.classList.remove('is-next', 'is-past');
     var old = r.querySelector('.pico-tag'); if (old) old.remove();
     var d = new Date(r.getAttribute('data-pico') + 'T00:00:00');
+    if (d < today) r.classList.add('is-past');   // PICO passé : plus de bouton « S'inscrire »
     if (!next && d >= today) next = r;
   });
-  if (!next) next = rows[rows.length - 1];   // saison terminée : dernier PICO
+  if (!next) { next = rows[rows.length - 1]; next.classList.remove('is-past'); }   // saison terminée : dernier PICO
   next.classList.add('is-next');
   var tag = document.createElement('span');
   tag.className = 'pico-tag';
