@@ -197,39 +197,55 @@
   };
 
   Suivi.prototype.carte = function (ref, eng) {
-    var t = eng[0].tournoi, ouvert = !!this.ouverts[ref];
+    var t = eng[0].tournoi, self = this;
     var ronde = Math.max.apply(null, eng.map(function (e) { return e.rondeJouee || 0; }));
     var nb = eng[0].nbRondes;
-    var meta = [esc(joliVille(t.ville)), esc(periode(t)), ronde && nb ? 'ronde ' + ronde + '/' + nb : '']
-      .filter(Boolean).join(' · ');
+    var meta = [esc(joliVille(t.ville)), esc(periode(t)), ronde && nb ? 'ronde ' + ronde + '/' + nb : ''].filter(Boolean);
+    if (eng[0].source !== 'ffe') meta.push('<span class="sd-src">chess-results</span>');
     var h = '<article class="sd-carte' + (eng.some(function (e) { return e.partie && e.partie.enCours; }) ? ' sd-live' : '') + '">';
-    h += '<div class="sd-carte-h"><div><h4' + (t.nomOriginal ? ' title="' + esc(t.nomOriginal) + '"' : '') + '>' + esc(joliNom(t.nom)) + '</h4><p class="sd-meta">' + meta + (eng[0].source !== 'ffe' ? ' · <span class="sd-src">chess-results</span>' : '') + '</p></div></div>';
-    h += '<ul class="sd-joueurs">';
-    eng.forEach(function (e) {
-      var score = e.points != null ? '<span class="sd-score">' + pts(e.points) + '<small>/' + (e.rondeJouee || '') + '</small></span>' : '';
-      var info = [place(e.place, e.nbJoueurs), e.perf ? 'perf ' + Math.round(e.perf) : ''].filter(Boolean).join(' · ');
-      var live = e.partie && e.partie.enCours ? '<span class="sd-joue">joue la ronde ' + e.partie.ronde + '</span>' : '';
-      h += '<li><span class="sd-nom">' + esc(e.joueur) + '</span>' + live + '<span class="sd-info">' + esc(info) + '</span>' + score + '</li>';
-    });
-    h += '</ul>';
-    h += '<button type="button" class="sd-ouvrir" data-ouvrir="' + esc(ref) + '" aria-expanded="' + ouvert + '">' + (ouvert ? 'Masquer les rondes' : 'Voir les rondes') + '</button>';
-    if (ouvert) {
-      eng.forEach(function (e) {
-        h += '<div class="sd-detail">' + (eng.length > 1 ? '<p class="sd-detail-nom">' + esc(e.joueur) + '</p>' : '') + '<table class="sd-rondes"><tbody>';
+    h += '<div class="sd-carte-h"><h4' + (t.nomOriginal ? ' title="' + esc(t.nomOriginal) + '"' : '') + '>' + esc(joliNom(t.nom)) + '</h4><p class="sd-meta">' + meta.join(' · ') + '</p></div>';
+
+    var rienJoue = eng.every(function (e) { return !(e.rondes || []).length && !e.partie && e.points == null; });
+    if (rienJoue) {
+      h += '<p class="sd-cl-tete sd-cl-un"><span>Engagés</span></p><ul class="sd-cl">';
+      eng.forEach(function (e) { h += '<li class="sd-cl-ligne sd-cl-un"><span class="sd-cl-nom"><span class="sd-nom">' + esc(e.joueur) + '</span></span></li>'; });
+      return h + '</ul><p class="sd-cl-vide">Les rondes s’afficheront dès le premier appariement.</p></article>';
+    }
+
+    h += '<p class="sd-cl-tete" aria-hidden="true"><span>Joueur</span><span>Place</span><span>Points</span><span></span></p><ul class="sd-cl">';
+    eng.forEach(function (e, k) {
+      var id = ref + ':' + k, ouvert = !!self.ouverts[id];
+      var detail = (e.rondes || []).length || (e.partie && !e.partie.resultat);
+      var live = e.partie && e.partie.enCours ? '<span class="sd-joue">joue la ronde ' + esc(e.partie.ronde) + '</span>' : '';
+      var place = e.place != null ? '<b>' + Math.round(e.place) + (Math.round(e.place) === 1 ? 'er' : 'e') + '</b>' + (e.nbJoueurs ? 'sur ' + e.nbJoueurs : '') : '<b>–</b>';
+      var score = e.points != null ? pts(e.points) + '<small>/' + (e.rondeJouee || 0) + '</small>' : '–';
+      var cellules = '<span class="sd-cl-nom"><span class="sd-nom">' + esc(e.joueur) + '</span>' + live + '</span>'
+        + '<span class="sd-cl-place">' + place + '</span>'
+        + '<span class="sd-cl-score">' + score + '</span>';
+      h += '<li>' + (detail
+        ? '<button type="button" class="sd-cl-ligne" data-ouvrir="' + esc(id) + '" aria-expanded="' + ouvert + '" aria-label="' + esc(e.joueur) + ' : ' + (ouvert ? 'masquer' : 'voir') + ' les rondes">' + cellules + '<span class="sd-cl-chev" aria-hidden="true">▾</span></button>'
+        : '<div class="sd-cl-ligne">' + cellules + '<span></span></div>');
+      if (detail && ouvert) {
+        h += '<div class="sd-detail"><table class="sd-rondes"><tbody>';
         (e.rondes || []).forEach(function (r) {
-          h += '<tr><td class="sd-r">R' + r.numero + '</td><td>' + couleur(r.couleur) + '</td><td class="sd-res sd-res-' + (r.resultat || 'x') + '">' + (RES[r.resultat] || '–') + '</td><td>' + adv(r.adversaire) + '</td></tr>';
+          var bye = !r.adversaire || !r.adversaire.nom;
+          h += '<tr><td class="sd-r">R' + esc(r.numero) + '</td><td>' + (bye ? '' : couleur(r.couleur)) + '</td><td class="sd-res sd-res-' + esc(r.resultat || 'x') + '">' + (RES[r.resultat] || '–') + '</td><td>' + adv(r.adversaire) + '</td></tr>';
         });
         if (e.partie && !e.partie.resultat) {
-          h += '<tr class="sd-encours"><td class="sd-r">R' + e.partie.ronde + '</td><td>' + couleur(e.partie.couleur) + '</td><td class="sd-res">…</td><td>' + adv(e.partie.adversaire) + ' <span class="sd-joue">' + (e.partie.enCours ? 'en cours' : 'à jouer') + '</span></td></tr>';
+          var pa = e.partie, byeP = !pa.adversaire || !pa.adversaire.nom;
+          h += '<tr class="sd-encours"><td class="sd-r">R' + esc(pa.ronde) + '</td><td>' + (byeP ? '' : couleur(pa.couleur)) + '</td><td class="sd-res">…</td><td>' + adv(pa.adversaire)
+            + ' <span class="sd-meta">' + (pa.echiquier ? '· table ' + esc(pa.echiquier) + ' ' : '') + '· ' + (pa.enCours ? 'en cours' : 'à jouer') + '</span></td></tr>';
         }
-        h += '</tbody></table></div>';
-      });
-      var liens = (eng[0].liens || []).filter(function (l) { return LIENS[l.cle]; });
-      if (liens.length) {
-        h += '<p class="sd-liens">' + liens.map(function (l) {
-          return '<a href="' + esc(l.href) + '" target="_blank" rel="noopener">' + LIENS[l.cle] + (l.ronde ? ' ' + l.ronde : '') + ' ' + FLECHE + '</a>';
-        }).join('') + '</p>';
+        h += '</tbody></table>' + (e.perf ? '<p class="sd-meta sd-perf">Performance ' + Math.round(e.perf) + '</p>' : '') + '</div>';
       }
+      h += '</li>';
+    });
+    h += '</ul>';
+    var liens = (eng[0].liens || []).filter(function (l) { return LIENS[l.cle]; });
+    if (liens.length) {
+      h += '<p class="sd-liens">' + liens.map(function (l) {
+        return '<a href="' + esc(l.href) + '" target="_blank" rel="noopener">' + LIENS[l.cle] + (l.ronde ? ' ' + esc(l.ronde) : '') + ' ' + FLECHE + '</a>';
+      }).join('') + '</p>';
     }
     return h + '</article>';
   };
