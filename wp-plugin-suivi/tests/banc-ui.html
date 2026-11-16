@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banc d'essai — Suivi tournoi</title>
+<!-- Outil de dev (non livré dans le zip) : affiche le widget public avec des jeux de données extrêmes.
+     Lancer `npx serve .` à la racine de SiteACE puis ouvrir /wp-plugin-suivi/tests/banc-ui.html?data=pire -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-pale:#F5EDD4;--gold-text:#7E6420;--ivoire:#FAF8F4;--ivoire2:#F0EDE6;--bleu:#1E3A5F;--muted:#4A4858;--text:#374151;--border:#E5E0D8;
+  --font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'Inter',sans-serif;--font-label:'Montserrat',sans-serif;--r-sm:4px;--r-card:14px;--r-pill:9999px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--ivoire);color:#0F0E17;line-height:1.6;padding:40px 16px 120px}
+h1,h2,h3,h4,h5{font-family:var(--font-serif);font-weight:700;line-height:1.15;text-wrap:balance}
+.cadre{margin:0 auto;max-width:1140px}
+.banc{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font:13px/1 system-ui,sans-serif;z-index:9}
+.seg{display:flex;background:#e5e5e5;border-radius:999px;padding:3px}
+.seg a{padding:8px 12px;border-radius:999px;color:#333;text-decoration:none}
+.seg a.on{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+</style>
+</head>
+<body>
+<div class="cadre" id="cadre"></div>
+<nav class="banc" aria-label="Banc d'essai">
+  <div class="seg" id="seg-data"></div>
+  <div class="seg" id="seg-l"></div>
+</nav>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var data = q.get('data') || 'demo', larg = q.get('l') || 'max';
+  var LARG = { max: '1140px', '760': '760px', '320': '320px' };
+  document.getElementById('cadre').style.maxWidth = LARG[larg] || '1140px';
+  function seg(id, cle, opts, cur) {
+    document.getElementById(id).innerHTML = opts.map(function (o) {
+      var p = new URLSearchParams(location.search); p.set(cle, o[0]);
+      return '<a href="?' + p + '"' + (o[0] === cur ? ' class="on"' : '') + '>' + o[1] + '</a>';
+    }).join('');
+  }
+  seg('seg-data', 'data', [['demo', 'Démo'], ['pire', 'Pire cas'], ['vide', 'Vide'], ['un', 'Un seul'], ['mille', '300 lignes']], data);
+  seg('seg-l', 'l', [['max', 'Large'], ['760', '760'], ['320', '320']], larg);
+
+  var H = 3600e3, maintenant = Date.now();
+  function il(h) { return new Date(maintenant - h * H).toISOString(); }
+  function jourIso(d) { return new Date(maintenant + d * 24 * H).toISOString().slice(0, 10); }
+  function ronde(n, res, coul, nom, elo) { return { numero: n, resultat: res, couleur: coul, adversaire: nom ? { nom: nom, elo: elo } : null }; }
+
+  function pire() {
+    var rondes13 = [];
+    var noms = ['Wiśniewska-Kowalczyk, Aleksandra', 'Fitzgerald-Montgomery, Bartholomew III', 'Jo', 'Nguyễn Thị Phương, Thảo', 'Ouakrim-Benhaddou, Yasmine', 'Abdusattorov, Nodirbek'];
+    for (var i = 1; i <= 13; i++) rondes13.push(ronde(i, ['gagne', 'nulle', 'perdu'][i % 3], i % 2 ? 'blancs' : 'noirs', i === 7 ? null : noms[i % noms.length], i % 4 ? 1500 + i * 37 : null));
+    var longT = { ref: 'ffe1', nom: 'CHAMPIONNAT DE FRANCE DES JEUNES 2027 – PHASE FINALE – CATÉGORIE U14 FÉMININ (OPEN B, CADENCE LENTE)', ville: "L'ISLE SUR LA SORGUE", dateDebut: jourIso(-3), dateFin: jourIso(5) };
+    var crT = { ref: 'cr2', nom: 'Open International de Cagnes-sur-Mer – Grand Prix de la Côte d’Azur 2026 – Tournoi Principal (Elo FIDE ≥ 1800)', ville: '', dateDebut: null, dateFin: null };
+    var court = { ref: 'ffe3', nom: 'Rapide', ville: 'NICE', dateDebut: jourIso(2), dateFin: jourIso(2) };
+    var joueursMany = ['BENSDORP DE LABACA Marie-Charlotte', 'LI Jo', 'ARAVINDH Chithambaram Vr.', 'OUAKRIM-BENHADDOU Yasmine', 'NGUYỄN Thảo', 'O’SULLIVAN-DE LA TOUR Hippolyte', 'MALTSEV Nikita', 'MALTSEV Artem', 'DUCHATEL Cyrielle'];
+    var suivi = [];
+    joueursMany.forEach(function (j, k) {
+      suivi.push({ source: 'ffe', statut: 'en_cours', joueur: j, tournoi: longT, place: k === 0 ? 1 : 100 + k * 13, nbJoueurs: 1284, points: [10.5, 0, 0.5, 6, 3.5, 12, 1, 2, 4][k], rondeJouee: 12, nbRondes: 13,
+        perf: k % 3 ? 2187.6 : null, rondes: k === 0 ? rondes13 : rondes13.slice(0, 3),
+        partie: { ronde: 13, echiquier: 127, couleur: 'noirs', adversaire: k === 1 ? null : { nom: noms[k % noms.length], elo: k % 2 ? null : 2412 }, resultat: null, enCours: k < 5, pasEncoreCommencee: k === 4 },
+        liens: [{ cle: 'classement', href: '#' }, { cle: 'grille', href: '#' }, { cle: 'ronde', href: '#', ronde: 13 }, { cle: 'participants', href: '#' }] });
+    });
+    suivi.push({ source: 'chess-results', statut: 'en_cours', joueur: 'GODENA Michele', tournoi: crT, place: null, nbJoueurs: null, points: null, rondeJouee: 0, nbRondes: null, rondes: [],
+      partie: { ronde: 1, echiquier: null, couleur: null, adversaire: null, resultat: null, enCours: true, pasEncoreCommencee: true }, liens: [] });
+    suivi.push({ source: 'ffe', statut: 'a_venir', joueur: 'BENSDORP DE LABACA Marie-Charlotte', tournoi: court, rondes: [], liens: [] });
+    suivi.push({ source: 'ffe', statut: 'termine', joueur: 'LI Jo', tournoi: { ref: 'ffe4', nom: 'Salon de Provence 11e 11 novembre 26 A', ville: 'SALON DE PROVENCE', dateDebut: jourIso(-5), dateFin: jourIso(-5) }, place: 1, nbJoueurs: 1, points: 7, rondeJouee: 7, nbRondes: 7, rondes: [], liens: [] });
+    var fil = [];
+    for (var f = 0; f < 40; f++) {
+      fil.push({ a: il([0.01, 0.5, 3, 23, 30, 49, 200, 900][f % 8]), joueur: joueursMany[f % joueursMany.length], tournoi: f % 2 ? longT.nom : crT.nom, ville: '', ronde: 1 + (f % 13),
+        resultat: ['gagne', 'nulle', 'perdu'][f % 3], couleur: f % 5 === 4 ? null : (f % 2 ? 'blancs' : 'noirs'), adversaire: f % 7 === 6 ? null : { nom: noms[f % noms.length], elo: f % 3 ? 2412 : null }, lien: f % 4 ? '#' : '' });
+    }
+    return { misAJour: null, joueurs: 1284, suivi: suivi, fil: fil };
+  }
+  function un() {
+    var t = { ref: 'u1', nom: 'Open de Cannes', ville: 'CANNES', dateDebut: jourIso(-1), dateFin: jourIso(1) };
+    return { misAJour: il(0.2), joueurs: 1, suivi: [{ source: 'ffe', statut: 'en_cours', joueur: 'LI Jo', tournoi: t, place: 1, nbJoueurs: 1, points: 1, rondeJouee: 1, nbRondes: 1, perf: null,
+      rondes: [ronde(1, 'gagne', 'blancs', 'Exempt', null)], partie: null, liens: [] }],
+      fil: [{ a: il(0.2), joueur: 'LI Jo', tournoi: t.nom, ronde: 1, resultat: 'gagne', couleur: 'blancs', adversaire: { nom: 'Martin, Paul', elo: 1500 }, lien: '' }] };
+  }
+  function mille() {
+    var d = pire(), base = d.fil;
+    d.fil = []; for (var i = 0; i < 300; i++) d.fil.push(base[i % base.length]);
+    return d;
+  }
+  function brancher(donnees) {
+    var el = document.createElement('div');
+    el.className = 'suivi-direct'; el.setAttribute('data-suivi', '');
+    var s = document.createElement('script'); s.type = 'application/json'; s.className = 'suivi-config';
+    s.textContent = JSON.stringify({ api: location.href, donnees: donnees });
+    el.appendChild(s); document.getElementById('cadre').appendChild(el);
+    var js = document.createElement('script'); js.src = '../assets/suivi-public.js?' + Date.now(); document.body.appendChild(js);
+  }
+  var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = '../assets/suivi-public.css?' + Date.now(); document.head.appendChild(css);
+  if (data === 'demo') fetch('banc-ui-demo.json').then(function (r) { return r.json(); }).then(brancher);
+  else brancher(data === 'vide' ? { misAJour: il(0.1), joueurs: 0, suivi: [], fil: [] } : data === 'un' ? un() : data === 'mille' ? mille() : pire());
+})();
+</script>
+</body>
+</html>

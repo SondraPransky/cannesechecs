@@ -106,6 +106,31 @@
     return esc(a.nom) + (a.elo ? ' <span class="sd-elo">' + Math.round(a.elo) + '</span>' : '');
   }
 
+  // --- Résultats regroupés par jour ---
+  function local(iso) { return new Date(iso); }
+  function cleJour(iso) { var d = local(iso); return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate(); }
+  function titreJour(iso) {
+    var d = local(iso), auj = new Date(), hier = new Date(auj.getTime() - 864e5);
+    if (cleJour(iso) === cleJour(auj.toISOString())) return 'Aujourd’hui';
+    if (cleJour(iso) === cleJour(hier.toISOString())) return 'Hier';
+    var o = { weekday: 'long', day: 'numeric', month: 'long' };
+    if (d.getFullYear() !== auj.getFullYear()) o.year = 'numeric';
+    return cap(d.toLocaleDateString('fr-FR', o));
+  }
+  function heure(iso) {
+    var m = Math.round((Date.now() - local(iso).getTime()) / 60000);
+    if (m >= 0 && m < 60) return m < 1 ? 'à l’instant' : 'il y a ' + m + ' min';
+    var d = local(iso);
+    return d.getHours() + ' h ' + String(d.getMinutes()).padStart(2, '0');
+  }
+  function bilan(evs) {
+    var n = { gagne: 0, nulle: 0, perdu: 0 };
+    evs.forEach(function (e) { if (n[e.resultat] != null) n[e.resultat]++; });
+    return [[n.gagne, 'victoire'], [n.nulle, 'nulle'], [n.perdu, 'défaite']]
+      .filter(function (x) { return x[0]; })
+      .map(function (x) { return x[0] + ' ' + x[1] + (x[0] > 1 ? 's' : ''); }).join(', ');
+  }
+
   function Suivi(racine) {
     var cfg = JSON.parse(racine.querySelector('.suivi-config').textContent);
     this.racine = racine;
@@ -113,11 +138,13 @@
     this.d = cfg.donnees;
     this.vue = 'tournois';
     this.ouverts = {};
+    this.filMax = 30;
     var self = this;
     racine.addEventListener('click', function (ev) {
-      var b = ev.target.closest('[data-vue],[data-ouvrir]');
+      var b = ev.target.closest('[data-vue],[data-ouvrir],[data-plus]');
       if (!b) return;
-      if (b.dataset.vue) { self.vue = b.dataset.vue; }
+      if (b.dataset.vue) { self.vue = b.dataset.vue; self.filMax = 30; }
+      if (b.dataset.plus) { self.filMax += 30; }
       if (b.dataset.ouvrir) { self.ouverts[b.dataset.ouvrir] = !self.ouverts[b.dataset.ouvrir]; }
       self.rendre();
     });
@@ -221,17 +248,39 @@
   };
 
   Suivi.prototype.vueFil = function () {
-    var f = this.d.fil;
+    var f = (this.d.fil || []).slice().sort(function (a, b) { return a.a < b.a ? 1 : a.a > b.a ? -1 : 0; });
     if (!f.length) return '<p class="sd-vide">Les nouveaux résultats apparaîtront ici au fil des rondes.</p>';
-    var h = '<ul class="sd-fil">';
-    f.forEach(function (ev) {
-      h += '<li><span class="sd-pastille sd-res-' + esc(ev.resultat) + '">' + (RES_LONG[ev.resultat] || '') + '</span>'
-        + '<span class="sd-fil-txt"><strong>' + esc(ev.joueur) + '</strong> ' + couleur(ev.couleur) + ' contre ' + adv(ev.adversaire)
-        + '<span class="sd-meta"> · ronde ' + ev.ronde + ' · ' + esc(joliNom(ev.tournoi)) + '</span></span>'
-        + '<span class="sd-quand">' + esc(ilya(ev.a)) + '</span>'
-        + (ev.lien ? '<a class="sd-fil-lien" href="' + esc(ev.lien) + '" target="_blank" rel="noopener" aria-label="Voir la ronde sur le site de la FFE">' + FLECHE + '</a>' : '') + '</li>';
+    var montres = f.slice(0, this.filMax), jours = [], par = {};
+    montres.forEach(function (ev) {
+      var k = cleJour(ev.a);
+      if (!par[k]) { par[k] = []; jours.push(k); }
+      par[k].push(ev);
     });
-    return h + '</ul>';
+    var h = '';
+    jours.forEach(function (k) {
+      var evs = par[k];
+      h += '<h3 class="sd-section sd-jour">' + esc(titreJour(evs[0].a)) + ' <span>' + esc(bilan(evs)) + '</span></h3><ul class="sd-fil">';
+      evs.forEach(function (ev) {
+        var r = ev.resultat, quand = heure(ev.a);
+        var duel = ev.adversaire && ev.adversaire.nom
+          ? couleur(ev.couleur) + ' <span class="sd-contre">contre</span> ' + adv(ev.adversaire)
+          : ' <span class="sd-contre">exempt</span>';
+        h += '<li><span class="sd-tuile sd-res-' + esc(r) + '" role="img" aria-label="' + (RES_LONG[r] || 'Résultat') + '">' + (RES[r] || '–') + '</span>'
+          + '<div class="sd-fil-txt"><p class="sd-fil-duel"><span class="sd-nom">' + esc(ev.joueur) + '</span> ' + duel + '</p>'
+          + '<p class="sd-meta sd-fil-meta"><span class="sd-fil-tournoi" title="' + esc(joliNom(ev.tournoi)) + '">' + esc(joliNom(ev.tournoi)) + '</span>'
+          + '<span class="sd-fil-ronde">&nbsp;· ronde ' + esc(ev.ronde) + '<span class="sd-fil-heure-m"> · ' + esc(quand) + '</span></span></p></div>'
+          + '<span class="sd-quand">' + esc(quand) + '</span>'
+          + (ev.lien
+            ? '<a class="sd-fil-lien" href="' + esc(ev.lien) + '" target="_blank" rel="noopener" aria-label="Voir la ronde ' + esc(ev.ronde) + ' sur le site du tournoi (nouvel onglet)">' + FLECHE + '</a>'
+            : '<span class="sd-fil-lien sd-fil-lien-vide" aria-hidden="true"></span>')
+          + '</li>';
+      });
+      h += '</ul>';
+    });
+    if (f.length > montres.length) {
+      h += '<p class="sd-plus-wrap"><button type="button" class="sd-plus" data-plus="1">Voir les résultats plus anciens <span>(' + (f.length - montres.length) + ')</span></button></p>';
+    }
+    return h;
   };
 
   function demarrer() {
