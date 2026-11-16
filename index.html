@@ -403,8 +403,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .actu-body{padding:20px 22px;display:flex;flex-direction:column;flex:1}
 .actu-cat{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .actu-cat::before{content:'';width:3px;height:3px;background:var(--gold);border-radius:50%}
-.actu-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.28}
-.actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.actu-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.28;overflow-wrap:anywhere}
+.actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;overflow-wrap:anywhere}
+#art-title,#art-body{overflow-wrap:anywhere}
 .actu-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:auto;border-top:1px solid var(--border)}
 .actu-date{font-size:11px;color:var(--muted)}
 .actu-lire{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);transition:color .2s}
@@ -488,7 +489,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .team-card{text-align:center;padding:28px 20px;background:var(--ivoire);border-radius:14px;border:1px solid var(--border);transition:border-color .2s,box-shadow .2s,transform .2s var(--ease-out)}
 .team-card:hover{border-color:var(--gold);box-shadow:var(--sh-sm);transform:translateY(-3px)}
-.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px}
+.team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:30px;font-weight:700;color:var(--gold-pale);letter-spacing:.02em;margin:0 auto 14px}
 .team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 .team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
@@ -3915,6 +3916,10 @@ function catToFilter(cat) {
 // ── HELPER : construit le HTML d'une carte article ───
 // showExtrait=true → affiche le résumé (archive, home)
 // showExtrait=false → carte compacte (section "À lire aussi")
+// Fond posé sous la photo : couleur imgBg (photos « contain ») sinon le dégradé de l'article
+function coverFond(a) {
+  return a.imgBg ? 'linear-gradient(' + a.imgBg + ',' + a.imgBg + ')' : (a.bg || 'var(--bleu)');
+}
 function getCover(id, a) {
   try { var ov = localStorage.getItem('ace_cover_' + id); if (ov) return ov; } catch(e) {}
   return a.img || null;
@@ -3928,7 +3933,7 @@ function ceNormalize(s) {
 function buildCard(key, a, showExtrait) {
   const imgSrc = getCover(key, a);
   const imgHtml = imgSrc
-    ? '<div class="actu-img" style="background:' + (a.imgBg || '#111') + ';background-image:url(\'' + imgSrc + '\');background-size:' + (a.imgFit || 'cover') + ';background-position:' + (a.imgPos || 'center') + ';background-repeat:no-repeat"></div>'
+    ? '<div class="actu-img" style="background:url(\'' + imgSrc + '\') ' + (a.imgPos || 'center') + '/' + (a.imgFit || 'cover') + ' no-repeat,' + coverFond(a) + '"></div>'
     : '<div class="actu-img" style="background:' + a.bg + '" role="img" aria-label="' + a.badge + '"><span aria-hidden="true">' + a.emoji + '</span></div>';
   const extraitHtml = (showExtrait && EXTRAITS[key])
     ? '<p class="actu-extrait">' + EXTRAITS[key] + '</p>'
@@ -3950,21 +3955,20 @@ function buildCard(key, a, showExtrait) {
 function renderArchiveGrid() {
   const grid = document.querySelector('#page-actualites .archive-grid');
   if (!grid) return;
-  grid.innerHTML = ARCHIVE_ORDER
-    .filter(function(k) { return !!ARTICLES[k]; })
-    .map(function(k)    { return buildCard(k, ARTICLES[k], true); })
-    .join('');
+  var keys = ARCHIVE_ORDER.filter(function(k) { return !!ARTICLES[k]; });
+  grid.innerHTML = keys.length
+    ? keys.map(function(k) { return buildCard(k, ARTICLES[k], true); }).join('')
+    : '<p style="grid-column:1/-1;text-align:center;color:var(--muted);font-style:italic;padding:48px 0;font-size:15px">Les premières actualités du club arrivent bientôt.</p>';
 }
 
 // ── RENDU : 4 dernières actus (page Accueil) ─────────
 function renderHomeActus() {
   const grid = document.getElementById('home-actus-grid');
   if (!grid) return;
-  grid.innerHTML = ARCHIVE_ORDER
-    .filter(function(k) { return !!ARTICLES[k]; })
-    .slice(0, 4)
-    .map(function(k)    { return buildCard(k, ARTICLES[k], false); })
-    .join('');
+  var keys = ARCHIVE_ORDER.filter(function(k) { return !!ARTICLES[k]; }).slice(0, 4);
+  var sec = grid.closest('section');
+  if (sec) sec.style.display = keys.length ? '' : 'none';   // aucune actualité : on masque le bloc de l'accueil
+  grid.innerHTML = keys.map(function(k) { return buildCard(k, ARTICLES[k], false); }).join('');
 }
 
 // ── RENDU : inscrits FIJ (page FIJ) ─────────────────
@@ -4028,11 +4032,8 @@ function goToArticle(id) {
   const coverSrc = getCover(id, a);
   if (img) {
     if (coverSrc) {
-      img.style.background = a.imgBg || '#111';
-      img.style.backgroundImage = "url('" + coverSrc + "')";
-      img.style.backgroundSize = a.imgFit || 'cover';
-      img.style.backgroundPosition = a.imgPos || 'center';
-      img.style.backgroundRepeat = 'no-repeat';
+      // Photo par-dessus le fond de l'article : si le fichier manque, le dégradé reste visible
+      img.style.background = "url('" + coverSrc + "') " + (a.imgPos || 'center') + '/' + (a.imgFit || 'cover') + ' no-repeat,' + coverFond(a);
       img.textContent = '';
     } else {
       img.style.background = a.bg;
@@ -4777,13 +4778,30 @@ function renderHoraires() {
 }
 
 // ── ÉQUIPE ────────────────────────────────────────────────────────────────────
+// Initiales pour les fiches sans photo : « Marie-Charlotte Bensdorp de Labaca » → « ML », « Jo » → « J »
+function initiales(nom) {
+  var mots = (nom || '').trim().split(/\s+/).filter(Boolean);
+  if (!mots.length) return '';
+  var p = Array.from(mots[0])[0] || '', d = mots.length > 1 ? (Array.from(mots[mots.length - 1])[0] || '') : '';
+  return (p + d).toUpperCase().replace(/[<>&"']/g, '');
+}
+// Photo d'équipe introuvable : on la remplace par les initiales
+function photoAbsente(img) {
+  var d = document.createElement('div');
+  d.className = 'team-avatar'; d.setAttribute('aria-hidden', 'true');
+  d.textContent = img.getAttribute('data-ini') || '';
+  img.replaceWith(d);
+}
 function renderEquipe() {
   var grid = document.getElementById('equipe-grid');
   if (!grid) return;
+  var sec = grid.closest('section');
+  if (sec) sec.style.display = EQUIPE.length ? '' : 'none';   // aucune fiche : on masque la section
   grid.innerHTML = EQUIPE.map(function(m) {
+    var ini = initiales(m.nom);
     var av = (m.avatar && m.avatar.indexOf('photos/') === 0)
-      ? '<img src="' + m.avatar + '" class="team-photo" loading="lazy" decoding="async" alt="' + m.nom + '">'
-      : '<div class="team-avatar">' + m.avatar + '</div>';
+      ? '<img src="' + m.avatar + '" class="team-photo" loading="lazy" decoding="async" alt="' + m.nom + '" data-ini="' + ini + '" onerror="photoAbsente(this)">'
+      : '<div class="team-avatar" aria-hidden="true">' + ini + '</div>';
     return '<div class="team-card">' + av
       + '<div class="team-name">' + m.nom + '</div>'
       + '<div class="team-role">' + m.role + '</div></div>';

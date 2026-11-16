@@ -161,6 +161,10 @@ function catToFilter(cat) {
 // ── HELPER : construit le HTML d'une carte article ───
 // showExtrait=true → affiche le résumé (archive, home)
 // showExtrait=false → carte compacte (section "À lire aussi")
+// Fond posé sous la photo : couleur imgBg (photos « contain ») sinon le dégradé de l'article
+function coverFond(a) {
+  return a.imgBg ? 'linear-gradient(' + a.imgBg + ',' + a.imgBg + ')' : (a.bg || 'var(--bleu)');
+}
 
 // Normalisation pour la recherche : minuscules, sans accents
 function ceNormalize(s) {
@@ -833,13 +837,30 @@ function renderHoraires() {
 }
 
 // ── ÉQUIPE ────────────────────────────────────────────────────────────────────
+// Initiales pour les fiches sans photo : « Marie-Charlotte Bensdorp de Labaca » → « ML », « Jo » → « J »
+function initiales(nom) {
+  var mots = (nom || '').trim().split(/\s+/).filter(Boolean);
+  if (!mots.length) return '';
+  var p = Array.from(mots[0])[0] || '', d = mots.length > 1 ? (Array.from(mots[mots.length - 1])[0] || '') : '';
+  return (p + d).toUpperCase().replace(/[<>&"']/g, '');
+}
+// Photo d'équipe introuvable : on la remplace par les initiales
+function photoAbsente(img) {
+  var d = document.createElement('div');
+  d.className = 'team-avatar'; d.setAttribute('aria-hidden', 'true');
+  d.textContent = img.getAttribute('data-ini') || '';
+  img.replaceWith(d);
+}
 function renderEquipe() {
   var grid = document.getElementById('equipe-grid');
   if (!grid) return;
+  var sec = grid.closest('section');
+  if (sec) sec.style.display = EQUIPE.length ? '' : 'none';   // aucune fiche : on masque la section
   grid.innerHTML = EQUIPE.map(function(m) {
+    var ini = initiales(m.nom);
     var av = (m.avatar && /^(https?:|photos\/)/.test(m.avatar))
-      ? '<img src="' + m.avatar + '" class="team-photo" loading="lazy" decoding="async" alt="' + m.nom + '">'
-      : '<div class="team-avatar">' + m.avatar + '</div>';
+      ? '<img src="' + m.avatar + '" class="team-photo" loading="lazy" decoding="async" alt="' + m.nom + '" data-ini="' + ini + '" onerror="photoAbsente(this)">'
+      : '<div class="team-avatar" aria-hidden="true">' + ini + '</div>';
     return '<div class="team-card">' + av
       + '<div class="team-name">' + m.nom + '</div>'
       + '<div class="team-role">' + m.role + '</div></div>';
