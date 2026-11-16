@@ -72,6 +72,8 @@
 <!-- impeccable-disable-next-line overused-font: trio typographique de marque assume (Cormorant serif + Inter corps + Montserrat cartels), voir DESIGN.md -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* Chiffres droits partout (lnum) : en Cormorant, les chiffres « elzéviriens » faisaient lire « 10× » comme « IO× ».
+   font-feature-settings se cumule avec les font-variant-numeric (tabular-nums) posés plus bas. */
 /* =====================================================
    VARIABLES & RESET
    ===================================================== */
@@ -116,7 +118,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--font-sans);background:var(--ivoire);color:var(--noir);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.6}
+body{font-feature-settings:"lnum" 1;font-family:var(--font-sans);background:var(--ivoire);color:var(--noir);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.6}
 h1,h2,h3,h4,h5{font-family:var(--font-serif);font-weight:700;line-height:1.15;text-wrap:balance}
 p,li,figcaption,blockquote{text-wrap:pretty}
 a{text-decoration:none;color:inherit}
@@ -163,7 +165,7 @@ img{max-width:100%;display:block}
 /* FOCUS — accessibilité clavier */
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px var(--gold-tint)}
 /* Anneau de focus doré — même motif pour toutes les commandes interactives */
-.btn:focus-visible,.nav-link:focus-visible,.nav-cta:focus-visible,.nav-hamburger:focus-visible,.nav-mobile-link:focus-visible,.nav-mobile-cta:focus-visible,.filtre-btn:focus-visible,.pg-btn:focus-visible,.tab-btn:focus-visible,.share-btn:focus-visible,.lb-close:focus-visible,.footer-social a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.btn:focus-visible,.nav-link:focus-visible,.nav-cta:focus-visible,.nav-hamburger:focus-visible,.nav-mobile-link:focus-visible,.nav-mobile-cta:focus-visible,.filtre-btn:focus-visible,.pg-btn:focus-visible,.tab-btn:focus-visible,.force-link:focus-visible,.share-btn:focus-visible,.lb-close:focus-visible,.footer-social a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
 .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--gold);color:var(--noir);padding:12px 20px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:0 0 8px 0}
 .skip-link:focus{left:0}
@@ -262,7 +264,15 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* =====================================================
    NAVBAR
    ===================================================== */
-.navbar{background:var(--bleu);height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.2)}
+.navbar{background:transparent;height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.2)}
+/* Barre translucide : le flou vit sur un calque ::before (un backdrop-filter sur .navbar elle-même
+   piégerait le menu mobile en position:fixed à l'intérieur de la barre). */
+.navbar::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--bleu)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .navbar::before{background:rgba(30,58,95,.78);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.08)}
+}
+@media (prefers-reduced-transparency:reduce){.navbar::before{background:var(--bleu);-webkit-backdrop-filter:none;backdrop-filter:none}}
+.navbar.nav-open::before{background:var(--bleu)}
 .navbar-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
 .nav-logo-img{height:44px;width:44px;border-radius:8px;flex-shrink:0;display:block;object-fit:cover}
@@ -412,16 +422,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .agenda-event{background:#fff;border:1px solid var(--border);border-radius:var(--r-card);padding:20px 24px;display:flex;align-items:flex-start;gap:18px}
 
 /* Section forces */
-.section-forces{background:var(--bleu);padding:80px 0;position:relative}
+.section-forces{background:#fff;padding:80px 0;position:relative;border-top:1px solid var(--border)}
 .section-forces::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:48px 48px;pointer-events:none}
 .forces-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
-.force-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-card);padding:28px 20px;text-align:center;transition:background-color .2s,border-color .2s,transform .2s var(--ease-out)}
-.force-card:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);transform:translateY(-4px)}
-.force-link{display:inline-block;margin-top:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-pale);cursor:pointer}
-.force-card:hover .force-link{color:#fff}
-.force-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;display:block}
-.force-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.68);margin:6px 0}
-.force-desc{font-size:12px;color:rgba(255,255,255,.66);line-height:1.6}
+/* Cartes « clair éditorial » : fond ivoire sur blanc, bordure or au survol, hauteurs égales */
+.force-card{background:var(--ivoire);border:1px solid var(--border);border-radius:var(--r-card);padding:28px 22px;text-align:left;display:flex;flex-direction:column;transition:border-color .2s,transform .2s var(--ease-out)}
+.force-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.force-card .ic-force{margin:0 0 16px}
+.force-titre{font-family:var(--font-serif);font-size:var(--fs-lead);font-weight:700;color:var(--bleu);line-height:1.2;margin-bottom:8px}
+.force-desc{font-size:14px;color:var(--muted);line-height:1.6}
+.force-link{align-self:flex-start;margin-top:auto;padding:16px 0 0;min-height:var(--hit-min);background:none;border:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);cursor:pointer;transition:color .2s}
+.force-link:hover{color:var(--bleu)}
 
 /* CTA finale partagée */
 .section-cta{background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);padding:80px 0;text-align:center;position:relative;overflow:hidden}
@@ -1139,18 +1150,18 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     </div>
   </section>
 
-  <!-- Forces du club -->
+  <!-- Forces du club : 4 raisons (les chiffres clés sont déjà dans la bande sous le héros) -->
   <section class="section-forces">
     <div class="container" style="position:relative;z-index:1">
-      <div class="section-header center light">
+      <div class="section-header center">
         <span class="surtitre">Pourquoi nous rejoindre</span>
-        <h2 style="font-size:var(--fs-h2);color:#fff">Un club d'exception</h2>
+        <h2 style="font-size:var(--fs-h2)">Un club d'exception</h2>
       </div>
       <div class="forces-grid">
-        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg><span class="force-num">10×</span><div class="force-label">Champion de France Jeunes</div><p class="force-desc">Un palmarès qui témoigne de l'excellence de notre formation</p><a class="force-link" onclick="goToPalmares()">Voir le palmarès →</a></div>
-        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-cap"/></svg><span class="force-num">30+</span><div class="force-label">Ans scolaire</div><p class="force-desc">Partenaire de l'Éducation Nationale depuis plus de trois décennies</p></div>
-        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-users"/></svg><span class="force-num">200+</span><div class="force-label">Membres actifs</div><p class="force-desc">Une communauté soudée du débutant de 5 ans au joueur classé</p></div>
-        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-medal"/></svg><span class="force-num">FFE</span><div class="force-label">Label Club Formateur</div><p class="force-desc">Reconnu par la Fédération Française des Échecs</p></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-users"/></svg><h3 class="force-titre">Des cours pour tous</h3><p class="force-desc">Du Pitchounet de 4 ans à l'adulte confirmé, un groupe adapté à chaque âge et chaque niveau.</p><button type="button" class="force-link" onclick="goToTab('activites','cours')">Voir les cours →</button></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-school"/></svg><h3 class="force-titre">Les échecs à l'école</h3><p class="force-desc">Plus de trente ans d'interventions dans les écoles, en partenariat avec l'Éducation nationale.</p><button type="button" class="force-link" onclick="goToTab('activites','scolaire')">Le programme scolaire →</button></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg><h3 class="force-titre">La compétition</h3><p class="force-desc">Tournois PICO, rapides, compétitions FFE : nos jeunes visent les titres nationaux.</p><button type="button" class="force-link" onclick="goToPalmares()">Voir le palmarès →</button></div>
+        <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg><h3 class="force-titre">Le Festival International des Jeux</h3><p class="force-desc">Chaque février, le club organise les tournois d'échecs du FIJ au Palais des Festivals.</p><button type="button" class="force-link" onclick="goTo('fij')">Découvrir le FIJ →</button></div>
       </div>
     </div>
   </section>
