@@ -172,7 +172,7 @@
       var o = onglets[i];
       h += '<button type="button" class="sd-vue" data-vue="' + o[0] + '" aria-pressed="' + (this.vue === o[0]) + '">' + o[1] + '</button>';
     }
-    h += '</div><p class="sd-maj">' + d.joueurs + ' joueurs suivis · mis à jour ' + esc(ilya(d.misAJour)) + '</p></div>';
+    h += '</div><p class="sd-maj">' + d.joueurs + (d.joueurs > 1 ? ' joueurs suivis' : ' joueur suivi') + (d.misAJour ? ' · mis à jour ' + esc(ilya(d.misAJour)) : '') + '</p></div>';
     h += this.vue === 'direct' ? this.vueDirect() : this.vue === 'fil' ? this.vueFil() : this.vueTournois();
     this.racine.innerHTML = h;
   };
@@ -257,7 +257,8 @@
     jeu.forEach(function (e) {
       var p = e.partie;
       h += '<article class="sd-carte sd-live sd-partie"><p class="sd-meta">' + esc(joliNom(e.tournoi.nom)) + '</p>';
-      h += '<p class="sd-duel"><span class="sd-nom">' + esc(e.joueur) + '</span> ' + couleur(p.couleur) + ' <span class="sd-contre">contre</span> ' + adv(p.adversaire) + '</p>';
+      var bye = !p.adversaire || !p.adversaire.nom;
+      h += '<p class="sd-duel"><span class="sd-nom">' + esc(e.joueur) + '</span> ' + (bye ? '<span class="sd-contre">exempt</span>' : couleur(p.couleur) + ' <span class="sd-adv"><span class="sd-contre">contre</span> ' + adv(p.adversaire) + '</span>') + '</p>';
       h += '<p class="sd-meta">Ronde ' + p.ronde + (p.echiquier ? ' · table ' + p.echiquier : '') + (e.points != null ? ' · ' + pts(e.points) + ' pt avant la ronde' : '') + (p.pasEncoreCommencee ? ' · pas encore commencée' : '') + '</p></article>';
     });
     return h + '</div>';

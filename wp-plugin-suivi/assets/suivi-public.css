@@ -22,7 +22,7 @@
 .suivi-direct *, .suivi-direct *::before { box-sizing: border-box; }
 .sd-tete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
 .sd-vues { display: inline-flex; background: #fff; border: 1px solid var(--sd-bord); border-radius: var(--sd-pill); padding: 4px; }
-.sd-vue { font: 600 13px/1 var(--sd-label); letter-spacing: .02em; color: var(--sd-muted); background: none; border: 0; border-radius: var(--sd-pill); padding: 0 18px; min-height: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.sd-vue { white-space: nowrap; font: 600 13px/1 var(--sd-label); letter-spacing: .02em; color: var(--sd-muted); background: none; border: 0; border-radius: var(--sd-pill); padding: 0 18px; min-height: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 .sd-vue[aria-pressed="true"] { background: var(--sd-bleu); color: #fff; }
 .sd-vue:focus-visible, .sd-cl-ligne:focus-visible, .suivi-direct a:focus-visible { outline: 2px solid var(--sd-or); outline-offset: 2px; }
 .sd-badge { background: var(--sd-or); color: var(--sd-bleu); border-radius: var(--sd-pill); font-size: 11px; min-width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; padding: 0 6px; }
@@ -82,6 +82,7 @@ button.sd-cl-ligne:hover .sd-cl-chev { color: var(--sd-or-texte); }
 .sd-liens a { color: var(--sd-bleu); text-decoration: none; border-bottom: 1px solid var(--sd-or); }
 .sd-partie .sd-duel { margin: 10px 0 6px; font-size: 17px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .sd-contre { color: var(--sd-muted); font-size: 14px; }
+.sd-adv { min-width: 0; overflow-wrap: anywhere; }
 .sd-jour:first-of-type { margin-top: 0; }
 .sd-jour span { text-transform: none; letter-spacing: 0; font: 500 12px/1.3 var(--sd-label); }
 .sd-fil { list-style: none; margin: 0; padding: 0; background: #fff; border: 1px solid var(--sd-bord); border-radius: var(--sd-card); }
@@ -117,5 +118,8 @@ button.sd-cl-ligne:hover .sd-cl-chev { color: var(--sd-or-texte); }
   .sd-fil-meta { flex-wrap: wrap; }
   .sd-fil-tournoi { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .sd-vue { padding: 0 12px; }
+}
+@media (max-width: 400px) {
+  .sd-vue { padding: 0 10px; font-size: 12px; gap: 4px; }
 }
 @media (prefers-reduced-motion: reduce) { .sd-carte, .sd-fil-lien, .sd-plus, .sd-cl-chev { transition: none; } .sd-detail { animation: none; } }
