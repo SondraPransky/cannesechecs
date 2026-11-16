@@ -172,7 +172,7 @@ function renderArchiveGrid() {} // rendu côté PHP — archive-actualite.php
 (function() {
   if (!window.CE_URLS) return;
   var path = location.pathname;
-  var map = { club:'nav-club', actualites:'nav-club', organigramme:'nav-club', horaires:'nav-club',
+  var map = { club:'nav-club', actualites:'nav-club', horaires:'nav-club',
               adhesion:'nav-club', contact:'nav-club', activites:'nav-activites', tournois:'nav-tournois',
               fij:'nav-fij', partenaires:'nav-partenaires', agenda:'nav-agenda' };
   Object.keys(map).forEach(function(slug) {
@@ -304,7 +304,7 @@ fs.writeFileSync(path.join(THEME, 'footer.php'), footerPhp);
 const PAGE_TITLES = {
   club: 'Le Club', activites: 'Nos Activités', horaires: 'Horaires & Tarifs',
   adhesion: 'Adhésion', contact: 'Contact', tournois: 'Tournois', fij: 'FIJ',
-  partenaires: 'Partenaires', agenda: 'Agenda', organigramme: 'Organigramme',
+  partenaires: 'Partenaires', agenda: 'Agenda',
 };
 
 for (const slug of STATIC_PAGES) {

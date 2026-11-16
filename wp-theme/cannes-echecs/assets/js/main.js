@@ -521,9 +521,41 @@ function hideOldAgendaEvents(now) {
   var empty = document.getElementById('agenda-empty');
   if (empty && visibles === 0) empty.style.display = 'block';
 }
+// Encadré « Prochain événement » : rempli à partir des 3 premières cartes encore visibles
+// (avant : texte figé sur la rentrée de septembre, resté affiché après la date).
+function renderAgendaNext() {
+  var cont = document.getElementById('agenda-events'), titre = document.getElementById('ag-next-titre');
+  if (!cont || !titre) return;
+  var yrs = SAISON.match(/\d{4}/g) || [];
+  var y1 = parseInt(yrs[0], 10) || new Date().getFullYear(), y2 = parseInt(yrs[1], 10) || y1 + 1;
+  var JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var MCOURT = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  var evs = Array.prototype.slice.call(cont.querySelectorAll('.agenda-event')).filter(function (e) { return e.dataset.past !== '1'; }).slice(0, 3);
+  var infos = evs.map(function (ev) {
+    var spans = ev.querySelectorAll('span'), mo = agendaEventMonth(ev), day = parseInt(spans[0] && spans[0].textContent, 10);
+    if (mo === undefined || isNaN(day)) return null;
+    var d = new Date(mo >= 6 ? y1 : y2, mo, day);
+    var corps = ev.querySelector('div[style*="flex:1"]'), lignes = corps ? corps.children : [];
+    var label = lignes[0] ? lignes[0].textContent.trim() : '', heure = (label.split('·')[1] || '').trim().toLowerCase();
+    return { d: d, titre: lignes[1] ? lignes[1].textContent.trim() : '', desc: lignes[2] ? lignes[2].textContent.trim() : '', heure: heure };
+  }).filter(Boolean);
+  var bloc = titre.parentElement;
+  if (!infos.length) { bloc.style.display = 'none'; return; }
+  var a = infos[0];
+  titre.textContent = a.titre;
+  document.getElementById('ag-next-date').textContent = JOURS[a.d.getDay()] + ' ' + a.d.getDate() + ' ' + MOIS_FULL[a.d.getMonth()].toLowerCase() + ' ' + a.d.getFullYear() + (a.heure ? ' · ' + a.heure : '');
+  document.getElementById('ag-next-desc').textContent = a.desc;
+  var puis = document.getElementById('ag-next-puis');
+  if (infos.length < 2) { puis.style.display = 'none'; return; }
+  var lignesPuis = infos.slice(1).map(function (x) {
+    return '<div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px">' + JOURS[x.d.getDay()].slice(0, 3) + '. ' + x.d.getDate() + ' ' + MCOURT[x.d.getMonth()] + ' — ' + x.titre.replace(/[<>&]/g, '') + (x.heure ? ' · ' + x.heure : '') + '</div>';
+  }).join('');
+  puis.innerHTML = puis.firstElementChild.outerHTML + lignesPuis;
+}
 buildAgendaMonths();
 hideOldAgendaEvents();
 refreshAgendaMonths();
+renderAgendaNext();
 
 // ── FILTRES (Agenda + Archive Actualités) ────────────
 document.querySelectorAll('.filtre-btn').forEach(btn => {
@@ -842,12 +874,13 @@ function initPicoNext() {
   var today = new Date(); today.setHours(0,0,0,0);
   var next = null;
   rows.forEach(function(r){
-    r.classList.remove('is-next');
+    r.classList.remove('is-next', 'is-past');
     var old = r.querySelector('.pico-tag'); if (old) old.remove();
     var d = new Date(r.getAttribute('data-pico') + 'T00:00:00');
+    if (d < today) r.classList.add('is-past');   // PICO passé : plus de bouton « S'inscrire »
     if (!next && d >= today) next = r;
   });
-  if (!next) next = rows[rows.length - 1];   // saison terminée : dernier PICO
+  if (!next) { next = rows[rows.length - 1]; next.classList.remove('is-past'); }   // saison terminée : dernier PICO
   next.classList.add('is-next');
   var tag = document.createElement('span');
   tag.className = 'pico-tag';
@@ -909,7 +942,7 @@ function renderArchiveGrid() {} // rendu côté PHP — archive-actualite.php
 (function() {
   if (!window.CE_URLS) return;
   var path = location.pathname;
-  var map = { club:'nav-club', actualites:'nav-club', organigramme:'nav-club', horaires:'nav-club',
+  var map = { club:'nav-club', actualites:'nav-club', horaires:'nav-club',
               adhesion:'nav-club', contact:'nav-club', activites:'nav-activites', tournois:'nav-tournois',
               fij:'nav-fij', partenaires:'nav-partenaires', agenda:'nav-agenda' };
   Object.keys(map).forEach(function(slug) {

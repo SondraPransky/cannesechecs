@@ -88,7 +88,6 @@ function ce_after_switch_theme() {
         'fij'          => 'FIJ',
         'partenaires'  => 'Partenaires',
         'agenda'       => 'Agenda',
-        'organigramme' => 'Organigramme',
     ];
     foreach ($pages as $slug => $title) {
         if (!get_page_by_path($slug)) {
@@ -223,7 +222,7 @@ function ce_site_data_js(): string {
 
     // URLs des pages (utilisées par le shim de navigation)
     $urls = ['home' => home_url('/'), 'actualites' => home_url('/actualites/'), 'article' => home_url('/actualites/')];
-    foreach (['club','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda','organigramme'] as $s) {
+    foreach (['club','activites','horaires','adhesion','contact','tournois','fij','partenaires','agenda'] as $s) {
         $urls[$s] = home_url('/' . $s . '/');
     }
 
