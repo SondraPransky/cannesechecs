@@ -19,7 +19,7 @@
 
 <nav class="navbar">
   <div class="container navbar-inner">
-    <div class="nav-logo" onclick="goTo('home')">
+    <div class="nav-logo" onclick="goTo('home')" role="link" tabindex="0" aria-label="Cannes Échecs, retour à l'accueil">
       <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/logo-cannes-echecs.png" alt="Cannes Échecs" class="nav-logo-img"
            onerror="this.style.display='none';document.getElementById('nav-logo-fallback').style.display='flex'">
       <div id="nav-logo-fallback" style="display:none;width:44px;height:44px;background:var(--gold);border-radius:8px;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--noir);flex-shrink:0">♟</div>

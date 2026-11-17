@@ -65,19 +65,19 @@ get_header(); ?>
         </div>
         <div>
           <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Nous trouver</h4>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Nous trouver</h3>
             <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px">3 Av. du Petit Juas<br>06400 Cannes</div>
             <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold-text);cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Itinéraire Google Maps →</a>
           </div>
           <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h4>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h3>
             <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : cours jeunes 13h30–18h<br>Mercredi : cours adultes 18h–20h</div>
           </div>
           <div style="background:var(--bleu);border-radius:14px;padding:24px;color:#fff">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h4>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-cap"/></svg> Formation : <a style="color:var(--gold)">formation@cannes-echecs.fr</a></div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Compétitions : <a style="color:var(--gold)">competition@cannes-echecs.fr</a></div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaire : <a style="color:var(--gold)">scolaire@cannes-echecs.fr</a></div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h3>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-cap"/></svg> Formation : <a href="mailto:formation@cannes-echecs.fr" style="color:var(--gold)">formation@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Compétitions : <a href="mailto:competition@cannes-echecs.fr" style="color:var(--gold)">competition@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaire : <a href="mailto:scolaire@cannes-echecs.fr" style="color:var(--gold)">scolaire@cannes-echecs.fr</a></div>
           </div>
         </div>
       </div>

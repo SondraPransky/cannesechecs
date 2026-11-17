@@ -60,12 +60,13 @@
   </div>
 </footer>
 
-<div id="lightbox" class="lightbox">
-  <button class="lb-close" onclick="lbClose()">×</button>
-  <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button type="button" class="lb-close" onclick="lbClose()" aria-label="Fermer la photo">×</button>
+  <button type="button" class="lb-nav lb-prev" onclick="lbNav(-1)" aria-label="Photo précédente">‹</button>
   <img class="lb-img" id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
-  <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+  <button type="button" class="lb-nav lb-next" onclick="lbNav(1)" aria-label="Photo suivante">›</button>
   <div class="lb-counter" id="lb-counter"></div>
+</div>
 
 <?php wp_footer(); ?>
 </body>

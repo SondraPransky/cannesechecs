@@ -230,7 +230,7 @@ js = js.replace("m.avatar.indexOf('photos/') === 0", "/^(https?:|photos\\/)/.tes
 // ─────────────────────────────────────────────────────────────
 const navbar = transformLinks(extractBetween('<nav class="navbar">', '</nav>'));
 const footer = transformLinks(extractBetween('<footer class="footer">', '</footer>'));
-const lightbox = extractBetween('<div id="lightbox" class="lightbox">', '</div>');
+const lightbox = extractBetween('<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">', 'lb-counter"></div>\n</div>');
 
 const pageFragments = {};
 for (const id of PAGES) {

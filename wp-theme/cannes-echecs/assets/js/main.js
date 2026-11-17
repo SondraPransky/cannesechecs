@@ -307,6 +307,18 @@ function shareNative() {
 }
 
 // ── FORMULAIRE CONTACT ──────────────────────────────
+// Une fois corrigé, un champ ne reste pas marqué en erreur
+['cf-nom','cf-email','cf-message','cf-rgpd'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  ['input','change'].forEach(function(ev) {
+    el.addEventListener(ev, function() { el.removeAttribute('aria-invalid'); el.style.borderColor = ''; });
+  });
+});
+var cfForm = document.getElementById('contact-form');
+if (cfForm) cfForm.addEventListener('reset', function() {
+  cfForm.querySelectorAll('[aria-invalid]').forEach(function(el) { el.removeAttribute('aria-invalid'); el.style.borderColor = ''; });
+});
 function sendContact(e) {
   e.preventDefault();
   const nom     = document.getElementById('cf-nom');
@@ -323,15 +335,29 @@ function sendContact(e) {
     errors.push('Veuillez indiquer une adresse email valide.');
   if (!message.value.trim()) errors.push('Veuillez écrire un message.');
   if (!rgpd.checked)         errors.push('Veuillez accepter la politique de données.');
+  // Champs en erreur : signalés aux lecteurs d'écran, focus sur le premier
+  var invalides = [];
+  [[nom, !nom.value.trim()],
+   [email, !email.value.trim() || !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email.value)],
+   [message, !message.value.trim()],
+   [rgpd, !rgpd.checked]].forEach(function(c) {
+    if (c[1]) { c[0].setAttribute('aria-invalid', 'true'); c[0].style.borderColor = '#b91c1c'; invalides.push(c[0]); }
+    else { c[0].removeAttribute('aria-invalid'); c[0].style.borderColor = ''; }
+  });
   if (errors.length) {
     fb.style.display = 'block';
     fb.style.background = '#fef2f2';
     fb.style.border = '1px solid #fca5a5';
     fb.style.color = '#b91c1c';
     fb.innerHTML = errors.map(function(e){ return '• ' + e; }).join('<br>');
+    if (invalides[0]) invalides[0].focus();
     return;
   }
   const btn = e.target.querySelector('[type="submit"]');
+  if (btn.disabled) return; // évite le double envoi
+  const sujetSel = document.getElementById('cf-sujet');
+  const sujet = sujetSel ? sujetSel.options[sujetSel.selectedIndex].text : '';
+  fb.style.display = 'none';
   btn.textContent = 'Envoi en cours…';
   btn.disabled = true;
   fetch('https://formsubmit.co/ajax/info@cannes-echecs.fr', {
@@ -340,8 +366,9 @@ function sendContact(e) {
     body: JSON.stringify({
       name: nom.value.trim(),
       email: email.value.trim(),
+      objet: sujet,
       message: message.value.trim(),
-      _subject: 'Message depuis cannes-echecs.fr'
+      _subject: 'Message depuis cannes-echecs.fr' + (sujet ? ' : ' + sujet : '')
     })
   }).then(function(response) {
     if (response.ok) {
@@ -378,27 +405,40 @@ function showLegal(type) {
       + '<p>Ce site ne collecte aucune donnée personnelle sans votre consentement. Les données saisies dans le formulaire de contact sont utilisées uniquement pour répondre à votre demande.</p>'
       + '<p style="margin-top:12px">Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données en contactant : <a href="mailto:info@cannes-echecs.fr" style="color:var(--bleu)">info@cannes-echecs.fr</a></p>'
   };
+  const retour = document.activeElement;
   const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
-  overlay.innerHTML = '<div style="background:#fff;border-radius:16px;padding:40px;max-width:560px;width:100%;position:relative;max-height:80vh;overflow-y:auto">'
-    + '<button onclick="this.closest(\'[style]\').remove()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted)">×</button>'
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,14,23,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = '<div role="dialog" aria-modal="true" aria-label="' + (type === 'confidentialite' ? 'Confidentialité' : 'Mentions légales') + '" style="background:#fff;border-radius:16px;padding:40px;max-width:560px;width:100%;position:relative;max-height:80vh;overflow-y:auto">'
+    + '<button type="button" class="legal-close" aria-label="Fermer" style="position:absolute;top:10px;right:10px;width:44px;height:44px;background:none;border:none;font-size:26px;cursor:pointer;color:var(--muted)">×</button>'
     + content[type]
     + '</div>';
-  overlay.addEventListener('click', function(e){ if(e.target===this) this.remove(); });
+  function fermer() {
+    overlay.remove();
+    document.removeEventListener('keydown', surTouche);
+    if (retour && retour.focus) retour.focus();
+  }
+  function surTouche(e) { if (e.key === 'Escape') fermer(); }
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) fermer(); });
+  overlay.querySelector('.legal-close').addEventListener('click', fermer);
+  document.addEventListener('keydown', surTouche);
   document.body.appendChild(overlay);
+  overlay.querySelector('.legal-close').focus();
 }
 
 // ── LIGHTBOX ────────────────────────────────────────
 let currentGallery = [];
 let lbIndex = 0;
 
+let lbRetour = null;
 function openLightbox(i) {
+  lbRetour = document.activeElement;
   lbIndex = i;
   lbUpdate();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
   // Empile un état pour que le bouton "retour" (mobile/navigateur) ferme la photo
   history.pushState({lightbox:true}, '');
+  document.querySelector('#lightbox .lb-close').focus();
 }
 function lbClose() {
   // Si l'état lightbox est dans l'historique, revenir en arrière ferme via popstate
@@ -411,6 +451,7 @@ function lbClose() {
 function lbForceClose() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
+  if (lbRetour && lbRetour.focus) { lbRetour.focus(); lbRetour = null; }
 }
 // Bouton retour navigateur / téléphone → ferme la photo
 window.addEventListener('popstate', function() {
@@ -744,7 +785,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 const HERO_WIDGETS = {
   fij: () => `
     <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
-    <h3>Festival International <br>des Jeux — Cannes</h3>
+    <h2>Festival International <br>des Jeux — Cannes</h2>
     <div class="cd-title">Ouverture des inscriptions dans</div>
     <div class="cd cd-sm" style="margin-bottom:20px">
       <div class="u"><span class="n" id="h-cd-j">--</span><span class="l">Jours</span></div>
@@ -760,7 +801,7 @@ const HERO_WIDGETS = {
     </div>`,
   rentree: () => `
     <div class="fij-hero-card-label"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-leaf"/></svg> Saison ${SAISON} · Inscriptions ouvertes</div>
-    <h3 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h3>
+    <h2 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h2>
     <div class="cd-title" style="margin-bottom:10px">Reprise des cours</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px">Mercredi 9 septembre 2026</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Pitchounets · Jeunes · Adultes débutants & confirmés<br>Cours le mardi soir et le mercredi</div>
@@ -771,7 +812,7 @@ const HERO_WIDGETS = {
     </div>`,
   pico: () => `
     <div class="fij-hero-card-label">♟ PICO · Tournoi mensuel homologué</div>
-    <h3 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h3>
+    <h2 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h2>
     <div class="cd-title" style="margin-bottom:10px">Prochaine date</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi homologué FFE · Tous niveaux · Dès 13h30<br>Inscription via HelloAsso</div>
@@ -782,7 +823,7 @@ const HERO_WIDGETS = {
     </div>`,
   paques: () => `
     <div class="fij-hero-card-label"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Tournoi Open · Pâques 2027</div>
-    <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
+    <h2 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h2>
     <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi open homologué FFE · Tous niveaux<br>Prix garantis · Inscription HelloAsso</div>
@@ -793,7 +834,7 @@ const HERO_WIDGETS = {
     </div>`,
   qualification: () => `
     <div class="fij-hero-card-label">🏅 Championnats · Qualification</div>
-    <h3 style="font-size:22px">Qualifications<br>en cours !</h3>
+    <h2 style="font-size:22px">Qualifications<br>en cours !</h2>
     <div class="cd-title" style="margin-bottom:10px">Prochaine échéance</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Championnats départementaux & régionaux<br>Sélection équipes — Top 16 · Top 12 Féminin</div>
@@ -804,7 +845,7 @@ const HERO_WIDGETS = {
     </div>`,
   actu: (d = {}) => `
     <div class="fij-hero-card-label">📰 ${d.label || 'À la une'}</div>
-    <h3 style="font-size:20px;line-height:1.35">${d.titre || 'Titre de l\'actualité à mettre en avant'}</h3>
+    <h2 style="font-size:20px;line-height:1.35">${d.titre || 'Titre de l\'actualité à mettre en avant'}</h2>
     <div style="font-size:13px;color:rgba(255,255,255,.6);margin:12px 0 8px;line-height:1.65">${d.desc || 'Courte description de l\'actualité sur deux ou trois lignes.'}</div>
     <div style="font-size:11px;font-family:\'Montserrat\',sans-serif;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">${d.date || 'Janvier 2026'}</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('${d.lien || 'actualites'}')">${d.cta || 'Lire l\'article →'}</button>`
@@ -945,6 +986,12 @@ initPicoNext();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
 
+// ── ACCESSIBILITÉ — blocs cliquables (cartes, logo) au clavier ──
+document.addEventListener('keydown', function(e) {
+  var el = e.target;
+  if (!el || !el.matches || !el.matches('[role="link"][tabindex="0"]:not(a)')) return;
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+});
 // ── ACCESSIBILITÉ — liens onclick sans href ──────────
 document.querySelectorAll('a[onclick]:not([href])').forEach(function(a) {
   a.setAttribute('tabindex', '0');

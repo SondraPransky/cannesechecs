@@ -93,6 +93,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !i
 /* Anneau de focus doré — même motif pour toutes les commandes interactives */
 .btn:focus-visible,.nav-link:focus-visible,.nav-cta:focus-visible,.nav-hamburger:focus-visible,.nav-mobile-link:focus-visible,.nav-mobile-cta:focus-visible,.filtre-btn:focus-visible,.pg-btn:focus-visible,.tab-btn:focus-visible,.force-link:focus-visible,.share-btn:focus-visible,.lb-close:focus-visible,.footer-social a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.nav-logo:focus-visible,.actu-card:focus-visible,.lb-nav:focus-visible,.legal-close:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--gold);color:var(--noir);padding:12px 20px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:0 0 8px 0}
 .skip-link:focus{left:0}
 h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
@@ -274,7 +275,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    qui clignote au survol des boutons voisins en tablette (carte juste en dessous). */
 .fij-hero-card{background:rgba(12,21,38,.6);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
 .fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
-.fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
+.fij-hero-card h2,.fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
 .cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
 .fij-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .fij-hs{background:rgba(255,255,255,.07);border-radius:8px;padding:12px;text-align:center}
@@ -380,7 +381,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Haut de l'accueil, colonne droite : la vidéo, puis la carte du widget en version compacte (version B) */
 .hero-droite{display:flex;flex-direction:column;gap:16px}
 .hero-droite .fij-hero-card{padding:20px 24px;border-radius:14px}
-.hero-droite .fij-hero-card h3{font-size:22px;margin-bottom:12px}
+.hero-droite .fij-hero-card h2,.hero-droite .fij-hero-card h3{font-size:22px;margin-bottom:12px}
 .hero-droite .fij-hero-card .cd-title{margin-bottom:8px}
 .hero-droite .fij-hero-card .cd-sm{margin-bottom:14px !important}
 .hero-droite .fij-hero-card .cd-sm .n{font-size:32px}

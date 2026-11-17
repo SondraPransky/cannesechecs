@@ -167,6 +167,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !i
 /* Anneau de focus doré — même motif pour toutes les commandes interactives */
 .btn:focus-visible,.nav-link:focus-visible,.nav-cta:focus-visible,.nav-hamburger:focus-visible,.nav-mobile-link:focus-visible,.nav-mobile-cta:focus-visible,.filtre-btn:focus-visible,.pg-btn:focus-visible,.tab-btn:focus-visible,.force-link:focus-visible,.share-btn:focus-visible,.lb-close:focus-visible,.footer-social a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 a[onclick]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.nav-logo:focus-visible,.actu-card:focus-visible,.lb-nav:focus-visible,.legal-close:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .skip-link{position:absolute;left:-9999px;top:0;z-index:9999;background:var(--gold);color:var(--noir);padding:12px 20px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:0 0 8px 0}
 .skip-link:focus{left:0}
 h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
@@ -348,7 +349,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    qui clignote au survol des boutons voisins en tablette (carte juste en dessous). */
 .fij-hero-card{background:rgba(12,21,38,.6);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
 .fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
-.fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
+.fij-hero-card h2,.fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
 .cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
 .fij-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .fij-hs{background:rgba(255,255,255,.07);border-radius:8px;padding:12px;text-align:center}
@@ -454,7 +455,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Haut de l'accueil, colonne droite : la vidéo, puis la carte du widget en version compacte (version B) */
 .hero-droite{display:flex;flex-direction:column;gap:16px}
 .hero-droite .fij-hero-card{padding:20px 24px;border-radius:14px}
-.hero-droite .fij-hero-card h3{font-size:22px;margin-bottom:12px}
+.hero-droite .fij-hero-card h2,.hero-droite .fij-hero-card h3{font-size:22px;margin-bottom:12px}
 .hero-droite .fij-hero-card .cd-title{margin-bottom:8px}
 .hero-droite .fij-hero-card .cd-sm{margin-bottom:14px !important}
 .hero-droite .fij-hero-card .cd-sm .n{font-size:32px}
@@ -994,7 +995,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
      ===================================================== -->
 <nav class="navbar">
   <div class="container navbar-inner">
-    <div class="nav-logo" onclick="goTo('home')">
+    <div class="nav-logo" onclick="goTo('home')" role="link" tabindex="0" aria-label="Cannes Échecs, retour à l'accueil">
       <img src="logo-cannes-echecs.png" alt="Cannes Échecs" class="nav-logo-img"
            onerror="this.style.display='none';document.getElementById('nav-logo-fallback').style.display='flex'">
       <div id="nav-logo-fallback" style="display:none;width:44px;height:44px;background:var(--gold);border-radius:8px;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--noir);flex-shrink:0">♟</div>
@@ -1102,7 +1103,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           </div>
           <div class="fij-hero-card" id="hero-widget">
             <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
-            <h3>Festival International <br>des Jeux — Cannes</h3>
+            <h2>Festival International <br>des Jeux — Cannes</h2>
             <div class="cd-title">Ouverture des inscriptions dans</div>
             <div class="cd cd-sm" style="margin-bottom:20px">
               <div class="u"><span class="n" id="h-cd-j">--</span><span class="l">Jours</span></div>
@@ -1899,19 +1900,19 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
         <div>
           <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Nous trouver</h4>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Nous trouver</h3>
             <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px">3 Av. du Petit Juas<br>06400 Cannes</div>
             <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold-text);cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Itinéraire Google Maps →</a>
           </div>
           <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h4>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h3>
             <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : cours jeunes 13h30–18h<br>Mercredi : cours adultes 18h–20h</div>
           </div>
           <div style="background:var(--bleu);border-radius:14px;padding:24px;color:#fff">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h4>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-cap"/></svg> Formation : <a style="color:var(--gold)">formation@cannes-echecs.fr</a></div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Compétitions : <a style="color:var(--gold)">competition@cannes-echecs.fr</a></div>
-            <div style="font-size:13px;color:rgba(255,255,255,.7)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaire : <a style="color:var(--gold)">scolaire@cannes-echecs.fr</a></div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h3>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-cap"/></svg> Formation : <a href="mailto:formation@cannes-echecs.fr" style="color:var(--gold)">formation@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:8px"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg> Compétitions : <a href="mailto:competition@cannes-echecs.fr" style="color:var(--gold)">competition@cannes-echecs.fr</a></div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-school"/></svg> Scolaire : <a href="mailto:scolaire@cannes-echecs.fr" style="color:var(--gold)">scolaire@cannes-echecs.fr</a></div>
           </div>
         </div>
       </div>
@@ -2812,11 +2813,11 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 <!-- ═══════════════════════════════════════════════════
      LIGHTBOX
      ═══════════════════════════════════════════════════ -->
-<div id="lightbox" class="lightbox">
-  <button class="lb-close" onclick="lbClose()">×</button>
-  <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button type="button" class="lb-close" onclick="lbClose()" aria-label="Fermer la photo">×</button>
+  <button type="button" class="lb-nav lb-prev" onclick="lbNav(-1)" aria-label="Photo précédente">‹</button>
   <img class="lb-img" id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
-  <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+  <button type="button" class="lb-nav lb-next" onclick="lbNav(1)" aria-label="Photo suivante">›</button>
   <div class="lb-counter" id="lb-counter"></div>
 </div>
 
@@ -3981,7 +3982,7 @@ function buildCard(key, a, showExtrait) {
   // Index de recherche : titre + catégorie + extrait + corps (sans HTML), normalisé
   const searchText = ceNormalize(a.title + ' ' + a.cat + ' ' + (EXTRAITS[key] || '') + ' ' + (a.body || '').replace(/<[^>]+>/g, ' '))
     .replace(/[<>&"]+/g, ' ').replace(/\s+/g, ' ').trim();
-  return '<div class="actu-card" data-cat="' + catToFilter(a.cat) + '" data-search="' + searchText + '" onclick="goToArticle(\'' + key + '\')">'
+  return '<div class="actu-card" data-cat="' + catToFilter(a.cat) + '" data-search="' + searchText + '" onclick="goToArticle(\'' + key + '\')" role="link" tabindex="0" aria-label="' + String(a.title).replace(/<[^>]+>/g, '').replace(/"/g, '&quot;') + '">'
     + imgHtml
     + '<div class="actu-body">'
     + '<div class="actu-cat">' + a.cat + '</div>'
@@ -4211,6 +4212,18 @@ function shareNative() {
 }
 
 // ── FORMULAIRE CONTACT ──────────────────────────────
+// Une fois corrigé, un champ ne reste pas marqué en erreur
+['cf-nom','cf-email','cf-message','cf-rgpd'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  ['input','change'].forEach(function(ev) {
+    el.addEventListener(ev, function() { el.removeAttribute('aria-invalid'); el.style.borderColor = ''; });
+  });
+});
+var cfForm = document.getElementById('contact-form');
+if (cfForm) cfForm.addEventListener('reset', function() {
+  cfForm.querySelectorAll('[aria-invalid]').forEach(function(el) { el.removeAttribute('aria-invalid'); el.style.borderColor = ''; });
+});
 function sendContact(e) {
   e.preventDefault();
   const nom     = document.getElementById('cf-nom');
@@ -4227,15 +4240,29 @@ function sendContact(e) {
     errors.push('Veuillez indiquer une adresse email valide.');
   if (!message.value.trim()) errors.push('Veuillez écrire un message.');
   if (!rgpd.checked)         errors.push('Veuillez accepter la politique de données.');
+  // Champs en erreur : signalés aux lecteurs d'écran, focus sur le premier
+  var invalides = [];
+  [[nom, !nom.value.trim()],
+   [email, !email.value.trim() || !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email.value)],
+   [message, !message.value.trim()],
+   [rgpd, !rgpd.checked]].forEach(function(c) {
+    if (c[1]) { c[0].setAttribute('aria-invalid', 'true'); c[0].style.borderColor = '#b91c1c'; invalides.push(c[0]); }
+    else { c[0].removeAttribute('aria-invalid'); c[0].style.borderColor = ''; }
+  });
   if (errors.length) {
     fb.style.display = 'block';
     fb.style.background = '#fef2f2';
     fb.style.border = '1px solid #fca5a5';
     fb.style.color = '#b91c1c';
     fb.innerHTML = errors.map(function(e){ return '• ' + e; }).join('<br>');
+    if (invalides[0]) invalides[0].focus();
     return;
   }
   const btn = e.target.querySelector('[type="submit"]');
+  if (btn.disabled) return; // évite le double envoi
+  const sujetSel = document.getElementById('cf-sujet');
+  const sujet = sujetSel ? sujetSel.options[sujetSel.selectedIndex].text : '';
+  fb.style.display = 'none';
   btn.textContent = 'Envoi en cours…';
   btn.disabled = true;
   fetch('https://formsubmit.co/ajax/info@cannes-echecs.fr', {
@@ -4244,8 +4271,9 @@ function sendContact(e) {
     body: JSON.stringify({
       name: nom.value.trim(),
       email: email.value.trim(),
+      objet: sujet,
       message: message.value.trim(),
-      _subject: 'Message depuis cannes-echecs.fr'
+      _subject: 'Message depuis cannes-echecs.fr' + (sujet ? ' : ' + sujet : '')
     })
   }).then(function(response) {
     if (response.ok) {
@@ -4282,27 +4310,40 @@ function showLegal(type) {
       + '<p>Ce site ne collecte aucune donnée personnelle sans votre consentement. Les données saisies dans le formulaire de contact sont utilisées uniquement pour répondre à votre demande.</p>'
       + '<p style="margin-top:12px">Conformément au RGPD, vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données en contactant : <a href="mailto:info@cannes-echecs.fr" style="color:var(--bleu)">info@cannes-echecs.fr</a></p>'
   };
+  const retour = document.activeElement;
   const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
-  overlay.innerHTML = '<div style="background:#fff;border-radius:16px;padding:40px;max-width:560px;width:100%;position:relative;max-height:80vh;overflow-y:auto">'
-    + '<button onclick="this.closest(\'[style]\').remove()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted)">×</button>'
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,14,23,.6);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = '<div role="dialog" aria-modal="true" aria-label="' + (type === 'confidentialite' ? 'Confidentialité' : 'Mentions légales') + '" style="background:#fff;border-radius:16px;padding:40px;max-width:560px;width:100%;position:relative;max-height:80vh;overflow-y:auto">'
+    + '<button type="button" class="legal-close" aria-label="Fermer" style="position:absolute;top:10px;right:10px;width:44px;height:44px;background:none;border:none;font-size:26px;cursor:pointer;color:var(--muted)">×</button>'
     + content[type]
     + '</div>';
-  overlay.addEventListener('click', function(e){ if(e.target===this) this.remove(); });
+  function fermer() {
+    overlay.remove();
+    document.removeEventListener('keydown', surTouche);
+    if (retour && retour.focus) retour.focus();
+  }
+  function surTouche(e) { if (e.key === 'Escape') fermer(); }
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) fermer(); });
+  overlay.querySelector('.legal-close').addEventListener('click', fermer);
+  document.addEventListener('keydown', surTouche);
   document.body.appendChild(overlay);
+  overlay.querySelector('.legal-close').focus();
 }
 
 // ── LIGHTBOX ────────────────────────────────────────
 let currentGallery = [];
 let lbIndex = 0;
 
+let lbRetour = null;
 function openLightbox(i) {
+  lbRetour = document.activeElement;
   lbIndex = i;
   lbUpdate();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
   // Empile un état pour que le bouton "retour" (mobile/navigateur) ferme la photo
   history.pushState({lightbox:true}, '');
+  document.querySelector('#lightbox .lb-close').focus();
 }
 function lbClose() {
   // Si l'état lightbox est dans l'historique, revenir en arrière ferme via popstate
@@ -4315,6 +4356,7 @@ function lbClose() {
 function lbForceClose() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
+  if (lbRetour && lbRetour.focus) { lbRetour.focus(); lbRetour = null; }
 }
 // Bouton retour navigateur / téléphone → ferme la photo
 window.addEventListener('popstate', function() {
@@ -4648,7 +4690,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 const HERO_WIDGETS = {
   fij: () => `
     <div class="fij-hero-card-label">♟ Tournois d'Échecs · FIJ 2027</div>
-    <h3>Festival International <br>des Jeux — Cannes</h3>
+    <h2>Festival International <br>des Jeux — Cannes</h2>
     <div class="cd-title">Ouverture des inscriptions dans</div>
     <div class="cd cd-sm" style="margin-bottom:20px">
       <div class="u"><span class="n" id="h-cd-j">--</span><span class="l">Jours</span></div>
@@ -4664,7 +4706,7 @@ const HERO_WIDGETS = {
     </div>`,
   rentree: () => `
     <div class="fij-hero-card-label"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-leaf"/></svg> Saison ${SAISON} · Inscriptions ouvertes</div>
-    <h3 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h3>
+    <h2 style="font-size:22px">C'est la rentrée à Cannes Échecs !</h2>
     <div class="cd-title" style="margin-bottom:10px">Reprise des cours</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px">Mercredi 9 septembre 2026</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Pitchounets · Jeunes · Adultes débutants & confirmés<br>Cours le mardi soir et le mercredi</div>
@@ -4675,7 +4717,7 @@ const HERO_WIDGETS = {
     </div>`,
   pico: () => `
     <div class="fij-hero-card-label">♟ PICO · Tournoi mensuel homologué</div>
-    <h3 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h3>
+    <h2 style="font-size:22px">Prochain PICO<br>Cannes Échecs</h2>
     <div class="cd-title" style="margin-bottom:10px">Prochaine date</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi homologué FFE · Tous niveaux · Dès 13h30<br>Inscription via HelloAsso</div>
@@ -4686,7 +4728,7 @@ const HERO_WIDGETS = {
     </div>`,
   paques: () => `
     <div class="fij-hero-card-label"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg> Tournoi Open · Pâques 2027</div>
-    <h3 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h3>
+    <h2 style="font-size:22px">Open de Pâques<br>Cannes Échecs</h2>
     <div class="cd-title" style="margin-bottom:10px">Date du tournoi</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Tournoi open homologué FFE · Tous niveaux<br>Prix garantis · Inscription HelloAsso</div>
@@ -4697,7 +4739,7 @@ const HERO_WIDGETS = {
     </div>`,
   qualification: () => `
     <div class="fij-hero-card-label">🏅 Championnats · Qualification</div>
-    <h3 style="font-size:22px">Qualifications<br>en cours !</h3>
+    <h2 style="font-size:22px">Qualifications<br>en cours !</h2>
     <div class="cd-title" style="margin-bottom:10px">Prochaine échéance</div>
     <div style="font-size:17px;font-weight:700;color:var(--gold-pale);margin-bottom:6px;cursor:pointer" onclick="goTo('agenda')">Voir l'agenda →</div>
     <div style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.7">Championnats départementaux & régionaux<br>Sélection équipes — Top 16 · Top 12 Féminin</div>
@@ -4708,7 +4750,7 @@ const HERO_WIDGETS = {
     </div>`,
   actu: (d = {}) => `
     <div class="fij-hero-card-label">📰 ${d.label || 'À la une'}</div>
-    <h3 style="font-size:20px;line-height:1.35">${d.titre || 'Titre de l\'actualité à mettre en avant'}</h3>
+    <h2 style="font-size:20px;line-height:1.35">${d.titre || 'Titre de l\'actualité à mettre en avant'}</h2>
     <div style="font-size:13px;color:rgba(255,255,255,.6);margin:12px 0 8px;line-height:1.65">${d.desc || 'Courte description de l\'actualité sur deux ou trois lignes.'}</div>
     <div style="font-size:11px;font-family:\'Montserrat\',sans-serif;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">${d.date || 'Janvier 2026'}</div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('${d.lien || 'actualites'}')">${d.cta || 'Lire l\'article →'}</button>`
@@ -4931,6 +4973,12 @@ updateCountdowns();
 setInterval(updateCountdowns, 1000);
 goTo('home');
 
+// ── ACCESSIBILITÉ — blocs cliquables (cartes, logo) au clavier ──
+document.addEventListener('keydown', function(e) {
+  var el = e.target;
+  if (!el || !el.matches || !el.matches('[role="link"][tabindex="0"]:not(a)')) return;
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+});
 // ── ACCESSIBILITÉ — liens onclick sans href ──────────
 document.querySelectorAll('a[onclick]:not([href])').forEach(function(a) {
   a.setAttribute('tabindex', '0');
