@@ -158,8 +158,8 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* motif retiré (moins de damier, 2026-11-17) */ .hero-shared::before{display:none}
 .hero-shared::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(34% 60% at 84% 26%,rgba(201,168,76,.22),transparent 68%)}
 .hero-shared .container{position:relative;z-index:1}
-.hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
-.breadcrumb{display:none}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
+.hero-shared .breadcrumb{display:none !important}  /* fil d'Ariane masqué (choix de Mathilde, 2026-11-17) : la barre de navigation indique déjà la page */
+.breadcrumb{display:none !important}  /* fil d'Ariane — affiché dans .hero-shared via la règle display:flex ci-dessus */
 .hero-shared .breadcrumb span{color:rgba(255,255,255,.2)}
 .hero-shared h1{font-size:var(--fs-hero-sub);color:#fff;margin-bottom:12px}
 .hero-shared h1 em{color:var(--gold);font-style:italic}
