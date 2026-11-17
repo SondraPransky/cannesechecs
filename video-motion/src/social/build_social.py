@@ -4,7 +4,7 @@ import os, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'pages'); os.makedirs(OUT, exist_ok=True)
 LOGO = '../../img/logo-cannes-echecs.png'
-PH = lambda n: f'../../../../photos/{n}.jpg'
+PH = lambda n: n if '/' in n else f'../../../../photos/{n}.jpg'
 ADR = '3 avenue du Petit Juas · Cannes'
 TEL = '04 93 39 41 39'
 URL = 'cannes-echecs.fr'
@@ -74,6 +74,9 @@ champ_post('post-4x5-prochain-champion', 'topjeunes_15', T_GARCON)
 champ_post('post-4x5-prochaine-championne', 'topjeunes_10', T_FILLE)
 champ_post('post-4x5-prochaine-championne-2', 'mondejeunes2', T_FILLE)
 champ_post('post-4x5-prochaine-championne-3', 'mondejeunes', T_FILLE)
+champ_post('post-4x5-prochaine-championne-4', '../../img/Cyrielle_Duchatel.jpg', T_FILLE)
+for k, ph in enumerate(['topjeunes_11', 'topjeunes_13', 'topjeunes_14', 'topjeunes_16', 'topjeunes_17'], 2):
+    champ_post(f'post-4x5-prochain-champion-{k}', ph, T_GARCON)
 
 # 3. Post carré — Des cours pour tous
 J.append(page('post-carre-cours-pour-tous', 1080, 1080, f'''
@@ -138,6 +141,9 @@ champ_story('story-9x16-prochain-champion', 'topjeunes_12', T_GARCON)
 champ_story('story-9x16-prochaine-championne', 'topjeunes_10', T_FILLE)
 champ_story('story-9x16-prochaine-championne-2', 'mondejeunes2', T_FILLE, 340)
 champ_story('story-9x16-prochaine-championne-3', 'mondejeunes', T_FILLE, 380)
+champ_story('story-9x16-prochaine-championne-4', '../../img/Cyrielle_Duchatel.jpg', T_FILLE, 260)
+for k, ph in enumerate(['topjeunes_11', 'topjeunes_13', 'topjeunes_14', 'topjeunes_16', 'topjeunes_17'], 2):
+    champ_story(f'story-9x16-prochain-champion-{k}', ph, T_GARCON)
 
 # ---------- BANNIÈRES & PROFIL ----------
 def banner(name, W, H, logo, title, sub, photo, pos='50% 40%', cta=True):
