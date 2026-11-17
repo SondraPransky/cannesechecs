@@ -10,7 +10,7 @@ P = [
     ("img/old_Louis.png", "Louis", "Auribault", (330, 330, 0.441, 0.544, 0.39)),
     ("img/old_Rajat.png", "Rajat", "Makkar", (330, 330, 0.5, 0.5, 0.36)),
     ("img/old_Anu.png", "Anu", "Bat", (330, 330, 0.517, 0.232, 0.377)),
-    ("img/Bilguun_Bat.jpg", "Bilguun", "Bat", (510, 600, 0.492, 0.312, 0.239)),
+    ("img/Bilguun_Bat.jpg", "Bilguun", "Bat", (800, 900, 0.501, 0.501, 0.338)),
     ("img/old_Gary.png", "Gary", "Giroyan", (330, 330, 0.4, 0.4, 0.3)),
     ("img/old_Guillaume.png", "Guillaume", "Lamard", (330, 330, 0.558, 0.567, 0.485)),
     ("img/Cyrielle_Duchatel.jpg", "Cyrielle", "Duchatel", (1440, 1440, 0.554, 0.14, 0.204)),
