@@ -162,6 +162,10 @@ img{max-width:100%;display:block}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold-pale);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
 .badge-event::before{content:'★';font-size:11px}
 
+.nw{white-space:nowrap}
+/* Sélection de texte et curseur de saisie dans la palette */
+::selection{background:rgba(201,168,76,.35);color:var(--noir)}
+input,textarea{caret-color:var(--gold-text)}
 /* FOCUS — accessibilité clavier */
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px var(--gold-tint)}
 /* Anneau de focus doré — même motif pour toutes les commandes interactives */
@@ -416,7 +420,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px;border-bottom:1px solid rgba(15,14,23,.06);overflow:hidden}
 .actu-photo{display:block;width:100%;height:100%}
 .actu-body{padding:20px 22px;display:flex;flex-direction:column;flex:1}
-.actu-cat{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.actu-cat{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .actu-cat::before{content:'';width:3px;height:3px;background:var(--gold);border-radius:50%}
 .actu-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.28;overflow-wrap:anywhere}
 .actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;overflow-wrap:anywhere}
@@ -436,6 +440,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .panel{background:var(--bleu);border-radius:var(--r-card);padding:28px;color:#fff}
 /* Cartes d'événement de l'agenda — styles communs sortis du inline (17 cartes identiques) */
 .agenda-event{background:#fff;border:1px solid var(--border);border-radius:var(--r-card);padding:20px 24px;display:flex;align-items:flex-start;gap:18px}
+@media(max-width:600px){.agenda-event{flex-wrap:wrap;gap:14px}.agenda-event>.badge{display:none}.agenda-event>div:nth-child(2){flex:1 1 0;min-width:0}.agenda-event>.btn{flex:1 1 100%}}
 
 /* Section forces */
 .section-forces{background:#fff;padding:80px 0;position:relative;border-top:1px solid var(--border)}
@@ -1130,7 +1135,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             </div>
             <button class="btn btn-gold btn-full btn-sm" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
             <div class="fij-hero-stats">
-              <div class="fij-hs"><div class="n">100 000+</div><div class="l">visiteurs FIJ</div></div>
+              <div class="fij-hs"><div class="n">100&nbsp;000+</div><div class="l">visiteurs FIJ</div></div>
               <div class="fij-hs"><div class="n">A · B · C</div><div class="l">tournois par Elo</div></div>
             </div>
           </div>
@@ -1183,7 +1188,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <button class="btn btn-outline-white" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso</button>
           </div>
           <div class="fij-mini-stats">
-            <div class="fij-ms"><div class="n">100 000+</div><div class="l">visiteurs du festival</div></div>
+            <div class="fij-ms"><div class="n">100&nbsp;000+</div><div class="l">visiteurs du festival</div></div>
             <div class="fij-ms"><div class="n">3</div><div class="l">tournois A / B / C</div></div>
             <div class="fij-ms"><div class="n">9</div><div class="l">rondes</div></div>
           </div>
@@ -1666,7 +1671,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   </section>
 
   <!-- Carte Google Maps -->
-  <div style="line-height:0">
+  <div style="line-height:0;background:var(--ivoire2)">
     <iframe src="https://maps.google.com/maps?q=3%20Avenue%20du%20Petit%20Juas%2006400%20Cannes&z=15&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" title="Cannes Échecs — 3 Avenue du Petit Juas, 06400 Cannes"></iframe>
   </div>
 
@@ -1936,7 +1941,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   </section>
 
   <!-- Carte Google Maps -->
-  <div style="line-height:0">
+  <div style="line-height:0;background:var(--ivoire2)">
     <iframe src="https://maps.google.com/maps?q=3%20Avenue%20du%20Petit%20Juas%2006400%20Cannes&z=15&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" title="Cannes Échecs — 3 Avenue du Petit Juas, 06400 Cannes"></iframe>
   </div>
 </div><!-- fin page-contact -->
@@ -2249,7 +2254,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <!-- Stats FIJ -->
   <div id="fij-details" style="background:var(--gold);padding:22px 0">
     <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100&nbsp;000+</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
@@ -2364,7 +2369,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:11px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100&nbsp;000+</div><div style="font-size:11px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
               <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:11px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
             </div>
             <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>
@@ -2783,7 +2788,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
         <ul class="footer-brand-info">
           <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></span> 3 Av. du Petit Juas, 06400 Cannes</li>
-          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-clock"/></svg></span> Lun/Jeu/Ven 13h30–18h30 · Mar 17h–19h · Mer 13h30–20h</li>
+          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-clock"/></svg></span> <span class="nw">Lun/Jeu/Ven 13h30–18h30</span> · <span class="nw">Mar 17h–19h</span> · <span class="nw">Mer 13h30–20h</span></li>
           <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg></span> <a href="mailto:info@cannes-echecs.fr" style="color:inherit;text-decoration:none">info@cannes-echecs.fr</a></li>
           <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg></span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
         </ul>
@@ -4754,7 +4759,7 @@ const HERO_WIDGETS = {
     </div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
     <div class="fij-hero-stats">
-      <div class="fij-hs"><div class="n">100 000+</div><div class="l">visiteurs FIJ</div></div>
+      <div class="fij-hs"><div class="n">100&nbsp;000+</div><div class="l">visiteurs FIJ</div></div>
       <div class="fij-hs"><div class="n">A · B · C</div><div class="l">tournois par Elo</div></div>
     </div>`,
   rentree: () => `

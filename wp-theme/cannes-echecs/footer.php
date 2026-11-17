@@ -17,7 +17,7 @@
         </div>
         <ul class="footer-brand-info">
           <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></span> 3 Av. du Petit Juas, 06400 Cannes</li>
-          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-clock"/></svg></span> Lun/Jeu/Ven 13h30–18h30 · Mar 17h–19h · Mer 13h30–20h</li>
+          <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-clock"/></svg></span> <span class="nw">Lun/Jeu/Ven 13h30–18h30</span> · <span class="nw">Mar 17h–19h</span> · <span class="nw">Mer 13h30–20h</span></li>
           <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg></span> <a href="mailto:info@cannes-echecs.fr" style="color:inherit;text-decoration:none">info@cannes-echecs.fr</a></li>
           <li><span class="ico"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg></span> <a href="tel:+33493394139" style="color:inherit;text-decoration:none">04 93 39 41 39</a></li>
         </ul>

@@ -85,7 +85,7 @@ get_header(); ?>
   </section>
 
   <!-- Carte Google Maps -->
-  <div style="line-height:0">
+  <div style="line-height:0;background:var(--ivoire2)">
     <iframe src="https://maps.google.com/maps?q=3%20Avenue%20du%20Petit%20Juas%2006400%20Cannes&z=15&output=embed" width="100%" height="320" style="border:0;display:block" loading="lazy" title="Cannes Échecs — 3 Avenue du Petit Juas, 06400 Cannes"></iframe>
   </div>
 </div><!-- fin page-contact -->

@@ -22,7 +22,7 @@ get_header(); ?>
   <!-- Stats FIJ -->
   <div id="fij-details" style="background:var(--gold);padding:22px 0">
     <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100&nbsp;000+</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
@@ -137,7 +137,7 @@ get_header(); ?>
               <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:11px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100&nbsp;000+</div><div style="font-size:11px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
               <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:11px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
             </div>
             <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>

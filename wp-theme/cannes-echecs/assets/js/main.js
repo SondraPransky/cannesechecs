@@ -804,7 +804,7 @@ const HERO_WIDGETS = {
     </div>
     <button class="btn btn-gold btn-full btn-sm" onclick="goTo('fij')">Découvrir le FIJ 2027 →</button>
     <div class="fij-hero-stats">
-      <div class="fij-hs"><div class="n">100 000+</div><div class="l">visiteurs FIJ</div></div>
+      <div class="fij-hs"><div class="n">100&nbsp;000+</div><div class="l">visiteurs FIJ</div></div>
       <div class="fij-hs"><div class="n">A · B · C</div><div class="l">tournois par Elo</div></div>
     </div>`,
   rentree: () => `
