@@ -103,7 +103,7 @@ get_header(); ?>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
             <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Cours collectif du mercredi</li>
-            <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Débutants 17h30 · Confirmés 18h30</li>
+            <li style="font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)">✓ Mercredi 18h–20h</li>
             <li style="font-size:13px;color:var(--text);padding:5px 0">✓ Licence FFE incluse</li>
           </ul>
           <button class="btn btn-gold btn-full" onclick="haOpen(HELLOASSO.adhesion,'_blank','noopener,noreferrer')">S'inscrire via HelloAsso →</button>

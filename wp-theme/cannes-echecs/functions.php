@@ -286,7 +286,7 @@ function ce_site_data_js(): string {
         $horaires = [
             ['jour' => 'Lundi',    'h' => '13h30–18h30', 'detail' => 'Parties libres · Accès club', 'ferme' => false, 'highlight' => false],
             ['jour' => 'Mardi',    'h' => '17h00–19h00', 'detail' => 'Cours jeunes uniquement', 'ferme' => false, 'highlight' => true],
-            ['jour' => 'Mercredi', 'h' => '13h30–20h00', 'detail' => 'Pitchounets 13h30 · Jeunes 13h30–17h30 · Adultes débutants 17h30 · Adultes confirmés 18h30', 'ferme' => false, 'highlight' => false],
+            ['jour' => 'Mercredi', 'h' => '13h30–20h00', 'detail' => 'Cours jeunes 13h30–18h00 (Pitchounets 13h30) · Cours adultes 18h00–20h00', 'ferme' => false, 'highlight' => false],
             ['jour' => 'Jeudi',    'h' => '13h30–18h30', 'detail' => 'Parties libres · Accès club', 'ferme' => false, 'highlight' => false],
             ['jour' => 'Vendredi', 'h' => '13h30–18h30', 'detail' => 'Parties libres · Rapide du vendredi (soirée)', 'ferme' => false, 'highlight' => false],
             ['jour' => 'Samedi',   'h' => '', 'detail' => 'Fermé (sauf tournois PICO)', 'ferme' => true, 'highlight' => false],

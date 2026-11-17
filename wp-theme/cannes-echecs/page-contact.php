@@ -71,7 +71,7 @@ get_header(); ?>
           </div>
           <div style="background:var(--ivoire);border-radius:14px;padding:24px;margin-bottom:14px;border:1px solid rgba(201,168,76,.3)">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bleu);margin-bottom:14px">Quand nous rendre visite ?</h4>
-            <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : 13h30–20h · cours dès 13h30</div>
+            <div style="font-size:14px;color:var(--text);line-height:1.8">Lun · Jeu · Ven : 13h30–18h30<br>Mardi : cours jeunes 17h–19h<br>Mercredi : cours jeunes 13h30–18h<br>Mercredi : cours adultes 18h–20h</div>
           </div>
           <div style="background:var(--bleu);border-radius:14px;padding:24px;color:#fff">
             <h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:14px">Contacts spécialisés</h4>
