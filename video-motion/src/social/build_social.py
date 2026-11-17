@@ -164,6 +164,8 @@ J.append(banner('banniere-x-1500x500', 1500, 500, 190, 80, 21, 'picomars3'))
 J.append(banner('image-lien-1200x630', 1200, 630, 220, 84, 22, 'chptdep'))                 # aperçu de lien / événement Facebook
 
 J.append(page('photo-profil-1080x1080', 1080, 1080, '<div class="logo" style="left:110px;top:110px;width:860px;height:860px"></div>'))
+J.append(page('google-logo-720x720', 720, 720, '<div class="logo" style="left:60px;top:60px;width:600px;height:600px"></div>'))
+J.append(banner('google-couverture-1024x576', 1024, 576, 200, 70, 18, 'topjeunes_8', cta=False))
 
 # ---------- ENCARTS PUBLICITAIRES ----------
 # Web : formats standards des régies (IAB), au pixel près.
