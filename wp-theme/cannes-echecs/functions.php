@@ -351,14 +351,15 @@ function ce_meta_tags() {
     $logo    = 'https://cannes-echecs.fr/logo-cannes-echecs.png';
     $desc    = 'Cannes Échecs, club d\'échecs en centre-ville de Cannes depuis 1985. Cours tous niveaux, compétitions FFE, tournois FIJ. Plus de 200 membres, 10× Champion de France Jeunes.';
     $og_type = 'website';
-    $img     = $logo;
+    // Image de partage par défaut (1200×630) ; les actualités utilisent leur propre photo
+    $img     = get_template_directory_uri() . '/assets/img/image-lien-1200x630.jpg';
     $url     = home_url('/');
 
     if (is_singular('actualite')) {
         $p       = get_queried_object();
         $desc    = wp_trim_words(wp_strip_all_tags($p->post_content), 30, '…');
         $og_type = 'article';
-        $img     = ce_actu_image_url($p->ID) ?: $logo;
+        $img     = ce_actu_image_url($p->ID) ?: $img;
         $url     = get_permalink($p);
     } elseif (is_post_type_archive('actualite')) {
         $desc = 'Résultats, événements, vie du club — toutes les actualités de Cannes Échecs.';
@@ -378,7 +379,7 @@ function ce_meta_tags() {
     echo '<meta property="og:image" content="' . esc_url($img) . '">' . "\n";
     echo '<meta property="og:locale" content="fr_FR">' . "\n";
     echo '<meta property="og:site_name" content="Cannes Échecs">' . "\n";
-    echo '<meta name="twitter:card" content="' . ($img !== $logo ? 'summary_large_image' : 'summary') . '">' . "\n";
+    echo '<meta name="twitter:card" content="' . 'summary_large_image' . '">' . "\n";
     echo '<meta name="twitter:site" content="@CannesChessClub">' . "\n";
     echo '<meta name="twitter:title" content="' . esc_attr($title) . '">' . "\n";
     echo '<meta name="twitter:description" content="' . esc_attr($desc) . '">' . "\n";

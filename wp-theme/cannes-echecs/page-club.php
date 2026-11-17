@@ -12,7 +12,7 @@ get_header(); ?>
     <div class="container">
       <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/')); ?>">Accueil</a><span>›</span><span>Le Club</span></div>
       <h1>Le <em>Club</em></h1>
-      <p class="hero-desc">Plus de 30 ans d'excellence échiquéenne sur la Côte d'Azur</p>
+      <p class="hero-desc">Plus de 40 ans d'excellence échiquéenne sur la Côte d'Azur</p>
     </div>
   </section>
 
