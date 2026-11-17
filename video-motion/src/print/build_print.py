@@ -38,7 +38,7 @@ p{font-size:8.6pt;line-height:1.5}
 .card .p{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20pt;color:#8a7440;line-height:1;margin-top:1.4mm}
 .card li{font-size:6.6pt;line-height:1.45;list-style:none;margin-top:.6mm}
 .card li:before{content:"✓ ";color:#8a7440;font-weight:900}
-.hr td{font-size:8pt;padding:1.3mm 0;border-bottom:.25mm solid rgba(131,113,63,.3)}
+.hr td{font-size:8pt;padding:1.3mm 0;white-space:nowrap;border-bottom:.25mm solid rgba(131,113,63,.3)}
 .hr td:first-child{font-weight:800;padding-right:4mm;white-space:nowrap}
 </style>'''
 
@@ -61,12 +61,12 @@ contact = lambda light=True: f'''<div style="display:flex;gap:4mm;align-items:ce
 HORAIRES = f'''<table class="hr" style="border-collapse:collapse;width:100%">
 <tr><td>Lun · Jeu · Ven</td><td>13h30 – 18h30</td></tr>
 <tr><td>Mardi</td><td>Cours jeunes 17h – 19h</td></tr>
-<tr><td>Mercredi</td><td>13h30 – 20h · cours dès 13h30</td></tr></table>'''
+<tr><td>Mercredi</td><td>Cours jeunes 13h30 – 18h<br>Cours adultes 18h – 20h</td></tr></table>'''
 
 FORMULES = [
     ('Pitchounets', '4–6 ans', '200 €', ['1 h d’atelier ludique / semaine', 'Mercredi 13h30–14h30']),
     ('École Échecs', 'Enfants', '290 €', ['1 h de cours collectif / semaine', '1 h de pratique encadrée']),
-    ('Cours adultes', 'Adultes', '290 €', ['Cours collectif du mercredi', 'Débutants 17h30 · Confirmés 18h30']),
+    ('Cours adultes', 'Adultes', '290 €', ['Cours collectif du mercredi', 'Mercredi 18h – 20h']),
     ('Famille', '2 membres du foyer', '500 €', ['Licences FFE incluses', '3 membres : 750 €']),
     ('Compétition', 'Tous âges', '120 €', ['Adhésion sans cours', 'Interclubs FFE inclus']),
     ('Accès libre', 'Licence A', '60 €', ['Accès libre au club', 'Tournois PICO gratuits']),
