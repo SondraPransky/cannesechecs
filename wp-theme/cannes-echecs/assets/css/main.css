@@ -261,7 +261,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .home-hero h1 em{font-style:italic;color:transparent;background:linear-gradient(100deg,var(--gold-h) 0%,var(--gold) 28%,var(--gold-pale) 50%,var(--gold) 72%,var(--gold-h) 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:heroSheen 7s linear infinite}
 @keyframes heroSheen{to{background-position:220% center}}
 .home-hero .sub{font-family:'Cormorant Garamond',serif;font-size:26px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:20px}
-.home-hero .desc{font-size:15px;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:24px;max-width:460px}
+.home-hero .desc{font-size:15px;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:32px;max-width:460px}
 .home-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 /* Décor « Nuit douce » — trame d'échiquier + projecteur doré, couches derrière la grille (z-index:0) */
 .hero-board{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%),linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%);background-size:92px 92px;background-position:0 0,46px 46px;-webkit-mask-image:radial-gradient(120% 110% at 82% 42%,#000,rgba(0,0,0,.4) 48%,transparent 82%);mask-image:radial-gradient(120% 110% at 82% 42%,#000,rgba(0,0,0,.4) 48%,transparent 82%)}
@@ -377,8 +377,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Accueil plus aéré : plus d'air entre les grandes sections (écrans larges) */
 @media (min-width:1025px){#page-home .section-actus,#page-home .section-fij,#page-home .section-forces{padding-top:112px;padding-bottom:112px}}
 
-/* Film de présentation, intégré au haut de l'accueil (à la place des boutons) */
-.film-cadre{position:relative;max-width:520px;border-radius:var(--r-card);overflow:hidden;background:var(--bleu-deep);border:1px solid rgba(201,168,76,.35);box-shadow:0 24px 50px -20px rgba(0,0,0,.6);aspect-ratio:16/9}
+/* Haut de l'accueil, colonne droite : la vidéo, puis la carte du widget en version compacte (version B) */
+.hero-droite{display:flex;flex-direction:column;gap:16px}
+.hero-droite .fij-hero-card{padding:20px 24px;border-radius:14px}
+.hero-droite .fij-hero-card h3{font-size:22px;margin-bottom:12px}
+.hero-droite .fij-hero-card .cd-title{margin-bottom:8px}
+.hero-droite .fij-hero-card .cd-sm{margin-bottom:14px !important}
+.hero-droite .fij-hero-card .cd-sm .n{font-size:32px}
+.hero-droite .fij-hero-card .cd-sm .sep{font-size:24px}
+.hero-droite .fij-hero-stats{display:none}
+/* Film de présentation */
+.film-cadre{position:relative;border-radius:var(--r-card);overflow:hidden;background:var(--bleu-deep);border:1px solid rgba(201,168,76,.35);box-shadow:0 24px 50px -20px rgba(0,0,0,.6);aspect-ratio:16/9}
 .film-video{display:block;width:100%;height:100%;object-fit:cover;background:var(--bleu-deep)}
 .film-play{position:absolute;inset:0;display:flex;flex-direction:row;align-items:flex-end;justify-content:flex-start;gap:14px;padding:20px 22px;border:0;cursor:pointer;color:#fff;background:linear-gradient(0deg,rgba(10,31,56,.8),rgba(10,31,56,0) 50%)}
 .film-rond{flex-shrink:0;width:58px;height:58px;border-radius:50%;background:var(--gold);color:var(--noir);display:flex;align-items:center;justify-content:center;padding-left:4px;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:scale .2s var(--ease-out),background-color .2s}
@@ -386,7 +395,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .film-play:active .film-rond{scale:var(--press-scale)}
 .film-play:focus-visible{outline:3px solid var(--gold);outline-offset:-6px}
 .film-duree{margin-bottom:20px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-@media (max-width:1024px){.film-cadre{max-width:none}}
 @media (max-width:640px){.film-play{padding:12px 14px;gap:10px}.film-rond{width:46px;height:46px}.film-rond svg{width:20px;height:20px}.film-duree{margin-bottom:15px;font-size:11px}}
 @media (hover:none){.film-play:hover .film-rond{scale:1}}
 
