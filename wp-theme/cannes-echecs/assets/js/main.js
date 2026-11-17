@@ -924,6 +924,18 @@ function initPicoNext() {
   }
 }
 
+// Film de présentation : on ne charge la vidéo qu'au clic, puis lecture avec commandes
+function lancerFilm() {
+  var v = document.getElementById('film-club');
+  if (!v) return;
+  var b = v.parentElement.querySelector('.film-play');
+  if (b) b.remove();
+  v.controls = true;
+  var p = v.play();
+  if (p && p.catch) p.catch(function () {});
+  v.focus();
+}
+
 // ── INIT ────────────────────────────────────────────
 renderFijInscrits();
 renderHoraires();

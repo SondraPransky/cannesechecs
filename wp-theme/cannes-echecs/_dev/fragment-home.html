@@ -124,6 +124,26 @@
     </div>
   </section>
 
+  <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
+  <section class="section-film" aria-labelledby="film-titre">
+    <div class="container">
+      <div class="section-header center">
+        <span class="surtitre">En vidéo</span>
+        <h2 id="film-titre" style="font-size:var(--fs-h2)">Le club en une minute</h2>
+        <p class="film-intro">Titres nationaux, joueurs en équipe de France, cours pour tous : Cannes Échecs en 60 secondes.</p>
+      </div>
+      <div class="film-cadre">
+        <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
+          <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
+          <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+          <span class="film-duree">Lire la vidéo · 1 min</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="section-cta">
     <div class="cta-inner">

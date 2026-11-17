@@ -64,7 +64,6 @@ get_header(); ?>
               <div class="palm-chip"><span class="y">2020</span><span class="l">Champion</span></div>
               <div class="palm-chip"><span class="y">2022</span><span class="l">Champion</span></div>
             </div>
-            <span class="group-lbl">+ 4 autres titres</span>
           </div>
         </div>
         <div class="palm-second">
