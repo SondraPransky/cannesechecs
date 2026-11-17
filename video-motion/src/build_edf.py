@@ -3,44 +3,69 @@
 import os
 D = 190
 IN = D - 14
-# (image, prénom, nom, mode, données) — 'old' : médaillon recadré dans l'ancienne vidéo (330x330, cercle centré)
-# 'new' : photo source (largeur, hauteur, centre visage x/y en fraction, largeur visage en fraction)
+# (image, prénom, nom, données) — données : (largeur, hauteur, centre du visage x/y en fraction,
+# largeur du cadre visage en fraction de la largeur — mesurés par détection de visage OpenCV). old_*.png = médaillons recadrés dans l'ancienne vidéo.
 P = [
-    ("img/old_Timothe.png", "Timothé", "Razafindratsima", "old", None),
-    ("img/old_Louis.png", "Louis", "Auribault", "old", None),
-    ("img/old_Rajat.png", "Rajat", "Makkar", "old", None),
-    ("img/old_Anu.png", "Anu", "Bat", "old", None),
-    ("img/Bilguun_Bat.jpg", "Bilguun", "Bat", "new", (510, 600, .49, .32, .22)),
-    ("img/old_Gary.png", "Gary", "Giroyan", "old", None),
-    ("img/old_Guillaume.png", "Guillaume", "Lamard", "old", None),
-    ("img/Cyrielle_Duchatel.jpg", "Cyrielle", "Duchatel", "new", (1440, 1440, .545, .133, .146)),
-    ("img/Emilie_Alfano.jpg", "Emilie", "Alfano", "new", (403, 510, .466, .194, .215)),
-    ("img/Emilie_Negre.jpg", "Emilie", "Nègre", "new", (475, 575, .43, .45, .46)),
-    ("img/Chjara_Sabiani.jpg", "Chjara", "Sabiani", "new", (861, 576, .746, .262, .052)),
-    ("img/Marc_Llari.jpg", "Marc", "Llari", "new", (338, 600, .60, .286, .095)),
-    ("img/Melissa_Levacic.jpg", "Melissa", "Levacic", "new", (200, 200, .36, .46, .39)),
-    ("img/old_Romuald.png", "Romuald", "de Labaca", "old", None),
+    ("img/old_Timothe.png", "Timothé", "Razafindratsima", (330, 330, 0.505, 0.465, 0.524)),
+    ("img/old_Louis.png", "Louis", "Auribault", (330, 330, 0.441, 0.544, 0.39)),
+    ("img/old_Rajat.png", "Rajat", "Makkar", (330, 330, 0.5, 0.5, 0.36)),
+    ("img/old_Anu.png", "Anu", "Bat", (330, 330, 0.517, 0.232, 0.377)),
+    ("img/Bilguun_Bat.jpg", "Bilguun", "Bat", (510, 600, 0.492, 0.312, 0.239)),
+    ("img/old_Gary.png", "Gary", "Giroyan", (330, 330, 0.4, 0.4, 0.3)),
+    ("img/old_Guillaume.png", "Guillaume", "Lamard", (330, 330, 0.558, 0.567, 0.485)),
+    ("img/Cyrielle_Duchatel.jpg", "Cyrielle", "Duchatel", (1440, 1440, 0.554, 0.14, 0.204)),
+    ("img/Emilie_Alfano.jpg", "Emilie", "Alfano", (403, 510, 0.475, 0.232, 0.34)),
+    ("img/Emilie_Negre.jpg", "Emilie", "Nègre", (475, 575, 0.436, 0.454, 0.594)),
+    ("img/Chjara_Sabiani.jpg", "Chjara", "Sabiani", (861, 576, 0.752, 0.266, 0.078)),
+    ("img/Marc_Llari.jpg", "Marc", "Llari", (338, 600, 0.602, 0.318, 0.118)),
+    ("img/Melissa_Levacic.jpg", "Melissa", "Levacic", (200, 200, 0.306, 0.39, 0.42)),
+    ("img/old_Romuald.png", "Romuald", "de Labaca", (330, 330, 0.492, 0.441, 0.433)),
 ]
+# Photos proposées, en attente de validation (aperçu seulement)
+CAND = [
+    ("img/Melanie_Verot.jpg", "Mélanie", "Vérot", (450, 540, 0.54, 0.38, 0.293)),
+    ("img/Laura_Neel.jpg", "Laura", "Neel", (420, 500, 0.515, 0.417, 0.326)),
+    ("img/Matthieu_Cornette.jpg", "Matthieu", "Cornette", (250, 250, 0.374, 0.39, 0.388)),
+    ("img/Kevin_Bordi.png", "Kevin", "Bordi", (250, 250, 0.518, 0.598, 0.62)),
+    ("img/Cecile_Haussernot.jpg", "Cécile", "Haussernot", (250, 250, 0.438, 0.364, 0.276)),
+]
+
+
+def crop(d, IN):
+    """Visage au centre du médaillon, cadre visage (détection OpenCV) ~52 % du cercle.
+    Zoom augmenté au besoin (max x1,4) pour que le cercle reste dans la photo — pour les anciens
+    médaillons old_*.png, dans le disque photo de rayon ~138 ; au-delà, on décale le moins possible."""
+    W, H, fx, fy, fw = d
+    cx, cy = fx * W, fy * H
+    sc0 = .52 * IN / (fw * W)
+    old = (W, H) == (330, 330)
+    def room(x, y):
+        if old:
+            return 138 - ((x - 165) ** 2 + (y - 165) ** 2) ** .5
+        return min(x, W - x, y, H - y)
+    sc = max(sc0, IN / (2 * max(room(cx, cy), 1)))
+    if sc > 1.4 * sc0:
+        sc = 1.4 * sc0
+        R = IN / (2 * sc)
+        tx, ty = (165, 165) if old else (W / 2, H / 2)
+        for i in range(101):  # glisse le centre vers le milieu de la photo jusqu'à ce que ça rentre
+            x, y = cx + (tx - cx) * i / 100, cy + (ty - cy) * i / 100
+            if room(x, y) >= R:
+                break
+        cx, cy = x, y
+        sc = max(sc, IN / (2 * max(room(cx, cy), 1)))
+    return f"{-(cx * sc - IN / 2):.1f}px {-(cy * sc - IN / 2):.1f}px", f"{W * sc:.1f}px {H * sc:.1f}px"
+
+
 OTH = ["Mathieu Acher", "Mélanie Vérot", "Julia Laurens", "Pierre-Basile Coiffait",
        "Axel Bergougnoux", "Lucas Benassayag", "Robert Vuillermoz", "Cécile Haussernot",
        "Laura Neel", "Kevin Bordi", "Arnaud Rainfray", "Maxime Sorin", "Matthieu Cornette"]
 
 med = ''
-for k, (u, fn, ln, mode, d) in enumerate(P):
+for k, (u, fn, ln, d) in enumerate(P):
     cx = 960 + ((k % 7) - 3) * 255
     top = 180 if k < 7 else 500
-    if mode == 'old':
-        s = IN / 286
-        bs = f"{330*s:.0f}px {330*s:.0f}px"
-        bp = f"{-22*s:.0f}px {-22*s:.0f}px"
-    else:
-        W, H, fx, fy, fw = d
-        sc = max(.42 * IN / (fw * W), IN / min(W, H))
-        w, h = W * sc, H * sc
-        px = min(0, max(IN - w, IN / 2 - fx * w))
-        py = min(0, max(IN - h, IN * .45 - fy * h))
-        bs = f"{w:.0f}px {h:.0f}px"
-        bp = f"{px:.0f}px {py:.0f}px"
+    bp, bs = crop(d, IN)
     med += f'''<div class="abs emed" style="left:{cx-D/2:.0f}px;top:{top}px;width:{D}px">
   <div class="ering" style="width:{D}px;height:{D}px;border-radius:50%;padding:7px;background:conic-gradient(from 0deg,var(--goldXL),var(--goldL),#8a7440,var(--goldXL));box-shadow:0 16px 50px rgba(0,0,0,.5)"><div style="width:100%;height:100%;border-radius:50%;background:url({u}) {bp}/{bs} no-repeat;background-color:var(--navy2)"></div></div>
   <div class="enm" style="text-align:center;margin:12px -50px 0;line-height:1.1"><div style="font-weight:800;font-size:19px;text-transform:uppercase;letter-spacing:.06em">{fn}</div><div class="g" style="font-weight:900;font-size:22px;text-transform:uppercase;white-space:nowrap">{ln}</div></div>
