@@ -93,7 +93,10 @@ function renderFijSbInscrits() {
 function updateCountdowns() {
   var now = new Date();
   // ── Home widget (vers ouverture inscriptions) ──
-  var diff1 = FIJ_OPEN - now;
+  var avantOuverture = FIJ_OPEN - now > 0;
+  var diff1 = (avantOuverture ? FIJ_OPEN : FIJ_DATE) - now;   // inscriptions ouvertes : on compte jusqu'à la 1re ronde
+  var hj = document.getElementById('h-cd-j'), titreCd = hj && hj.closest('.cd') && hj.closest('.cd').previousElementSibling;
+  if (titreCd && titreCd.classList.contains('cd-title')) titreCd.textContent = avantOuverture ? 'Ouverture des inscriptions dans' : 'Coup d’envoi dans';
   if (diff1 > 0) {
     var d1=Math.floor(diff1/86400000), h1=Math.floor((diff1%86400000)/3600000), m1=Math.floor((diff1%3600000)/60000);
     ['h-cd-j','h-cd-h','h-cd-m'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d1,h1,m1][i]);});

@@ -155,7 +155,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* HERO PARTAGÉ */
 .hero-shared{position:relative;overflow:hidden;display:flex;align-items:center;padding:80px 0 60px}
 /* En-tête partagé rehaussé : échiquier-lumière STATIQUE (sans foil — réservé au home). Trame en ::before, halo doré en ::after, tous deux derrière .container (z-index:1). */
-.hero-shared::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%),linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%);background-size:84px 84px;background-position:0 0,42px 42px;-webkit-mask-image:radial-gradient(120% 130% at 88% 30%,#000,rgba(0,0,0,.35) 50%,transparent 84%);mask-image:radial-gradient(120% 130% at 88% 30%,#000,rgba(0,0,0,.35) 50%,transparent 84%)}
+/* motif retiré (moins de damier, 2026-11-17) */ .hero-shared::before{display:none}
 .hero-shared::after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(34% 60% at 84% 26%,rgba(201,168,76,.22),transparent 68%)}
 .hero-shared .container{position:relative;z-index:1}
 .hero-shared .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px}
@@ -283,7 +283,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
 /* Barre stats */
 .stats-band{position:relative;overflow:hidden;background:var(--bleu);padding:28px 0}
-.stats-band::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.05) 0% 25%,transparent 0% 50%);background-size:52px 52px;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(90deg,transparent,#000 28%,#000 72%,transparent)}
+/* motif retiré (moins de damier, 2026-11-17) */ .stats-band::before{display:none}
 .stats-band-inner{position:relative;display:flex;justify-content:space-around;align-items:center}
 .sb-item{text-align:center;padding:0 20px}
 .sb-item+.sb-item{border-left:1px solid rgba(201,168,76,.25)}
@@ -293,7 +293,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Section FIJ home */
 .section-fij{background:linear-gradient(135deg,var(--noir) 0%,var(--bleu) 100%);padding:80px 0;position:relative;overflow:hidden}
 .section-fij::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.section-fij::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:48px 48px;pointer-events:none}
+/* motif retiré (moins de damier, 2026-11-17) */ .section-fij::after{display:none}
 .fij-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
 .fij-text h2{font-size:46px;color:#fff;line-height:1.1;margin-bottom:12px}
 .fij-text h2 em{color:var(--gold)}
@@ -315,7 +315,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Section actualités home */
 .section-actus{position:relative;overflow:hidden;padding:80px 0;background:var(--ivoire)}
 /* Trame d'échiquier claire, estompée vers le bas — écho discret du hero */
-.section-actus::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(30,58,95,.04) 0% 25%,transparent 0% 50%);background-size:46px 46px;pointer-events:none;-webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000,transparent 72%);mask-image:radial-gradient(120% 90% at 50% 0%,#000,transparent 72%)}
+/* motif retiré (moins de damier, 2026-11-17) */ .section-actus::before{display:none}
 .section-actus>.container{position:relative;z-index:1}
 .section-actus-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px}
 .link-all{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--bleu);border-bottom:2px solid var(--gold);padding-bottom:2px;transition:color .2s}
@@ -350,7 +350,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
 /* Section forces */
 .section-forces{background:#fff;padding:80px 0;position:relative;border-top:1px solid var(--border)}
-.section-forces::after{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(201,168,76,.04) 0% 25%,transparent 0% 50%);background-size:48px 48px;pointer-events:none}
+/* motif retiré (moins de damier, 2026-11-17) */ .section-forces::after{display:none}
 .forces-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
 /* Cartes « clair éditorial » : fond ivoire sur blanc, bordure or au survol, hauteurs égales */
 .force-card{background:var(--ivoire);border:1px solid var(--border);border-radius:var(--r-card);padding:28px 22px;text-align:left;display:flex;flex-direction:column;transition:border-color .2s,transform .2s var(--ease-out)}
@@ -362,14 +362,20 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .force-link:hover{color:var(--bleu)}
 
 /* CTA finale partagée */
-.section-cta{background:linear-gradient(135deg,var(--bleu) 0%,var(--noir) 100%);padding:80px 0;text-align:center;position:relative;overflow:hidden}
-.section-cta::before{content:'♟';position:absolute;font-size:300px;opacity:.03;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold);pointer-events:none;line-height:1}
+.section-cta{background:var(--ivoire2);border-top:1px solid var(--border);padding:96px 0;text-align:center;position:relative;overflow:hidden}
+.section-cta::before{content:none}
 .cta-inner{max-width:640px;margin:0 auto;position:relative;z-index:1}
-.cta-inner h2{font-size:48px;color:#fff;margin-bottom:12px}
-.cta-inner h2 em{color:var(--gold);font-style:italic}
-.cta-inner p{font-size:15px;color:rgba(255,255,255,.6);margin-bottom:32px;line-height:1.7}
+.cta-inner h2{font-size:48px;color:var(--bleu);margin-bottom:12px}
+.cta-inner h2 em{color:var(--gold-text);font-style:italic}
+.cta-inner p{font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
-.cta-note{font-size:12px;color:rgba(255,255,255,.55);font-style:italic}
+.cta-note{font-size:12px;color:var(--muted);font-style:italic}
+.section-cta .badge-event{background:var(--gold-pale);border-color:rgba(201,168,76,.45);color:var(--gold-text)}
+.section-cta .btn-outline-white{color:var(--bleu);border-color:var(--bleu)}
+.section-cta .btn-outline-white:hover{background:var(--bleu);color:#fff;border-color:var(--bleu)}
+
+/* Accueil plus aéré : plus d'air entre les grandes sections (écrans larges) */
+@media (min-width:1025px){#page-home .section-actus,#page-home .section-fij,#page-home .section-forces{padding-top:112px;padding-bottom:112px}}
 
 /* =====================================================
    PAGE LE CLUB
@@ -378,7 +384,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire-grid{display:grid;grid-template-columns:55% 45%;gap:60px;align-items:center}
 .club-histoire-text p{font-size:15px;color:var(--text);line-height:1.8;margin-bottom:16px}
 .club-histoire-img{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(201,168,76,.3);box-shadow:0 24px 60px rgba(30,58,95,.22);background:radial-gradient(120% 120% at 50% 30%,var(--bleu-mid),var(--bleu-deep) 60%,#070A12 100%);aspect-ratio:4/3;display:grid;place-items:center}
-.club-histoire-img::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.05) 25%,transparent 25% 75%,rgba(255,255,255,.05) 75%),linear-gradient(45deg,rgba(255,255,255,.05) 25%,transparent 25% 75%,rgba(255,255,255,.05) 75%);background-size:56px 56px;background-position:0 0,28px 28px;-webkit-mask-image:radial-gradient(90% 90% at 50% 45%,#000,transparent 78%);mask-image:radial-gradient(90% 90% at 50% 45%,#000,transparent 78%)}
+/* motif retiré (moins de damier, 2026-11-17) */ .club-histoire-img::before{display:none}
 .chi-king{position:relative;font-size:120px;line-height:1;color:var(--gold-pale);text-shadow:0 0 44px rgba(201,168,76,.55),0 20px 40px rgba(0,0,0,.5)}
 .chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 /* Tournois — point focal « Prochain PICO » + calendrier auto-surligné (JS: initPicoNext) */
@@ -422,7 +428,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Palmarès — grille des années de titre */
 /* Palmarès — hall des champions (page Club) */
 .club-palmares{position:relative;overflow:hidden;color:#fff;padding:var(--sp-8) 0;background:radial-gradient(130% 120% at 78% 16%,var(--bleu-mid) 0%,var(--bleu-deep) 50%,#070A12 100%)}
-.club-palmares::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.04) 25%,transparent 25% 75%,rgba(255,255,255,.04) 75%),linear-gradient(45deg,rgba(255,255,255,.04) 25%,transparent 25% 75%,rgba(255,255,255,.04) 75%);background-size:80px 80px;background-position:0 0,40px 40px;-webkit-mask-image:radial-gradient(120% 120% at 50% 8%,#000,transparent 78%);mask-image:radial-gradient(120% 120% at 50% 8%,#000,transparent 78%)}
+/* motif retiré (moins de damier, 2026-11-17) */ .club-palmares::before{display:none}
 .club-palmares .container{position:relative;z-index:1}
 .palm-in{max-width:940px;margin:0 auto;text-align:center}
 .palm-eyebrow{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:6px}
@@ -469,7 +475,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    PAGE ARTICLE SINGLE
    ===================================================== */
 .article-hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--bleu) 0%,var(--noir) 100%);padding:70px 0 64px}
-.article-hero::before{content:'';position:absolute;inset:0;background-image:repeating-conic-gradient(rgba(255,255,255,.05) 0deg 90deg,transparent 90deg 180deg);background-size:44px 44px;opacity:.5;pointer-events:none}
+/* motif retiré (moins de damier, 2026-11-17) */ .article-hero::before{display:none}
 .article-hero .container{position:relative;max-width:800px}
 .article-hero h1{text-wrap:balance}
 .article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0}
