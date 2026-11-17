@@ -232,29 +232,6 @@ function renderFijInscrits() {
 }
 
 // ── PAGE ARTICLE DYNAMIQUE ────────────────────────────
-function articleIntrouvable() {
-  var set = function (i, html) { var el = document.getElementById(i); if (el) el.innerHTML = html; };
-  set('art-badge', 'Actualité');
-  set('art-title', 'Cet article n’est plus disponible');
-  set('art-date', '');
-  set('art-cat', '');
-  var img = document.getElementById('art-img');
-  if (img) img.style.display = 'none';
-  set('art-body', '<p>Le lien que vous avez suivi ne mène plus à aucun article : il a peut-être été retiré ou renommé.</p>'
-    + '<p style="margin-top:20px"><button type="button" class="btn btn-gold" onclick="goTo(\'actualites\')">Voir toutes les actualités</button></p>');
-  var gal = document.getElementById('art-gallery');
-  if (gal) { gal.innerHTML = ''; gal.style.display = 'none'; }
-  currentGallery = [];
-  var body = document.getElementById('art-body');
-  if (body) body.style.paddingTop = '48px';
-  var share = document.querySelector('.article-share');
-  if (share) share.style.display = 'none';
-  var rel = document.getElementById('art-related');
-  if (rel) rel.innerHTML = ARCHIVE_ORDER.filter(function (k) { return ARTICLES[k]; }).slice(0, 3)
-    .map(function (k) { return buildCard(k, ARTICLES[k], false); }).join('');
-  goTo('article');
-  document.title = 'Article introuvable — Cannes Échecs';
-}
 
 // ── AGENDA — TÉLÉCHARGEMENT ICS ─────────────────────
 function downloadICS() {
@@ -1008,7 +985,7 @@ function filmIndisponible(v){
   m.textContent = 'La vidéo n’a pas pu se charger. Rechargez la page ou réessayez plus tard.';
   cadre.appendChild(m);
 }
-(function(){
+(function filmInit(){
   var v = document.getElementById('film-club'); if (!v) return;
   var src = v.querySelector('source');
   if (src) src.addEventListener('error', function(){ filmIndisponible(v); });
@@ -1031,11 +1008,6 @@ renderHoraires();
 renderEquipe();
 renderSaison();
 initPicoNext();
-(function(){
-  let saved; try { saved = localStorage.getItem('ace_widget'); } catch(e) {}
-  if (saved && HERO_WIDGETS[saved]) { setHeroWidget(saved); }
-  else { const m = new Date().getMonth()+1; setHeroWidget(m>=6&&m<=8?'rentree':'fij'); }
-})();
 updateCountdowns();
 setInterval(updateCountdowns, 1000);
 

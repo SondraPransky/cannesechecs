@@ -120,6 +120,7 @@ const REMOVALS = [
   { start: /^function renderArchiveGrid\(/, end: '}' },
   { start: /^function renderHomeActus\(/,   end: '}' },
   { start: /^function goToArticle\(/,    end: '}' },
+  { start: /^function articleIntrouvable\(/, end: '}' },
 ];
 
 function removeBlock(startRe, terminator, mustContain) {

@@ -4990,7 +4990,7 @@ function filmIndisponible(v){
   m.textContent = 'La vidéo n’a pas pu se charger. Rechargez la page ou réessayez plus tard.';
   cadre.appendChild(m);
 }
-(function(){
+(function filmInit(){
   var v = document.getElementById('film-club'); if (!v) return;
   var src = v.querySelector('source');
   if (src) src.addEventListener('error', function(){ filmIndisponible(v); });
