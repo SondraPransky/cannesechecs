@@ -21,7 +21,7 @@ add_action('after_setup_theme', 'ce_setup');
 function ce_enqueue() {
     $dir = get_template_directory();
     $uri = get_template_directory_uri();
-    wp_enqueue_style('ce-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap', [], null);
+    wp_enqueue_style('ce-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap', [], null);
     wp_enqueue_style('ce-main', $uri . '/assets/css/main.css', ['ce-fonts'], '2.0.' . filemtime($dir . '/assets/css/main.css'));
     wp_enqueue_script('ce-main', $uri . '/assets/js/main.js', [], '2.0.' . filemtime($dir . '/assets/js/main.js'), true);
     wp_add_inline_script('ce-main', ce_site_data_js(), 'before');

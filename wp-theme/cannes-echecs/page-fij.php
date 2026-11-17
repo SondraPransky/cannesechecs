@@ -22,10 +22,10 @@ get_header(); ?>
   <!-- Stats FIJ -->
   <div id="fij-details" style="background:var(--gold);padding:22px 0">
     <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
     </div>
   </div>
 
@@ -48,16 +48,16 @@ get_header(); ?>
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#1a0c00,#7a5212);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">A</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">A</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">2 200 Elo et +</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">2 200 Elo et +</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 6 000 €</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 6 000 €</div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">1 800 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">1 200 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">700 €</span></div>
@@ -70,16 +70,16 @@ get_header(); ?>
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#060f22,#1a2a5c);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">B</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">B</div>
-                <div style="display:inline-block;margin-top:10px;background:var(--gold-tint);border:1px solid var(--gold-tint-border);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:var(--gold-tint);border:1px solid var(--gold-tint-border);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 3 000 €</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 3 000 €</div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">600 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">500 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">400 €</span></div>
@@ -90,16 +90,16 @@ get_header(); ?>
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#0f0f1e,#2e3350);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">C</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">C</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">≤ 1 600 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">≤ 1 600 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 1 000 €</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 1 000 €</div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">300 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">200 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">100 €</span></div>
@@ -117,7 +117,7 @@ get_header(); ?>
 
           <!-- ÉTAT 1 : avant le FIJ -->
           <div id="fij-sidebar-avant">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
             <div class="cd cd-md" style="margin-bottom:20px">
               <div class="u"><span class="n" id="fij-cd-j">--</span><span class="l">Jours</span></div>
               <span class="sep">:</span>
@@ -129,7 +129,7 @@ get_header(); ?>
             </div>
             <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:rgba(255,255,255,.7)">
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Avant le 31/12/2026</div><div>Junior : 45 €</div><div>Senior : 75 €</div></div>
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Standard</div><div>Junior : 55 €</div><div>Senior : 85 €</div></div>
@@ -137,18 +137,18 @@ get_header(); ?>
               <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:10px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:10px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:11px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:11px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
             </div>
             <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>
           </div>
 
           <!-- ÉTAT 2 : FIJ en cours -->
           <div id="fij-sidebar-encours" style="display:none">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
             <div id="fij-sb-inscrits" style="margin-bottom:16px"></div>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px 18px">
-              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Prochaine ronde</div>
+              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Prochaine ronde</div>
               <div id="fij-sb-ronde-label" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:12px;line-height:1.3"></div>
               <div id="fij-sb-countdown" class="cd cd-sm">
                 <div class="u"><span class="n" id="fij-sb-h">--</span><span class="l">H</span></div>
@@ -185,43 +185,43 @@ get_header(); ?>
         <div style="position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.1))"></div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Lundi 22 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Lundi 22 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Pointage & Ronde 1</div>
           <div style="font-size:14px;color:var(--muted)">Pointage obligatoire de 12h00 à 14h30 · Ronde 1 à 16h30</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mardi 23 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mardi 23 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Rondes 2 & 3</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 2 à 9h00 · Ronde 3 à 16h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mercredi 24 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mercredi 24 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 4</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 4 à 15h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Jeudi 25 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Jeudi 25 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Rondes 5 & 6</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 5 à 9h00 · Ronde 6 à 16h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Vendredi 26 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Vendredi 26 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 7</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 7 à 15h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Samedi 27 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Samedi 27 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 8</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 8 à 15h00</div>
         </div>
         <div style="position:relative">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Dimanche 28 février (clôture)</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Dimanche 28 février (clôture)</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 9 + Remise des prix</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 9 à 10h00 · Cérémonie de remise des prix & trophées à 16h30</div>
         </div>

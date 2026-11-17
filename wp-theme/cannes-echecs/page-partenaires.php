@@ -27,28 +27,28 @@ get_header(); ?>
           <div class="p-crest"><span class="p-mono" style="font-size:34px">VC</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Ville de Cannes</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Mise à disposition des locaux et subvention annuelle</p>
         </div>
         <div style="background:var(--bleu);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--bleu);display:flex;flex-direction:column;align-items:center;gap:13px;box-shadow:var(--sh-gold)">
           <div class="p-crest on-dark"><span class="p-mono" style="font-size:27px">FFE</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff">Fédération Française des Échecs</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)">Partenaire Fédéral</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)">Partenaire Fédéral</div>
           <p style="font-size:13px;color:rgba(255,255,255,.62);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
         </div>
         <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:34px">RS</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Région Sud PACA</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs de haut niveau</p>
         </div>
         <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:30px">06</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Département Alpes-Maritimes</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Départemental</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Départemental</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs et aux actions jeunesse</p>
         </div>
       </div>
@@ -85,9 +85,9 @@ get_header(); ?>
           <button class="btn btn-gold" onclick="goTo('contact')">Nous contacter pour un partenariat →</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold-tint);color:var(--gold-pale);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold-tint);color:var(--gold-pale);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
         </div>
       </div>
     </div>

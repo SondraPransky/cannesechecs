@@ -88,7 +88,7 @@ function renderFijSbInscrits() {
         var c = FIJ_INSCRITS[o.k].count;
         return '<div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
           + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1">' + (c || '—') + '</div>'
-          + '<div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
+          + '<div style="font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
           + '</div>';
       }).join('') + '</div>';
 }
@@ -217,7 +217,7 @@ function renderFijInscrits() {
         : '<span style="font-size:12px;color:var(--muted);font-style:italic">Inscriptions à venir</span>';
     }
     var countHtml = d.count > 0
-      ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:10px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
+      ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:11px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
       : '';
     return '<div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--ivoire);border-radius:10px;border:1px solid ' + o.border + '">'
       + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:700;color:var(--bleu);min-width:24px;text-align:center">' + letter + '</div>'
@@ -876,8 +876,8 @@ function renderHoraires() {
   tbody.innerHTML = HORAIRES.map(function(h, i) {
     var bg = i % 2 === 1 ? ';background:var(--ivoire)' : '';
     if (h.ferme) return '<tr style="border-bottom:1px solid var(--border)' + bg + '">'
-      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:#9ca3af;font-style:italic;text-align:left">' + h.jour + '</th>'
-      + '<td colspan="2" style="padding:12px 16px;color:#9ca3af;font-style:italic">' + h.detail + '</td></tr>';
+      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:var(--muted);font-style:italic;text-align:left">' + h.jour + '</th>'
+      + '<td colspan="2" style="padding:12px 16px;color:var(--muted);font-style:italic">' + h.detail + '</td></tr>';
     var det = h.highlight
       ? '<strong style="color:var(--bleu)">' + h.detail + '</strong>'
       : h.detail;

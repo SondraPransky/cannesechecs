@@ -20,15 +20,15 @@ get_header(); ?>
     <div class="container" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-phone"/></svg></div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Téléphone</div><a href="tel:+33493394139" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">04 93 39 41 39</a></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Téléphone</div><a href="tel:+33493394139" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">04 93 39 41 39</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-mail"/></svg></div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><a href="mailto:info@cannes-echecs.fr" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">info@cannes-echecs.fr</a></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><a href="mailto:info@cannes-echecs.fr" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">info@cannes-echecs.fr</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">En personne</div><div style="font-size:15px;font-weight:600;color:var(--noir)">3 Av. du Petit Juas</div></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">En personne</div><div style="font-size:15px;font-weight:600;color:var(--noir)">3 Av. du Petit Juas</div></div>
       </div>
     </div>
   </div>

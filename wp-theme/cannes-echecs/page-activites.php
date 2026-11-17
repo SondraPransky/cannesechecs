@@ -74,7 +74,7 @@ get_header(); ?>
         <!-- Stage Toussaint -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Toussaint 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Toussaint</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Toussaint 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Toussaint</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-leaf"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -90,7 +90,7 @@ get_header(); ?>
         <!-- Stage Hiver -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Hiver 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Hiver</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Hiver 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Hiver</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-snow"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -106,7 +106,7 @@ get_header(); ?>
         <!-- Stage Pâques -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Pâques 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Pâques</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Pâques 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Pâques</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -122,7 +122,7 @@ get_header(); ?>
         <!-- Stage Été -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Été 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Été</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Été 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Été</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sun"/></svg></span>
           </div>
           <div style="padding:20px 22px">

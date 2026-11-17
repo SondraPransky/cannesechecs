@@ -29,17 +29,17 @@ get_header(); ?>
         </div>
         <div style="background:var(--bleu);border-radius:16px;padding:32px;color:rgba(255,255,255,.85)">
           <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg> Adresse</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg> Adresse</div>
             <div style="font-size:15px;font-weight:500">3 Av. du Petit Juas<br>06400 Cannes</div>
             <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);cursor:pointer;display:block;margin-top:6px">Voir sur Google Maps →</a>
           </div>
 
           <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg> Téléphone</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg> Téléphone</div>
             <a href="tel:+33493394139" style="font-size:15px;font-weight:500;color:inherit;text-decoration:none">04 93 39 41 39</a>
           </div>
           <div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg> Email</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg> Email</div>
             <a href="mailto:info@cannes-echecs.fr" style="font-size:14px;color:inherit;text-decoration:none">info@cannes-echecs.fr</a>
           </div>
         </div>
@@ -67,9 +67,9 @@ get_header(); ?>
           <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">De l'accès libre à la formule Famille — un tarif pour chaque profil.</div>
         </div>
         <div style="display:flex;gap:28px;flex-wrap:wrap">
-          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">60€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Accès libre</div></div>
-          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">200€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Pitchounets</div></div>
-          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">290€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">École Échecs</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">60€</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Accès libre</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">200€</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Pitchounets</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">290€</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">École Échecs</div></div>
         </div>
         <button class="btn btn-gold" style="flex-shrink:0" onclick="goTo('adhesion')">Voir les 6 formules →</button>
       </div>

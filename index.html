@@ -70,7 +70,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- impeccable-disable-next-line overused-font: trio typographique de marque assume (Cormorant serif + Inter corps + Montserrat cartels), voir DESIGN.md -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Chiffres droits partout (lnum) : en Cormorant, les chiffres « elzéviriens » faisaient lire « 10× » comme « IO× ».
    font-feature-settings se cumule avec les font-variant-numeric (tabular-nums) posés plus bas. */
@@ -155,12 +155,12 @@ img{max-width:100%;display:block}
 .btn-full{width:100%;justify-content:center}
 
 /* BADGES */
-.badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
+.badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
 .badge-gold{background:var(--gold);color:var(--noir)}
 .badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid var(--gold-tint-border);color:var(--gold-text)}  /* Règle de l'Écrin : fond or-tinté clair → or encre (4.88:1) */
 .badge-bleu{background:var(--bleu);color:#fff}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold-pale);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
-.badge-event::before{content:'★';font-size:9px}
+.badge-event::before{content:'★';font-size:11px}
 
 /* FOCUS — accessibilité clavier */
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px var(--gold-tint)}
@@ -257,9 +257,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .cd .n{font-family:var(--font-serif);font-weight:700;color:var(--gold);line-height:1;display:block;font-variant-numeric:tabular-nums}
 .cd .l{font-family:var(--font-label);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.42)}
 .cd .sep{color:rgba(201,168,76,.3);line-height:1}
-.cd-sm .n{font-size:42px}.cd-sm .l{font-size:9px;margin-top:3px}.cd-sm .sep{font-size:30px}
-.cd-md .n{font-size:52px}.cd-md .l{font-size:9px;margin-top:4px}.cd-md .sep{font-size:38px}
-.cd-lg .n{font-size:60px}.cd-lg .l{font-size:9px;margin-top:5px}.cd-lg .sep{font-size:44px}
+.cd-sm .n{font-size:42px}.cd-sm .l{font-size:11px;margin-top:3px}.cd-sm .sep{font-size:30px}
+.cd-md .n{font-size:52px}.cd-md .l{font-size:11px;margin-top:4px}.cd-md .sep{font-size:38px}
+.cd-lg .n{font-size:60px}.cd-lg .l{font-size:11px;margin-top:5px}.cd-lg .sep{font-size:44px}
 @media(max-width:768px){.cd-sm .n,.cd-md .n{font-size:34px}.cd-lg .n{font-size:38px}.cd .sep{font-size:28px}}
 
 /* =====================================================
@@ -284,7 +284,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;min-height:44px;border-radius:6px;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);cursor:pointer;transition:color .2s,background-color .2s;white-space:nowrap;background:none;border:none;font-family:'Inter',sans-serif}
 .nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,.1)}
 .nav-link.active{color:var(--gold)}
-.nav-link .chevron{font-size:10px;transition:transform .2s var(--ease-out)}
+.nav-link .chevron{font-size:11px;transition:transform .2s var(--ease-out)}
 .nav-link:has(.chevron){padding-right:12px}  /* alignement optique : cote icone = cote texte - 2px */
 .nav-item:hover .chevron{transform:rotate(180deg)}
 .nav-link-fij{color:var(--gold) !important;border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:7px 14px !important}
@@ -310,7 +310,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .footer-brand-info{list-style:none;display:flex;flex-direction:column;gap:8px}
 .footer-brand-info li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
 .footer-brand-info li .ico{color:var(--gold);font-size:14px;margin-top:1px;flex-shrink:0}
-.footer-col-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:16px}
+.footer-col-title{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:16px}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
 .footer-col ul li a{font-size:13px;color:rgba(255,255,255,.7);transition:color .2s}
 .footer-col ul li a:hover{color:var(--gold)}
@@ -348,9 +348,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    effet visible), et ce filtre declenche un artefact Chromium — un rectangle gris
    qui clignote au survol des boutons voisins en tablette (carte juste en dessous). */
 .fij-hero-card{background:rgba(12,21,38,.6);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
-.fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
+.fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
 .fij-hero-card h2,.fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
-.cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
+.cd-title{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
 .fij-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .fij-hs{background:rgba(255,255,255,.07);border-radius:8px;padding:12px;text-align:center}
 .fij-hs .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold-pale);font-weight:700;line-height:1}
@@ -363,7 +363,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .sb-item{text-align:center;padding:0 20px}
 .sb-item+.sb-item{border-left:1px solid rgba(201,168,76,.25)}
 .sb-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
-.sb-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:3px}
+.sb-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:3px}
 
 /* Section FIJ home */
 .section-fij{background:linear-gradient(135deg,var(--noir) 0%,var(--bleu) 100%);padding:80px 0;position:relative;overflow:hidden}
@@ -383,7 +383,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-ms .l{font-size:11px;color:rgba(255,255,255,.62);margin-top:3px}
 .fij-cd-box{background:rgba(255,255,255,.05);border:1px solid var(--gold-tint);border-radius:16px;padding:32px;text-align:center}
 .fij-tarif-encart{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px;margin-top:16px;text-align:center}
-.fij-tarif-encart .tarif-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.fij-tarif-encart .tarif-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .fij-tarif-encart .tarif-prix{font-family:'Cormorant Garamond',serif;font-size:44px;color:#fff;font-weight:700;line-height:1}
 .fij-tarif-encart .tarif-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px}
 
@@ -402,14 +402,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .actu-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 18px 40px rgba(30,58,95,.15)}
 .actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px;border-bottom:1px solid rgba(15,14,23,.06)}
 .actu-body{padding:20px 22px;display:flex;flex-direction:column;flex:1}
-.actu-cat{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.actu-cat{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .actu-cat::before{content:'';width:3px;height:3px;background:var(--gold);border-radius:50%}
 .actu-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.28;overflow-wrap:anywhere}
 .actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;overflow-wrap:anywhere}
 #art-title,#art-body{overflow-wrap:anywhere}
 .actu-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:auto;border-top:1px solid var(--border)}
 .actu-date{font-size:11px;color:var(--muted)}
-.actu-lire{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);transition:color .2s}
+.actu-lire{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);transition:color .2s}
 .actu-lire:hover{color:var(--gold)}
 /* Cartes tarifs Adhésion — clair éditorial (fine bordure, bordure or au survol) */
 .pcard{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(30,58,95,.05);transition:transform .22s var(--ease-out),box-shadow .22s ease,border-color .22s ease}
@@ -482,34 +482,36 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire-img{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(201,168,76,.3);box-shadow:0 24px 60px rgba(30,58,95,.22);background:radial-gradient(120% 120% at 50% 30%,var(--bleu-mid),var(--bleu-deep) 60%,#070A12 100%);aspect-ratio:4/3;display:grid;place-items:center}
 /* motif retiré (moins de damier, 2026-11-17) */ .club-histoire-img::before{display:none}
 .chi-king{position:relative;font-size:120px;line-height:1;color:var(--gold-pale);text-shadow:0 0 44px rgba(201,168,76,.55),0 20px 40px rgba(0,0,0,.5)}
-.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 /* Tournois — point focal « Prochain PICO » + calendrier auto-surligné (JS: initPicoNext) */
 .pico-next{background:linear-gradient(135deg,#fff,var(--gold-pale));border:1.5px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 10px 30px rgba(201,168,76,.14)}
 .pn-cal{flex-shrink:0;width:58px;text-align:center;background:var(--bleu);border-radius:10px;padding:8px 0;box-shadow:0 6px 16px rgba(30,58,95,.3)}
 .pn-cal .d{display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;line-height:1;color:var(--gold-pale);font-variant-numeric:tabular-nums}
-.pn-cal .m{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:2px}
+.pn-cal .m{display:block;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:2px}
 .pn-body{flex:1;min-width:0}
-.pn-lbl{font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-text);margin-bottom:2px}
+.pn-lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-text);margin-bottom:2px}
 .pn-date{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);line-height:1.15}
 .pico-cal{background:var(--bleu);border-radius:14px;padding:24px}
 .pico-cal-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px}
 .pico-cal-h .t{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:700}
-.pico-cal-h .s{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.pico-cal-h .s{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
 .pico-row{display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid rgba(255,255,255,.1)}
 .pico-rows .pico-row:last-child{border-bottom:none}
 .pico-row.off{opacity:.5;font-style:italic}
 .pico-row.is-past{opacity:.55}
 .pico-row.is-past .pico-ins{display:none}
-.pico-row.is-past::after{content:'Terminé';margin-left:auto;flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.pico-row.is-past::after{content:'Terminé';margin-left:auto;flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
 .pico-row.is-next{background:rgba(201,168,76,.16);border-radius:9px;box-shadow:inset 0 0 0 1px rgba(201,168,76,.4);border-bottom-color:transparent}
 .pico-chip{flex-shrink:0;min-width:44px;height:44px;border-radius:8px;background:var(--gold-tint);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold-pale)}
 .pico-row.is-next .pico-chip{background:var(--gold);color:var(--noir)}
 .pico-chip .n{font-size:15px;line-height:1;font-variant-numeric:tabular-nums}
-.pico-chip .mo{font-size:8px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
-.pico-lbl{flex:1;font-size:13px;color:rgba(255,255,255,.85)}
+.pico-chip .mo{font-size:11px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.pico-lbl{flex:1;min-width:0;font-size:13px;color:rgba(255,255,255,.85)}
+/* Téléphone : la ligne « prochain PICO » porte une étiquette en plus → étiquette + bouton passent dessous */
+@media(max-width:480px){.pico-row.is-next{flex-wrap:wrap;row-gap:8px}.pico-row.is-next .pico-lbl{flex:1 1 calc(100% - 56px)}.pico-row.is-next .pico-tag{margin-left:56px}.pico-row.is-next .pico-ins{margin-left:auto}}
 .pico-lbl strong{color:var(--gold)}
-.pico-tag{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:3px 8px;border-radius:12px}
-.pico-ins{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold-pale);border-radius:7px;padding:6px 11px;cursor:pointer;transition:background-color .2s}
+.pico-tag{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:3px 8px;border-radius:12px}
+.pico-ins{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold-pale);border-radius:7px;padding:6px 11px;cursor:pointer;transition:background-color .2s}
 .pico-ins:hover{background:rgba(201,168,76,.16)}
 .pico-row.is-next .pico-ins{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 .pico-cal-foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.65);font-style:italic}
@@ -520,7 +522,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:30px;font-weight:700;color:var(--gold-pale);letter-spacing:.02em;margin:0 auto 14px}
 .team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
-.team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.team-role{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
 /* Palmarès — grille des années de titre */
 /* Palmarès — hall des champions (page Club) */
 .club-palmares{position:relative;overflow:hidden;color:#fff;padding:var(--sp-8) 0;background:radial-gradient(130% 120% at 78% 16%,var(--bleu-mid) 0%,var(--bleu-deep) 50%,#070A12 100%)}
@@ -537,17 +539,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .palm-groups{display:flex;justify-content:center;align-items:flex-start;gap:clamp(20px,4vw,48px);flex-wrap:wrap;margin-top:38px}
 .palm-group{display:flex;flex-direction:column;align-items:center;gap:14px}
 .palm-chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.palm-chip{width:76px;border:1.5px solid rgba(201,168,76,.55);border-radius:12px;padding:14px 6px;background:rgba(201,168,76,.08)}
+.palm-chip{width:84px;border:1.5px solid rgba(201,168,76,.55);border-radius:12px;padding:14px 6px;background:rgba(201,168,76,.08)}
 .palm-chip .y{display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;color:var(--gold-pale);line-height:1;font-variant-numeric:tabular-nums}
-.palm-chip .l{display:block;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(201,168,76,.9);margin-top:5px}
-.streak-tag{display:inline-flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:6px 14px;border-radius:20px;box-shadow:0 6px 18px rgba(201,168,76,.3)}
-.group-lbl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58)}
+.palm-chip .l{display:block;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgba(201,168,76,.9);margin-top:5px}
+.streak-tag{display:inline-flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:6px 14px;border-radius:20px;box-shadow:0 6px 18px rgba(201,168,76,.3)}
+.group-lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58)}
 .palm-second{margin:36px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:rgba(255,255,255,.75);line-height:1.9;max-width:640px}
 .palm-second strong{color:var(--gold-pale)}
 .palm-link{display:inline-block;margin-top:14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--gold-pale);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.4);padding-bottom:2px}
 .palm-link:hover{color:#fff}
 @media(max-width:720px){.palm-lead-txt{text-align:center;max-width:none}}
-@media(max-width:400px){.palm-chip{width:64px}}
+@media(max-width:400px){.palm-chip{padding-left:4px;padding-right:4px}}
 
 /* =====================================================
    PAGE ACTUALITÉS (ARCHIVE)
@@ -813,7 +815,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #horaires-tbody tr{display:block;padding:10px 0;border-bottom:1px solid var(--border) !important;background:none !important}
   #horaires-tbody td,#horaires-tbody th{display:block;padding:2px 0 !important;white-space:normal !important;border:none;text-align:left}
   #horaires-tbody tr>*:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
-  #horaires-tbody td[colspan]{color:#9ca3af;font-style:italic}
+  #horaires-tbody td[colspan]{color:var(--muted);font-style:italic}
 
   /* Adhesion — cacher la ligne de connexion entre les 3 étapes */
   #page-adhesion [style*="position:absolute"][style*="height:2px"]{ display:none !important }
@@ -906,7 +908,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   }
   /* Niveaux partenariat (OR/ARGENT/BRONZE) — badges compact */
   #page-partenaires .dark-card-hover { padding: 14px !important; gap: 10px !important; }
-  #page-partenaires [style*="font-size:9px"][style*="text-transform:uppercase"] { font-size: 8px !important; padding: 4px 7px !important; }
+  #page-partenaires [style*="font-size:11px"][style*="text-transform:uppercase"] { font-size: 11px !important; padding: 4px 7px !important; }
 
   /* Partager boutons article */
   .article-share { flex-wrap: wrap; gap: 8px; }
@@ -1478,7 +1480,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Stage Toussaint -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Toussaint 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Toussaint</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Toussaint 2026</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Toussaint</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-leaf"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -1494,7 +1496,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Stage Hiver -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Hiver 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Hiver</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Hiver 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Hiver</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-snow"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -1510,7 +1512,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Stage Pâques -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Pâques 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Pâques</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Pâques 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Pâques</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sprout"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -1526,7 +1528,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Stage Été -->
         <div style="background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm)">
           <div style="background:var(--bleu);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Été 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Été</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Été 2027</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff">Stage Été</div></div>
             <span style="font-size:32px;color:var(--gold)"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-sun"/></svg></span>
           </div>
           <div style="padding:20px 22px">
@@ -1631,17 +1633,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         </div>
         <div style="background:var(--bleu);border-radius:16px;padding:32px;color:rgba(255,255,255,.85)">
           <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg> Adresse</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-pin"/></svg> Adresse</div>
             <div style="font-size:15px;font-weight:500">3 Av. du Petit Juas<br>06400 Cannes</div>
             <a href="https://www.google.com/maps/search/3+Avenue+du+Petit+Juas+06400+Cannes" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);cursor:pointer;display:block;margin-top:6px">Voir sur Google Maps →</a>
           </div>
 
           <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg> Téléphone</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-phone"/></svg> Téléphone</div>
             <a href="tel:+33493394139" style="font-size:15px;font-weight:500;color:inherit;text-decoration:none">04 93 39 41 39</a>
           </div>
           <div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg> Email</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-mail"/></svg> Email</div>
             <a href="mailto:info@cannes-echecs.fr" style="font-size:14px;color:inherit;text-decoration:none">info@cannes-echecs.fr</a>
           </div>
         </div>
@@ -1669,9 +1671,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">De l'accès libre à la formule Famille — un tarif pour chaque profil.</div>
         </div>
         <div style="display:flex;gap:28px;flex-wrap:wrap">
-          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">60€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Accès libre</div></div>
-          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">200€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Pitchounets</div></div>
-          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">290€</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">École Échecs</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">60€</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Accès libre</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">200€</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">Pitchounets</div></div>
+          <div style="text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums">290€</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px">École Échecs</div></div>
         </div>
         <button class="btn btn-gold" style="flex-shrink:0" onclick="goTo('adhesion')">Voir les 6 formules →</button>
       </div>
@@ -1742,7 +1744,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Pitchounets -->
         <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Pitchounets</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">4–6 ans</div></div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">200€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -1756,7 +1758,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Compétition -->
         <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Compétition</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Tous âges</div></div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">120€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -1770,7 +1772,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- École Échecs Enfants -->
         <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Échecs</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Enfants</div></div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -1784,7 +1786,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Échecs Adultes -->
         <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours adultes</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Échecs Adultes</div></div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">290€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -1799,7 +1801,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div class="pcard feature">
           <div style="position:absolute;top:-12px;left:24px"><div class="badge badge-gold">⭐ Famille</div></div>
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Famille</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">2 membres</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">École Famille</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">2 membres</div></div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">500€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -1813,7 +1815,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Licence A -->
         <div class="pcard">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
-            <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Licence A</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu)">Accès libre</div></div>
             <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--bleu);line-height:.9;font-variant-numeric:tabular-nums">60€</div>
           </div>
           <ul style="list-style:none;margin-bottom:20px">
@@ -1827,7 +1829,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       </div>
       <!-- Cours particuliers -->
       <div style="max-width:1100px;margin:24px auto 0;background:var(--ivoire);border-radius:14px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border)">
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours particuliers</div><div style="font-size:14px;color:var(--muted)">Sur rendez-vous avec l'un de nos entraîneurs</div></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours particuliers</div><div style="font-size:14px;color:var(--muted)">Sur rendez-vous avec l'un de nos entraîneurs</div></div>
         <div style="display:flex;gap:32px;text-align:center">
           <div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--bleu)">40€</div><div style="font-size:11px;color:var(--muted)">/ heure · adhérents</div></div>
           <div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--bleu)">50€</div><div style="font-size:11px;color:var(--muted)">/ heure · non-adhérents</div></div>
@@ -1855,15 +1857,15 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     <div class="container" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-phone"/></svg></div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Téléphone</div><a href="tel:+33493394139" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">04 93 39 41 39</a></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Téléphone</div><a href="tel:+33493394139" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">04 93 39 41 39</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-mail"/></svg></div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><a href="mailto:info@cannes-echecs.fr" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">info@cannes-echecs.fr</a></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">Email</div><a href="mailto:info@cannes-echecs.fr" style="font-size:15px;font-weight:600;color:var(--noir);text-decoration:none">info@cannes-echecs.fr</a></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center">
         <div style="font-size:24px"><svg class="ic-lg" style="stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><use href="#ic-pin"/></svg></div>
-        <div><div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">En personne</div><div style="font-size:15px;font-weight:600;color:var(--noir)">3 Av. du Petit Juas</div></div>
+        <div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:2px">En personne</div><div style="font-size:15px;font-weight:600;color:var(--noir)">3 Av. du Petit Juas</div></div>
       </div>
     </div>
   </div>
@@ -1957,10 +1959,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Tournois PICO</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Le rendez-vous compétitif mensuel du club. 5 rondes rapides dans une ambiance conviviale, ouvert à tous les membres, toutes catégories.</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Format</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Parties rapides 15+10</div></div>
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Rondes</div><div style="font-size:14px;color:var(--bleu);font-weight:600">5 rondes · après-midi</div></div>
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Accès</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Membres uniquement</div></div>
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Tarif</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Gratuit · HelloAsso</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Format</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Parties rapides 15+10</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Rondes</div><div style="font-size:14px;color:var(--bleu);font-weight:600">5 rondes · après-midi</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Accès</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Membres uniquement</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Tarif</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Gratuit · HelloAsso</div></div>
           </div>
           <div class="pico-next" id="pico-focal">
             <div class="pn-cal"><span class="d">19</span><span class="m">Sep</span></div>
@@ -1968,7 +1970,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div class="pn-lbl"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg> Prochaine édition</div>
               <div class="pn-date">Samedi 19 septembre 2026 · 13h30</div>
             </div>
-            <button class="btn btn-gold btn-sm" style="font-size:10px;padding:8px 14px" onclick="var b=document.querySelector('#tab-t-pico .pico-row.is-next .pico-ins'); if(b) b.click();">S'inscrire →</button>
+            <button class="btn btn-gold btn-sm" style="font-size:11px;padding:8px 14px" onclick="var b=document.querySelector('#tab-t-pico .pico-row.is-next .pico-ins'); if(b) b.click();">S'inscrire →</button>
           </div>
         </div>
         <div class="pico-cal">
@@ -2087,9 +2089,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Open de Pâques</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Tournoi ouvert à tous les joueurs licenciés FFE. Cadence classique, homologation Elo FIDE. Idéal pour accumuler des parties homologuées pendant les vacances.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
-            <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Format</div><div style="font-size:13px;color:var(--bleu);font-weight:600">45 min + 15 sec/coup</div></div>
-            <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Rondes</div><div style="font-size:13px;color:var(--bleu);font-weight:600">6 rondes · 3 jours</div></div>
-            <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Homologation</div><div style="font-size:13px;color:var(--bleu);font-weight:600">Elo FIDE</div></div>
+            <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Format</div><div style="font-size:13px;color:var(--bleu);font-weight:600">45 min + 15 sec/coup</div></div>
+            <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Rondes</div><div style="font-size:13px;color:var(--bleu);font-weight:600">6 rondes · 3 jours</div></div>
+            <div style="background:#fff;border-radius:8px;padding:10px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Homologation</div><div style="font-size:13px;color:var(--bleu);font-weight:600">Elo FIDE</div></div>
           </div>
           <div style="background:var(--gold-pale);border:1px solid rgba(201,168,76,.35);border-radius:8px;padding:14px 18px;margin-bottom:20px">
             <div style="font-size:14px;font-weight:600;color:var(--bleu)"><svg class="ic" style="color:var(--gold)" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg> Samedi 27 au lundi 29 mars 2027</div>
@@ -2119,10 +2121,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <h2 style="font-size:var(--fs-h2);color:var(--bleu);margin-bottom:12px">Rapide du vendredi</h2>
           <p style="font-size:15px;color:var(--text);line-height:1.8;margin-bottom:20px">Un vendredi par mois, la veille du PICO, soirée parties rapides ouverte à tous les membres. Présentez-vous directement au club à 20h — aucune inscription nécessaire.</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Format</div><div style="font-size:14px;color:var(--bleu);font-weight:600">10 min + 5 sec/coup</div></div>
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Rondes</div><div style="font-size:14px;color:var(--bleu);font-weight:600">4–5 selon présents</div></div>
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Horaire</div><div style="font-size:14px;color:var(--bleu);font-weight:600">20h00 · sur place</div></div>
-            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:10px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Tarif</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Gratuit membres</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Format</div><div style="font-size:14px;color:var(--bleu);font-weight:600">10 min + 5 sec/coup</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Rondes</div><div style="font-size:14px;color:var(--bleu);font-weight:600">4–5 selon présents</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Horaire</div><div style="font-size:14px;color:var(--bleu);font-weight:600">20h00 · sur place</div></div>
+            <div style="background:#fff;border-radius:8px;padding:12px 14px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--gold-text);font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Tarif</div><div style="font-size:14px;color:var(--bleu);font-weight:600">Gratuit membres</div></div>
           </div>
           <div style="background:var(--ivoire2);border:1px solid var(--border);border-radius:8px;padding:14px 18px">
             <div style="font-size:14px;color:var(--bleu);font-weight:600">Aucune inscription préalable.</div>
@@ -2133,39 +2135,39 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:16px">Prochains vendredis</div>
           <div style="display:flex;flex-direction:column;gap:0">
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">18</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">SEP</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">18</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">SEP</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Sept.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">OCT</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">OCT</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Oct.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">NOV</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">13</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">NOV</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Nov.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">DÉC</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">DÉC</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Déc.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JAN</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">08</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">JAN</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Jan.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAR</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">12</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">MAR</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Mars</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">AVR</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">09</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">AVR</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Avr.</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">07</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">MAI</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">07</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">MAI</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Mai</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
-              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:8px;opacity:.8;text-transform:uppercase">JUN</span></div>
+              <div style="background:var(--gold-tint);color:var(--gold-pale);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;min-width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:15px;line-height:1">11</span><span style="font-size:11px;opacity:.8;text-transform:uppercase">JUN</span></div>
               <div style="font-size:13px;color:rgba(255,255,255,.85)">Rapide · <strong style="color:var(--gold)">20h00</strong> · Veille PICO Juin</div>
             </div>
           </div>
@@ -2233,10 +2235,10 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   <!-- Stats FIJ -->
   <div id="fij-details" style="background:var(--gold);padding:22px 0">
     <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">100 000+</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Visiteurs du festival</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">A · B · C</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Tournois par Elo</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">9</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Rondes</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--noir);line-height:1">FIDE</div><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.55)">Homologué · Normes MI/GMI</div></div>
     </div>
   </div>
 
@@ -2259,16 +2261,16 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#1a0c00,#7a5212);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">A</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">A</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">2 200 Elo et +</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">2 200 Elo et +</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 6 000 €</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 6 000 €</div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">1 800 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">1 200 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">700 €</span></div>
@@ -2281,16 +2283,16 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#060f22,#1a2a5c);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">B</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">B</div>
-                <div style="display:inline-block;margin-top:10px;background:var(--gold-tint);border:1px solid var(--gold-tint-border);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:var(--gold-tint);border:1px solid var(--gold-tint-border);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">1 600 – 2 200 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 3 000 €</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 3 000 €</div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">600 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">500 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">400 €</span></div>
@@ -2301,16 +2303,16 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.10)">
               <div style="background:linear-gradient(150deg,#0f0f1e,#2e3350);padding:26px 18px 22px;text-align:center;position:relative;overflow:hidden">
                 <div style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:#fff;opacity:.06;line-height:1;top:50%;left:50%;transform:translate(-50%,-44%)">C</div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:4px">Open</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:700;color:#fff;line-height:1">C</div>
-                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">≤ 1 600 Elo</div>
+                <div style="display:inline-block;margin-top:10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:3px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold-pale);letter-spacing:.04em">≤ 1 600 Elo</div>
               </div>
               <div style="background:var(--ivoire);padding:18px">
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Inscription</div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span style="color:var(--muted)">Senior</span><span style="font-weight:700;color:var(--bleu)">75 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--muted)">Junior</span><span style="font-weight:700;color:var(--bleu)">45 €</span></div>
                 <div style="border-top:1px solid var(--border);margin:14px 0 10px"></div>
-                <div style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 1 000 €</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Dotation — 1 000 €</div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:var(--gold);width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 1er</span><span style="font-weight:600;color:var(--bleu)">300 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted)"><svg class="ic" style="color:#9AA0AE;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 2ème</span><span style="font-weight:600;color:var(--bleu)">200 €</span></div>
                 <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--muted)"><svg class="ic" style="color:#C08457;width:.95em;height:.95em" viewBox="0 0 24 24"><use href="#ic-medal"/></svg> 3ème</span><span style="font-weight:600;color:var(--bleu)">100 €</span></div>
@@ -2328,7 +2330,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
           <!-- ÉTAT 1 : avant le FIJ -->
           <div id="fij-sidebar-avant">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:16px;text-align:center">FIJ 2027 — Coup d'envoi dans</div>
             <div class="cd cd-md" style="margin-bottom:20px">
               <div class="u"><span class="n" id="fij-cd-j">--</span><span class="l">Jours</span></div>
               <span class="sep">:</span>
@@ -2340,7 +2342,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
             </div>
             <button class="btn btn-gold btn-full" style="margin-bottom:16px;font-size:13px;padding:16px" onclick="haOpen(HELLOASSO.fij,'_blank','noopener,noreferrer')">S'inscrire sur HelloAsso →</button>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:18px;margin-bottom:12px">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Tarifs d'inscription</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:rgba(255,255,255,.7)">
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Avant le 31/12/2026</div><div>Junior : 45 €</div><div>Senior : 75 €</div></div>
                 <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:#fff;margin-bottom:2px">Standard</div><div>Junior : 55 €</div><div>Senior : 85 €</div></div>
@@ -2348,18 +2350,18 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
               <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;margin-top:8px">Sur place : Junior 60 € · Senior 95 €</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:10px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
-              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:10px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">100 000+</div><div style="font-size:11px;color:rgba(255,255,255,.6)">visiteurs du festival</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700">40e éd.</div><div style="font-size:11px;color:rgba(255,255,255,.6)">FIJ 2027</div></div>
             </div>
             <p style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px;font-style:italic">MI / GMI : participation gratuite</p>
           </div>
 
           <!-- ÉTAT 2 : FIJ en cours -->
           <div id="fij-sidebar-encours" style="display:none">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:20px;text-align:center">♟ FIJ 2027 — En cours</div>
             <div id="fij-sb-inscrits" style="margin-bottom:16px"></div>
             <div style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px 18px">
-              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Prochaine ronde</div>
+              <div id="fij-sb-ronde-header" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:10px;text-align:center">Prochaine ronde</div>
               <div id="fij-sb-ronde-label" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:12px;line-height:1.3"></div>
               <div id="fij-sb-countdown" class="cd cd-sm">
                 <div class="u"><span class="n" id="fij-sb-h">--</span><span class="l">H</span></div>
@@ -2396,43 +2398,43 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div style="position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.1))"></div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Lundi 22 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Lundi 22 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Pointage & Ronde 1</div>
           <div style="font-size:14px;color:var(--muted)">Pointage obligatoire de 12h00 à 14h30 · Ronde 1 à 16h30</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mardi 23 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mardi 23 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Rondes 2 & 3</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 2 à 9h00 · Ronde 3 à 16h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mercredi 24 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Mercredi 24 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 4</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 4 à 15h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Jeudi 25 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Jeudi 25 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Rondes 5 & 6</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 5 à 9h00 · Ronde 6 à 16h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Vendredi 26 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Vendredi 26 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 7</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 7 à 15h00</div>
         </div>
         <div style="position:relative;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Samedi 27 février</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Samedi 27 février</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 8</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 8 à 15h00</div>
         </div>
         <div style="position:relative">
           <div style="position:absolute;left:-35px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px rgba(201,168,76,.25)"></div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Dimanche 28 février (clôture)</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Dimanche 28 février (clôture)</div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--bleu);margin-bottom:6px">Ronde 9 + Remise des prix</div>
           <div style="font-size:14px;color:var(--muted)">Ronde 9 à 10h00 · Cérémonie de remise des prix & trophées à 16h30</div>
         </div>
@@ -2478,28 +2480,28 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <div class="p-crest"><span class="p-mono" style="font-size:34px">VC</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Ville de Cannes</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Institutionnel</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Mise à disposition des locaux et subvention annuelle</p>
         </div>
         <div style="background:var(--bleu);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--bleu);display:flex;flex-direction:column;align-items:center;gap:13px;box-shadow:var(--sh-gold)">
           <div class="p-crest on-dark"><span class="p-mono" style="font-size:27px">FFE</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff">Fédération Française des Échecs</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)">Partenaire Fédéral</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)">Partenaire Fédéral</div>
           <p style="font-size:13px;color:rgba(255,255,255,.62);line-height:1.6">Homologation · Label Club Formateur · Soutien aux jeunes</p>
         </div>
         <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:34px">RS</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Région Sud PACA</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Régional</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs de haut niveau</p>
         </div>
         <div class="partner-card" style="background:var(--ivoire);border-radius:14px;padding:34px 28px;text-align:center;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:13px">
           <div class="p-crest"><span class="p-mono" style="font-size:30px">06</span></div>
           <div style="width:26px;height:2px;background:var(--gold);border-radius:2px"></div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu)">Département Alpes-Maritimes</div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Départemental</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)">Partenaire Départemental</div>
           <p style="font-size:13px;color:var(--muted);line-height:1.6">Soutien aux clubs sportifs et aux actions jeunesse</p>
         </div>
       </div>
@@ -2536,9 +2538,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
           <button class="btn btn-gold" onclick="goTo('contact')">Nous contacter pour un partenariat →</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold-tint);color:var(--gold-pale);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
-          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">OR</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Titre</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo en pied de page, bannière événements, mention presse, invitation FIJ</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:var(--gold-tint);color:var(--gold-pale);border:1px solid var(--gold);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">ARGENT</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Officiel</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site + réseaux, mention lors des tournois</p></div></div>
+          <div class="dark-card-hover" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px"><div style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;flex-shrink:0">BRONZE</div><div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:4px">Partenaire Associé</div><p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.5">Logo site, remerciements newsletter</p></div></div>
         </div>
       </div>
     </div>
@@ -2580,142 +2582,142 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
             <!-- Reprise cours -->
             <div class="card-hover agenda-event" data-cat="formation">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours & Formation</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Reprise des cours — Rentrée 2026</div><div style="font-size:13px;color:var(--muted)">Accueil des nouveaux membres · Évaluation de niveau · Tous horaires</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Formation</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Cours & Formation</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Reprise des cours — Rentrée 2026</div><div style="font-size:13px;color:var(--muted)">Accueil des nouveaux membres · Évaluation de niveau · Tous horaires</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Formation</div>
             </div>
 
             <!-- Rapide sept -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">18</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">18</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO sept -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">19</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Septembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">19</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Sep</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Septembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide oct -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Oct</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Oct</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO oct -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">10</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Oct</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Octobre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">10</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Oct</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Octobre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide nov -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">13</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Nov</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">13</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Nov</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO nov -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">14</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Nov</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Novembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">14</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Nov</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Novembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide déc -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">11</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Déc</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">11</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Déc</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO déc -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Déc</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Décembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Déc</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Décembre 2026</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide jan -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">08</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jan</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">08</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jan</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO jan -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jan</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Janvier 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jan</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Janvier 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- FIJ 2027 — février, pas de PICO ce mois-ci -->
             <div class="agenda-event" data-cat="tournois" style="background:#fff;border-radius:14px;padding:20px 24px;border:2px solid var(--gold);display:flex;align-items:flex-start;gap:18px;box-shadow:var(--sh-gold)">
-              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">22</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Fév</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">♟ Tournois officiels · 22–28 fév.</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
+              <div style="background:var(--gold);color:var(--noir);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">22</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Fév</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">♟ Tournois officiels · 22–28 fév.</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Festival International des Jeux 2027</div><div style="font-size:13px;color:var(--muted)">Tournois A / B / C · 9 rondes · Homologué FIDE · Palais des Festivals</div></div>
               <button class="btn btn-gold btn-sm" style="flex-shrink:0" onclick="goTo('fij')">Détails →</button>
             </div>
 
             <!-- Rapide mars -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mar</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mar</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO mars -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">13</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mar</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Mars 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">13</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mar</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Mars 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide avr -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Avr</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">09</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Avr</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO avr -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">10</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Avr</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Avril 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">10</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Avr</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Avril 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide mai -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">07</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mai</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">07</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mai</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO mai -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">08</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mai</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Mai 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">08</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Mai</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Mai 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <!-- Rapide juin -->
             <div class="card-hover agenda-event" data-cat="soirees">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">11</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
-              <div class="badge badge-bleu" style="font-size:9px;flex-shrink:0">Soirées</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">11</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Soirée · 20h00</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">Rapide du vendredi</div><div style="font-size:13px;color:var(--muted)">Parties rapides 10+5 · Membres uniquement · Gratuit · Veille du PICO</div></div>
+              <div class="badge badge-bleu" style="font-size:11px;flex-shrink:0">Soirées</div>
             </div>
 
             <!-- PICO juin -->
             <div class="card-hover agenda-event" data-cat="tournois">
-              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
-              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Juin 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
-              <div class="badge badge-gold" style="font-size:9px;flex-shrink:0">Tournois</div>
+              <div style="background:var(--bleu);color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;width:56px;height:56px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:22px;line-height:1">12</span><span style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.08em">Jun</span></div>
+              <div style="flex:1"><div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:4px">Tournoi · 13h30</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:4px">PICO — Juin 2027</div><div style="font-size:13px;color:var(--muted)">5 rondes · Membres uniquement · Entrée libre</div></div>
+              <div class="badge badge-gold" style="font-size:11px;flex-shrink:0">Tournois</div>
             </div>
 
             <p id="agenda-empty" style="display:none;text-align:center;color:var(--muted);font-style:italic;padding:32px 0">Aucun événement dans cette catégorie.</p>
@@ -2724,12 +2726,12 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <!-- Sidebar -->
         <div>
           <div style="background:var(--bleu);border-radius:14px;padding:22px;margin-bottom:16px;color:#fff">
-            <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Prochain événement</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Prochain événement</div>
             <div id="ag-next-titre" style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px">Reprise des cours</div>
             <div id="ag-next-date" style="font-size:13px;color:rgba(255,255,255,.72);margin-bottom:4px">Mercredi 9 septembre 2026</div>
             <div id="ag-next-desc" style="font-size:13px;color:rgba(255,255,255,.72);margin-bottom:16px">Rentrée saison 2026–2027</div>
             <div id="ag-next-puis" style="border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-bottom:8px">
-              <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Puis</div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px">Puis</div>
               <div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px">Ven. 18 sept. — Rapide du vendredi · 20h</div>
               <div style="font-size:13px;color:rgba(255,255,255,.75)">Sam. 19 sept. — PICO Septembre · 13h30</div>
             </div>
@@ -3032,7 +3034,7 @@ function renderFijSbInscrits() {
         var c = FIJ_INSCRITS[o.k].count;
         return '<div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
           + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1">' + (c || '—') + '</div>'
-          + '<div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
+          + '<div style="font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">' + o.l + '</div>'
           + '</div>';
       }).join('') + '</div>';
 }
@@ -4050,7 +4052,7 @@ function renderFijInscrits() {
         : '<span style="font-size:12px;color:var(--muted);font-style:italic">Inscriptions à venir</span>';
     }
     var countHtml = d.count > 0
-      ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:10px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
+      ? '<div style="text-align:center;min-width:48px"><div style="font-family:\'Cormorant Garamond\',serif;font-size:30px;font-weight:700;color:var(--bleu);line-height:1">' + d.count + '</div><div style="font-size:11px;color:var(--muted)">' + (d.count > 1 ? 'inscrits' : 'inscrit') + '</div></div>'
       : '';
     return '<div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--ivoire);border-radius:10px;border:1px solid ' + o.border + '">'
       + '<div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:700;color:var(--bleu);min-width:24px;text-align:center">' + letter + '</div>'
@@ -4807,20 +4809,20 @@ function setHeroWidget(mode, data) {
   };
   const p = document.createElement('div');
   p.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:#0d2240;border:1px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;box-shadow:0 8px 40px rgba(0,0,0,.6);min-width:200px;font-family:Montserrat,sans-serif';
-  p.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:12px">🔧 Widget accueil</div>'
+  p.innerHTML = '<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:12px">🔧 Widget accueil</div>'
     + Object.entries(LABELS).map(([k,v]) =>
         `<button id="sw-${k}" onclick="selectWidget('${k}')" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px">${v}</button>`
       ).join('')
     + '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:12px 0">'
-    + '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">🎟️ Inscrits FIJ</div>'
+    + '<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">🎟️ Inscrits FIJ</div>'
     + '<button id="sw-inscrits" onclick="toggleFijInscrits()" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.8);font-size:12px;font-family:Montserrat,sans-serif;padding:7px 10px;border-radius:7px;cursor:pointer;margin-bottom:2px"></button>'
     + '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:12px 0">'
     + '<div id="admin-cover-section" style="display:none">'
-    +   '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">📷 Couverture article</div>'
+    +   '<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.85);margin-bottom:8px">📷 Couverture article</div>'
     +   '<div id="admin-cover-thumbs" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px"></div>'
     +   '<button id="admin-cover-reset" style="display:block;width:100%;text-align:left;background:transparent;border:none;color:rgba(255,255,255,.65);font-size:11px;font-family:Montserrat,sans-serif;padding:5px 10px;border-radius:7px;cursor:pointer">↩ Réinitialiser</button>'
     + '</div>'
-    + '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:10px;text-align:center">Accès admin</div>';
+    + '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;text-align:center">Accès admin</div>';
   document.body.appendChild(p);
   function updateFijInscritBtn() {
     var b = document.getElementById('sw-inscrits');
@@ -4881,8 +4883,8 @@ function renderHoraires() {
   tbody.innerHTML = HORAIRES.map(function(h, i) {
     var bg = i % 2 === 1 ? ';background:var(--ivoire)' : '';
     if (h.ferme) return '<tr style="border-bottom:1px solid var(--border)' + bg + '">'
-      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:#9ca3af;font-style:italic;text-align:left">' + h.jour + '</th>'
-      + '<td colspan="2" style="padding:12px 16px;color:#9ca3af;font-style:italic">' + h.detail + '</td></tr>';
+      + '<th scope="row" style="padding:12px 16px;font-weight:600;color:var(--muted);font-style:italic;text-align:left">' + h.jour + '</th>'
+      + '<td colspan="2" style="padding:12px 16px;color:var(--muted);font-style:italic">' + h.detail + '</td></tr>';
     var det = h.highlight
       ? '<strong style="color:var(--bleu)">' + h.detail + '</strong>'
       : h.detail;

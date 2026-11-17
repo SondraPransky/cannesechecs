@@ -81,12 +81,12 @@ img{max-width:100%;display:block}
 .btn-full{width:100%;justify-content:center}
 
 /* BADGES */
-.badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
+.badge{display:inline-block;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:20px}
 .badge-gold{background:var(--gold);color:var(--noir)}
 .badge-outline-gold{background:rgba(201,168,76,.12);border:1px solid var(--gold-tint-border);color:var(--gold-text)}  /* Règle de l'Écrin : fond or-tinté clair → or encre (4.88:1) */
 .badge-bleu{background:var(--bleu);color:#fff}
 .badge-event{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:var(--gold-pale);display:inline-flex;align-items:center;gap:6px;padding:6px 14px}
-.badge-event::before{content:'★';font-size:9px}
+.badge-event::before{content:'★';font-size:11px}
 
 /* FOCUS — accessibilité clavier */
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold) !important;box-shadow:0 0 0 3px var(--gold-tint)}
@@ -183,9 +183,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .cd .n{font-family:var(--font-serif);font-weight:700;color:var(--gold);line-height:1;display:block;font-variant-numeric:tabular-nums}
 .cd .l{font-family:var(--font-label);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.42)}
 .cd .sep{color:rgba(201,168,76,.3);line-height:1}
-.cd-sm .n{font-size:42px}.cd-sm .l{font-size:9px;margin-top:3px}.cd-sm .sep{font-size:30px}
-.cd-md .n{font-size:52px}.cd-md .l{font-size:9px;margin-top:4px}.cd-md .sep{font-size:38px}
-.cd-lg .n{font-size:60px}.cd-lg .l{font-size:9px;margin-top:5px}.cd-lg .sep{font-size:44px}
+.cd-sm .n{font-size:42px}.cd-sm .l{font-size:11px;margin-top:3px}.cd-sm .sep{font-size:30px}
+.cd-md .n{font-size:52px}.cd-md .l{font-size:11px;margin-top:4px}.cd-md .sep{font-size:38px}
+.cd-lg .n{font-size:60px}.cd-lg .l{font-size:11px;margin-top:5px}.cd-lg .sep{font-size:44px}
 @media(max-width:768px){.cd-sm .n,.cd-md .n{font-size:34px}.cd-lg .n{font-size:38px}.cd .sep{font-size:28px}}
 
 /* =====================================================
@@ -210,7 +210,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;min-height:44px;border-radius:6px;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);cursor:pointer;transition:color .2s,background-color .2s;white-space:nowrap;background:none;border:none;font-family:'Inter',sans-serif}
 .nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,.1)}
 .nav-link.active{color:var(--gold)}
-.nav-link .chevron{font-size:10px;transition:transform .2s var(--ease-out)}
+.nav-link .chevron{font-size:11px;transition:transform .2s var(--ease-out)}
 .nav-link:has(.chevron){padding-right:12px}  /* alignement optique : cote icone = cote texte - 2px */
 .nav-item:hover .chevron{transform:rotate(180deg)}
 .nav-link-fij{color:var(--gold) !important;border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:7px 14px !important}
@@ -236,7 +236,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .footer-brand-info{list-style:none;display:flex;flex-direction:column;gap:8px}
 .footer-brand-info li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
 .footer-brand-info li .ico{color:var(--gold);font-size:14px;margin-top:1px;flex-shrink:0}
-.footer-col-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:16px}
+.footer-col-title{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:16px}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
 .footer-col ul li a{font-size:13px;color:rgba(255,255,255,.7);transition:color .2s}
 .footer-col ul li a:hover{color:var(--gold)}
@@ -274,9 +274,9 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
    effet visible), et ce filtre declenche un artefact Chromium — un rectangle gris
    qui clignote au survol des boutons voisins en tablette (carte juste en dessous). */
 .fij-hero-card{background:rgba(12,21,38,.6);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
-.fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
+.fij-hero-card-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:6px}
 .fij-hero-card h2,.fij-hero-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;line-height:1.2;margin-bottom:20px}
-.cd-title{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
+.cd-title{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);text-align:center;margin-bottom:14px}
 .fij-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .fij-hs{background:rgba(255,255,255,.07);border-radius:8px;padding:12px;text-align:center}
 .fij-hs .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold-pale);font-weight:700;line-height:1}
@@ -289,7 +289,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .sb-item{text-align:center;padding:0 20px}
 .sb-item+.sb-item{border-left:1px solid rgba(201,168,76,.25)}
 .sb-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
-.sb-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:3px}
+.sb-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:3px}
 
 /* Section FIJ home */
 .section-fij{background:linear-gradient(135deg,var(--noir) 0%,var(--bleu) 100%);padding:80px 0;position:relative;overflow:hidden}
@@ -309,7 +309,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .fij-ms .l{font-size:11px;color:rgba(255,255,255,.62);margin-top:3px}
 .fij-cd-box{background:rgba(255,255,255,.05);border:1px solid var(--gold-tint);border-radius:16px;padding:32px;text-align:center}
 .fij-tarif-encart{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:16px;margin-top:16px;text-align:center}
-.fij-tarif-encart .tarif-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.fij-tarif-encart .tarif-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .fij-tarif-encart .tarif-prix{font-family:'Cormorant Garamond',serif;font-size:44px;color:#fff;font-weight:700;line-height:1}
 .fij-tarif-encart .tarif-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px}
 
@@ -328,14 +328,14 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .actu-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 18px 40px rgba(30,58,95,.15)}
 .actu-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:44px;border-bottom:1px solid rgba(15,14,23,.06)}
 .actu-body{padding:20px 22px;display:flex;flex-direction:column;flex:1}
-.actu-cat{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.actu-cat{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .actu-cat::before{content:'';width:3px;height:3px;background:var(--gold);border-radius:50%}
 .actu-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);margin-bottom:8px;line-height:1.28;overflow-wrap:anywhere}
 .actu-extrait{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;overflow-wrap:anywhere}
 #art-title,#art-body{overflow-wrap:anywhere}
 .actu-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;margin-top:auto;border-top:1px solid var(--border)}
 .actu-date{font-size:11px;color:var(--muted)}
-.actu-lire{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);transition:color .2s}
+.actu-lire{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-text);transition:color .2s}
 .actu-lire:hover{color:var(--gold)}
 /* Cartes tarifs Adhésion — clair éditorial (fine bordure, bordure or au survol) */
 .pcard{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(30,58,95,.05);transition:transform .22s var(--ease-out),box-shadow .22s ease,border-color .22s ease}
@@ -408,34 +408,36 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .club-histoire-img{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(201,168,76,.3);box-shadow:0 24px 60px rgba(30,58,95,.22);background:radial-gradient(120% 120% at 50% 30%,var(--bleu-mid),var(--bleu-deep) 60%,#070A12 100%);aspect-ratio:4/3;display:grid;place-items:center}
 /* motif retiré (moins de damier, 2026-11-17) */ .club-histoire-img::before{display:none}
 .chi-king{position:relative;font-size:120px;line-height:1;color:var(--gold-pale);text-shadow:0 0 44px rgba(201,168,76,.55),0 20px 40px rgba(0,0,0,.5)}
-.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.chi-cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
 /* Tournois — point focal « Prochain PICO » + calendrier auto-surligné (JS: initPicoNext) */
 .pico-next{background:linear-gradient(135deg,#fff,var(--gold-pale));border:1.5px solid rgba(201,168,76,.45);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 10px 30px rgba(201,168,76,.14)}
 .pn-cal{flex-shrink:0;width:58px;text-align:center;background:var(--bleu);border-radius:10px;padding:8px 0;box-shadow:0 6px 16px rgba(30,58,95,.3)}
 .pn-cal .d{display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;line-height:1;color:var(--gold-pale);font-variant-numeric:tabular-nums}
-.pn-cal .m{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:2px}
+.pn-cal .m{display:block;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:2px}
 .pn-body{flex:1;min-width:0}
-.pn-lbl{font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-text);margin-bottom:2px}
+.pn-lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-text);margin-bottom:2px}
 .pn-date{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--bleu);line-height:1.15}
 .pico-cal{background:var(--bleu);border-radius:14px;padding:24px}
 .pico-cal-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px}
 .pico-cal-h .t{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:700}
-.pico-cal-h .s{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.pico-cal-h .s{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
 .pico-row{display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid rgba(255,255,255,.1)}
 .pico-rows .pico-row:last-child{border-bottom:none}
 .pico-row.off{opacity:.5;font-style:italic}
 .pico-row.is-past{opacity:.55}
 .pico-row.is-past .pico-ins{display:none}
-.pico-row.is-past::after{content:'Terminé';margin-left:auto;flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.pico-row.is-past::after{content:'Terminé';margin-left:auto;flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
 .pico-row.is-next{background:rgba(201,168,76,.16);border-radius:9px;box-shadow:inset 0 0 0 1px rgba(201,168,76,.4);border-bottom-color:transparent}
 .pico-chip{flex-shrink:0;min-width:44px;height:44px;border-radius:8px;background:var(--gold-tint);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold-pale)}
 .pico-row.is-next .pico-chip{background:var(--gold);color:var(--noir)}
 .pico-chip .n{font-size:15px;line-height:1;font-variant-numeric:tabular-nums}
-.pico-chip .mo{font-size:8px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
-.pico-lbl{flex:1;font-size:13px;color:rgba(255,255,255,.85)}
+.pico-chip .mo{font-size:11px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.pico-lbl{flex:1;min-width:0;font-size:13px;color:rgba(255,255,255,.85)}
+/* Téléphone : la ligne « prochain PICO » porte une étiquette en plus → étiquette + bouton passent dessous */
+@media(max-width:480px){.pico-row.is-next{flex-wrap:wrap;row-gap:8px}.pico-row.is-next .pico-lbl{flex:1 1 calc(100% - 56px)}.pico-row.is-next .pico-tag{margin-left:56px}.pico-row.is-next .pico-ins{margin-left:auto}}
 .pico-lbl strong{color:var(--gold)}
-.pico-tag{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:3px 8px;border-radius:12px}
-.pico-ins{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold-pale);border-radius:7px;padding:6px 11px;cursor:pointer;transition:background-color .2s}
+.pico-tag{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:3px 8px;border-radius:12px}
+.pico-ins{flex-shrink:0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold-pale);border-radius:7px;padding:6px 11px;cursor:pointer;transition:background-color .2s}
 .pico-ins:hover{background:rgba(201,168,76,.16)}
 .pico-row.is-next .pico-ins{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 .pico-cal-foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.65);font-style:italic}
@@ -446,7 +448,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .team-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:30px;font-weight:700;color:var(--gold-pale);letter-spacing:.02em;margin:0 auto 14px}
 .team-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--gold);display:block;margin:0 auto 14px}
 .team-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--bleu);margin-bottom:4px}
-.team-role{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.team-role{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
 /* Palmarès — grille des années de titre */
 /* Palmarès — hall des champions (page Club) */
 .club-palmares{position:relative;overflow:hidden;color:#fff;padding:var(--sp-8) 0;background:radial-gradient(130% 120% at 78% 16%,var(--bleu-mid) 0%,var(--bleu-deep) 50%,#070A12 100%)}
@@ -463,17 +465,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .palm-groups{display:flex;justify-content:center;align-items:flex-start;gap:clamp(20px,4vw,48px);flex-wrap:wrap;margin-top:38px}
 .palm-group{display:flex;flex-direction:column;align-items:center;gap:14px}
 .palm-chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.palm-chip{width:76px;border:1.5px solid rgba(201,168,76,.55);border-radius:12px;padding:14px 6px;background:rgba(201,168,76,.08)}
+.palm-chip{width:84px;border:1.5px solid rgba(201,168,76,.55);border-radius:12px;padding:14px 6px;background:rgba(201,168,76,.08)}
 .palm-chip .y{display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;color:var(--gold-pale);line-height:1;font-variant-numeric:tabular-nums}
-.palm-chip .l{display:block;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(201,168,76,.9);margin-top:5px}
-.streak-tag{display:inline-flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:6px 14px;border-radius:20px;box-shadow:0 6px 18px rgba(201,168,76,.3)}
-.group-lbl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58)}
+.palm-chip .l{display:block;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:rgba(201,168,76,.9);margin-top:5px}
+.streak-tag{display:inline-flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:6px 14px;border-radius:20px;box-shadow:0 6px 18px rgba(201,168,76,.3)}
+.group-lbl{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58)}
 .palm-second{margin:36px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:rgba(255,255,255,.75);line-height:1.9;max-width:640px}
 .palm-second strong{color:var(--gold-pale)}
 .palm-link{display:inline-block;margin-top:14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--gold-pale);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.4);padding-bottom:2px}
 .palm-link:hover{color:#fff}
 @media(max-width:720px){.palm-lead-txt{text-align:center;max-width:none}}
-@media(max-width:400px){.palm-chip{width:64px}}
+@media(max-width:400px){.palm-chip{padding-left:4px;padding-right:4px}}
 
 /* =====================================================
    PAGE ACTUALITÉS (ARCHIVE)
@@ -739,7 +741,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   #horaires-tbody tr{display:block;padding:10px 0;border-bottom:1px solid var(--border) !important;background:none !important}
   #horaires-tbody td,#horaires-tbody th{display:block;padding:2px 0 !important;white-space:normal !important;border:none;text-align:left}
   #horaires-tbody tr>*:first-child{font-size:15px;font-weight:700;margin-bottom:2px}
-  #horaires-tbody td[colspan]{color:#9ca3af;font-style:italic}
+  #horaires-tbody td[colspan]{color:var(--muted);font-style:italic}
 
   /* Adhesion — cacher la ligne de connexion entre les 3 étapes */
   #page-adhesion [style*="position:absolute"][style*="height:2px"]{ display:none !important }
@@ -832,7 +834,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
   }
   /* Niveaux partenariat (OR/ARGENT/BRONZE) — badges compact */
   #page-partenaires .dark-card-hover { padding: 14px !important; gap: 10px !important; }
-  #page-partenaires [style*="font-size:9px"][style*="text-transform:uppercase"] { font-size: 8px !important; padding: 4px 7px !important; }
+  #page-partenaires [style*="font-size:11px"][style*="text-transform:uppercase"] { font-size: 11px !important; padding: 4px 7px !important; }
 
   /* Partager boutons article */
   .article-share { flex-wrap: wrap; gap: 8px; }
