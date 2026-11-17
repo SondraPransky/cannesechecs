@@ -1,7 +1,7 @@
 # Génère edf.html : scène « Des joueurs et un entraîneur en équipe de France »
-# 12 médaillons (photos validées par Mathilde) + les autres noms en doré.
+# 14 médaillons (photos validées par Mathilde) + les autres noms en doré.
 import os
-D = 210
+D = 190
 IN = D - 14
 # (image, prénom, nom, mode, données) — 'old' : médaillon recadré dans l'ancienne vidéo (330x330, cercle centré)
 # 'new' : photo source (largeur, hauteur, centre visage x/y en fraction, largeur visage en fraction)
@@ -10,23 +10,25 @@ P = [
     ("img/old_Louis.png", "Louis", "Auribault", "old", None),
     ("img/old_Rajat.png", "Rajat", "Makkar", "old", None),
     ("img/old_Anu.png", "Anu", "Bat", "old", None),
+    ("img/Bilguun_Bat.jpg", "Bilguun", "Bat", "new", (510, 600, .49, .32, .22)),
     ("img/old_Gary.png", "Gary", "Giroyan", "old", None),
     ("img/old_Guillaume.png", "Guillaume", "Lamard", "old", None),
     ("img/Cyrielle_Duchatel.jpg", "Cyrielle", "Duchatel", "new", (1440, 1440, .545, .133, .146)),
     ("img/Emilie_Alfano.jpg", "Emilie", "Alfano", "new", (403, 510, .466, .194, .215)),
+    ("img/Emilie_Negre.jpg", "Emilie", "Nègre", "new", (475, 575, .43, .45, .46)),
     ("img/Chjara_Sabiani.jpg", "Chjara", "Sabiani", "new", (861, 576, .746, .262, .052)),
     ("img/Marc_Llari.jpg", "Marc", "Llari", "new", (338, 600, .60, .286, .095)),
     ("img/Melissa_Levacic.jpg", "Melissa", "Levacic", "new", (200, 200, .36, .46, .39)),
     ("img/old_Romuald.png", "Romuald", "de Labaca", "old", None),
 ]
-OTH = ["Mathieu Acher", "Mélanie Vérot", "Julia Laurens", "Pierre-Basile Coiffait", "Emilie Nègre",
-       "Bilguun Bat", "Axel Bergougnoux", "Lucas Benassayag", "Robert Vuillermoz", "Cécile Haussernot",
+OTH = ["Mathieu Acher", "Mélanie Vérot", "Julia Laurens", "Pierre-Basile Coiffait",
+       "Axel Bergougnoux", "Lucas Benassayag", "Robert Vuillermoz", "Cécile Haussernot",
        "Laura Neel", "Kevin Bordi", "Arnaud Rainfray", "Maxime Sorin", "Matthieu Cornette"]
 
 med = ''
 for k, (u, fn, ln, mode, d) in enumerate(P):
-    cx = 960 + ((k % 6) - 2.5) * 290
-    top = 175 if k < 6 else 515
+    cx = 960 + ((k % 7) - 3) * 255
+    top = 180 if k < 7 else 500
     if mode == 'old':
         s = IN / 286
         bs = f"{330*s:.0f}px {330*s:.0f}px"
