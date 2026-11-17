@@ -49,6 +49,26 @@
     </div>
   </div>
 
+  <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
+  <section class="section-film" aria-labelledby="film-titre">
+    <div class="container">
+      <div class="section-header center">
+        <span class="surtitre">En vidéo</span>
+        <h2 id="film-titre" style="font-size:var(--fs-h2)">Le club en une minute</h2>
+        <p class="film-intro">Titres nationaux, joueurs en équipe de France, cours pour tous : Cannes Échecs en 60 secondes.</p>
+      </div>
+      <div class="film-cadre">
+        <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
+          <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
+          <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+          <span class="film-duree">Lire la vidéo · 1 min</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- Dernières actualités -->
   <section class="section-actus">
     <div class="container">
@@ -120,26 +140,6 @@
         <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-school"/></svg><h3 class="force-titre">Les échecs à l'école</h3><p class="force-desc">Plus de trente ans d'interventions dans les écoles, en partenariat avec l'Éducation nationale.</p><button type="button" class="force-link" onclick="goToTab('activites','scolaire')">Le programme scolaire →</button></div>
         <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg><h3 class="force-titre">La compétition</h3><p class="force-desc">Tournois PICO, rapides, compétitions FFE : nos jeunes visent les titres nationaux.</p><button type="button" class="force-link" onclick="goToPalmares()">Voir le palmarès →</button></div>
         <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg><h3 class="force-titre">Le Festival International des Jeux</h3><p class="force-desc">Chaque février, le club organise les tournois d'échecs du FIJ au Palais des Festivals.</p><button type="button" class="force-link" onclick="goTo('fij')">Découvrir le FIJ →</button></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
-  <section class="section-film" aria-labelledby="film-titre">
-    <div class="container">
-      <div class="section-header center">
-        <span class="surtitre">En vidéo</span>
-        <h2 id="film-titre" style="font-size:var(--fs-h2)">Le club en une minute</h2>
-        <p class="film-intro">Titres nationaux, joueurs en équipe de France, cours pour tous : Cannes Échecs en 60 secondes.</p>
-      </div>
-      <div class="film-cadre">
-        <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
-          <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
-        </video>
-        <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
-          <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-          <span class="film-duree">Lire la vidéo · 1 min</span>
-        </button>
       </div>
     </div>
   </section>

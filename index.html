@@ -452,7 +452,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 @media (min-width:1025px){#page-home .section-actus,#page-home .section-fij,#page-home .section-forces{padding-top:112px;padding-bottom:112px}}
 
 /* Film de présentation (accueil) */
-.section-film{background:#fff;padding:0 0 96px}
+.section-film{background:#fff;padding:96px 0}
 .film-intro{max-width:560px;margin:12px auto 0;color:var(--muted);font-size:var(--fs-body)}
 .film-cadre{position:relative;max-width:960px;margin:36px auto 0;border-radius:var(--r-card);overflow:hidden;background:var(--bleu-deep);box-shadow:0 24px 48px -24px rgba(15,35,64,.45);aspect-ratio:16/9}
 .film-video{display:block;width:100%;height:100%;object-fit:cover;background:var(--bleu-deep)}
@@ -462,7 +462,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .film-play:active .film-rond{scale:var(--press-scale)}
 .film-play:focus-visible{outline:3px solid var(--gold);outline-offset:-6px}
 .film-duree{margin-bottom:27px;font-family:var(--font-label);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-@media (max-width:640px){.section-film{padding-bottom:64px}.film-play{padding:14px 16px;gap:12px}.film-rond{width:52px;height:52px}.film-rond svg{width:22px;height:22px}.film-duree{margin-bottom:18px}}
+@media (max-width:640px){.section-film{padding:56px 0}.film-play{padding:14px 16px;gap:12px}.film-rond{width:52px;height:52px}.film-rond svg{width:22px;height:22px}.film-duree{margin-bottom:18px}}
 @media (hover:none){.film-play:hover .film-rond{scale:1}}
 
 /* =====================================================
@@ -1115,6 +1115,26 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
     </div>
   </div>
 
+  <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
+  <section class="section-film" aria-labelledby="film-titre">
+    <div class="container">
+      <div class="section-header center">
+        <span class="surtitre">En vidéo</span>
+        <h2 id="film-titre" style="font-size:var(--fs-h2)">Le club en une minute</h2>
+        <p class="film-intro">Titres nationaux, joueurs en équipe de France, cours pour tous : Cannes Échecs en 60 secondes.</p>
+      </div>
+      <div class="film-cadre">
+        <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
+          <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
+          <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+          <span class="film-duree">Lire la vidéo · 1 min</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- Dernières actualités -->
   <section class="section-actus">
     <div class="container">
@@ -1186,26 +1206,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
         <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-school"/></svg><h3 class="force-titre">Les échecs à l'école</h3><p class="force-desc">Plus de trente ans d'interventions dans les écoles, en partenariat avec l'Éducation nationale.</p><button type="button" class="force-link" onclick="goToTab('activites','scolaire')">Le programme scolaire →</button></div>
         <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-trophy"/></svg><h3 class="force-titre">La compétition</h3><p class="force-desc">Tournois PICO, rapides, compétitions FFE : nos jeunes visent les titres nationaux.</p><button type="button" class="force-link" onclick="goToPalmares()">Voir le palmarès →</button></div>
         <div class="force-card"><svg class="ic-force" viewBox="0 0 24 24"><use href="#ic-calendar"/></svg><h3 class="force-titre">Le Festival International des Jeux</h3><p class="force-desc">Chaque février, le club organise les tournois d'échecs du FIJ au Palais des Festivals.</p><button type="button" class="force-link" onclick="goTo('fij')">Découvrir le FIJ →</button></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
-  <section class="section-film" aria-labelledby="film-titre">
-    <div class="container">
-      <div class="section-header center">
-        <span class="surtitre">En vidéo</span>
-        <h2 id="film-titre" style="font-size:var(--fs-h2)">Le club en une minute</h2>
-        <p class="film-intro">Titres nationaux, joueurs en équipe de France, cours pour tous : Cannes Échecs en 60 secondes.</p>
-      </div>
-      <div class="film-cadre">
-        <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
-          <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
-        </video>
-        <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
-          <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-          <span class="film-duree">Lire la vidéo · 1 min</span>
-        </button>
       </div>
     </div>
   </section>
