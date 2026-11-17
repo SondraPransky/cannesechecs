@@ -54,17 +54,24 @@ J.append(page('post-4x5-rejoins', 1080, 1350, f'''
 <div class="abs" style="left:70px;right:70px;bottom:52px">{foot(22)}</div>
 <div class="fr" style="inset:24px"></div>'''))
 
-# 2. Post 4:5 — Et si le prochain champion, c'était toi ?
-J.append(page('post-4x5-prochain-champion', 1080, 1350, f'''
-<div class="ph" style="inset:0;background-image:url({PH('topjeunes_15')});background-position:50% 30%"></div>
+# 2. Post 4:5 — Et si le prochain champion / la prochaine championne, c'était toi ?
+def champ_post(name, photo, titre):
+    J.append(page(name, 1080, 1350, f'''
+<div class="ph" style="inset:0;background-image:url({PH(photo)});background-position:50% 30%"></div>
 <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(20,31,67,.35) 0%,rgba(20,31,67,0) 25%,rgba(20,31,67,.25) 48%,rgba(20,31,67,.92) 70%,#141F43 100%)"></div>
 <div class="logo" style="right:60px;top:52px;width:150px;height:150px"></div>
 <div class="abs" style="left:70px;right:70px;top:740px">
-  <div class="h" style="font-size:92px">Et si le prochain<br><span class="g">champion,</span><br>c'était toi ?</div>
+  <div class="h" style="font-size:92px">{titre}</div>
   <div class="pill" style="font-size:30px;padding:20px 44px;margin-top:40px">Rejoins le club !</div>
 </div>
 <div class="abs" style="left:70px;right:70px;bottom:52px">{foot(22)}</div>
 <div class="fr" style="inset:24px"></div>'''))
+
+
+T_GARCON = 'Et si le prochain<br><span class="g">champion,</span><br>c\'était toi ?'
+T_FILLE = 'Et si la prochaine<br><span class="g">championne,</span><br>c\'était toi ?'
+champ_post('post-4x5-prochain-champion', 'topjeunes_15', T_GARCON)
+champ_post('post-4x5-prochaine-championne', 'topjeunes_10', T_FILLE)
 
 # 3. Post carré — Des cours pour tous
 J.append(page('post-carre-cours-pour-tous', 1080, 1080, f'''
@@ -112,16 +119,21 @@ J.append(page('story-9x16-rejoins', 1080, 1920, f'''
   <div class="foot" style="font-size:28px;margin-top:40px;line-height:1.6">{ADR}<br>{TEL} · <b>{URL}</b></div>
 </div>'''))
 
-# 6. Story 9:16 — Prochain champion
-J.append(page('story-9x16-prochain-champion', 1080, 1920, f'''
-<div class="ph" style="inset:0;background-image:url({PH('topjeunes_12')});background-position:50% 40%"></div>
-<div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(20,31,67,.75) 0%,rgba(20,31,67,.1) 22%,rgba(20,31,67,.15) 45%,rgba(20,31,67,.9) 66%,#141F43 100%)"></div>
-<div class="logo" style="left:440px;top:250px;width:200px;height:200px"></div>
-<div class="abs" style="left:70px;right:70px;top:1180px;text-align:center">
-  <div class="h" style="font-size:104px">Et si le prochain<br><span class="g">champion,</span><br>c'était toi ?</div>
+# 6. Story 9:16 — Prochain champion / prochaine championne
+def champ_story(name, photo, titre):
+    J.append(page(name, 1080, 1920, f'''
+<div class="ph" style="left:0;right:0;top:230px;bottom:0;background-image:url({PH(photo)});background-position:50% 0"></div>
+<div class="abs" style="inset:0;background:linear-gradient(180deg,#141F43 0%,#141F43 18%,rgba(20,31,67,.35) 28%,rgba(20,31,67,.1) 34%,rgba(20,31,67,.15) 48%,rgba(20,31,67,.9) 66%,#141F43 100%)"></div>
+<div class="logo" style="left:450px;top:250px;width:180px;height:180px"></div>
+<div class="abs" style="left:60px;right:60px;top:1180px;text-align:center">
+  <div class="h" style="font-size:100px">{titre}</div>
   <div class="pill" style="font-size:32px;padding:24px 50px;margin-top:44px">Rejoins le club !</div>
   <div class="foot" style="font-size:28px;margin-top:34px"><b>{URL}</b> · {TEL}</div>
 </div>'''))
+
+
+champ_story('story-9x16-prochain-champion', 'topjeunes_12', T_GARCON)
+champ_story('story-9x16-prochaine-championne', 'topjeunes_10', T_FILLE)
 
 # ---------- BANNIÈRES & PROFIL ----------
 def banner(name, W, H, logo, title, sub, photo, pos='50% 40%', cta=True):
