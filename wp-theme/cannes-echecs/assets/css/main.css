@@ -109,6 +109,19 @@ h1[tabindex="-1"]:focus,main[tabindex="-1"]:focus{outline:none}
    "honnete" via min-height — visible == cliquable. */
 .filtre-btn,.footer-social a{position:relative}
 .filtre-btn::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:var(--hit-min)}
+/* Liens isolés (Google Maps, « Toutes les actualités », palmarès FFE) : même principe, cible 44px sans bouger la mise en page */
+.link-all,.palm-link,a[href*="google.com/maps"]{position:relative}
+.link-all::after,.palm-link::after,a[href*="google.com/maps"]::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:var(--hit-min)}
+/* Téléphone / e-mail dans le texte : extension plus courte (lignes voisines proches), au-dessus du minimum WCAG de 24px */
+a[href^="tel:"],a[href^="mailto:"],p a[onclick]{position:relative}
+a[href^="tel:"]::after,a[href^="mailto:"]::after,p a[onclick]::after{content:'';position:absolute;left:0;right:0;top:50%;translate:0 -50%;height:32px}
+/* Tablette et téléphone : commandes à 44px « honnêtes », champs à 16px (sinon l'iPhone zoome au toucher) */
+@media(max-width:768px),(pointer:coarse){
+  .btn,.pico-ins{min-height:var(--hit-min)}
+  .pico-ins{display:inline-flex;align-items:center}
+  .archive-search input{min-height:var(--hit-min)}
+  #contact-form input,#contact-form select,#contact-form textarea,.archive-search input{font-size:16px !important}
+}
 .footer-social{display:flex;gap:10px;margin-top:18px}
 .footer-social a{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:var(--r-md);color:rgba(255,255,255,.62);transition:color .2s,border-color .2s,background .2s,var(--press-tap)}
 .footer-social a:hover{color:var(--gold);border-color:var(--gold-tint-border);background:rgba(201,168,76,.08)}
