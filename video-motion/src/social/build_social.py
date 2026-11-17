@@ -165,6 +165,83 @@ J.append(banner('image-lien-1200x630', 1200, 630, 220, 84, 22, 'chptdep'))      
 
 J.append(page('photo-profil-1080x1080', 1080, 1080, '<div class="logo" style="left:110px;top:110px;width:860px;height:860px"></div>'))
 
+# ---------- ENCARTS PUBLICITAIRES ----------
+# Web : formats standards des régies (IAB), au pixel près.
+DARK = 'linear-gradient(180deg,rgba(20,31,67,.25),rgba(20,31,67,.92))'
+def ph_bg(photo, pos='50% 35%', grad=DARK, box='inset:0'):
+    return (f'<div class="ph" style="{box};background-image:url({PH(photo)});background-position:{pos}"></div>'
+            f'<div class="abs" style="{box};background:{grad}"></div>')
+
+E = 'encart-'
+# Pavé 300x250 et grand pavé 336x280
+for W, H, s in [(300, 250, 1), (336, 280, 1.12)]:
+    J.append(page(f'{E}pave-{W}x{H}', W, H, ph_bg('picomars3', grad='linear-gradient(180deg,rgba(20,31,67,.35) 0%,rgba(20,31,67,.55) 40%,#141F43 78%)') + f'''
+<div class="logo" style="left:{12*s:.0f}px;top:{12*s:.0f}px;width:{54*s:.0f}px;height:{54*s:.0f}px"></div>
+<div class="abs" style="left:{16*s:.0f}px;right:{16*s:.0f}px;top:{100*s:.0f}px">
+  <div class="h" style="font-size:{30*s:.0f}px">Rejoins<br><span class="g">Cannes Échecs</span></div>
+  <div style="font-size:{12*s:.0f}px;font-weight:700;margin-top:{6*s:.0f}px">Cours pour tous · Enfants · Ados · Adultes</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:{12*s:.0f}px">
+    <div class="pill" style="font-size:{11*s:.0f}px;padding:{7*s:.0f}px {13*s:.0f}px">Cours d'essai</div>
+    <div class="foot" style="font-size:{11*s:.0f}px"><b>{URL}</b></div></div>
+</div><div class="fr" style="inset:4px;border-width:1px"></div>'''))
+
+# Bandeau 728x90
+J.append(page(f'{E}bandeau-728x90', 728, 90, ph_bg('topjeunes_8', grad='linear-gradient(90deg,#141F43 20%,rgba(20,31,67,.82) 60%,rgba(20,31,67,.6))') + f'''
+<div class="abs" style="inset:0;display:flex;align-items:center;gap:16px;padding:0 18px 0 12px">
+  <div class="logo" style="position:relative;width:70px;height:70px;flex:none"></div>
+  <div style="flex:1"><div class="h" style="font-size:27px">Rejoins <span class="g">Cannes Échecs</span></div>
+  <div style="font-size:12px;font-weight:700;margin-top:4px;color:rgba(255,255,255,.9)">Le club recordman de France chez les jeunes · <b style="color:var(--goldXL)">{URL}</b></div></div>
+  <div class="pill" style="font-size:13px;padding:11px 18px;flex:none">Cours d'essai</div>
+</div>'''))
+
+# Grand bandeau 970x250
+J.append(page(f'{E}billboard-970x250', 970, 250, ph_bg('topjeunes_10', '50% 25%', 'linear-gradient(90deg,#141F43 0%,rgba(20,31,67,.6) 30%,rgba(20,31,67,0) 60%)', 'left:600px;top:0;right:0;bottom:0') + f'''
+<div class="logo" style="left:28px;top:65px;width:120px;height:120px"></div>
+<div class="abs" style="left:172px;top:36px;width:470px">
+  <div class="h" style="font-size:34px">Et si la prochaine <span class="g">championne,</span><br>c'était toi ?</div>
+  <div style="font-size:15px;font-weight:700;margin-top:10px;color:rgba(255,255,255,.9)">Cours pour tous · Enfants · Ados · Adultes</div>
+  <div style="display:flex;align-items:center;gap:16px;margin-top:16px">
+    <div class="pill" style="font-size:14px;padding:11px 22px">Cours d'essai sur demande</div>
+    <div class="foot" style="font-size:14px"><b>{URL}</b></div></div>
+</div><div class="fr" style="inset:6px;border-width:1px"></div>'''))
+
+# Gratte-ciel 160x600
+J.append(page(f'{E}gratte-ciel-160x600', 160, 600, f'''
+<div class="logo" style="left:30px;top:16px;width:100px;height:100px"></div>
+<div class="abs" style="left:0;right:0;top:128px;text-align:center"><div class="h" style="font-size:24px">Rejoins<br><span class="g">Cannes<br>Échecs</span></div></div>
+{ph_bg('topjeunes_15', '50% 30%', 'linear-gradient(180deg,#141F43 0%,rgba(20,31,67,0) 18%,rgba(20,31,67,0) 70%,#141F43 100%)', 'left:0;right:0;top:232px;height:220px')}
+<div class="abs" style="left:10px;right:10px;top:458px;text-align:center">
+  <div style="font-size:12px;font-weight:700;line-height:1.35">Le club recordman<br>de France chez les jeunes</div>
+  <div class="pill" style="font-size:11px;padding:9px 12px;margin-top:12px">Cours d'essai</div>
+  <div class="foot" style="font-size:11px;margin-top:10px"><b>{URL}</b></div>
+</div><div class="fr" style="inset:4px;border-width:1px"></div>'''))
+
+# Grand angle 300x600
+J.append(page(f'{E}grand-angle-300x600', 300, 600, ph_bg('mondejeunes2', '50% 10%', 'linear-gradient(180deg,rgba(20,31,67,.3) 0%,rgba(20,31,67,0) 20%,rgba(20,31,67,.2) 42%,#141F43 62%)') + f'''
+<div class="logo" style="left:16px;top:16px;width:70px;height:70px"></div>
+<div class="abs" style="left:20px;right:20px;top:300px">
+  <div class="h" style="font-size:30px">Et si la prochaine<br><span class="g">championne,</span><br>c'était toi ?</div>
+  <div style="font-size:13px;font-weight:700;margin-top:10px">Cours pour tous · Enfants · Ados · Adultes</div>
+  <div class="pill" style="font-size:13px;padding:10px 20px;margin-top:16px">Rejoins le club !</div>
+  <div class="foot" style="font-size:12px;margin-top:12px"><b>{URL}</b> · {TEL}</div>
+</div><div class="fr" style="inset:5px;border-width:1px"></div>'''))
+
+# Mobile 320x50 et 320x100
+J.append(page(f'{E}mobile-320x50', 320, 50, f'''
+<div class="abs" style="inset:0;display:flex;align-items:center;gap:8px;padding:0 8px 0 4px">
+  <div class="logo" style="position:relative;width:42px;height:42px;flex:none"></div>
+  <div style="flex:1"><div class="h" style="font-size:13px;white-space:nowrap">Rejoins <span class="g">Cannes Échecs</span></div>
+  <div style="font-size:9px;font-weight:700;margin-top:2px;color:rgba(255,255,255,.85)">Cours pour tous · {URL}</div></div>
+  <div class="pill" style="font-size:10px;padding:6px 10px;flex:none">Essai</div>
+</div>'''))
+J.append(page(f'{E}mobile-320x100', 320, 100, ph_bg('picomars3', grad='linear-gradient(90deg,#141F43 30%,rgba(20,31,67,.75))') + f'''
+<div class="abs" style="inset:0;display:flex;align-items:center;gap:10px;padding:0 12px 0 8px">
+  <div class="logo" style="position:relative;width:74px;height:74px;flex:none"></div>
+  <div style="flex:1"><div class="h" style="font-size:20px">Rejoins<br><span class="g">Cannes Échecs</span></div>
+  <div style="display:flex;align-items:center;gap:8px;margin-top:6px;white-space:nowrap"><div class="pill" style="font-size:9px;padding:6px 9px">Cours d'essai</div>
+  <div class="foot" style="font-size:10px"><b>{URL}</b></div></div></div>
+</div>'''))
+
 # ---------- CALQUES DES PUBS VIDÉO (transparents) ----------
 def overlay(name, W, H, vh, top_html, bot_html):
     y0 = (H - vh) // 2
