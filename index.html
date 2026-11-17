@@ -2890,7 +2890,9 @@ const HELLOASSO = {
 // message au lieu d'envoyer le visiteur vers une page HelloAsso inexistante.
 function haOpen(url) {
   if (!url || url.indexOf('LIEN-') > -1) { haNotice(); return; }
-  window.open(url, '_blank', 'noopener,noreferrer');
+  var w = window.open(url, '_blank');
+  if (w) { try { w.opener = null; } catch (e) {} }
+  else window.location.href = url;   // nouvel onglet bloqué : on ouvre ici
 }
 function haNotice() {
   var old = document.getElementById('ha-notice');
@@ -3040,7 +3042,13 @@ function updateCountdowns() {
   var avantOuverture = FIJ_OPEN - now > 0;
   var diff1 = (avantOuverture ? FIJ_OPEN : FIJ_DATE) - now;   // inscriptions ouvertes : on compte jusqu'à la 1re ronde
   var hj = document.getElementById('h-cd-j'), titreCd = hj && hj.closest('.cd') && hj.closest('.cd').previousElementSibling;
-  if (titreCd && titreCd.classList.contains('cd-title')) titreCd.textContent = avantOuverture ? 'Ouverture des inscriptions dans' : 'Coup d’envoi dans';
+  if (titreCd && titreCd.classList.contains('cd-title')) {
+    titreCd.textContent = avantOuverture ? 'Ouverture des inscriptions dans'
+      : diff1 > 0 ? 'Coup d’envoi dans'
+      : now < FIJ_FIN ? 'Le festival est en cours' : 'Merci à tous, à l’année prochaine !';
+    // Date passée : on masque les compteurs plutôt que d'afficher « -- : -- : -- »
+    if (hj.closest('.cd')) hj.closest('.cd').style.display = diff1 > 0 ? '' : 'none';
+  }
   if (diff1 > 0) {
     var d1=Math.floor(diff1/86400000), h1=Math.floor((diff1%86400000)/3600000), m1=Math.floor((diff1%3600000)/60000);
     ['h-cd-j','h-cd-h','h-cd-m'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=pad([d1,h1,m1][i]);});
@@ -4057,9 +4065,32 @@ function renderFijInscrits() {
 }
 
 // ── PAGE ARTICLE DYNAMIQUE ────────────────────────────
+function articleIntrouvable() {
+  var set = function (i, html) { var el = document.getElementById(i); if (el) el.innerHTML = html; };
+  set('art-badge', 'Actualité');
+  set('art-title', 'Cet article n’est plus disponible');
+  set('art-date', '');
+  set('art-cat', '');
+  var img = document.getElementById('art-img');
+  if (img) img.style.display = 'none';
+  set('art-body', '<p>Le lien que vous avez suivi ne mène plus à aucun article : il a peut-être été retiré ou renommé.</p>'
+    + '<p style="margin-top:20px"><button type="button" class="btn btn-gold" onclick="goTo(\'actualites\')">Voir toutes les actualités</button></p>');
+  var gal = document.getElementById('art-gallery');
+  if (gal) { gal.innerHTML = ''; gal.style.display = 'none'; }
+  currentGallery = [];
+  var body = document.getElementById('art-body');
+  if (body) body.style.paddingTop = '48px';
+  var share = document.querySelector('.article-share');
+  if (share) share.style.display = 'none';
+  var rel = document.getElementById('art-related');
+  if (rel) rel.innerHTML = ARCHIVE_ORDER.filter(function (k) { return ARTICLES[k]; }).slice(0, 3)
+    .map(function (k) { return buildCard(k, ARTICLES[k], false); }).join('');
+  goTo('article');
+  document.title = 'Article introuvable — Cannes Échecs';
+}
 function goToArticle(id) {
   const a = ARTICLES[id];
-  if (!a) { goTo('article'); return; }
+  if (!a) { articleIntrouvable(); return; }
   const badge = document.getElementById('art-badge');
   const title = document.getElementById('art-title');
   const date  = document.getElementById('art-date');
@@ -4071,6 +4102,9 @@ function goToArticle(id) {
   // Image : photo réelle si disponible (avec override localStorage), sinon gradient + emoji
   const img = document.getElementById('art-img');
   const coverSrc = getCover(id, a);
+  if (img) img.style.display = '';
+  var bodyEl = document.getElementById('art-body'); if (bodyEl) bodyEl.style.paddingTop = '';
+  var shareEl = document.querySelector('.article-share'); if (shareEl) shareEl.style.display = '';
   if (img) {
     if (coverSrc) {
       // Photo par-dessus le fond de l'article : si le fichier manque, le dégradé reste visible
@@ -4092,7 +4126,7 @@ function goToArticle(id) {
     if (currentGallery.length) {
       const items = currentGallery.map(function(src, i) {
         return '<div class="art-gallery-item" onclick="openLightbox(' + i + ')">'
-          + '<img src="' + src + '" alt="' + a.title + ' — photo ' + (i + 1) + '" loading="lazy" decoding="async"></div>';
+          + '<img src="' + src + '" alt="' + String(a.title).replace(/"/g, '&quot;') + ' — photo ' + (i + 1) + '" loading="lazy" decoding="async"></div>';
       }).join('');
       galleryEl.innerHTML = '<p class="art-gallery-label">Photos</p>'
         + '<div class="art-gallery-grid">' + items + '</div>';
@@ -4945,6 +4979,23 @@ function initPicoNext() {
 }
 
 // Film de présentation : on ne charge la vidéo qu'au clic, puis lecture avec commandes
+function filmIndisponible(v){
+  var cadre = v.parentElement; if (!cadre || cadre.querySelector('.film-erreur')) return;
+  var b = cadre.querySelector('.film-play'); if (b) b.remove();
+  v.controls = false;
+  var m = document.createElement('p');
+  m.className = 'film-erreur';
+  m.setAttribute('role', 'status');
+  m.style.cssText = 'position:absolute;left:0;right:0;bottom:0;margin:0;padding:14px 18px;background:rgba(10,31,56,.88);color:#fff;font-size:14px;line-height:1.5';
+  m.textContent = 'La vidéo n’a pas pu se charger. Rechargez la page ou réessayez plus tard.';
+  cadre.appendChild(m);
+}
+(function(){
+  var v = document.getElementById('film-club'); if (!v) return;
+  var src = v.querySelector('source');
+  if (src) src.addEventListener('error', function(){ filmIndisponible(v); });
+  v.addEventListener('error', function(){ filmIndisponible(v); });
+})();
 function lancerFilm() {
   var v = document.getElementById('film-club');
   if (!v) return;
