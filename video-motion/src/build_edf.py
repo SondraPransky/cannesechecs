@@ -64,14 +64,21 @@ for k, (u, fn, ln, d) in enumerate(P):
     cx = 960 + (j - (n - 1) / 2) * 255
     top = (155, 395, 635)[r]
     bp, bs = crop(d, IN)
-    med += f'''<div class="abs emed" style="left:{cx-D/2:.0f}px;top:{top}px;width:{D}px">
-  <div class="ering" style="width:{D}px;height:{D}px;border-radius:50%;padding:7px;background:conic-gradient(from 0deg,var(--goldXL),var(--goldL),#8a7440,var(--goldXL));box-shadow:0 16px 50px rgba(0,0,0,.5)"><div style="width:100%;height:100%;border-radius:50%;background:url({u}) {bp}/{bs} no-repeat;background-color:var(--navy2)"></div></div>
+    med += f'''<div class="abs emed" data-row="{r}" data-j="{j}" data-n="{n}" style="left:{cx-D/2:.0f}px;top:{top}px;width:{D}px">
+  <div class="eglint" style="position:absolute;left:0;top:0;width:{D}px;height:{D}px;border-radius:50%;border:3px solid var(--goldXL);opacity:0"></div>
+  <div class="ering" style="width:{D}px;height:{D}px;border-radius:50%;padding:7px;box-shadow:0 16px 50px rgba(0,0,0,.5)"><div class="eph" style="position:relative;overflow:hidden;width:100%;height:100%;border-radius:50%;background:url({u}) {bp}/{bs} no-repeat;background-color:var(--navy2)"><div class="eshine" style="position:absolute;inset:-20%;background:linear-gradient(115deg,transparent 38%,rgba(255,240,200,.5) 50%,transparent 62%);transform:translateX(-150%)"></div></div></div>
   <div class="enm" style="text-align:center;margin:10px -60px 0;line-height:1.1"><div style="font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.06em">{fn}</div><div class="g" style="font-weight:900;font-size:20px;text-transform:uppercase;white-space:nowrap">{ln}</div></div>
 </div>
 '''
 oth = ' <span class="dot">·</span> '.join(f'<span class="on">{n}</span>' for n in OTH)
 
+# étincelles dorées (positions fixes, tirées une fois pour toutes)
+import random
+rnd = random.Random(7)
+spk = ''.join(f'<div class="spk" data-x="{rnd.uniform(60, 1860):.0f}" data-y="{rnd.uniform(140, 1040):.0f}" '
+              f'data-s="{rnd.uniform(.4, 1):.2f}" data-p="{rnd.uniform(0, 6.28):.2f}"></div>' for _ in range(70))
+
 html = open(os.path.join(os.path.dirname(__file__), 'edf_template.html')).read()
-html = html.replace('%%MED%%', med).replace('%%OTH%%', oth)
+html = html.replace('%%MED%%', med).replace('%%OTH%%', oth).replace('%%SPK%%', spk)
 open(os.path.join(os.path.dirname(__file__), 'edf.html'), 'w').write(html)
 print('edf.html écrit')
