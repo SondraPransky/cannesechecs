@@ -335,7 +335,7 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 .home-hero h1 em{font-style:italic;color:transparent;background:linear-gradient(100deg,var(--gold-h) 0%,var(--gold) 28%,var(--gold-pale) 50%,var(--gold) 72%,var(--gold-h) 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:heroSheen 7s linear infinite}
 @keyframes heroSheen{to{background-position:220% center}}
 .home-hero .sub{font-family:'Cormorant Garamond',serif;font-size:26px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:20px}
-.home-hero .desc{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:32px;max-width:460px}
+.home-hero .desc{font-size:15px;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:24px;max-width:460px}
 .home-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 /* Décor « Nuit douce » — trame d'échiquier + projecteur doré, couches derrière la grille (z-index:0) */
 .hero-board{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%),linear-gradient(45deg,rgba(255,255,255,.045) 25%,transparent 25% 75%,rgba(255,255,255,.045) 75%);background-size:92px 92px;background-position:0 0,46px 46px;-webkit-mask-image:radial-gradient(120% 110% at 82% 42%,#000,rgba(0,0,0,.4) 48%,transparent 82%);mask-image:radial-gradient(120% 110% at 82% 42%,#000,rgba(0,0,0,.4) 48%,transparent 82%)}
@@ -451,18 +451,17 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 /* Accueil plus aéré : plus d'air entre les grandes sections (écrans larges) */
 @media (min-width:1025px){#page-home .section-actus,#page-home .section-fij,#page-home .section-forces{padding-top:112px;padding-bottom:112px}}
 
-/* Film de présentation (accueil) */
-.section-film{background:#fff;padding:96px 0}
-.film-intro{max-width:560px;margin:12px auto 0;color:var(--muted);font-size:var(--fs-body)}
-.film-cadre{position:relative;max-width:960px;margin:36px auto 0;border-radius:var(--r-card);overflow:hidden;background:var(--bleu-deep);box-shadow:0 24px 48px -24px rgba(15,35,64,.45);aspect-ratio:16/9}
+/* Film de présentation, intégré au haut de l'accueil (à la place des boutons) */
+.film-cadre{position:relative;max-width:520px;border-radius:var(--r-card);overflow:hidden;background:var(--bleu-deep);border:1px solid rgba(201,168,76,.35);box-shadow:0 24px 50px -20px rgba(0,0,0,.6);aspect-ratio:16/9}
 .film-video{display:block;width:100%;height:100%;object-fit:cover;background:var(--bleu-deep)}
-.film-play{position:absolute;inset:0;display:flex;flex-direction:row;align-items:flex-end;justify-content:flex-start;gap:16px;padding:28px 32px;border:0;cursor:pointer;color:#fff;background:linear-gradient(0deg,rgba(10,31,56,.75),rgba(10,31,56,0) 45%)}
-.film-rond{flex-shrink:0;width:72px;height:72px;border-radius:50%;background:var(--gold);color:var(--noir);display:flex;align-items:center;justify-content:center;padding-left:5px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:scale .2s var(--ease-out),background-color .2s}
+.film-play{position:absolute;inset:0;display:flex;flex-direction:row;align-items:flex-end;justify-content:flex-start;gap:14px;padding:20px 22px;border:0;cursor:pointer;color:#fff;background:linear-gradient(0deg,rgba(10,31,56,.8),rgba(10,31,56,0) 50%)}
+.film-rond{flex-shrink:0;width:58px;height:58px;border-radius:50%;background:var(--gold);color:var(--noir);display:flex;align-items:center;justify-content:center;padding-left:4px;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:scale .2s var(--ease-out),background-color .2s}
 .film-play:hover .film-rond{background:var(--gold-h);scale:1.06}
 .film-play:active .film-rond{scale:var(--press-scale)}
 .film-play:focus-visible{outline:3px solid var(--gold);outline-offset:-6px}
-.film-duree{margin-bottom:27px;font-family:var(--font-label);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-@media (max-width:640px){.section-film{padding:56px 0}.film-play{padding:14px 16px;gap:12px}.film-rond{width:52px;height:52px}.film-rond svg{width:22px;height:22px}.film-duree{margin-bottom:18px}}
+.film-duree{margin-bottom:20px;font-family:var(--font-label);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+@media (max-width:1024px){.film-cadre{max-width:none}}
+@media (max-width:640px){.film-play{padding:12px 14px;gap:10px}.film-rond{width:46px;height:46px}.film-rond svg{width:20px;height:20px}.film-duree{margin-bottom:15px;font-size:11px}}
 @media (hover:none){.film-play:hover .film-rond{scale:1}}
 
 /* =====================================================
@@ -1076,10 +1075,16 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
 
           <h1>Cannes<br><em>Échecs</em></h1>
           <p class="sub">Club d'excellence depuis 1985</p>
-          <p class="desc">Plus de 200 membres, 10 titres de Champion de France Jeunes, 30 ans d'intervention scolaire. Le club de référence de la Côte d'Azur, en plein cœur de Cannes.</p>
-          <div class="home-hero-btns">
-            <button class="btn btn-gold" onclick="goTo('adhesion')">Rejoindre le club →</button>
-            <button class="btn btn-outline-white" onclick="goTo('club')">Découvrir le club</button>
+          <p class="desc">Le club de référence de la Côte d'Azur, en plein cœur de Cannes. Découvrez-le en une minute.</p>
+          <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
+          <div class="film-cadre">
+            <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
+              <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
+              <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+              <span class="film-duree">Le club en une minute</span>
+            </button>
           </div>
         </div>
         <div>
@@ -1114,26 +1119,6 @@ a[onclick]{cursor:pointer}     /* couvre breadcrumbs, footer, liens inline */
       <div class="sb-item"><div class="sb-num">FFE</div><div class="sb-label">Label Club Formateur</div></div>
     </div>
   </div>
-
-  <!-- Film de présentation : chargé seulement au clic (11 Mo), lecture avec le son et les commandes -->
-  <section class="section-film" aria-labelledby="film-titre">
-    <div class="container">
-      <div class="section-header center">
-        <span class="surtitre">En vidéo</span>
-        <h2 id="film-titre" style="font-size:var(--fs-h2)">Le club en une minute</h2>
-        <p class="film-intro">Titres nationaux, joueurs en équipe de France, cours pour tous : Cannes Échecs en 60 secondes.</p>
-      </div>
-      <div class="film-cadre">
-        <video id="film-club" class="film-video" preload="none" playsinline poster="video/cannes-echecs-1-minute.jpg">
-          <source src="video/cannes-echecs-1-minute.mp4" type="video/mp4">
-        </video>
-        <button type="button" class="film-play" onclick="lancerFilm()" aria-label="Lire la vidéo de présentation du club (1 minute, avec le son)">
-          <span class="film-rond" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-          <span class="film-duree">Lire la vidéo · 1 min</span>
-        </button>
-      </div>
-    </div>
-  </section>
 
   <!-- Dernières actualités -->
   <section class="section-actus">
