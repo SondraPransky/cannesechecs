@@ -72,6 +72,8 @@ T_GARCON = 'Et si le prochain<br><span class="g">champion,</span><br>c\'était t
 T_FILLE = 'Et si la prochaine<br><span class="g">championne,</span><br>c\'était toi ?'
 champ_post('post-4x5-prochain-champion', 'topjeunes_15', T_GARCON)
 champ_post('post-4x5-prochaine-championne', 'topjeunes_10', T_FILLE)
+champ_post('post-4x5-prochaine-championne-2', 'mondejeunes2', T_FILLE)
+champ_post('post-4x5-prochaine-championne-3', 'mondejeunes', T_FILLE)
 
 # 3. Post carré — Des cours pour tous
 J.append(page('post-carre-cours-pour-tous', 1080, 1080, f'''
@@ -120,9 +122,9 @@ J.append(page('story-9x16-rejoins', 1080, 1920, f'''
 </div>'''))
 
 # 6. Story 9:16 — Prochain champion / prochaine championne
-def champ_story(name, photo, titre):
+def champ_story(name, photo, titre, y=230):
     J.append(page(name, 1080, 1920, f'''
-<div class="ph" style="left:0;right:0;top:230px;bottom:0;background-image:url({PH(photo)});background-position:50% 0"></div>
+<div class="ph" style="left:0;right:0;top:{y}px;bottom:0;background-image:url({PH(photo)});background-position:50% 0"></div>
 <div class="abs" style="inset:0;background:linear-gradient(180deg,#141F43 0%,#141F43 18%,rgba(20,31,67,.35) 28%,rgba(20,31,67,.1) 34%,rgba(20,31,67,.15) 48%,rgba(20,31,67,.9) 66%,#141F43 100%)"></div>
 <div class="logo" style="left:450px;top:250px;width:180px;height:180px"></div>
 <div class="abs" style="left:60px;right:60px;top:1180px;text-align:center">
@@ -134,6 +136,8 @@ def champ_story(name, photo, titre):
 
 champ_story('story-9x16-prochain-champion', 'topjeunes_12', T_GARCON)
 champ_story('story-9x16-prochaine-championne', 'topjeunes_10', T_FILLE)
+champ_story('story-9x16-prochaine-championne-2', 'mondejeunes2', T_FILLE, 340)
+champ_story('story-9x16-prochaine-championne-3', 'mondejeunes', T_FILLE, 380)
 
 # ---------- BANNIÈRES & PROFIL ----------
 def banner(name, W, H, logo, title, sub, photo, pos='50% 40%', cta=True):
