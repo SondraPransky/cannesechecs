@@ -142,6 +142,6 @@ J = [docx('plaquette-partenaires-A4-4-pages', [pa1, pa2, pa3, pa4], '210mm', '29
      docx('affiche-A3-Open-de-Paques-2027', [aff_paques], '297mm', '420mm'),
      docx('carte-de-visite-club-85x55', [cv_recto, cv_verso()], '85mm', '55mm'),
      docx('carte-de-visite-Romuald-de-Labaca-85x55', [cv_recto, cv_verso('Romuald de Labaca', 'Entraîneur')], '85mm', '55mm'),
-     docx('carte-de-visite-Marlies-Bensdorp-De-Labaca-85x55', [cv_recto, cv_verso('Marlies Bensdorp De Labaca', 'Coordinatrice')], '85mm', '55mm')]
+     docx('carte-de-visite-Marlies-Bensdorp-De-Labaca-85x55', [cv_recto, cv_verso('Marlies Bensdorp De Labaca', 'Coordinatrice · Entraîneuse')], '85mm', '55mm')]
 json.dump(J, open(os.path.join(OUT, 'jobs_comm.json'), 'w'), indent=1)
 print('ok', len(J))
